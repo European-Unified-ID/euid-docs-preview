@@ -1,4 +1,3 @@
-# Originally from https://github.com/UnifiedID2/uid2-docs-preview/blob/main/.github/workflows/deploy.yml
 name: Deploy to GitHub Pages
 
 on:
@@ -26,24 +25,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Move out of preview folder
-        run: rsync -arv --exclude=".github" --exclude=".git" ./preview/ ./
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: npm
       - name: Install dependencies
+        working-directory: preview
         run: npm ci
-      - name: Update config with preview overrides
-        run: mv docusaurus.config.js docusaurus.original.js && mv docusaurus.preview.js docusaurus.config.js
       - name: Build website
+        working-directory: preview
         run: npm run build
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v3
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v1
         with:
-          path: './build'
+          path: './preview/build'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v2
