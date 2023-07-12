@@ -1,50 +1,33 @@
 ---
 title: POST /identity/buckets
-description: Monitors rotated salt buckets.
+description: Monitor rotated salt buckets.
 hide_table_of_contents: false
 sidebar_position: 07
-displayed_sidebar: docs
 ---
-
-import Link from '@docusaurus/Link';
 
 # POST /identity/buckets
 
-Monitors rotated <Link href="../ref-info/glossary-uid#gl-salt-bucket">salt buckets</Link>.
+Monitor rotated salt buckets.
 
-Used by: This endpoint is used mainly by advertisers and data providers. For details, see [Advertiser/Data Provider Integration Overview](../guides/integration-advertiser-dataprovider-overview.md).
-
-:::important
-If you're using the latest version (v3) of `POST /v3/identity/map`, you don't need to use `POST /identity/buckets` at all. You only need to use it if you're using the earlier version (v2) of `POST /v2/identity/map`.
-
-If you're using the v2 version, we recommend that you upgrade as soon as possible, to take advantage of improvements. For migration guidance, see [Migration from v2 Identity Map](post-identity-map.md#migration-from-v2-identity-map).
-:::
+Used by: This endpoint is used mainly by advertisers and data providers. For details, see [Advertiser/Data Provider Integration Guide](../guides/advertiser-dataprovider-guide.md).
 
 ## Request Format
 
 `POST '{environment}/v2/identity/buckets'`
 
-For authentication details, see [Authentication and Authorization](../getting-started/gs-auth.md).
-
-:::important
-You must encrypt all requests using your secret. For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
-:::
+>IMPORTANT: You must encrypt all request using your secret. For details and Python script examples, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
 
 ### Path Parameters
 
 | Path Parameter | Data Type | Attribute | Description |
 | :--- | :--- | :--- | :--- |
-| `{environment}` | string | Required | Integration environment: `https://integ.euid.eu`<br/>Production environment: `https://prod.euid.eu`<br/>For a full list, including regional operators, see [Environments](../getting-started/gs-environments.md). |
+| `{environment}` | string | Required | Testing environment: `https://operator-integ.uidapi.com`<br/>Production environment: `https://prod.uidapi.com`<br/>For a full list, including regional operators, see [Environments](../getting-started/gs-environments.md). |
 
-:::note
-The integration environment and the production environment require different <Link href="../ref-info/glossary-uid#gl-api-key">API keys</Link>.
-:::
+>NOTE: The integration environment and the production environment require different [API keys](../ref-info/glossary-uid.md#gl-api-key).
 
 ### Unencrypted JSON Body Parameters
 
-:::important
-You must include the following parameter as a key-value pair in the JSON body of a request when encrypting it.
-:::
+>IMPORTANT: You must include the following parameter as a key-value pair in the JSON body of a request when encrypting it.
 
 | Body Parameter | Data Type | Attribute | Description | Format |
 | :--- | :--- | :--- | :--- | :--- |
@@ -62,16 +45,14 @@ The following is an unencrypted JSON request body example, which you should incl
 Here's an encrypted identity bucket rotation request example:
 
 ```sh
-echo '{"since_timestamp": "2023-04-19T13:00:00"}' | python3 uid2_request.py https://prod.euid.eu/v2/identity/buckets [Your-Client-API-Key] [Your-Client-Secret]
+echo '{"since_timestamp": "2023-04-19T13:00:00"}' | python3 uid2_request.py https://prod.uidapi.com/v2/identity/buckets [Your-Client-API-Key] [Your-Client-Secret]
 ```
 
-For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
+For details and Python script examples, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
 
 ## Decrypted JSON Response Format
 
-:::note
-The response is encrypted only if the HTTP status code is 200. Otherwise, the response is not encrypted.
-:::
+>NOTE: The responses are encrypted only if the HTTP status code is 200. Otherwise, the response is not encrypted.
 
 A successful decrypted response returns a list of salt bucket IDs and the timestamps of their last updates.
 
@@ -96,8 +77,6 @@ A successful decrypted response returns a list of salt bucket IDs and the timest
 ```
 ### Response Body Properties
 
-The response body includes the properties shown in the following table.
-
 | Property | Format | Description |
 | :--- | :--- | :--- |
 | `bucket_id` | string | The salt bucket ID. |
@@ -113,4 +92,4 @@ The following table lists the `status` property values and their HTTP status cod
 | `client_error` | 400 | The request had missing or invalid parameters. |
 | `unauthorized` | 401 | The request did not include a bearer token, included an invalid bearer token, or included a bearer token unauthorized to perform the requested operation. |
 
-If the `status` value is anything other than `success`, the `message` field provides additional information about the issue.
+If the `status` value is other than `success`, the `message` field provides additional information about the issue.

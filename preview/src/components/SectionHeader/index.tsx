@@ -8,7 +8,6 @@ export type SectionHeaderProps = {
   eyebrow?: string;
   extraClass?: string;
 };
-
 export default function SectionHeader({
   heading,
   subheading,
@@ -29,7 +28,6 @@ export default function SectionHeader({
         </p>
       )}
       <h2 className={clsx("type-beta col col--8")}>{heading}</h2>
-
       <p className={clsx("type-paragraph-large col col--4", styles.copy)}>
         {subheading}
       </p>

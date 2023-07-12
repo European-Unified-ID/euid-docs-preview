@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { useWindowSize } from "@docusaurus/theme-common";
-import { useDoc } from "@docusaurus/plugin-content-docs/client";
+import { useDoc } from "@docusaurus/theme-common/internal";
 import DocItemPaginator from "@theme/DocItem/Paginator";
 import DocVersionBanner from "@theme/DocVersionBanner";
 import DocVersionBadge from "@theme/DocVersionBadge";
@@ -21,11 +21,6 @@ type CustomDocFrontMatter = DocFrontMatter & {
   use_banner?: boolean;
   banner_title?: string;
   banner_description?: string;
-  banner_icon?: string;
-  banner_text_color?: string;
-  banner_text_color_dark?: string;
-  banner_background_color?: string;
-  banner_background_color_dark?: string;
 };
 
 /**
@@ -58,18 +53,15 @@ export default function DocItemLayout({ children }: Props): JSX.Element {
   const customFrontMatter = frontMatter as CustomDocFrontMatter;
 
   React.useEffect(() => {
-    const timerId = setTimeout(() => {
-      const pageViewData = {
-        event: "Initialize_dataLayer",
-        document_type: "Doc",
-        document_title: document.title,
-        article_author: undefined,
-        tags: frontMatter.tags || undefined,
-      };
-      pushGtmEvent(pageViewData);
-    }, 50);
+    const pageViewData = {
+      event: "Initialize_dataLayer",
+      document_type: "Doc",
+      document_title: document.title,
+      article_author: undefined,
+      tags: frontMatter.tags || undefined,
+    };
 
-    return () => clearTimeout(timerId);
+    pushGtmEvent(pageViewData);
   }, []);
 
   const useBanner = customFrontMatter.use_banner;
@@ -88,17 +80,7 @@ export default function DocItemLayout({ children }: Props): JSX.Element {
             {docTOC.mobile}
             <DocBreadcrumbs />
             {useBanner && (
-              <DocsBanner
-                title={bannerTitle}
-                description={bannerDescription}
-                icon={customFrontMatter.banner_icon}
-                textColor={customFrontMatter.banner_text_color}
-                textColorDark={customFrontMatter.banner_text_color_dark}
-                backgroundColor={customFrontMatter.banner_background_color}
-                backgroundColorDark={
-                  customFrontMatter.banner_background_color_dark
-                }
-              />
+              <DocsBanner title={bannerTitle} description={bannerDescription} />
             )}
             <DocVersionBadge />
             <DocItemContent>{children}</DocItemContent>

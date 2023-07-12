@@ -7,12 +7,12 @@ import {
   Collapsible,
   useCollapsible,
 } from "@docusaurus/theme-common";
-import { isSamePath } from "@docusaurus/theme-common/internal";
 import {
   isActiveSidebarItem,
-  findFirstSidebarItemLink,
+  findFirstCategoryLink,
   useDocSidebarItemsExpandedState,
-} from "@docusaurus/plugin-content-docs/client";
+  isSamePath,
+} from "@docusaurus/theme-common/internal";
 import Link from "@docusaurus/Link";
 import { translate } from "@docusaurus/Translate";
 import useIsBrowser from "@docusaurus/useIsBrowser";
@@ -49,7 +49,7 @@ function useAutoExpandActiveCategory({
  * see https://github.com/facebook/docusaurus/issues/3030
  */
 function useCategoryHrefWithSSRFallback(
-  item: Props["item"],
+  item: Props["item"]
 ): string | undefined {
   const isBrowser = useIsBrowser();
   return useMemo(() => {
@@ -57,11 +57,11 @@ function useCategoryHrefWithSSRFallback(
       return item.href;
     }
     // In these cases, it's not necessary to render a fallback
-    // We skip the "findFirstSidebarItemLink" computation
+    // We skip the "findFirstCategoryLink" computation
     if (isBrowser || !item.collapsible) {
       return undefined;
     }
-    return findFirstSidebarItemLink(item);
+    return findFirstCategoryLink(item);
   }, [item, isBrowser]);
 }
 
@@ -81,7 +81,7 @@ function CollapseButton({
           description:
             "The ARIA label to toggle the collapsible sidebar category",
         },
-        { label: categoryLabel },
+        { label: categoryLabel }
       )}
       type="button"
       className="clean-btn menu__caret"
@@ -155,7 +155,7 @@ export default function DocSidebarItemCategory({
         {
           "menu__list-item--collapsed": collapsed,
         },
-        className,
+        className
       )}
     >
       <div
@@ -187,9 +187,7 @@ export default function DocSidebarItemCategory({
           }
           aria-current={isCurrentPage ? "page" : undefined}
           aria-expanded={collapsible ? !collapsed : undefined}
-          href={
-            collapsible ? (hrefWithSSRFallback ?? "#") : hrefWithSSRFallback
-          }
+          href={collapsible ? hrefWithSSRFallback ?? "#" : hrefWithSSRFallback}
           {...props}
         >
           <span className="menu__label">{label}</span>

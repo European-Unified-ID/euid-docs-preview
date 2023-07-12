@@ -1,37 +1,8 @@
-This page has been moved. EUID documentation is now on the EUID website: see [European Unified ID Overview](https://euid.eu/docs/intro).
+The content on this page has been moved. The new location is on the Unified ID website: [Unified ID 2.0 Overview](https://unifiedid.com/docs/intro).
 
-# EUID Documentation
+Follow one of these links for the information you're looking for:
 
-> Note: The new location for viewing EUID documentation content is on the EUID website: [European Unified ID Overview](https://euid.eu/docs/intro).
-> This repository contains all the content files and supporting site infrastructure for the [EUID website](https://euid.eu).
-
-For information about build tools and about contributing to this repository, see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Adding custom tags
-
-1. Add imports to top of markdown file body
-
-```ts
-import CustomTagsFilters from "@site/src/components/CustomTags/CustomTagsFilters";
-import CustomTagsContainer from "@site/src/components/CustomTags/CustomTagsContainer";
-```
-
-2. Render `CustomTagsFilters` in desired location - probably at top of page below heading.
-
-```tsx
-<CustomTagsFilters />
-```
-
-3. Wrap tagged section with CustomTagsContainer and add desired tags, comma-separated
-
-```mdx
-<CustomTagsContainer tags="tag one, tag two">
-
-### My Tagged Section
-
-The body of my tagged section. <a href="">An example link.</a>
-
-</CustomTagsContainer>
-```
-
-4. All added tags should now appear as clickable tag buttons at the top of the page. Clicking a tag will filter only results that match that tag. Clicking the tag again should toggle all content to be visible.
+- [Unified ID 2.0 Overview on the Unified ID website](https://unifiedid.com/docs/intro)
+- [UID2 API v1 to v2 Upgrade Guide in GitHub](api/v2/upgrades/upgrade-guide.md)
+- [Unified ID 2.0 Overview in Japanese](README-ja.md)
+- [Information about how to contribute to the repository](CONTRIBUTING.md)

@@ -20,17 +20,6 @@
   }
 }
 
-.header {
-  h2 {
-    @media only screen and (min-width: 996px) {
-      padding-right: 20%
-    }
-  }
-  p {
-    font-size: 1.0625rem;
-  }
-}
-
 .ctaButton {
   @media only screen and (min-width: 996px) {
     margin-right: 8%;

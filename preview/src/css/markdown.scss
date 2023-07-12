@@ -23,10 +23,6 @@
     vertical-align: top;
   }
 
-  table th {
-    text-align: left;
-  }
-
   thead {
     @extend .type-eta;
   }
@@ -56,7 +52,6 @@
 
   dd {
     margin-inline-start: 1.5rem;
-    padding: 3px;
   }
 
   li {
@@ -92,17 +87,6 @@
         background-color: rgba(255, 255, 255, 0.03);
       }
     }
-  }
-
-  .pill {
-    background-color: var(--c-lemon);
-    color: var(--c-eleven-o-clock);
-    border: none;
-    text-align: center;
-    border-radius: 10px;
-    font-size: 0.625rem;
-    font-weight: 600;
-    padding: 1px 8px;
   }
 }
 

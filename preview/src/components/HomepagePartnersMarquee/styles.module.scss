@@ -30,16 +30,6 @@
 .cta {
     display: flex;
     align-items: center;
-
-    span {
-        color: var(--c-light-black) !important;
-    }
-
-    &:hover {
-        span {
-            color: var(--ifm-link-color) !important;
-        }
-    }
 }
 
 .ctaArrow {

@@ -4,13 +4,13 @@ import Link from "@docusaurus/Link";
 import { pushGtmEvent } from "@site/src/utils/pushGtmEvent";
 
 type NavbarCtaProps = {
-  label: string;
+  text: string;
   href: string;
   className?: string;
 };
 
 export default function NavbarCta({
-  label,
+  text,
   href,
   className,
   ...props
@@ -18,10 +18,9 @@ export default function NavbarCta({
   const pageViewData = {
     event: "button_click",
     click_item: "primary nav button",
-    click_text: label,
+    click_text: text,
     link_url: href,
   };
-
   return (
     <Link
       {...props}
@@ -29,7 +28,7 @@ export default function NavbarCta({
       className={clsx(className, "button button--nav")}
       onClick={() => pushGtmEvent(pageViewData)}
     >
-      {label}
+      {text}
     </Link>
   );
 }

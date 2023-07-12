@@ -1,132 +1,31 @@
 ---
 title: SDKs - Summary
-sidebar_label: SDKs - Summary
-pagination_label: SDKs - Summary
 description: Summary of SDK documentation available.
 hide_table_of_contents: false
 sidebar_position: 01
-displayed_sidebar: docs
 ---
 
-import Link from '@docusaurus/Link';
-
-# SDKs: Summary
-
 Review the SDK functionality to determine which SDK or SDKs you want to use, then click through in the SDKs table to review the reference documentation.
-
 ## SDK Functionality
 
 The following table summarizes the functionality available with each SDK.
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="2">Audience&nbsp;&nbsp;&gt;&nbsp;&gt;&nbsp;&gt;</th>
-      <th colspan="2">Publisher</th>
-      <th colspan="2">Advertiser&nbsp;/ Data Provider</th>
-      <th colspan="2">DSP</th>
-    </tr>
-    <tr>
-      <th> SDK for...</th>
-      <th>Client-Side or Server-Side</th>
-      <th>Generate EUID Token from Personal Data</th>
-      <th>Refresh EUID Token</th>
-      <th>Map Personal Data to Raw EUIDs&ast;</th>
-      <th>Monitor Rotated Salt Buckets&ast;&ast;</th>
-      <th>Encrypt Raw EUID to EUID Token for Sharing</th>
-      <th>Decrypt EUID Token to Raw UIDEUID2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>JavaScript</td>
-      <td>Client</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-    </tr>
-    <tr>
-      <td>Java</td>
-      <td>Server</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-      <td>&#8212;</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-    </tr>
-    <tr>
-      <td>Python</td>
-      <td>Server</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-    </tr>
-    <tr>
-      <td>C# / .NET</td>
-      <td>Server</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-    </tr>
-    <tr>
-      <td>C++</td>
-      <td>Server</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-    </tr>
-    <tr>
-      <td>Android</td>
-      <td>Client&nbsp;(Mobile)</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-    </tr>
-    <tr>
-      <td>iOS</td>
-      <td>Client&nbsp;(Mobile)</td>
-      <td>&#9989;</td>
-      <td>&#9989;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-      <td>&#8212;</td>
-    </tr>
-  </tbody>
-</table>
+| SDK | Client or Server | Encrypt Raw UID2 to UID2 Token | Decrypt UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token |
+| :--- | :--- |  :--- | :--- | :--- | :--- |
+|UID2 SDK for JavaScript | Client-Side | No | No | No | Yes |
+|UID2 SDK for Java | Server-Side | Yes | Yes | Yes | Yes |
+|UID2 SDK for Python | Server-Side | Yes | Yes | No | No |
+|UID2 SDK for C# / .NET | Server-Side | Yes | Yes | No | No |
+|UID2 SDK for C++ | Server-Side | Yes | Yes | No | No |
 
-&ast; Advertisers and Data Providers who need to generate raw EUIDs from personal data can also do this via Snowflake (see [Snowflake Integration Guide](../guides/integration-snowflake.md)) or by using the [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) endpoint.
+## SDKs
 
-&ast;&ast; Monitoring rotated salt buckets is not necessary for implementations using the latest version of the [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) endpoint.
+The following SDK documentation is available for UID2 integration.
 
-<!-- &#9989; = Supported | &#8212; = Not Supported -->
-
-## SDK Documentation
-
-The following SDK documentation is available for EUID integration. Documentation links are in the first column.
-
-| SDK/Link&nbsp;to&nbsp;Guide | Description | Audience
-| :--- | :--- | :--- |
-| [SDK for JavaScript](sdk-ref-javascript.md) | Client-side JavaScript SDK that facilitates the process of establishing client identity using EUID and retrieving EUID tokens for publishers. | Publishers |
-| [SDK for Java](sdk-ref-java.md) | An SDK for audiences using Java server-side:<ul><li>Helps publishers to generate or refresh EUID tokens from <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> ([POST&nbsp;/token/generate](../endpoints/post-token-generate)).</li><li>Helps DSPs to decrypt EUID tokens from bid requests ([Decrypt EUID Tokens for RTB Use](guides/dsp-guide.md#decrypt-euid-tokens-for-rtb-use)).</li></ul> | Publishers<br/>DSPs<br/>Advertisers<br/>Data&nbsp;Providers |
-| [SDK for Python](sdk-ref-python.md) | An SDK for audiences using Python server-side:<ul><li>Helps publishers to generate or refresh EUID tokens from personal data ([POST&nbsp;/token/generate](../endpoints/post-token-generate)).</li><li>Helps DSPs to decrypt EUID tokens from bid requests ([Decrypt EUID Tokens for RTB Use](../guides/dsp-guide.md#decrypt-euid-tokens-for-rtb-use)).</li></ul> | Publishers<br/>DSPs |
-| [SDK for C# / .NET](sdk-ref-csharp-dotnet.md) | An SDK for audiences using .NET server-side:<ul><li>Helps DSPs to decrypt EUID tokens from bid requests.</li></ul> | DSPs<br/>Data Providers |
-| [SDK for C++](sdk-ref-cplusplus.md) | An SDK for audiences using C++ server-side:<ul><li>Helps DSPs to decrypt EUID tokens from bid requests.</li></ul> | DSPs<br/>Data Providers |
-| [SDK for Android](sdk-ref-android.md) |An SDK that facilitates the process of generating or establishing client identity using EUID and retrieving EUID tokens for publishers that need to support Android apps. | Publishers |
-| [SDK for iOS](sdk-ref-ios.md) | An SDK that facilitates the process of generating or establishing client identity using EUID and retrieving EUID tokens for publishers that need to support iOS apps. | Publishers |
+| SDK | Document | Description | Audience
+| :--- | :--- | :--- | :--- |
+| UID2 SDK for JavaScript | [UID2 SDK for JavaScript](client-side-identity.md) | Client-Side JavaScript SDK that facilitates the process of establishing client identity using UID2 and retrieving UID2 tokens for publishers. | Publishers |
+| UID2 SDK for Java | [UID2 SDK for Java (Server-Side) Reference Guide](uid2-sdk-ref-java.md) | An SDK for audiences using Java server-side:<br/>- Helps publishers to generate or refresh UID2 tokens from [DII](../ref-info/glossary-uid.md#gl-dii).<br/>- Helps UID2 sharers to encrypt or decrypt UID2 tokens.<br/>- Helps DSPs to decrypt UID2 tokens from bid requests. | Publishers<br/>DSPs<br/>Advertisers<br/>Data Providers |
+| UID2 SDK for Python | [UID2 SDK for Python (Server-Side) Reference Guide](uid2-sdk-ref-python.md) | An SDK for audiences using Python server-side:<br/>- Helps DSPs to decrypt UID2 tokens from bid requests.<br/>- Helps UID2 sharers to encrypt or decrypt UID2 tokens. | DSPs<br/>Advertisers<br/>Data Providers |
+| UID2 SDK for C# / .NET | [UID2 SDK for C# / .NET (Server-Side) Reference Guide](uid2-sdk-ref-csharp-dotnet.md) | An SDK for audiences using .NET server-side:<br/>- Helps DSPs to decrypt UID2 tokens from bid requests.<br/>- Helps UID2 sharers to encrypt or decrypt UID2 tokens. | DSPs<br/>Advertisers<br/>Data Providers |
+ |UID2 SDK for C++ | [UID2 SDK for C++ (Server-Side) Reference Guide](uid2-sdk-ref-cplusplus.md) | An SDK for audiences using C++ server-side:<br/>- Helps DSPs to decrypt UID2 tokens from bid requests.<br/>- Helps UID2 sharers to encrypt or decrypt UID2 tokens. | DSPs<br/>Advertisers<br/>Data Providers |

@@ -1,5 +1,4 @@
 import React from "react";
-import { translate } from "@docusaurus/Translate";
 import Layout from "@theme/Layout";
 import HomepageFeatures from "@site/src/components/HomepageFeatures";
 import HomepagePartnersMarquee from "@site/src/components/HomepagePartnersMarquee";
@@ -11,20 +10,6 @@ import HomepageConsumerBenefit from "@site/src/components/HomepageConsumerBenefi
 import { pushGtmEvent } from "@site/src/utils/pushGtmEvent";
 
 export default function Home(): JSX.Element {
-  const componentData = {
-    title: translate({
-      id: "homepage.metaTitle",
-      message: "About",
-      description: "The homepage meta title",
-    }),
-    description: translate({
-      id: "homepage.metaDescription",
-      message:
-        "European Unified ID (EUID) uses encrypted email data to provide a privacy-conscious and accurate identity standard for the digital advertising ecosystem.",
-      description: "The homepage meta description",
-    }),
-  };
-
   React.useEffect(() => {
     const pageViewData = {
       event: "Initialize_dataLayer",
@@ -36,9 +21,11 @@ export default function Home(): JSX.Element {
 
     pushGtmEvent(pageViewData);
   }, []);
-
   return (
-    <Layout title={componentData.title} description={componentData.description}>
+    <Layout
+      title={`About`}
+      description="Unified ID (UID) offers cookieless, deterministic identity for advertisers, publishers, data providers and DSPs."
+    >
       <main>
         <HomepageHero />
         <HomepagePartnersMarquee />

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://euid.eu/sitemap.xml
+Sitemap: https://unifiedid.com/sitemap.xml

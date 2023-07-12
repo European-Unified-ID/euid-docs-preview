@@ -4,7 +4,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "jsx": "react-jsx",
     "paths": {
       "@site/*": ["./*"]
     }

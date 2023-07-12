@@ -1,6 +1,6 @@
 import React, { type ComponentProps } from "react";
 import clsx from "clsx";
-import { useThemeConfig } from "@docusaurus/theme-common";
+import { useThemeConfig, useColorMode } from "@docusaurus/theme-common";
 import {
   useHideableNavbar,
   useNavbarMobileSidebar,
@@ -28,6 +28,17 @@ export default function NavbarLayout({ children }: Props): JSX.Element {
   } = useThemeConfig();
   const mobileSidebar = useNavbarMobileSidebar();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
+  const { colorMode, setColorMode } = useColorMode();
+
+  React.useEffect(() => {
+    const isMarketingPage =
+      document.documentElement.classList.contains("plugin-pages");
+    if (isMarketingPage) {
+      setColorMode("dark");
+    } else {
+      setColorMode("light");
+    }
+  }, []);
 
   return (
     <nav
@@ -48,7 +59,7 @@ export default function NavbarLayout({ children }: Props): JSX.Element {
           "navbar--dark": style === "dark",
           "navbar--primary": style === "primary",
           "navbar-sidebar--show": mobileSidebar.shown,
-        },
+        }
       )}
     >
       {children}

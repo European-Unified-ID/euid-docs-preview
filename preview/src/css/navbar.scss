@@ -5,7 +5,7 @@
 //applies to all pages (marketing) content
 .plugin-pages {
   .navbar {
-    --ifm-navbar-background-color: var(--c-deep-sea);
+    --ifm-navbar-background-color: var(--c-eleven-o-clock);
 
     .hide-on-marketing-page {
       display: none;
@@ -25,12 +25,6 @@
   .dropdown {
     --ifm-dropdown-background-color: var(--c-periwinkle);
     --ifm-dropdown-link-color: var(--c-eleven-o-clock);
-    &__link--active {
-      --ifm-dropdown-link-color: var(--c-eleven-o-clock);
-      > span {
-        background-size: 100% 2px;
-      }
-    }
   }
 
   .toggle_node_modules-\@docusaurus-theme-classic-lib-theme-ColorModeToggle-styles-module,
@@ -52,17 +46,29 @@
 }
 
 .navbar {
-  border-bottom: 1px solid rgba(220, 222, 225, 0.2);
+  border-bottom: 1px solid var(--c-gray-300);
 
   @include dark {
-    border-bottom: 1px solid rgba(220, 222, 225, 0.2);
+    border-bottom: 1px solid var(--c-gray-400);
   }
 
   &__logo {
-    width: 55px;
+    width: 128px;
     height: 18px;
   }
 
+  &__items {
+    &--right {
+      > :last-child {
+        padding-right: 0.6875rem;
+      }
+
+      > * {
+        margin-right: calc(1rem * var(--space-x-reverse));
+        margin-left: calc(1rem * calc(1 - var(--space-x-reverse)));
+      }
+    }
+  }
 
   &__link {
     @extend .type-theta;
@@ -104,35 +110,22 @@
       border: 1px solid var(--c-gray-400);
     }
   }
-
-  &__items {
-    &--right {
-      > :last-child {
-        padding-right: 0.6875rem;
-      }
-
-      > * {
-        margin-right: calc(1rem * var(--space-x-reverse));
-        margin-left: calc(1rem * calc(1 - var(--space-x-reverse)));
-      }
-    }
-  }
 }
 
 .dropdown {
-  // &__menu {
-  //     display: grid;
-  //     gap: 20px;
-  //     grid-template-columns: 1fr 1fr;
-  //     padding: 1rem;
-  // }
+  &__menu {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem;
+  }
 
   &__link {
     white-space: normal;
+    min-width: 15rem;
 
     &:hover {
-      .dropdown__label,
-      > span {
+      .dropdown__label {
         background-size: 100% 2px;
       }
     }
@@ -149,8 +142,7 @@
     }
   }
 
-  &__label,
-  &__link span {
+  &__label {
     background-repeat: no-repeat;
     transition-duration: 0.2s;
     background-image: linear-gradient(currentcolor, currentcolor);
@@ -208,11 +200,6 @@
         padding-left: 1rem;
       }
     }
-    .menu__list {
-      @include lg {
-        margin-top: 0;
-      }
-    }
   }
 
   &__link {
@@ -264,17 +251,5 @@
     &.menu__link--active {
       background-color: var(--c-lemon);
     }
-  }
-}
-
-.theme-doc-sidebar-item-category-level-3 .menu__link {
-  @include lg {
-    padding: 4px 0;
-  }
-}
-
-@media (min-width: 1850px) {
-  :root {
-    --doc-sidebar-width: 400px !important;
   }
 }

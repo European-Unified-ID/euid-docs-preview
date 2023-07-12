@@ -4,107 +4,82 @@ description: Information summary for publishers.
 hide_table_of_contents: false
 sidebar_position: 02
 use_banner: true
-banner_title: EUID Overview for Publishers
+banner_title: UID2 Overview for Publishers
 banner_description: Maintain audience targeting in the ever-changing advertising industry for better impression monetization and more relevance.
-banner_icon: 'publishers'
-banner_text_color: 'white'
-banner_text_color_dark: 'black'
-banner_background_color: '#035959'
-banner_background_color_dark: '#DCDEE1'
-displayed_sidebar: sidebarPublishers
 ---
 
-import Link from '@docusaurus/Link';
-import IntegratingWithSSO from '../snippets/_integrating-with-sso.mdx';
-import PrivateOperatorOption from '../snippets/_private-operator-option.mdx';
-import PublisherImplementationResources from '../snippets/_publisher-implementation-resources.mdx';
+Publishers can benefit from the cross-device presence of Unified ID 2.0 and take advantage of a consistent identity fabric on all of their inventory.
 
-As a publisher, you can benefit from the cross-device presence of European Unified ID (EUID) and take advantage of a consistent identity fabric on all your inventory.
+This page includes information about workflows, integration types, and documentation resources for publishers adopting UID2.
 
-Learn about benefits, workflow, documentation, and other resources for publishers adopting EUID, as well as instructions for getting started.
+## Audience
 
-## Benefits of EUID for Publishers
+This page is for the following UID2 participants:
 
-Here are just some of the intended benefits for publishers integrating with EUID:
+- Publishers with web assets who want to use UID2 to generate identity tokens for the RTB bid stream, while integrating directly with UID2 rather than UID2-enabled single-sign-on or identity providers.
+- Any organizations that propagate UID2 tokens to the bid stream via SSPs&#8212;for example, identity providers and SSO providers.
+<!-- - Data clean rooms. -->
+
+Publishers can choose to integrate with UID2 in a number of different ways:
+
+- By integrating directly with UID2, either by using an SDK or via the UID2 API.
+- By using an SSO provider.
+- By working with an independent ID provider that manages the UID2 integration on behalf of the publisher.
+
+## Benefits of UID2 for Publishers
+
+Here are just some of the intended benefits of integrating with UID2:
 - Addressable audience targeting on desktop, mobile, and CTV with a single identifier.
 - Frequency management across devices.
 - More relevant content recommendations.
 - The ability to provide personalized ad experiences with relevant content.
 - The ability to offer opt-out, with the goal of improving consumer privacy controls.
 
+## Resources
+
+The following documentation resources are available for publishers to implement UID2.
+
+| Integration Type| Documentation | Content Description | Audience |
+| :--- | :--- | :--- | :--- |
+| Client-Side (Web) SDK | [UID2 SDK for JavaScript](../sdks/client-side-identity.md) | Client-Side JavaScript SDK that facilitates the process of establishing client identity using UID2 and retrieving advertising tokens for publishers. | Publishers |
+| Client-Side (Web) Integration Guide | [UID2 SDK for JavaScript Integration Guide](../guides/publisher-client-side.md) | This integration guide for publishers covers standard web integration scenarios that use the [UID2 SDK for JavaScript](/docs/sdks/client-side-identity.md). | Publishers |
+| Server-Side Integration Guide  | [Publisher Integration Guide, Server-Only](../guides/custom-publisher-integration.md) | This integration guide is for publishers that do not use the [UID2 SDK for JavaScript](../sdks/client-side-identity.md). | Publishers |
+| Publisher/SSP Integration with GAM | [Publisher - Google Ad Manager Secure Signals](../guides/google-ss-integration.md) | This integration guide covers the additional steps needed for publishers using UID2 with the Google Ad Manager Secure Signals feature (previously known as Encrypted Signals for Publishers, ESP). | Publishers |
+| Operator | [UID2 Operator - AWS Marketplace Integration Guide](../guides/operator-guide-aws-marketplace.md) | Instructions for setting up a Private Operator service for AWS Marketplace. | Private Operators<br/>Publishers |
+| Operator| [UID2 Operator - Google Cloud Platform Confidential Computing package](../guides/operator-guide-gcp-enclave.md) | Instructions for setting up the Google Cloud Platform Confidential Computing package (GCP). | Private Operators<br/>Publishers |
+| Operator Integration Guide | [Operator - Microsoft Azure](../guides/operator-guide-azure-enclave.md) | IMPORTANT: This documentation is currently only a proof of concept. For additional guidance, please [contact](../getting-started/gs-account-setup.md#contact-info) the UID2 administrator.<br/>Instructions for setting up a Private Operator service for running on Microsoft Azure Confidential Computing platform.  | Private Operators<br/>Publishers |
+
 ## Workflow for Publishers
 
-The following steps provide a high-level outline of the workflow intended for organizations that propagate EUID tokens to the <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> via SSPs&#8212;for example, identity providers, publishers, and SSO providers. Publishers can choose to work with an SSO provider or an independent ID provider that is interoperable with EUID and can handle the EUID integration on behalf of publishers.
+The following diagram shows the UID2 workflow for publishers.
 
-1. A user visits a publisher website, mobile app, or CTV app.
+![Publisher Workflow](../workflows/images/UID2PublisherAndSSPWorkflow.jpg)
 
-1. The publisher provides transparency around its data practices and asks the user to provide an email address or phone number, by login, [SSO login](#integrating-with-single-sign-on-sso), or other means, and consent to the use of their email address or phone number for EUID.
-<!-- uid2_only_ep_20240312: The publisher provides transparency around its data practices and asks the user to provide an email address or phone number, by login or other means. -->
-<!-- euid_only_ep_20240312: The publisher provides transparency around its data practices and asks the user to provide email address or phone number, by login or other means, and consent to the use of their email address or phone number for EUID. -->
-
-1. Once the user has provided an email address or phone number, and consented, the publisher sends it to the EUID Operator via an SDK or direct API integration.
-<!-- uid2_only_ep_20240312: Once the user has provided an email address or phone number, the publisher sends it to the UID2 Operator via an SDK or direct API integration. -->
-<!-- euid_only_ep_20240312: Once the user has provided an email address or phone number, and consented, the publisher sends it to the EUID Operator via an SDK or direct API integration. -->
-
-    :::tip
-    A publisher can authorize an SSO provider or identity provider to pass <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> on their behalf.
-    :::
-
-1. The EUID Operator:
-   - Takes the email or phone number.
-   - Performs the salt, hash, and encryption process.
-   - Returns the EUID token.
-
-1. The publisher stores the EUID token to share with SSPs during real-time bidding.
-   - Server-side: The publisher stores the token in a mapping table, DMP, data lake, or other server-side application.
-   - Client-side: The publisher stores the token in a client-side app or in the user’s browser as a first-party cookie.
-
-1. The publisher retrieves the EUID token from storage.
-
-1. The publisher sends the EUID token to the SSP.
-
-1. The SSP puts the bid request, with the EUID token, into the bidstream.
-
-<!-- The publisher requests updated EUID tokens using a refresh token. When applicable, the refresh token includes a user’s opt-out request. -->
-
-![Publisher Workflow](images/EUIDPublisherAndSSPWorkflow.svg)
-
-## Integrating with Single Sign-On (SSO)
-
-<IntegratingWithSSO />
-
-## Private Operator Option
-
-<PrivateOperatorOption/>
+For details, see [Publisher Workflow Overview](../workflows/workflow-overview-supply-side.md).
 
 ## Getting Started
 
 To get started, follow these steps:
 
-1. Request access to EUID by filling out the form on the [Request Access](/request-access) page.
-1. Identify the properties that you want to integrate with EUID.
-1. Sign the EUID contract.
-1. Determine whether you want a <Link href="../ref-info/glossary-uid#gl-client-side">client-side</Link>, <Link href="../ref-info/glossary-uid#gl-client-server">client-server</Link>, or <Link href="../ref-info/glossary-uid#gl-server-side">server-side</Link> integration, and tell your EUID contact.
+1. Request access to UID2 by filling out the form on the [Request Access](/request-access) page.
+1. Identify the properties that you want to integrate with UID2.
+1. Sign the UID2 contract.
+1. Receive the UID2 authentication keys ([API keys](../getting-started/gs-api-keys.md)).
+1. Build your integration to UID2 via an SDK or direct integration with the UID2 APIs, using the applicable documentation.
 
-   For more information about these options, see [Integration Approaches](../ref-info/ref-integration-approaches.md).
-
-1. Receive the [EUID credentials](../getting-started/gs-credentials.md).
-1. Build your integration to EUID via an SDK or direct integration with the EUID APIs, using the applicable [implementation resources](#implementation-resources).
-
-   :::note
-   Be sure to encrypt request messages to EUID. For details, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
-   :::
-
+     NOTE: Be sure to encrypt request messages to UID2. For details, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
 1. Test: 
 
-    - Confirm that EUID tokens are being generated and passed correctly within the bid request.
-    - Troubleshoot as needed, and work with SSPs to properly pass EUID tokens in bid requests.
+    Work with SSPs to properly pass UID2s in bid requests.
+    
+    Confirm that UID2s are being generated and passed correctly in requests.
 1. Go live.
 
-## Implementation Resources
+## Frequently Asked Questions for Publishers
 
-<PublisherImplementationResources/>
+For a list of FAQs for the publisher audience, see either of the following:
 
-## FAQs for Publishers
+-  [FAQs for Publishers Using an SDK](/docs/getting-started/gs-faqs.md#faqs-for-publishers-using-an-sdk)
+ - [FAQs for Publishers Not Using an SDK](/docs/getting-started/gs-faqs.md#faqs-for-publishers-not-using-an-sdk)
 
-For a list of frequently asked questions for publishers using the EUID framework, see [FAQs for Publishers](/docs/getting-started/gs-faqs.md#faqs-for-publishers).
+For a full list, see [Frequently Asked Questions](/docs/getting-started/gs-faqs.md).

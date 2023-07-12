@@ -1,49 +1,45 @@
 import React from "react";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
-import Translate, { translate } from "@docusaurus/Translate";
+import Translate from "@docusaurus/Translate";
 import { pushGtmEvent } from "@site/src/utils/pushGtmEvent";
 import styles from "./styles.module.scss";
-// import OutboundArrow from "@site/static/img/arrow-outbound-link.svg";
-import SectionHeader from "@site/src/components/SectionHeader";
+import OutboundArrow from "@site/static/img/arrow-outbound-link.svg";
 
 export default function HomepageConsumerBenefit(): JSX.Element {
-  const buttonClickData = {
+  const pageViewData = {
     event: "button_click",
     click_item: "home page consumer benefit",
-    click_text: "Manage my EUID",
-    link_url: "https://www.transparentadvertising.eu/",
-  };
-
-  const componentData = {
-    heading: translate({
-      id: "homepage.benefitsTitle",
-      message: "European Unified ID benefits",
-    }),
-    subheading: translate({
-      id: "homepage.benefitsCopy",
-      message:
-        "EUID was created to be conscious of consumer privacy and the regulatory requirements of the region. Users can opt out of using their EUID universally by visiting the opt-out portal. Participants are required to honor user opt-out requests made through the portal.",
-    }),
+    click_text: "Manage my UID2",
+    link_url: "https://transparentadvertising.org",
   };
 
   return (
-    <section className={clsx("bg-deep-sea text-white", styles.sectionPadding)}>
-      <div className={"container"}>
-        <SectionHeader
-          heading={componentData.heading}
-          subheading={componentData.subheading}
-          extraClass={styles.header}
-        />
+    <section
+      className={clsx("bg-white text-11-o-clock", styles.sectionPadding)}
+    >
+      <div className={clsx("container", styles.flexContainer)}>
+        <div className={styles.contentContainer}>
+          <h2 className="text-11-o-clock type-delta">
+            <Translate>Unified ID 2.0 Benefits</Translate>
+          </h2>
+          <p>
+            <Translate>
+              Unified ID 2.0 was created with consumer privacy as a top
+              priority. Users can opt out of the use of their UID2 universally
+              by visiting the opt-out portal. Participants are required to honor
+              the users' opt-out requests made through the portal.
+            </Translate>
+          </p>
+        </div>
         <Link
-          to="https://www.transparentadvertising.eu/"
+          to="https://transparentadvertising.org"
           rel="noopener noreferrer"
-          className={clsx("button button--nav", styles.ctaButton)}
-          onClick={() => pushGtmEvent(buttonClickData)}
+          className={clsx("button button--11-o-clock", styles.ctaButton)}
+          onClick={() => pushGtmEvent(pageViewData)}
         >
-          <Translate id="homepage.benefitsButtonLabel">
-            Manage my EUID
-          </Translate>
+          <Translate>Manage my UID2</Translate>
+          <OutboundArrow />
         </Link>
       </div>
     </section>
