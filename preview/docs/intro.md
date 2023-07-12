@@ -7,7 +7,7 @@ sidebar_position: 01
 
 # Unified ID 2.0 Overview
 
-This page provides general overview information about the Unified ID 2.0 (UID2) framework.
+This page provides overview information about the Unified ID 2.0 (UID2) framework.
 
 <!-- It includes the following:
 
