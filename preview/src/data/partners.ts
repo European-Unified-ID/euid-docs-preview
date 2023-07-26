@@ -13,6 +13,11 @@ export const partnersData: PartnersDataType = [
     type: ["Publishers"],
   },
   {
+    name: "Action IQ",
+    logo: "logo-actioniq.png",
+    type: ["CDP"],
+  },
+  {
     name: "Acxiom",
     logo: "Acxiom-2022-Logo-NAVY-and-TEAL.jpg",
     type: ["Data"],
@@ -76,6 +81,11 @@ export const partnersData: PartnersDataType = [
     type: ["Publishers"],
   },
   {
+    name: "Ameba",
+    logo: "Ameba_logo_580x250.png",
+    type: ["Publishers"],
+  },
+  {
     name: "Amobee",
     logo: "Amobee.png",
     type: ["DSP"],
@@ -91,6 +101,11 @@ export const partnersData: PartnersDataType = [
     type: ["Publishers"],
   },
   {
+    name: "Amperity",
+    logo: "logo-amperity.png",
+    type: ["CDP"],
+  },
+  {
     name: "AppLovin",
     logo: "AppLovin_Logo_580x250.png",
     type: ["Publishers", "DSP", "Data"],
@@ -99,6 +114,11 @@ export const partnersData: PartnersDataType = [
     name: "ARN",
     logo: "PartnerLogo_ARN_256x256.png",
     type: ["Publishers"],
+  },
+  {
+    name: "Aseal",
+    logo: "aseal-logo.png",
+    type: ["Data"],
   },
   {
     name: "Attain",
@@ -111,6 +131,11 @@ export const partnersData: PartnersDataType = [
     type: ["Data"],
     featured: true,
     order: 5,
+  },
+  {
+    name: "AWS",
+    logo: "aws-logo.svg",
+    type: ["CDP"],
   },
   {
     name: "BabyCalendar",
@@ -256,6 +281,11 @@ export const partnersData: PartnersDataType = [
     type: ["Publishers"],
   },
   {
+    name: "Hightouch",
+    logo: "logo-hightouch.jpg",
+    type: ["CDP"],
+  },
+  {
     name: "Hipwee",
     logo: "hipwee-580x250.png",
     type: ["Publishers"],
@@ -338,7 +368,7 @@ export const partnersData: PartnersDataType = [
   },
   {
     name: "LiveRamp",
-    logo: "PartnerLogo_LiveRamp_580x250.png",
+    logo: "liveramp-logo.svg",
     type: ["Data", "CDP"],
     featured: true,
     order: 12,
@@ -380,11 +410,11 @@ export const partnersData: PartnersDataType = [
     logo: "mcc-logo-horizontal-black.svg",
     type: ["Publishers"],
   },
-  {
-    name: "MediaMath",
-    logo: "MediaMath.png",
-    type: ["DSP"],
-  },
+  // {
+  //   name: "MediaMath",
+  //   logo: "MediaMath.png",
+  //   type: ["DSP"],
+  // },
   {
     name: "Media Tradecraft",
     logo: "MediaTradecraft_Logo-580x250.png",
@@ -429,6 +459,11 @@ export const partnersData: PartnersDataType = [
     name: "my TV SUPER",
     logo: "PartnerLogo_myTV-SUPER_256x256.png",
     type: ["Publishers"],
+  },
+  {
+    name: "Narrative",
+    logo: "logo-narrative.png",
+    type: ["CDP"],
   },
   {
     name: "NBC Universal",
@@ -670,6 +705,11 @@ export const partnersData: PartnersDataType = [
     name: "TNL Media Group",
     logo: "TNL-Media-Group-580x250.png",
     type: ["Publishers"],
+  },
+  {
+    name: "Treasure Data",
+    logo: "trasure-data-logo.svg",
+    type: ["CDP"],
   },
   {
     name: "TrueData",
