@@ -4,8 +4,8 @@ description: デマンドサイドプラットフォーム (DSP) 向けの情報
 hide_table_of_contents: false
 sidebar_position: 06
 use_banner: true
-banner_title: UID2 Overview for Demand-Side Platforms (DSPs)
-banner_description: Enable data strategies with a more durable identifier.
+banner_title: デマンドサイドプラットフォーム（DSP）向け UID2 の概要
+banner_description: より耐久性のある識別子でデータ戦略を可能に。
 ---
 
 このページでは、Unified ID 2.0 (UID2) フレームワークが DSP にもたらすもの、利用可能な実装オプション、および開始方法に関する情報を提供します。以下のセクションでは、UID2 を採用するDSPのためのワークフロー、インテグレーションタイプ、ドキュメントについて説明します。
@@ -32,7 +32,7 @@ UID2を実装するDSPには、以下のドキュメントリソースが用意�
 
 | Type| Documentation | Content Description | Audience |
 | :--- | :--- | :--- | :--- |
-| Server-Side SDK | [Server-Side SDK Guide](../sdks/dsp-client-v1-overview.md) | UID2 サーバーサイド SDK を使用して、UID2 Advertising Token を復号して raw UID2 にアクセスしたい人のためのSDKです。| DSPs |
+| Server-Side SDK Guides for .NET, C++, Java, Python | [SDKs](../sdks/summary-sdks.md) | UID2 Server-Side SDK を使用して、UID2 Advertising Token を復号して raw UID2 にアクセスしたい人のための SDK です。| DSPs |
 | Integration Guides | [DSP Integration Guide](../guides/dsp-guide.md) | この DSP 向けインテグレーションガイドでは、入札における UID2 の取り扱いや、ユーザーのオプトアウトを受け入れることについて説明しています。 | DSPs |
 
 ## Workflow for DSPs
