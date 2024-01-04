@@ -1,131 +1,362 @@
 ---
-title: Client-Side JavaScript SDK Integration
-description: パブリッシャー向けの、UID2 対応のシングルサインオンや ID プロバイダーではなく、UID2 と直接インテグレーションしながら、RTB ビッドストリーム用に UID2 を使用して ID トークンを生成する方法。
+title: JavaScript Express Integration
+sidebar_label: JavaScript Express
+pagination_label: JavaScript Express Integration
+description: UID2 SDK for JavaScript を UID2 実装の一部としてインテグレーションするための情報。
 hide_table_of_contents: false
-sidebar_position: 02
+sidebar_position: 04
 ---
 
-# Client-Side JavaScript SDK Integration Guide
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-このガイドは、UID2 対応シングルサインオンや ID プロバイダーではなく、UID2 と直接インテグレーションしながら、RTB ビッドストリーム用に UID2 を利用して ID トークンを生成したいと考える、Web アセットを持つパブリッシャーを対象としています。
+# JavaScript Express Integration Guide
 
-以下のセクションが含まれています:
+このガイドは、UID2 と インテグレーションし、ウェブサイト上で JavaScript Client-Side の変更のみを使用して、最小限の労力で [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) (Advertising Token) を生成したいパブリッシャー向けのものです。
 
-- [Introduction（はじめに）](#introduction)
-- [Integration Steps（インテグレーション手順）](#integration-steps)
-  - [Establish Identity: User Login（アイデンティティを確立する: ユーザーログイン）](#establish-identity-user-login)
-  - [Bid Using UID2 Tokens（UID2 Token を使った入札）](#bid-using-uid2-tokens)
-  - [Refresh Tokens（トークンのリフレッシュ）](#refresh-tokens)
-  - [Clear Identity: User Logout（アイデンティティの消去: ユーザーログアウト）](#clear-identity-user-logout)
-- [FAQs（よくある質問）](#faqs)
+このガイドは [Private Operator](../ref-info/glossary-uid.md#gl-private-operator) を使いたいパブリッシャーや、Server-Side でトークンを生成したいパブリッシャーには適用されません。それらのパブリッシャーは [JavaScript Standard Integration Guide](integration-javascript-standard.md) に従う必要があります。
 
-## Introduction
+UID2 は、以下の機能を備えた UID2 SDK for JavaScript([UID2 SDK for JavaScript Reference Guide](../sdks/client-side-identity.md) を参照してください)を提供しています:
 
-このガイドでは、SDK を使用せずにインテグレーションする場合に考慮する必要がある [基本的な手順](#integration-steps) を概説しています。たとえば、ユーザーログインとログアウトの実装方法、UID2 ID 情報の管理とターゲティング広告への使用方法、トークンの更新方法、ID が見つからない場合の対処、ユーザーのオプトアウトの処理方法などを決定する必要があります。[FAQ](#faqs)も参照してください。
+- UID2 Token 生成
+- UID2 Token 自動リフレッシュ
+- UID2 Token のブラウザへの自動保存
 
-UID2 を使用したクライアント ID の確立と Advertising Token の取得を容易にするため、このガイドで説明する Web インテグレーション手順では、UID2 SDK とも呼ばれる [Client-Side JavaScript SDK (v2)](../sdks/client-side-identity.md) を使用しています。このガイドで説明するインテグレーション手順と SDK の使用方法を説明する [サンプルアプリケーション](https://example-jssdk-integ.uidapi.com/) があります(現在はメールアドレス用のみ)。アプリケーションのドキュメントは、[UID2 SDK インテグレーション例](https://github.com/IABTechLab/uid2-examples/blob/main/publisher/standard/README.md) を参照してください。
+次の手順を完了する必要があります:
 
-> IMPORTANT: 現在、UID2 SDK はトークンをファーストパーティクッキーに保存しています。このような実装の詳細は将来的に変更される可能性があるため、潜在的な問題を回避するために、ID 管理は必ず [Client-Side JavaScript SDK APIs](../sdks/client-side-identity.md#api-reference) に基づいて行ってください。
+1. [Complete UID2 account setup](#complete-uid2-account-setup)
+2. [Add UID2 SDK For JavaScript to your site](#add-uid2-sdk-for-javascript-to-your-site)
+3. [Configure the UID2 SDK for JavaScript](#configure-the-uid2-sdk-for-javascript)
+4. [Check that the token was successfully generated](#check-that-the-token-was-successfully-generated)
 
-[Client-Side JavaScript SDK (v2)](../sdks/client-side-identity.md) を使用しない、アプリ開発者や CTV 放送局向けのカスタムインテグレーションシナリオは、[Server-Only Integration Guide](custom-publisher-integration.md) を参照してください。
+## UID2 SDK for JavaScript Version
 
-> NOTE: Google Ad Manager を使用していて、セキュアシグナル機能を使用したい場合、まずこのガイドの手順を行い、次に[Google Ad Manager Secure Signals Integration Guide](google-ss-integration.md)の追加手順を行ってください。
+Client-Side でのトークン生成のサポートは、SDK のバージョン 3.2 以上で利用可能です。
 
-## Integration Steps
+SDKのURLは以下のとおり:
 
-以下の図は、ユーザーがパブリッシャーと UID2 Token を確立するために必要なステップと、UID2 Token が RTB ビッドストリームとどのようにインテグレーションされるかの概要を示しています。
+- [https://cdn.prod.uidapi.com/uid2-sdk-3.2.0.js](https://cdn.prod.uidapi.com/uid2-sdk-3.2.0.js)
 
-![](images/publisher-flow-mermaid.png)
+以下のコードサンプルでは、プレースホルダ `{{ UID2_JS_SDK_URL }}` は、この URL を指します。
 
-次のセクションでは、図中の各ステップについて詳細を説明します:
+SDK のデバッグビルドを使用したい場合は、代わりに以下の URL を使用してください:
 
-1.  [Establish identity: user login](#establish-identity-user-login)
-2.  [Bid using UID2 tokens](#bid-using-uid2-tokens)
-3.  [Refresh tokens](#refresh-tokens)
-4.  [Clear Identity: user logout](#clear-identity-user-logout)
+- [https://cdn.integ.uidapi.com/uid2-sdk-3.2.0.js](https://cdn.integ.uidapi.com/uid2-sdk-3.2.0.js)
 
-### Establish Identity: User Login
+## Sample Implementation Website
 
-ステップ 1-c で認証が行われ、ユーザーに規約を受け入れてもらい、パブリッシャーがメールアドレスや電話番号を検証した後、サーバー側で UID2 Token を生成する必要があります。次の表は、トークン生成のステップの詳細を示しています。
+アプリケーションの例については、SDK v3 を使用した UID2 Google ESP の例を参照してください:
+- Code and docs: [UID2 SDK ESP Integration Example](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-esp-integration/with_sdk_v3)
+- ランニングサイト: [Client-Side UID2 SDK Integration Example](https://esp-jssdk-integ.uidapi.com/)
 
-| Step | Endpoint/SDK                                                       | Description                                                                                                                                                                                                                                                                                                                                                        |
-| :--- | :----------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1-d  | [POST /token/generate](../endpoints/post-token-generate.md)        | ユーザーが認証され、UID2 の作成が許可されたら、[POST /token/generate](../endpoints/post-token-generate.md) エンドポイントを使用して、ユーザーの正規化したメールアドレスまたは電話番号を使って UID2 Token を生成します。                                                                                                                                            |
-| 1-e  | [POST /token/generate](../endpoints/post-token-generate.md)        | ユーザーのメールアドレス、電話番号、またはそれぞれのハッシュから生成された UID2 Token を返します。                                                                                                                                                                                                                                                                 |
-| 1-f  | [Client-Side JavaScript SDK (v2)](../sdks/client-side-identity.md) | 手順 1-e で返された UID2 Token を、SDK の　[init()](../sdks/client-side-identity.md#initopts-object-void) の `identity` プロパティで送り、以下のように [コールバック関数](../sdks/client-side-identity.md#callback-function) を指定する必要があります。この仕組みにより、ユーザーがログアウトするまで、UID2 Token がターゲティング広告に利用できるようになります。 |
+## Complete UID2 Account Setup
 
-```html
+アカウント設定ページに記載されている手順に従って、UID2 アカウントの設定を完了してください。アカウント設定プロセスの一環として、この UID2 SDK for JavaScript で使用するサイトのドメイン名のリストを提供する必要があります。
+
+アカウントのセットアップが完了すると、Publicc Key(公開鍵)とSubesciption ID(サブスクリプション ID)が発行されます。これらの値はアカウント固有のもので、UID2 モジュールの設定に使用します。
+
+:::tip
+アカウント設定に必要なのは、ルートレベルのドメインだけです。例えば、JavaScript 用の UID2 SDK を example.com、shop.example.com、example.org で使用する場合、ドメイン名 example.com と example.org を指定するだけです。
+:::
+
+## Add UID2 SDK For JavaScript to Your Site
+
+以下のコードスニペットは、ウェブサイトに追加する必要があるコードの概要です。また、SDK がトリガーできるさまざまなイベントも示しています。
+
+より詳細なコードスニペットについては、[Example Integration Code and When to Pass DII to the UID2 SDK](#example-integration-code-and-when-to-pass-dii-to-the-uid2-sdk) を参照してください。
+
+`UID2_JS_SDK_URL` の値については、[UID2 SDK for JavaScript Version](#uid2-sdk-for-javascript-version) を参照してください。
+
+```js
+<script async src="{{ UID2_JS_SDK_URL }}"></script>
+ 
 <script>
-  __uid2.init({
-    callback : function (state) {...}, // Check advertising token and its status within the passed state and initiate targeted advertising.
-    identity : {...} // The `body` property value from the token/generate API response.
-  });
+ 
+// When the UID2 SDK is executed, it looks for these callbacks and invokes them.
+window.__uid2 = window.__uid2 || {};
+window.__uid2.callbacks = window.__uid2.callbacks || [];
+window.__uid2.callbacks.push((eventType, payload) => {
+  switch (eventType) {
+    case "SdkLoaded":
+      // The SdkLoaded event occurs just once.
+      __uid2.init({});
+      break;
+ 
+    case "InitCompleted":
+      // The InitCompleted event occurs just once.
+      //
+      // If there is a valid UID2 token, it is in payload.identity.
+      break;
+ 
+    case "IdentityUpdated":
+      // The IdentityUpdated event happens when a UID2 token is generated or refreshed.
+      // payload.identity contains the resulting latest identity.
+      break;
+  }
+});
+ 
 </script>
 ```
 
-例:
+SDK の詳細については、[UID2 SDK for JavaScript Reference Guide](../sdks/client-side-identity.md) を参照してください。
 
-```html
+### Using the UID2 Integration Environment
+
+デフォルトでは、SDK は UID2 本番環境 `https://prod.uidapi.com` で動作するように設定されています。代わりに UID2 テスト環境を使用したい場合は、`init` を呼び出す際に以下の URL を指定してください:
+
+```js
+__uid2.init({
+  baseUrl: "https://operator-integ.uidapi.com",
+});
+```
+
+:::note
+UID2 テスト環境からのトークンは、ビッドストリームに渡しても無効です。テスト環境では、**subscription ID** と **public key** の値が異なります。
+:::
+
+### Optional: Reduce Latency by Setting the API Base URL
+
+デフォルトでは、本番環境の JS SDK はアメリカにある UID2 サーバーに API コールを行います。ユーザーの所在地によっては、待ち時間を短縮するために、ユーザーに近いサーバーを選択することができます。
+
+例えば、シンガポールのパブリッシャーは base URL を `https://sg.prod.uidapi.com` に設定することができます。これは UID2 の本番環境ですが、サーバーはシンガポールにあります。
+
+Base URL のリストについては、[Environments](../getting-started/gs-environments.md) を参照してください。
+
+パブリッシャーは base URL を `https://global.prod.uidapi.com` に設定することもできます。この URL は読者(サイト利用者)を地理的に近い地域に誘導します。読者が地理的に分散している場合に最適です。
+別の UID2 サーバーを指定するには、`init` 呼び出しで変更できます:
+
+```js
+__uid2.init({
+  baseUrl: "https://global.prod.uidapi.com",
+});
+```
+## Configure the UID2 SDK for JavaScript
+
+UID2 は、Client-Side のトークン生成機能を使用するために必要な以下の値をパブリッシャーに提供します:
+
+* Subscription ID(サブスクリプション DI)
+* Public key(公開鍵)
+
+パブリッシャーのテスト環境用に 1 セット、本番環境用に別のセットを用意します。
+
+SDK を設定するには、アカウントセットアップ時に受け取った **public key** と **subscription ID**、およびユーザーのハッシュ化またはハッシュ化していない [DII](../ref-info/glossary-uid.md#gl-dii)(メールアドレスまたは電話番号)を含むオブジェクトを指定して、以下のメソッドのいずれかを呼び出します:
+
+*  `__uid2.setIdentityFromEmail`
+*  `__uid2.setIdentityFromEmailHash`
+*  `__uid2.setIdentityFromPhone`
+*  `__uid2.setIdentityFromPhoneHash`
+
+以下のセクションでは、各シナリオのコーディング例を示します。
+
+設定が終わると、UID2 SDK は以下を行います:
+- ユーザーの UID2 Token を生成します。
+- トークンをユーザーのブラウザに保存します。
+- ユーザーのブラウザでサイトを開いている間、必要に応じてトークンを自動的にリフレッシュします。
+
+UID2 SDK には、ユーザーの DII をハッシュ化して渡すことも、ハッシュ化せずに渡すこともできます。ハッシュ化せずに DII を渡すと、UID2 SDK が代わりにハッシュ化します。すでにハッシュ化された DII を SDK に渡したい場合は、ハッシュ化する前に正規化する必要があります。詳細については、[Normalization and Encoding](../getting-started/gs-normalization-encoding.md を参照してください。
+
+SDK は、UID2 Service に送信する前に、ハッシュ化された DII を暗号化します。
+
+SDK は、特定のユーザーに対して、4 つの DII フォーマットのいずれかを送信するように設定できます。DII 形式はユーザーごとに異なる場合がありますが、送信できる値はユーザーごとに 1 つだけです。
+
+以下のセクションでは、UID2 SDK を構成するさまざまな方法を示し、SDK に渡される DII の要件を示します:
+
+- [Configure for Email Address](#configure-for-email-address)
+- [Configure for Hashed Email Address](#configure-for-hashed-email-address)
+- [Configure for Phone Number](#configure-for-phone-number)
+- [Configure for Hashed Phone Number](#configure-for-hashed-phone-number)
+
+SDK が複数回設定された場合、最新の設定値が使用されます。
+
+JavaScript でメールアドレスと電話のハッシュを生成する方法の例については、[Example Code: Hashing and Base-64 Encoding](#example-code-hashing-and-base-64-encoding) を参照してください。
+
+### Configure for Email Address
+
+UID2 SDK をメールアドレスで設定します:
+
+```js
+await __uid2.setIdentityFromEmail(
+    "test@example.com",
+    {
+        subscriptionId: subscriptionId,
+        serverPublicKey: publicKey,
+    }
+);
+```
+
+パブリッシャーによる正規化やハッシュ化は必要ありません。
+
+UID2 SDK は、暗号化されたハッシュを UID2 Service に送信する前に、メールアドレスを正規化し、ハッシュ化します。
+
+### Configure for Hashed Email Address
+
+UID2 SDK をハッシュ化したメールアドレスで設定します:
+
+```js
+await __uid2.setIdentityFromEmailHash(
+    'eVvLS/Vg+YZ6+z3i0NOpSXYyQAfEXqCZ7BTpAjFUBUc=',
+    {
+        subscriptionId: subscriptionId,
+        serverPublicKey: publicKey,
+    }
+);
+```
+
+**メールアドレスの正規化とハッシュ化はパブリッシャーの責任です。** 詳細については、[Normalization and Encoding](../getting-started/gs-normalization-encoding.md) を参照してください。
+
+UID2 SDK は、UID2 Service に送信する前にハッシュを暗号化します。
+
+### Configure for Phone Number
+
+UID2 SDK を電話番号で設定します:
+
+```js
+await __uid2.setIdentityFromPhone(
+    '+1111111111',
+    {
+        subscriptionId: subscriptionId,
+        serverPublicKey: publicKey,
+    }
+);
+```
+
+**電話番号の正規化とハッシュ化はパブリッシャーの責任です。** 詳細は、[Normalization and Encoding](../getting-started/gs-normalization-encoding.md) を参照してください。
+
+UID2 SDK は、暗号化されたハッシュを UID2 Service に送信する前に、電話番号をハッシュ化します。
+
+### Configure for Hashed Phone Number
+
+UID2 SDK をハッシュ化した電話番号で設定します:
+
+```js
+await __uid2.setIdentityFromPhoneHash(
+    'eVvLS/Vg+YZ6+z3i0NOpSXYyQAfEXqCZ7BTpAjFUBUc=',
+    {
+        subscriptionId: subscriptionId,
+        serverPublicKey: publicKey,
+    }
+);
+```
+
+**電話番号の正規化とハッシュ化はパブリッシャーの責任です。** 詳細は、[Normalization and Encoding](../getting-started/gs-normalization-encoding.md) を参照してください。
+
+UID2 SDK は、UID2 Service に送信する前にハッシュを暗号化します。
+
+## Token Storage and Refresh
+
+[Configure the UID2 SDK for JavaScript](#configure-the-uid2-sdk-for-javascript) に記載されているメソッドのいずれかを正常に呼び出すと、[identity](../ref-info/glossary-uid.md#gl-identity) が生成され、`UID2-sdk-identity` というキーでローカルストレージに保存されます。SDK は UID2 Token を定期的にリフレッシュします。
+
+:::danger
+ローカルストレージに保存されているオブジェクトのフォーマットは予告なく変更される可能性があります。ローカルストレージのオブジェクトを直接読み込んだり更新したり**しないこと**でください。
+:::
+
+## Example Integration Code and When to Pass DII to the UID2 SDK
+
+[identity](../ref-info/glossary-uid.md#gl-identity) がない状態で最初のページをロードする場合、トークン生成の呼び出しを開始するには、DII で `setIdentity` メソッドのいずれかを呼び出す必要があります。ID が生成されると、SDK からの `IdentityUpdated` イベントを待つことで、ビッドストリームに送信する Advertiser Token ([UID2 token](../ref-info/glossary-uid.md#gl-uid2-token)) を利用できるようになります。例として、`advertising_token_to_use` の値がどのように設定されるかを以下のコードスニペットで示します。
+
+場合によっては、ユーザーの DII はページロード時に利用できず、DII の取得には何らかの関連コストがかかります。例えば、DII を取得するために API コールが必要な場合や、DII 情報を提供するためにユーザーにプロンプトが表示される場合があります。
+
+既存のトークンをチェックし、使用またはリフレッシュすることで、このコストを回避できる可能性があります。これを行うには
+[__uid2.isLoginRequired](../sdks/client-side-identity#isloginrequired-boolean) を呼び出し、ブール値を受け取ります。これが `true` の場合、UID2 SDK は既存のリソースで新しい Advertising Token を作成できず、DII はまったく新しい UID2 Token を生成する必要があることを意味します。
+
+以下のコードスニペットは、UID2 SDK for JavaScript とインテグレーションして、上記の 2 つのシナリオを実現する方法を示しています。&#8212;トークンがない状態から開始し、既存の UID2 Token が見つかった場合はそれを再利用/リフレッシュします。
+
+```js
+<script async src="{{ UID2_JS_SDK_URL }}"></script>
+ 
 <script>
-  __uid2.init({
-    callback: onUid2IdentityUpdated,
-    identity: {
-      advertising_token:
-        "AgmZ4dZgeuXXl6DhoXqbRXQbHlHhA96leN94U1uavZVspwKXlfWETZ3b/besPFFvJxNLLySg4QEYHUAiyUrNncgnm7ppu0mi6wU2CW6hssiuEkKfstbo9XWgRUbWNTM+ewMzXXM8G9j8Q=",
-      refresh_token:
-        "Mr2F8AAAF2cskumF8AAAF2cskumF8AAAADXwFq/90PYmajV0IPrvo51Biqh7/M+JOuhfBY8KGUn//GsmZr9nf+jIWMUO4diOA92kCTF69JdP71Ooo+yF3V5yy70UDP6punSEGmhf5XSKFzjQssCtlHnKrJwqFGKpJkYA==",
-      identity_expires: 1633643601000,
-      refresh_from: 1633643001000,
-      refresh_expires: 1636322000000,
-    },
-  });
+ 
+// UID2 provides these configuration values to the publisher.
+const clientSideConfig = {
+  subscriptionId: "...",
+  serverPublicKey: "...",
+};
+  
+// Example of a base-64 encoded SHA-256 hash of an email address.
+const emailHash = "tMmiiTI7IaAcPpQPFQ65uMVCWH8av9jw4cwf/F5HVRQ=";
+
+// When the UID2 SDK is executed, it looks for these callbacks and invokes them.
+window.__uid2 = window.__uid2 || {};
+window.__uid2.callbacks = window.__uid2.callbacks || [];
+window.__uid2.callbacks.push(async (eventType, payload) => {
+  switch (eventType) {
+    case "SdkLoaded":
+      // The SdkLoaded event occurs just once.
+      __uid2.init({});
+      break;
+ 
+    case "InitCompleted":
+      // The InitCompleted event occurs just once.
+      //
+      // If there is a valid UID2 token, it is in payload.identity.
+      if (payload.identity) {
+        // Pass the UID2 token to Prebid.js.
+        //
+        // payload looks like this:
+        // {
+        //   "identity": {
+        //     "advertising_token": "A4A...MqA",
+        //     "refresh_token": "A3A...pdg==",
+        //     "identity_expires": 1692257038260,
+        //     "refresh_expires": 1692339838260,
+        //     "refresh_from": 1692254338260
+        //     "refresh_response_key": "z0v...zL0="
+        //   }
+        // }
+        var advertising_token_to_use = payload.identity.advertising_token;
+      } else {
+          if (__uid2.isLoginRequired()) {
+            // Call one of the setIdentityFrom functions to generate a new UID2 token.
+            // Add any retry logic around this call as required.
+            await __uid2.setIdentityFromEmailHash(
+                emailHash,
+                clientSideConfig
+          );
+          else {
+            // there is a token generation API call in flight which triggers
+            // a IdentityUpdated event 
+          }
+        }
+      }
+      break;
+ 
+    case "IdentityUpdated":
+      // The IdentityUpdated event happens when a UID2 token is generated or refreshed.
+      // See previous comment for an example of how the payload looks.
+      var advertising_token_to_use = payload.identity.advertising_token;
+      break;
+  }
+});
+ 
 </script>
 ```
 
-SDK は指定された [コールバック関数](../sdks/client-side-identity.md#callback-function) を呼び出し（ID の利用可能性を示します）、確立した ID をクライアント側の入札に利用できるようにします。
+## Check that the Token Was Successfully Generated
 
-### Bid Using UID2 Tokens
+トークンが正常に生成されたことを確認するには、ブラウザの開発者ツールを使ってローカルストレージからトークンを探します。
 
-SDK は、有効な ID の状態と利用可能性に基づいて、バックグラウンドトークンの自動更新を設定し、ID 情報を [ファーストパーティクッキー](../sdks/client-side-identity.md#uid2-cookie-format) に格納して、ターゲティング広告に対する要求を開始するために使用します。
+![Publisher Workflow](images/TokenDebugger.png)
 
-| Step | Endpoint/SDK                                                       | Description                                                                                                                                          |
-| :--- | :----------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2-a  | [Client-Side JavaScript SDK (v2)](../sdks/client-side-identity.md) | 以下のように [getAdvertisingToken()](../sdks/client-side-identity.md#getadvertisingtoken-string) で現在のユーザーの Advertising Token を取得します。 |
+トークンの生成に問題があった場合は、**Network** タブでリクエストを見つけてください。`client-generate` という文字列でフィルタリングすることで、リクエストを見つけることができます。リクエストに失敗した理由についての情報は、レスポンスの中にあるはずです。
 
-```html
-<script>
-  let advertisingToken = __uid2.getAdvertisingToken();
-</script>
+![Publisher Workflow](images/NetworkTraffic.png)
+
+## Example Code: Hashing and Base-64 Encoding
+
+次のコードサンプルは、JavaScript でメールアドレスと電話のハッシュを生成する方法を示しています。
+
+
+```js
+async function hash(value) {
+  const hash = await window.crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(value)
+  );
+  return bytesToBase64(new Uint8Array(hash));
+}
+ 
+function bytesToBase64(bytes) {
+  const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join("");
+  return btoa(binString);
+}
 ```
-
-> TIP: 返された Advertising Token をどのように SSP に渡すかを検討する必要があります。
-
-### Refresh Tokens
-
-初期化の一環として、SDK は ID の [バックグラウンドでのトークン自動更新](../sdks/client-side-identity.md#background-token-auto-refresh) を設定し、ID 上のタイムスタンプまたは断続的エラーによる更新の失敗によってバックグラウンドでトリガーされるようにします。
-
-| Step | Endpoint/SDK                                                       | Description                                                                                                                              |
-| :--- | :----------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| 3-a  | [Client-Side JavaScript SDK (v2)](../sdks/client-side-identity.md) | SDK はバックグラウンドで自動的に UID2 Token をリフレッシュします。手動で操作する必要はありません。                                       |
-| 3-b  | [Client-Side JavaScript SDK (v2)](../sdks/client-side-identity.md) | ユーザーがオプトアウトしていない場合、[POST /token/refresh](../endpoints/post-token-refresh.md) は自動的に新しい ID トークンを返します。 |
-
-### Clear Identity: User Logout
-
-ユーザーがパブリッシャーのサイト(UID2 ではない)からログアウトすること決めると、クライアントのライフサイクルは完了します。これにより、クライアントの ID セッションが閉じられ、ファーストパーティクッキー情報がクリアされます。
-
-| Step | Endpoint/SDK                                                       | Description                                                                                                                                                                      |
-| :--- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 4-a  | N/A                                                                | ユーザーがパブリッシャーのアセットからログアウトします。                                                                                                                         |
-| 4-b  | [Client-Side JavaScript SDK (v2)](../sdks/client-side-identity.md) | 以下のように [disconnect()](../sdks/client-side-identity.md#disconnect-void) を用いてファーストパーティクッキーから UID2 ID をクリアし、クライアントライフサイクルを切断します。 |
-
-```html
-<script>
-  __uid2.disconnect();
-</script>
-```
-
-## FAQs
-
-パブリッシャー向けのよくある質問は、[FAQs for Publishers Using an SDK](../getting-started/gs-faqs.md#faqs-for-publishers-using-an-sdk) を参照してください。
-
-すべてのリストは、[Frequently Asked Questions](../getting-started/gs-faqs.md)を参照してください。

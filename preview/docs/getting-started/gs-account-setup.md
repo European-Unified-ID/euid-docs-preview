@@ -19,12 +19,16 @@ This page provides general information required for you to get your account set 
 
 To get access to the UID2 framework, contact the appropriate team at The Trade Desk listed below. 
 
->Contacting The Trade Desk for access is temporary. When the system is moved to independent governance, the governing organizations will handle access requests.
+If you have an existing relationship with The Trade Desk, the current UID2 Administrator, connect directly with your contact to get started with UID2.
+
+:::note
+Contacting The Trade Desk for access is temporary. When the system is moved to independent governance, the governing organizations will manage access requests.
+:::
 
 | Your Role | Contact Email |
 | :--- | :--- |
-| Publisher, App Developer | mailto:UID2publishers@thetradedesk.com |
-| Agency, Brand, DSP, SSP, CDP, Data Provider | mailto:UID2partners@thetradedesk.com |
+| Publisher, App Developer | [UID2publishers@thetradedesk.com](mailto:UID2publishers@thetradedesk.com) |
+| Agency, Brand, DSP, SSP, CDP, Data Provider | [UID2partners@thetradedesk.com](mailto:UID2partners@thetradedesk.com) |
 
 ## Account Setup
 
@@ -34,9 +38,9 @@ You'll need to provide at least the following information:
 * Name
 * Email address
 * Company name
-* Name and contact information for an authorized individual who can sign the contract.*
+* Name and contact information for an authorized individual who can sign the contract.
 
-When you've signed a contract for participating in UID2, you'll be issued with [API keys](gs-api-keys.md) and other information for getting up and running with UID2.
+When you've signed a contract for participating in UID2, you'll be issued with [UID2 credentials](gs-credentials.md) and other information for getting up and running with UID2.
 
 
 ## API Versions

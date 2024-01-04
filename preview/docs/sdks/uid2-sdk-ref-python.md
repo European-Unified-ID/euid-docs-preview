@@ -18,6 +18,8 @@ You can use UID2 server-side SDKs to facilitate:
 
 - [Overview](#overview)
 - [Functionality](#functionality)
+- [Version](#version)
+- [GitHub Repository/Package](#github-repositorypackage)
 - [Initialization](#initialization)
 - [Interface](#interface)
   - [Response Content](#response-content)
@@ -36,15 +38,21 @@ This SDK simplifies integration with UID2 for any DSPs or UID2 sharers who are u
 
 | Encrypt Raw UID2 to UID2 Token | Decrypt UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token |
 | :--- | :--- | :--- | :--- |
-| Yes | Yes | Yes | Yes |
+| Supported | Supported | Supported | Supported |
 
 ## Version
 
 The SDK supports Python 3.6 and above.
 
-## SDK Repository
+## GitHub Repository/Package
 
-This SDK is available in GitHub: [UID2 SDK for Python](https://github.com/IABTechLab/uid2-client-python/blob/master/README.md).
+This SDK is in the following open-source GitHub repository:
+
+- [UID2 SDK for Python](https://github.com/IABTechLab/uid2-client-python/blob/master/README.md)
+
+The package is published in this location:
+
+- [https://pypi.org/project/uid2-client/](https://pypi.org/project/uid2-client/)
 
 ## Initialization
 
@@ -63,23 +71,26 @@ The interface allows you to decrypt UID2 advertising tokens and return the corre
 
 If you're a DSP, for bidding, call the interface to decrypt a UID2 advertising token and return the UID2. For details on the bidding logic for handling user opt-outs, see [DSP Integration Guide](../guides/dsp-guide.md).
 
-The following example calls the decrypt method in Python:
+The following is the decrypt method in Python:
 
 ```python
 from uid2_client import Uid2ClientFactory
-client = Uid2ClientFactory.create(base_url, auth_key, secret_key)
-decrypt_result = client.decrypt(ad_token)
+ 
+client = Uid2ClientFactory.create('https://prod.uidapi.com', 'my-auth-token', 'my-secret-key')
+client.refresh_keys() # Note that refresh_keys() should be called once after create(), and then once per hour
+decrypted_token = client.decrypt(advertising_token)
 ```
 
 ### Response Content
 
 Available information returned through the SDK is outlined in the following table.
 
-| Property | Description |
+| Instance Variable | Description |
 | :--- | :--- |
-| `Status` | The decryption result status. For a list of possible values and definitions, see [Response Statuses](#response-statuses). |
-| `UID2` | The raw UID2 for the corresponding UID2 advertising token. |
-| `Established` | The timestamp indicating when a user first established the UID2 with the publisher. |
+| `uid2` | The raw UID2 for the corresponding UID2 advertising token. |
+| `established` | The timestamp indicating when a user first established the UID2 with the publisher. |
+
+>NOTE: If there is a decryption failure, an `EncryptionError` exception is raised.
 
 ### Response Statuses
 
@@ -93,11 +104,11 @@ Available information returned through the SDK is outlined in the following tabl
 | `KeysNotSynced` | The client has failed to synchronize keys from the UID2 service. |
 | `VersionNotSupported` |  The client library does not support the version of the encrypted token. |
 
-
-
 ## Usage for UID2 Sharers
 
 A UID2 sharer is any participant that wants to share UID2s with another participant. Raw UID2s must be encrypted into UID2 tokens before sending them to another participant. For an example of usage, see [examples/sample_sharing.py](https://github.com/IABTechLab/uid2-client-python/blob/master/examples/sample_sharing.py) script.
+
+>IMPORTANT: The UID2 token generated during this process is for sharing only&#8212;you cannot use it in the bid stream. There is a different workflow for generating tokens for the bid stream: see [Sharing in the Bid Stream](../sharing/sharing-bid-stream.md).
 
 The following instructions provide an example of how you can implement sharing using the UID2 SDK for Python, either as a sender or a receiver.
 
@@ -107,11 +118,7 @@ The following instructions provide an example of how you can implement sharing u
    from uid2_client import Uid2ClientFactory
    client = Uid2ClientFactory.create(base_url, auth_key, secret_key)
    ```
-   <!-- Alternative to the above for EUID:
-   ```python
-   from uid2_client import EuidClientFactory
-   client = EuidClientFactory.create(base_url, auth_key, secret_key) 
-   ``` -->
+
 2. Refresh once at startup, and then periodically (recommended refresh interval is hourly):
 
    ```python
@@ -154,11 +161,11 @@ The following instructions provide an example of how you can implement sharing u
 
    >IMPORTANT: Be sure to call this function only when you have obtained legal basis to convert the user’s [directly identifying information (DII)](../ref-info/glossary-uid.md#gl-dii) to UID2 tokens for targeted advertising.
 
-   >`do_not_generate_tokens_for_opted_out()` applies `policy=1` in the [POST /token/generate](../endpoints/post-token-generate.md#token-generation-policy) call. Without this, `policy` is omitted to maintain backwards compatibility.
+   >`do_not_generate_tokens_for_opted_out()` applies `optout_check=1` in the [POST /token/generate](../endpoints/post-token-generate.md) call. Without this, `optout_check` is omitted to maintain backwards compatibility.
 
 ### Standard Integration
 
-If you're using standard integration (client and server) (see [UID2 SDK for JavaScript Integration Guide](../guides/publisher-client-side.md)), follow this step:
+If you're using standard integration (client and server) (see [JavaScript Standard Integration Guide](../guides/integration-javascript-standard.md)), follow this step:
 
 * Send this identity as a JSON string back to the client (to use in the [identity field](../sdks/client-side-identity.md#initopts-object-void)) using the following:
 
@@ -200,6 +207,4 @@ If you're using server-only integration (see [Publisher Integration Guide, Serve
 
 ## FAQs
 
-For a list of frequently asked questions for DSPs, see [FAQs for Demand-Side Platforms (DSPs)](../getting-started/gs-faqs.md#faqs-for-demand-side-platforms-dsps).
-
-For a full list, see [Frequently Asked Questions](../getting-started/gs-faqs.md).
+For a list of frequently asked questions for DSPs, see [FAQs for DSPs](../getting-started/gs-faqs.md#faqs-for-dsps).

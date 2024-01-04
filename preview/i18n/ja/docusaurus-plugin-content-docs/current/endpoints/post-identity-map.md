@@ -1,13 +1,13 @@
 ---
 title: POST /identity/map
-description: DII を UID2 とソルトバケット ID にマッピングします。
+description: DII を raw UID2 とソルトバケット ID にマッピングします。
 hide_table_of_contents: false
 sidebar_position: 08
 ---
 
 # POST /identity/map
 
-複数のメールアドレス、電話番号、それぞれのハッシュを UID2 やソルトバケット ID にマッピングします。
+複数のメールアドレス、電話番号、またはそれぞれのハッシュを、raw UID2 とソルトバケット ID にマッピングします。
 
 Used by: このエンドポイントは、主に広告主やデータプロバイダーが使用します。詳細は、[Advertiser/Data Provider Integration Guide](../guides/advertiser-dataprovider-guide.md)を参照してください。
 
@@ -16,10 +16,10 @@ Used by: このエンドポイントは、主に広告主やデータプロバ�
 知っておくべきことは以下のとおりです:
 
 - リクエストの最大サイズは 1MB です。
-- 多数のメールアドレス、電話番号、またはそれぞれのハッシュをマッピングするには、1 バッチあたり最大 5,000 アイテムのバッチサイズで、それらを _連続した_ バッチで送信してください。
+- 大量のメールアドレス、電話番号、またはそれぞれのハッシュをマップするには、1 バッチあたり最大 5,000 アイテムのバッチサイズで、それらを *連続した* バッチで送信してください。
 - バッチを並列で送信しないでください。
-- プライベートオペレーターを使用している場合を除き、バッチを並行して送信しないでください。つまり、1 つの HTTP 接続を使用して、DII を連続してマッピングしてください。
-- メールアドレス、電話番号、またはそれぞれのハッシュのマッピングを必ず保存してください。<br/>マッピングを保存しないと、数百万のメールアドレスや電話番号をマッピングする必要がある場合に、処理時間が大幅に増加する可能性があります。しかし、実際に更新が必要なマッピングのみを再計算することで、毎日更新が必要な UID2 の数は約 1/365 となり、総処理時間を短縮できます。[Advertiser/Data Provider Integration Guide](../guides/advertiser-dataprovider-guide.md) と [FAQs for Advertisers and Data Providers](../getting-started/gs-faqs.md#faqs-for-advertisers-and-data-providers)も参照してください。
+- Private Operator を使用している場合を除き、バッチを並行して送信しないでください。つまり、1 つの HTTP 接続を使用して、[directly identifying information (DII)](../ref-info/glossary-uid.md#gl-dii) を連続してマッピングしてください。
+- メールアドレス、電話番号、またはそれぞれのハッシュのマッピングを必ず保存してください。<br/>マッピングを保存しないと、数百万のメールアドレスや電話番号をマッピングする必要がある場合に、処理時間が大幅に増加する可能性があります。しかし、実際に更新が必要なマッピングのみを再計算することで、毎日更新が必要な raw UID2 の数は約 1/365 となり、総処理時間を短縮できます。[Advertiser/Data Provider Integration Guide](../guides/advertiser-dataprovider-guide.md) と [FAQs for Advertisers and Data Providers](../getting-started/gs-faqs.md#faqs-for-advertisers-and-data-providers)も参照してください。
 
 ## Request Format
 
@@ -33,19 +33,18 @@ Used by: このエンドポイントは、主に広告主やデータプロバ�
 | :-------------- | :-------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `{environment}` | string    | 必須      | テスト環境: `https://operator-integ.uidapi.com`<br/>本番環境: `https://prod.uidapi.com`<br/>リージョンごとのオペレーターを含む全リストは [Environments](../summary-doc-v2.md#environments) を参照してください。 |
 
-NOTE: インテグレーション環境と本番環境では、異なる[APIキー](../ref-info/glossary-uid.md#gl-api-key)が必要です。
+NOTE: インテグレーション環境と本番環境では、異なる [APIキー](../ref-info/glossary-uid.md#gl-api-key) が必要です。
 
 ### Unencrypted JSON Body Parameters
 
-> IMPORTANT: リクエストを暗号化する際、JSON ボディに Key-Value ペアとして以下のパラメータのうち 1 つだけを含める必要があります。
+> IMPORTANT: リクエストを暗号化するときは、以下の 4 つの条件パラメータのうち、 **1つ** だけをリクエストの JSON ボディにキーと値のペアとして含める必要がります。
 
 | Body Parameter | Data Type    | Attribute      | Description                                                                                                                                                                      |
 | :------------- | :----------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `email`        | string array | 条件付きで必要 | マッピングするメールアドレスのリストです。                                                                                                                                       |
-| `email_hash`   | string array | 条件付きで必要 | [正規化](../getting-started/gs-normalization-encoding#email-address-hash-encoding) したメールアドレスを [SHA-256 ハッシュし、Base64 エンコード](../getting-started/gs-normalization-encoding#email-address-normalization) したリストです。 |
-| `phone`        | string array | 条件付きで必要 | マッピングする [正規化](../getting-started/gs-normalization-encoding#phone-number-normalization) 済み電話番号のリストです。                                                                                   |
-| `phone_hash`   | string array | 条件付きで必要 | [SHA-256 ハッシュし、Base64 エンコード](../getting-started/gs-normalization-encoding#phone-number-hash-encoding) した [正規化](../getting-started/gs-normalization-encoding#phone-number-normalization) 済み電話番号のリストです。         |
-| `policy`       | number       | オプション     | ユーザー識別子がオプトアウトされたときの ID マップの動作をカスタマイズします。詳しくは、[Identity Map Policy](#identity-map-policy) を参照してください。                         |
+| `email_hash`   | string array | 条件付きで必要 | マッピングする [SHA-256 ハッシュし、Base64 エンコード](../getting-started/gs-normalization-encoding.md#email-address-normalization) した [正規化](../getting-started/gs-normalization-encoding.md#email-address-hash-encoding) 済みメールアドレスのリストです。 |
+| `phone`        | string array | 条件付きで必要 | マッピングする [正規化](../getting-started/gs-normalization-encoding.md#phone-number-normalization) 済み電話番号のリストです。                                                                                   |
+| `phone_hash`   | string array | 条件付きで必要 | マッピングする [SHA-256 ハッシュし、Base64 エンコード](../getting-started/gs-normalization-encoding.md#phone-number-hash-encoding) した [正規化](../getting-started/gs-normalization-encoding.md#phone-number-normalization) 済み電話番号のリストです。         |
 
 ### Request Examples
 
@@ -53,7 +52,10 @@ NOTE: インテグレーション環境と本番環境では、異なる[APIキ�
 
 ```json
 {
-  "email": ["user@example.com", "user2@example.com"]
+  "email": [
+    "user@example.com",
+    "user2@example.com"
+  ]
 }
 ```
 
@@ -68,7 +70,10 @@ NOTE: インテグレーション環境と本番環境では、異なる[APIキ�
 
 ```json
 {
-  "phone": ["+1111111111", "+2222222222"]
+  "phone": [
+    "+1111111111",
+    "+2222222222"
+  ]
 }
 ```
 
@@ -81,22 +86,10 @@ NOTE: インテグレーション環境と本番環境では、異なる[APIキ�
 }
 ```
 
-以下は、プレースホルダー値を含む暗号化された ID マッピングのリクエスト形式です:
-
-```sh
-echo '[Unencrypted-JSON-Request-Body]' \
-  | encrypt_request.py [Your-Client-Secret] \
-  | curl -X POST 'https://prod.uidapi.com/v2/identity/map' -H 'Authorization: Bearer [Your-Client-API-Key]' -d @- \
-  | decrypt_response.py [Your-Client-Secret]
-```
-
 以下は、メールアドレスハッシュに対する暗号化された ID マッピングリクエストの例です:
 
 ```sh
-echo '{"phone": ["+1111111111", "+2222222222"]}' \
-  | encrypt_request.py DELPabG/hsJsZk4Xm9Xr10Wb8qoKarg4ochUdY9e+Ow= \
-  | curl -X POST 'https://prod.uidapi.com/v2/identity/map' -H 'Authorization: Bearer YourTokenBV3tua4BXNw+HVUFpxLlGy8nWN6mtgMlIk=' -d @- \
-  | decrypt_response.py DELPabG/hsJsZk4Xm9Xr10Wb8qoKarg4ochUdY9e+Ow=
+echo '{"phone": ["+1111111111", "+2222222222"]}' | python3 uid2_request.py https://prod.uidapi.com/v2/identity/map YourTokenBV3tua4BXNw+HVUFpxLlGy8nWN6mtgMlIk= DELPabG/hsJsZk4Xm9Xr10Wb8qoKarg4ochUdY9e+Ow=
 ```
 
 詳細と Python スクリプトの例は、[リクエストの暗号化とレスポンスの復号化](../getting-started/gs-encryption-decryption.md) を参照してください。
@@ -105,7 +98,7 @@ echo '{"phone": ["+1111111111", "+2222222222"]}' \
 
 > NOTE: レスポンスは、HTTP ステータスコードが 200 の場合のみ暗号化されます。それ以外の場合、レスポンスは暗号化されません。
 
-復号化に成功すると、指定したメールアドレス、電話番号、またはそれぞれのハッシュに対する UID2 とソルトバケット ID が返されます。
+復号化に成功すると、指定したメールアドレス、電話番号、またはそれぞれのハッシュに対する raw UID2 とソルトバケット ID が返されます。
 
 ```json
 {
@@ -127,7 +120,7 @@ echo '{"phone": ["+1111111111", "+2222222222"]}' \
 }
 ```
 
-一部の識別子が無効と判断された場合、それらの識別子は "unmapped" リストとしてレスポンスに含まれる。この場合でも、応答ステータスは "success" となります。すべての識別子がマッピングされた場合、"unmapped"リストはレスポンスに含まれません。
+一部の識別子が無効と判断された場合、それらの識別子は "unmapped" リストとしてレスポンスに含まれる。この場合でも、レスポンスステータスは "success" となります。すべての識別子がマッピングされた場合、"unmapped"リストはレスポンスに含まれません。
 
 ```json
 {
@@ -150,7 +143,7 @@ echo '{"phone": ["+1111111111", "+2222222222"]}' \
 }
 ```
 
-リクエストにパラメータ/値 `policy=1` が含まれ、一部の識別子が UID2 エコシステムからオプトアウトしている場合、オプトアウトした識別子は、見つかった無効な識別子とともに"unmapped"リストに移動されます。この場合でも、応答ステータスは "success" です。
+一部の識別子が UID2 エコシステムからオプトアウトしている場合、オプトアウトした識別子は、見つかった無効な識別子とともに "unmapped" リストに移動されます。この場合でも、レスポンスステータスは "success" です。
 
 ```json
 {
@@ -178,8 +171,8 @@ echo '{"phone": ["+1111111111", "+2222222222"]}' \
 | Property         | Data Type | Description                                                                          |
 | :--------------- | :-------- | :----------------------------------------------------------------------------------- |
 | `identifier`     | string    | リクエストボディで指定されたメールアドレス、電話番号、またはそれぞれのハッシュです。 |
-| `advertising_id` | string    | 対応する Advertising ID（raw UID2）です。                                            |
-| `bucket_id`      | string    | UID2 の生成に使用したソルトバケットの ID です。                                      |
+| `advertising_id` | string    | 対応する Advertising ID (raw UID2)です。                                            |
+| `bucket_id`      | string    | raw UID2 の生成に使用したソルトバケットの ID です。                                      |
 
 ### Response Status Codes
 
@@ -189,15 +182,6 @@ echo '{"phone": ["+1111111111", "+2222222222"]}' \
 | :------------- | :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `success`      | 200              | リクエストは成功しました。レスポンスは暗号化されています。                                                                                                                     |
 | `client_error` | 400              | リクエストに不足している、または無効なパラメータがありました。                                                                                                                 |
-| `unauthorized` | 401              | クエストにベアラートークンが含まれていない、無効なベアラートークンが含まれている、またはリクエストされた操作を実行するのに許可されていないベアラートークンが含まれていました。 |
+| `unauthorized` | 401              | クエストにベアラートークンが含まれていない、無効なベアラートークンが含まれている、またはリクエストされた操作を実行するのに許可されていないベアラートークンが含まれていた。 |
 
-`status` の値が `success` 以外の場合、 `message` フィールドにその問題に関する追加情報が表示されます。
-
-### Identity Map Policy
-
-ID マップポリシーは、トークンを生成するタイミングを呼び出し元が決定できるようにします。これは、リクエストボディに整数値の ID として渡されます（キー 'policy' を使用）。このパラメータが省略された場合、デフォルト値である policy = 0 が適用されます。
-
-| ID  | Description                                            |
-| :-- | :----------------------------------------------------- |
-| 0   | 常にユーザー ID を UID2 にマッピングします。           |
-| 1   | オプトアウトしたユーザーは、マッピングに含まれません。 |
+`status` の値が `success` 以外であれば、 `message` フィールドにその問題に関する追加情報が表示されます。

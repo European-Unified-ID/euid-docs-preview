@@ -22,19 +22,19 @@ sidebar_position: 10
 <td>
 <ul>
 <li><a href="#gl-advertising-id">Advertising ID</a></li>
+<li><a href="#gl-advertising-token">Advertising token</a></li>
 <li><a href="#gl-api-key">API key</a></li>
 <li><a href="#gl-api-secret">API secret</a></li>
-<li><a href="#gl-advertising-token">Advertising token</a></li>
 <li><a href="#gl-authorization-header">Authorization header</a></li>
 <li><a href="#gl-bearer-token">Bearer token</a></li>
 <li><a href="#gl-client-key">Client key</a></li>
 <li><a href="#gl-client-secret">Client secret</a></li>
-<li><a href="#gl-closed-operator">Closed operator</a></li>
+<li><a href="#gl-closed-operator">Closed Operator</a></li>
 <li><a href="#gl-core-service">Core Service</a></li>
 <li><a href="#gl-customer-data-platform">Customer Data Platform (CDP)</a></li>
 <li><a href="#gl-data-provider">Data provider</a></li>
 <li><a href="#gl-demand-side-platform">Demand-side platform</a></li>
-<li><a href="#gl-dii">directly identifying information (DII)</a></li>
+<li><a href="#gl-dii">Directly identifying information (DII)</a></li>
 <li><a href="#gl-docker">Docker</a></li>
 <li><a href="#gl-docker-build">Docker Build</a></li>
 
@@ -52,14 +52,16 @@ sidebar_position: 10
 <ul>
 <li><a href="#gl-json-web-token">JSON Web Token (JWT)</a></li>
 <li><a href="#gl-normalize">Normalize</a></li>
-<li><a href="#gl-open-operator">Open operator</a></li>
+<li><a href="#gl-open-operator">Open Operator</a></li>
 <li><a href="#gl-operator">Operator</a></li>
 <li><a href="#gl-operator-key">Operator key</a></li>
 <li><a href="#gl-operator-service">Operator Service</a></li>
 <li><a href="#gl-opt-out">Opt-out</a></li>
 <li><a href="#gl-opt-out-service">Opt-Out Service</a></li>
-<li><a href="#gl-private-operator">Private operator</a></li>
+<li><a href="#gl-participant">Participant</a></li>
+<li><a href="#gl-private-operator">Private Operator</a></li>
 <li><a href="#gl-private-operator-service">Private Operator Service</a></li>
+<li><a href="#gl-public-key">Public key</a></li>
 <li><a href="#gl-raw-uid2">Raw UID2</a></li>
 <li><a href="#gl-refresh-token">Refresh token</a></li>
 
@@ -69,14 +71,19 @@ sidebar_position: 10
 <ul>
 <li><a href="#gl-salt">Salt</a></li>
 <li><a href="#gl-salted-hash">Salted hash</a></li>
+<li><a href="#gl-secret">Secret</a></li>
 <li><a href="#gl-secure-signals">Secure signals</a></li>
 <li><a href="#gl-sha-256">SHA-256</a></li>
-<li><a href="#gl-sso">SSO</a></li>
+<li><a href="#gl-sharing">sharing (in UID2)</a></li>
+<li><a href="#gl-sharing-participant">sharing participant</a></li>
+<li><a href="#gl-sso">Single sign-on (SSO)</a></li>
+<li><a href="#gl-subscription-id">Subscription ID</a></li>
 <li><a href="#gl-transparency-and-control-portal">Transparency and Control Portal</a></li>
 <li><a href="#gl-uid2-framework">UID2 framework</a></li>
 <li><a href="#gl-uid2-identifier">UID2 identifier</a></li>
+<li><a href="#gl-uid2-portal">UID2 Portal</a></li>
 <li><a href="#gl-uid2-service">UID2 service</a></li>
-<li><a href="#gl-uid2-token">UID2 token</a></li>
+<li><a href="#gl-uid2-token">UID2 token (advertising token)</a></li>
 <li><a href="#gl-unified-id-20">Unified ID 2.0</a></li>
 <li><a href="#gl-utc">UTC</a></li>
 </ul>
@@ -94,8 +101,8 @@ sidebar_position: 10
 <dd>Advertising token is another term for a <a href="#gl-uid2-token">UID2 token</a>.</dd>
 
 <dt class="jump-anchor" id="gl-api-key">API key</dt>
-<dd>Each UID2 <a href="/docs/intro#participants">participant</a> has an API key (client key) and also a secret value associated with the key, called the client secret (API secret). The client secret is known only to the participant and the UID2 service.</dd>
-<dd>For details, see <a href="/docs/getting-started/gs-api-keys">API Keys</a>.</dd>
+<dd>Each UID2 <a href="/docs/intro#participants">participant</a> using a server-side implementation has an API key (client key) and also a secret value associated with the key, called the client secret (API secret). The client secret is known only to the participant and the UID2 service.</dd>
+<dd>For details, see <a href="/docs/getting-started/gs-credentials">UID2 Credentials</a>.</dd>
 
 <dt class="jump-anchor" id="gl-api-secret">API secret</dt>
 <dd>See <a href="#gl-client-secret">client secret</a>.</dd>
@@ -111,11 +118,11 @@ sidebar_position: 10
 <dd>See <a href="#gl-api-key">API key</a>.</dd>
 
 <dt class="jump-anchor" id="gl-client-secret">Client secret</dt>
-<dd>Each UID2 <a href="/docs/intro#participants">participant</a> has an API key (client key) and also a secret value associated with the key, called the client secret (API secret). The client secret is known only to the participant and the UID2 service.</dd>
-<dd>For details, see <a href="/docs/getting-started/gs-api-keys">API Keys</a>.</dd>
+<dd>Each UID2 <a href="/docs/intro#participants">participant</a> using a server-side implementation has an API key (client key) and also a secret value associated with the key, called the client secret (API secret). The client secret is known only to the participant and the UID2 service.</dd>
+<dd>For details, see <a href="/docs/getting-started/gs-credentials">UID2 Credentials</a>.</dd>
 
-<dt class="jump-anchor" id="gl-closed-operator">Closed operator</dt>
-<dd>Closed operator is another term for a <a href="#gl-private-operator">private operator</a>.</dd>
+<dt class="jump-anchor" id="gl-closed-operator">Closed Operator</dt>
+<dd>Closed Operator is another term for a <a href="#gl-private-operator">Private Operator</a>.</dd>
 
 <dt class="jump-anchor" id="gl-core-service">Core Service</dt>
 <dd>The UID2 Core Service is a centralized service that manages access to <a href="#gl-salt">salts</a>, encryption keys, and other relevant data in the UID2 ecosystem.</dd>
@@ -131,7 +138,7 @@ sidebar_position: 10
 <dt class="jump-anchor" id="gl-demand-side-platform">Demand-side platform (DSP)</dt>
 <dd>A demand-side platform (DSP) provides services to companies that want to buy digital advertising, such as advertisers, brands, and media agencies.</dd>
 
-<dt class="jump-anchor" id="gl-dii">directly identifying information (DII)</dt>
+<dt class="jump-anchor" id="gl-dii">Directly identifying information (DII)</dt>
 <dd>Directly identifying information, or DII, is information that directly identifies an individual, including name, email address, or phone number.</dd>
 <dd>UID2 supports email address and phone number, and translates the DII to a value that can be used for the purpose of targeted advertising but cannot be traced back to the original value.</dd>
 
@@ -144,10 +151,7 @@ sidebar_position: 10
 
 <dt class="jump-anchor" id="gl-enclave">Enclave</dt>
 <dd>An enclave is a secure subsection of a computing environment. The enclave has additional business logic and security measures applied to it, to prevent anyone from tampering with it.</dd>
-<dd>In the context of UID2, a <a href="#gl-private-operator">private operator</a> must run inside an enclave or in a private environment. The enclave versions supported are:<br/>
-- <a href="https://aws.amazon.com/ec2/nitro/">AWS Nitro</a>: see <a href="../guides/operator-guide-aws-marketplace">UID2 Operator: AWS Marketplace Integration Guide</a>.<br/>
-- <a href="https://cloud.google.com/confidential-computing">Google Cloud Platform Confidential Computing</a>: see <a href="../guides/operator-guide-gcp-enclave">UID2 Operator - Google Cloud Platform Confidential Computing Package</a>.<br/>
-- <a href="https://learn.microsoft.com/en-us/azure/confidential-computing/">Microsoft Azure confidential computing</a>: see <a href="../guides/operator-guide-azure-enclave">Microsoft Azure Confidential Compute Operator Package</a>.</dd>
+<dd>In the context of UID2, a <a href="#gl-private-operator">Private Operator</a> must run inside an enclave or in a private environment. For a summary of the enclave versions supported, see <a href="../guides/summary-guides#private-operator-service-integrations">Private Operator Service Integrations</a>.</dd>
 <dd>In an enclave, the operator image must be a very specific, predefined version, and additional constraints are applied to ensure security.</dd>
 
 <dt class="jump-anchor" id="gl-first-level-hash">First-level hash</dt>
@@ -163,46 +167,51 @@ sidebar_position: 10
 
 <dt class="jump-anchor" id="gl-json-web-token">JSON Web Token (JWT)</dt>
 <dd>A JSON Web Token (JWT) is a compact, URL-safe means of representing claims (pieces of information) to be sent from one party to another over the web. The claims in a JWT are encoded as a JSON object that is used either as the payload of a JSON Web Signature (JWS) structure or as the plain text of a JSON Web Encryption (JWE) structure. This enables the claims to be digitally signed and/or encrypted.</dd>
-<dd>UID2 uses JSON Web Tokens as part of interfacing with the Google Cloud Platform (GCP) Enclave.</dd>
-<dd>For details, see <a href="../guides/operator-guide-gcp-enclave">UID2 Operator - Google Cloud Platform Confidential Compute package</a>.</dd>
 
 <dt class="jump-anchor" id="gl-normalize">Normalize</dt>
 <dd>To normalize a data set means to bring it to a standard condition or state.</dd>
 <dd>UID2 includes specific normalization rules. For details, see <a href="../getting-started/gs-normalization-encoding#email-address-normalization">Email Address Normalization</a> and <a href="../getting-started/gs-normalization-encoding#phone-number-normalization">Phone Number Normalization</a>.</dd>
 
-<dt class="jump-anchor" id="gl-open-operator">Open operator</dt>
-<dd>An open <a href="#gl-operator">operator</a> is an entity that runs a public instance of the UID2 Operator Service. For example, The Trade Desk currently serves as an open operator for the UID2 framework, available to all participants.</dd>
+<dt class="jump-anchor" id="gl-open-operator">Open Operator</dt>
+<dd>An open <a href="#gl-operator">Operator</a> is an entity that runs a public instance of the UID2 Operator Service. For example, The Trade Desk currently serves as an open Operator for the UID2 framework, available to all participants.</dd>
 
 <dt class="jump-anchor" id="gl-operator">Operator</dt>
-<dd>An operator is an organization or entity that runs the UID2 <a href="#gl-operator-service">Operator Service</a>. The UID2 Operator is the API server in the UID2 ecosystem.</dd>
+<dd>An Operator is an organization or entity that runs the UID2 <a href="#gl-operator-service">Operator Service</a>. The UID2 Operator is the API server in the UID2 ecosystem.</dd>
 <dd>Operators perform multiple functions, such as receiving encryption keys and salts from the UID2 Core Service, salting and hashing personal data to return raw UID2s, and encrypting raw UID2s to generate UID2 tokens.</dd>
-<dd>A participant can also choose to become a <a href="#gl-private-operator">private operator</a> to access UID2 APIs and to generate raw UID2s and UID2 tokens from within a private infrastructure.</dd>
+<dd>A participant can also choose to become a <a href="#gl-private-operator">Private Operator</a> to access UID2 APIs and to generate raw UID2s and UID2 tokens from within a private infrastructure.</dd>
 <dd>For details, see <a href="../intro#participants">participants</a>.</dd>
 
 <dt class="jump-anchor" id="gl-operator-key">Operator key</dt>
-<dd>Each UID2 private operator has an operator key that allows the private Operator Service to connect to the Core Service and Opt-Out Service and call some endpoints on it.</dd>
-<dd>The operator key identifies the participant operator to the UID2 service.</dd>
+<dd>Each UID2 Private Operator has an operator key that allows the private Operator Service to connect to the Core Service and Opt-Out Service and call some endpoints on it.</dd>
+<dd>The operator key identifies the participant Operator to the UID2 service.</dd>
 
 <dt class="jump-anchor" id="gl-operator-service">Operator Service</dt>
-<dd>A service that enables all functions of the <a href="#gl-operator">operator</a>.</dd>
+<dd>A service that enables all functions of the <a href="#gl-operator">Operator</a>.</dd>
 <dd>For an overview of all the UID2 services, see <a href="../intro#components">Components</a>.</dd>
 
 <dt class="jump-anchor" id="gl-opt-out">Opt-out</dt>
-<dd>An end user who participates in the UID2 ecosystem can opt out at any time by going to the <a href="https://www.transparentadvertising.org/">Transparency and Control Portal</a>.</dd>
+<dd>An end user who participates in the UID2 ecosystem can opt out at any time by going to the <a href="https://www.transparentadvertising.com/">Transparency and Control Portal</a>.</dd>
 <dd>For details, see <a href="../intro#components">Components</a>.</dd>
 
 <dt class="jump-anchor" id="gl-opt-out-service">Opt-Out Service</dt>
 <dd>The Opt-Out Service is a global UID2 service that manages and stores user opt-out requests.</dd>
 <dd>For an overview of all the UID2 services, see <a href="../intro#components">Components</a>.</dd>
 
-<dt class="jump-anchor" id="gl-private-operator">Private operator</dt>
-<dd>A private <a href="#gl-operator">operator</a> is an entity that runs a private instance of the Operator Service. The private operator generates and manages UID2s for itself, using its own resources (such as hardware) in a secure environment.</dd> 
+<dt class="jump-anchor" id="gl-participant">Participant</dt>
+<dd>An entity that fulfils a key role in UID2. Participants include the following: Core Administrator, Operator, DSP, data provider, advertiser, publisher, consumer.</dd>
+<dd>For details, see <a href="../intro#participants">participants</a>.</dd>
+
+<dt class="jump-anchor" id="gl-private-operator">Private Operator</dt>
+<dd>A Private <a href="#gl-operator">Operator</a> is an entity that runs a private instance of the Operator Service. The Private Operator generates and manages UID2s for itself, using its own resources (such as hardware) in a secure environment.</dd>
 
 <dt class="jump-anchor" id="gl-private-operator-service">Private Operator Service</dt>
-<dd>A private instance of the Operator Service, run by a <a href="#gl-private-operator">private operator</a>.</dd>
+<dd>A private instance of the Operator Service, run by a <a href="#gl-private-operator">Private Operator</a>.</dd>
+
+<dt class="jump-anchor" id="gl-public-key">Public key</dt>
+<dd>For server-side publisher integrations, the public key is one of the two values issued to publishers as their UID2 credentials. For details, see <a href="../getting-started/gs-credentials#subscription-id-and-public-key">Subscription ID and Public Key</a>.</dd>
 
 <dt class="jump-anchor" id="gl-raw-uid2">Raw UID2</dt>
-<dd>An unencrypted alphanumeric identifier created through the UID2 APIs or SDKs with the user's <a href="#gl-dii">directly identifying information</a> (email address or phone number) as input. The raw UID2 is encrypted to create a <a href="#gl-uid2-token">UID2 token</a>. The raw UID2 is a unique value; no two raw UID2s are the same.</dd>
+<dd>An unencrypted alphanumeric identifier created through the UID2 APIs or SDKs with the user's <a href="#gl-dii">directly identifying information</a> (email address or phone number) as input. The raw UID2 is encrypted to create a <a href="#gl-uid2-token">UID2 token</a>. The raw UID2 is a unique value; no two raw UID2s are the same. Raw UID2s, and their associated UID2 tokens, are case sensitive.</dd>
 <dd>For details, see <a href="../intro#uid2-identifier-types">UID2 Identifier Types</a>.</dd>
 
 <dt class="jump-anchor" id="gl-refresh-token">Refresh token</dt>
@@ -217,6 +226,9 @@ sidebar_position: 10
 <dt class="jump-anchor" id="gl-salted-hash">Salted hash</dt>
 <dd>When a <a href="#gl-salt">salt</a> value is added to the input string before applying the <a href="#gl-hash">hash</a> function, the result is a salted hash. When the input value is salted before hashing, an attacker who has the hash cannot determine the input value by trying many possible inputs to arrive at the same output.</dd>
 
+<dt class="jump-anchor" id="gl-secret">Secret</dt>
+<dd>See <a href="#gl-client-secret">client secret</a>.</dd>
+
 <dt class="jump-anchor" id="gl-secure-signals">Secure signals</dt>
 <dd>A feature of Google Ad Manager. The secure signals feature (previously known as Encrypted Signals for Publishers, abbreviated to ESP) allows publishers to securely share signals with trusted third-party buying partners. It allows publishers to pass "encrypted" user IDs to bidders that are approved by Google, via <a href="https://admanager.google.com/home/">Google Ad Manager</a> and the <a href="https://support.google.com/admanager/answer/6321605?hl=en">Google Ad Manager Ad Exchange (AdX)</a>.</dd>
 <dd>For details, see <a href="https://blog.google/products/admanager/new-ways-for-publishers-to-manage-first-party-data/">Share secure signals with your trusted partners</a> (second section) and <a href="https://support.google.com/admanager/answer/10488752?hl=en">Share secure signals with bidders</a>, both from Google.</dd>
@@ -227,11 +239,22 @@ sidebar_position: 10
 <dd>SHA-256 is part of the SHA-2 family of algorithms developed by the National Institute of Standards and Technology (NIST) and the National Security Agency (NSA) to succeed SHA-1. Each algorithm is named according to the number of bits in the output, so SHA-256 has 256 bits.</dd>
 <dd>For details, see <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf</a> (specification).</dd>
 
-<dt class="jump-anchor" id="gl-sso">SSO</dt>
-<dd>SSO is an acronym for Single Sign-On. SSO allows a user to log in with the same credentials (usually, but not always, ID and password) to one of several software systems, such as apps or websites. SSO allows the user to log in once to multiple applications or sites using one set of credentials. With SSO, websites/apps do not have to maintain their own authentication systems.</dd>
+<dt class="jump-anchor" id="gl-sharing">sharing</dt>
+<dd>In the context of UID2, sharing is a process for distributing <a href="#gl-raw-uid2">raw UID2s</a> securely between UID2 participants. To protect raw UID2s from unauthorized access, the originating participant (sender) must encrypt the raw UID2s into UID2 tokens before transmission. The destination participant (receiver) must decrypt the UID2 tokens into raw UID2s for internal use.</dd>
+<dd>For details, see <a href="../sharing/sharing-overview">UID2 Sharing: Overview</a>.</dd>
+
+<dt class="jump-anchor" id="gl-sharing-participant">sharing participant</dt>
+<dd>In UID2, a sharing participant is a company that takes part in <a href="#gl-sharing">sharing</a>&#8212;distributing <a href="#gl-raw-uid2">raw UID2s</a> securely between UID2 participants. A sharing participant can be a publisher, advertiser, DSP, or data provider, or might have more than one of these roles.</dd>
+<dd>For details, see <a href="../sharing/sharing-overview">UID2 Sharing: Overview</a>.</dd>
+
+<dt class="jump-anchor" id="gl-sso">Single sign-on (SSO)</dt>
+<dd>SSO is an acronym for Single sign-on. SSO allows a user to log in with the same credentials (usually, but not always, ID and password) to one of several software systems, such as apps or websites. SSO allows the user to log in once to multiple applications or sites using one set of credentials. With SSO, websites/apps do not have to maintain their own authentication systems.</dd>
+
+<dt class="jump-anchor" id="gl-subscription-id">Subscription ID</dt>
+<dd>For server-side publisher integrations, the subscription ID is one of the two values issued to publishers as their UID2 credentials. For details, see <a href="../getting-started/gs-credentials#subscription-id-and-public-key">Subscription ID and Public Key</a>.</dd>
 
 <dt class="jump-anchor" id="gl-transparency-and-control-portal">Transparency and Control Portal</dt>
-<dd>The UID2 Transparency and Control Portal is a user-facing website, <a href="https://www.transparentadvertising.org/">https://www.transparentadvertising.org</a>, that allows consumers to opt out of UID2 at any time.</dd>
+<dd>The UID2 Transparency and Control Portal is a user-facing website, <a href="https://www.transparentadvertising.com/">https://www.transparentadvertising.com/</a>, that allows consumers to opt out of UID2 at any time.</dd>
 
 <dt class="jump-anchor" id="gl-uid2-framework">UID2 framework</dt>
 <dd>The Unified ID 2.0 (UID2) framework enables deterministic identity for advertising opportunities on the open internet for many <a href="../intro#participants">participants</a> across the advertising ecosystem. It enables logged-in experiences from publisher websites, mobile apps, and Connected TV (CTV) apps to monetize through programmatic workflows. Built as an open-source, standalone solution with its own unique namespace, the framework focuses on transparency and privacy.</dd>
@@ -240,14 +263,19 @@ sidebar_position: 10
 <dd>There are two Unified ID 2.0 (UID2) identifier types: <a href="#gl-raw-uid2">raw UID2s</a> and <a href="#gl-uid2-token">UID2 tokens</a> (also known as advertising tokens).</dd>
 <dd>For details, see <a href="../intro#uid2-identifier-types">UID2 Identifier Types</a>.</dd>
 
+<dt class="jump-anchor" id="gl-uid2-portal">UID2 Portal</dt>
+<dd>The UID2 Portal is a separate user interface that allows UID2 participants to manage their accounts.</dd>
+<dd>For details, see  <a href="../portal/portal-overview">UID2 Portal Overview</a>.</dd>
+
 <dt class="jump-anchor" id="gl-uid2-service">UID2 service</dt>
 <dd>The Unified ID 2.0 (UID2) service is a set of components, API endpoints, and other types of solutions that collectively implement the <a href="#gl-uid2-framework">UID2 framework</a> and provide clients with access to the relevant UID2 functionality.</dd>
 <dd>The term "UID2 service" is also used to mean the UID2 <a href="#gl-operator-service">Operator Service</a>.</dd>
 
 <dt class="jump-anchor" id="gl-uid2-token">UID2 token (advertising token)</dt>
 <dd>A Unified ID 2.0 (UID2) token, also called an advertising token, is an encrypted form of a <a href="#gl-raw-uid2">raw UID2</a>.</dd>
-<dd>UID2 tokens are generated from hashed or unhashed email addresses or phone numbers that are converted to raw UID2s and then encrypted. The UID2 token is a unique value; no two UID2 tokens are the same.</dd>
+<dd>UID2 tokens are generated from hashed or unhashed email addresses or phone numbers that are converted to raw UID2s and then encrypted. The UID2 token is a unique value; no two UID2 tokens are the same. UID2 tokens are case sensitive.</dd>
 <dd>The token has a limited life, but can be refreshed in the background using the <a href="#gl-refresh-token">refresh token</a>.</dd>
+<dd>Publishers send UID2 tokens in the bid stream.</dd>
 <dd>For details, see <a href="../intro#uid2-identifier-types">UID2 Identifier Types</a>.</dd>
 
 <dt class="jump-anchor" id="gl-unified-id-20">Unified ID 2.0 (UID2)</dt>

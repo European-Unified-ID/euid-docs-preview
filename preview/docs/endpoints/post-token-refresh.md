@@ -10,7 +10,7 @@ Generate a new [UID2 token](../ref-info/glossary-uid.md#gl-uid2-token) by sendin
 
 Used by: This endpoint is used mainly by publishers.
 
->NOTE: This endpoint can be called from the client side (for example, a browser or a mobile app) because it does not require using an API key.
+>NOTE: You can call this endpoint from the client side (for example, a browser or a mobile app) because it does not require using an API key.
 
 ## Request Format 
 
@@ -29,16 +29,14 @@ Here's what you need to know about this endpoint:
 
 | Path Parameter | Data Type | Attribute | Description |
 | :--- | :--- | :--- | :--- |
-| `{environment}` | string | Required | Testing environment: `https://operator-integ.uidapi.com`<br/>Production environment: `https://prod.uidapi.com`<br/>For a full list, including regional operators, see [Environments](../getting-started/gs-environments.md). |
-
->NOTE: The integration environment and the production environment require different [API keys](../ref-info/glossary-uid.md#gl-api-key).
+| `{environment}` | string | Required | Testing (integration) environment: `https://operator-integ.uidapi.com`<br/>Production environment: `https://prod.uidapi.com`<br/>For a full list, including regional operators, see [Environments](../getting-started/gs-environments.md).<br/>Notes:<ul><li>The `integ` environment and the `prod` environment require different [API keys](../ref-info/glossary-uid.md#gl-api-key).</li><li>Token expiration time is subject to change, but is always significantly shorter in the `integ` environment than it is in the `prod` environment.</li></ul> |
 
 #### Testing Notes
 
 Using either of the following parameters in a [POST /token/generate](post-token-generate.md) request always generates an identity response with a `refresh_token` that results in a logout response when used with the `POST /token/refresh` endpoint:
 
-- The `optout@email.com` email address
-- The `+00000000000` phone number
+- The `refresh-optout@example.com` email address
+- The `+00000000002` phone number
 
 ### Request Example
 
@@ -102,7 +100,7 @@ An error response might look like the following:
 | `advertising_token` | string | The [UID2 token](../ref-info/glossary-uid.md#gl-uid2-token) (also known as advertising token) for the user. |
 | `refresh_token` | string | An encrypted token that can be exchanged with the UID2 Service for the latest set of identity tokens. |
 | `identity_expires` | double | The UNIX timestamp (in milliseconds) that indicates when the UID2 token expires. |
-| `refresh_from` | double | The UNIX timestamp (in milliseconds) that indicates when the [UID2 SDK for JavaScript](../sdks/client-side-identity.md) will start refreshing the advertising token, if the SDK is in use.<br/>TIP: If you are not using the SDK, consider refreshing the UID2 token from this timestamp, too. |
+| `refresh_from` | double | The UNIX timestamp (in milliseconds) that indicates when the UID2 SDK for JavaScript (see [UID2 SDK for JavaScript Reference Guide](../sdks/client-side-identity.md)) will start refreshing the UID2 token, if the SDK is in use.<br/>TIP: If you are not using the SDK, consider refreshing the UID2 token from this timestamp, too. |
 | `refresh_expires` | double | The UNIX timestamp (in milliseconds) that indicates when the refresh token expires. |
 | `refresh_response_key` | string | A key to be used in a new [POST /token/refresh](post-token-refresh.md) request for response decryption. |
 

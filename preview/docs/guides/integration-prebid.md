@@ -1,139 +1,104 @@
 ---
-title: Prebid Integration
-description: Information about integrating with Prebid as part of your UID2 implementation.
+title: UID2 Integration Overview for Prebid.js
+sidebar_label: UID2 Integration Overview for Prebid.js
+pagination_label: UID2 Integration Overview for Prebid.js
+description: Overview of options for integrating with Prebid.js as part of your UID2 implementation.
 hide_table_of_contents: false
 sidebar_position: 04
 ---
 
-# Prebid Integration Guide
+# UID2 Integration Overview for Prebid.js
 
-<!-- This guide includes the following information:
+This guide is an overview of integration options for publishers who want to integrate with UID2 and generate [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) (advertising tokens) to be passed by Prebid.js in the RTB bid stream.
+<!-- 
+It includes the following sections:
 
-- [Prebid Overview](#prebid-overview)
-- [UID2 Prebid Module Page](#uid2-prebid-module-page)
+- [Introduction](#introduction)
 - [UID2 User ID Submodule](#uid2-user-id-submodule)
-- [Client Refresh Mode](#client-refresh-mode)
-  -  [Client Refresh Cookie Example](#client-refresh-cookie-example)
-  -  [Client Refresh uid2Token Example](#client-refresh-uid2token-example)
-- [Storage of Internal Values](#storage-of-internal-values)
-- [Sample Token](#sample-token)
-- [Prebid Implementation Notes and Tips](#prebid-implementation-notes-and-tips)
-- [Configuration Parameters for `usersync`](#usersync-configuration-parameters) -->
+- [Generating the UID2 Token](#generating-the-uid2-token)
+- [Refreshing the UID2 Token](#refreshing-the-uid2-token)
+- [Storing the UID2 Token in the Browser](#storing-the-uid2-token-in-the-browser)
+- [Passing the UID2 Token to the Bid Stream](#passing-the-uid2-token-to-the-bid-stream)
+- [Integration Overview: High-Level Steps](#integration-overview-high-level-steps)
 
-
-This guide is for publishers who want to directly integrate with UID2 and generate identity tokens to be passed by Prebid in the RTB bid stream.
-It outlines the basic steps to consider if you're building a direct integration with UID2 and use Prebid for header bidding. 
-
+ -->
 ## Introduction
 
-If you are a publisher using Prebid for header bidding, there are a few extra steps so that your Prebid header bidding implementation also supports UID2.
+UID2 provides a Prebid.js module that supports the following:
 
-In addition, if you don't already have one, you must set up a UID2 account: see [Account Setup](../getting-started/gs-account-setup.md).
+- [Generating the UID2 token](#generating-the-uid2-token)
+- [Refreshing the UID2 token](#refreshing-the-uid2-token)
+- [Storing the UID2 token in the browser](#storing-the-uid2-token-in-the-browser)
+- [Passing the UID2 token to the bid stream](#passing-the-uid2-token-to-the-bid-stream)
 
-## UID2 Prebid Module Page
-
-For details about how to integrate Prebid with UID2, refer to the [Unified ID 2.0 Prebid User ID module](https://docs.prebid.org/dev-docs/modules/userid-submodules/unified2.html) on the Prebid site. Be sure to follow all the steps.
+For additional flexibility, UID2 also provides alternative methods for some of the features and complementary products, such as a JavaScript SDK.
 
 ## UID2 User ID Submodule
 
-UID2 requires initial tokens to be generated server-side. The UID2 module handles storing, providing, and optionally refreshing them. The module operates in Client Refresh mode.
+The Prebid UID2 module handles storing, providing, and optionally refreshing UID2 tokens.
 
->**Important:** UID2 is not designed to be used where GDPR applies. The module checks the passed-in consent data, and does not operate if the `gdprApplies` flag is set to `true`.
+:::caution
+UID2 is not designed to be used where GDPR applies. The module checks the consent data that's passed in, and does not operate if the `gdprApplies` flag is set to `true`.
+:::
 
-## Client Refresh Mode
+## Generating the UID2 Token
 
-In Client Refresh mode, the full response body from the UID2 [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) endpoint must be provided to the module. As long as the refresh token remains valid, the module refreshes the UID2 token (advertising token) as needed.
+Depending on access to DII, there are two methods to generate UID2 tokens for use with Prebid.js, as shown in the following table.
 
-To configure the module to use Client Refresh mode, you must do **either** of the following:
--  Set `params.uid2Cookie` to the name of the cookie that contains the response body as a JSON string. See [Client Refresh Cookie Example](#client-refresh-cookie-example).
+Determine which method is best for you, and then follow the applicable integration guide.
 
-- Set `params.uid2Token` to the response body as a JavaScript object. See [Client Refresh uid2Token Example](#client-refresh-uid2token-example).
+| Scenario | Integration Guide |
+| :--- | :--- |
+| You have access to DII on the client side and want to do front-end development only | [UID2 Client-Side Integration Guide for Prebid.js](integration-prebid-client-side.md) |
+| You have access to DII on the server side and can do server-side development | [UID2 Server-Side Integration Guide for Prebid.js](integration-prebid-server-side.md) |
 
-### Client Refresh Cookie Example
+## Refreshing the UID2 Token
 
-In this example, the cookie is called `uid2_pub_cookie`.
+The Prebid.js UID2 module can automatically refresh the UID2 tokens. If you prefer to implement manual refresh outside Prebid.js, see [Refreshing a UID2 Token](integration-prebid-server-side.md#refreshing-a-uid2-token) in the Server-Side Integration Guide. The client-side integration solution includes automated token refresh.
 
-#### Cookie
-```
-uid2_pub_cookie={"advertising_token":"...advertising token...","refresh_token":"...refresh token...","identity_expires":1684741472161,"refresh_from":1684741425653,"refresh_expires":1684784643668,"refresh_response_key":"...response key..."}
-```
+## Storing the UID2 Token in the Browser
+<!-- GWH same section in integration-prebid.md, integration-prebid-client-side.md, and integration-prebid-client-side.md. Ensure consistency -->
+By default, the UID2 module stores data using local storage. To use a cookie instead, set `params.storage` to `cookie`, as shown in the following example.
 
-#### Configuration
+For details, see [Unified ID 2.0 Configuration](https://docs.prebid.org/dev-docs/modules/userid-submodules/unified2.html#unified-id-20-configuration) in the Prebid documentation.
 
-```javascript
-pbjs.setConfig({
-  userSync: {
-    userIds: [{
-      name: 'uid2',
-      params: {
-        uid2Cookie: 'uid2_pub_cookie'
-      }
-    }]
-  }
-});
-```
+```js
+pbjs.setConfig({ 
+  userSync: { 
+    userIds: [{ 
+      name: 'uid2', 
+      params: { 
 
-### Client Refresh uid2Token Example
-
-The following example shows a sample configuration. For the contents of the token, see [Sample Token](#sample-token).
-
-```javascript
-pbjs.setConfig({
-  userSync: {
-    userIds: [{
-      name: 'uid2',
-      params: {
-        uid2Token: {
-          'advertising_token': '...advertising token...',
-          'refresh_token': '...refresh token...',
-          // etc. - see the sample token for contents of this object
-        }
-      }
-    }]
-  }
-});
+                 //default value is ‘localStorage’ 
+        storage: ‘cookie’  
+      } 
+    }] 
+  } 
+}); 
 ```
 
-## Storage of Internal Values
+The cookie size can be significant, which could be a problem. However, if local storage is not an option, this is one possible approach.
 
-The UID2 Prebid module stores some internal values. By default, all values are stored in HTML5 local storage. If needed, you can switch to cookie storage by setting `params.storage` to `cookie`. The cookie size can be significant, so we don't recommend this solution, but it is a possible solution if local storage is not an option.
+## Passing the UID2 Token to the Bid Stream
 
-## Sample Token
+To configure the UID2 module, call `pbjs.setConfig`. For details on supported parameters, refer to the guide that applies to your implementation:
 
-The following sample is fictitious, but shows what the token response object looks like:
+- [UID2 Client-Side Integration Guide for Prebid.js](integration-prebid-client-side.md)
+- [UID2 Server-Side Integration Guide for Prebid.js](integration-prebid-server-side.md)
 
-```javascript
-{
-  "advertising_token": "...",
-  "refresh_token": "...",
-  "identity_expires": 1633643601000,
-  "refresh_from": 1633643001000,
-  "refresh_expires": 1636322000000,
-  "refresh_response_key": "wR5t6HKMfJ2r4J7fEGX9Gw=="
-}
-```
+When the UID2 module is configured, it manages a UID2 token for the user and stores it in the user's browser. 
 
-## Prebid Implementation Notes and Tips
+When generating tokens with Client Refresh mode on the client side or on the server side, the module automatically takes care of refreshing the token as long as your site is open in the user's browser. However, you also have the option to manage the token refresh on the server side. For details, see [Refreshing a UID2 Token](integration-prebid-server-side.md#refreshing-a-uid2-token) in the Server-Side Integration Guide. The client-side integration solution includes automated token refresh.
 
-In planning your Prebid implementation, consider the following:
+## Integration Overview: High-Level Steps
 
-- If you're trying to limit the size of cookies, provide the token in configuration and use the default option of local storage.
+At a high level, to integrate your site with UID2 using Prebid.js, you'll need to complete the following steps:
 
-- If you provide an expired identity, and the module has a valid identity which was refreshed from the identity you provide, the module uses the refreshed identity. The module stores the original token that it used for refreshing the token, and uses the refreshed tokens as long as the original token matches the token that you provided.
+1. Complete UID2 account setup.
+1. Add Prebid.js to your site.
+1. Configure the UID2 module.
 
-- If you provide a new token that does not match the original token used to generate any refreshed tokens, all stored tokens are discarded and the new token used instead (refreshed if necessary).
+For detailed instructions, refer to one of the following integration guides:
 
-- During integration testing, you can set `params.uid2ApiBase` to `"https://operator-integ.uidapi.com"`. Be aware that you must use the same environment (production or integration) that you use for generating tokens.
-
-## Configuration Parameters for `usersync`
-
-The following parameters apply only to the UID2 Prebid User ID Module integration.
-
-| Param under userSync.userIds[] | Scope | Type | Description | Example |
-| --- | --- | --- | --- | --- |
-| name | Required | String | ID value for the UID2 module - `"uid2"` | `"uid2"` |
-| value | Optional, server only | Object | An object containing the value for the advertising token. | See [Sample Token](#sample-token). |
-| params.uid2Token | Optional, client refresh | Object | The initial UID2 token. This should be the `body` element of the decrypted response from a call to the `/token/generate` or `/token/refresh` endpoint. | See [Sample Token](#sample-token). |
-| params.uid2Cookie | Optional, client refresh | String | The name of a cookie that holds the initial UID2 token, set by the server. The cookie should contain JSON in the same format as the uid2Token param. **If uid2Token is supplied, this param is ignored.** | See [Sample Token](#sample-token). |
-| params.uid2ApiBase | Optional, client refresh | String | Overrides the default UID2 API endpoint. | `"https://prod.uidapi.com"` (the default)|
-| params.storage | Optional, client refresh | String | Specify the module internal storage method: `cookie` or `localStorage`. We recommend that you do not provide this parameter. Instead, allow the module to use the default. | `localStorage` (the default) |
+- [UID2 Client-Side Integration Guide for Prebid.js](integration-prebid-client-side.md)
+- [UID2 Server-Side Integration Guide for Prebid.js](integration-prebid-server-side.md)

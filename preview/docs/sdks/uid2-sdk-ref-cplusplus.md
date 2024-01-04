@@ -13,6 +13,8 @@ You can use UID2 server-side SDKs to facilitate decrypting of UID2 tokens to acc
 
 - [Overview](#overview)
 - [Functionality](#functionality)
+- [Version](#version)
+- [GitHub Repository/Binary](#github-repositorybinary)
 - [Initialization](#initialization)
 - [Interface](#interface)
   - [Response Content](#response-content)
@@ -30,15 +32,21 @@ This SDK simplifies integration with UID2 for any DSPs or UID2 sharers who are u
 
 | Encrypt Raw UID2 to UID2 Token | Decrypt UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token |
 | :--- | :--- | :--- | :--- |
-| Yes | Yes | No | No |
+| Supported | Supported | Not supported | Not supported |
 
 ## Version
 
 The SDK requires C++ version 11.
 
-## SDK Repository
+## GitHub Repository/Binary
 
-This SDK is available in GitHub: [UID2 SDK for C++](https://github.com/IABTechLab/uid2-client-cpp11/blob/master/README.md).
+This SDK is in the following open-source GitHub repository:
+
+- [UID2 SDK for C++](https://github.com/IABTechLab/uid2-client-cpp11/blob/master/README.md).
+
+Release tags are available in the following GitHub location, but you must build your own binaries:
+
+- https://github.com/IABTechLab/uid2-client-cpp11/tags
 
 ## Initialization
 
@@ -57,22 +65,26 @@ The interface allows you to decrypt UID2 advertising tokens and return the corre
 
 If you're a DSP, for bidding, call the interface to decrypt a UID2 advertising token and return the UID2. For details on the bidding logic for handling user opt-outs, see [DSP Integration Guide](../guides/dsp-guide.md).
 
-The following example calls the decrypt method in C++:
+The following is the decrypt method in C++:
 
 ```cpp
 #include <uid2/uid2client.h>
-public Response Decrypt(String encryptedToken)
+using namespace uid2;
+ 
+const auto client = UID2ClientFactory::Create(baseUrl, apiKey, secretKey);
+client->Refresh(); //Note that Refresh() should be called once after create(), and then once per hour
+const auto result = client->Decrypt(adToken);
 ```
 
 ### Response Content
 
 Available information returned through the SDK is outlined in the following table.
 
-| Property | Description |
+| Function | Description |
 | :--- | :--- |
-| `Status` | The decryption result status. For a list of possible values and definitions, see [Response Statuses](#response-statuses). |
-| `UID2` | The raw UID2 for the corresponding UID2 advertising token. |
-| `Established` | The timestamp indicating when a user first established the UID2 with the publisher. |
+| `GetStatus()` | The decryption result status. For a list of possible values and definitions, see [Response Statuses](#response-statuses). |
+| `GetUid()` | The raw UID2 for the corresponding UID2 advertising token. |
+| `GetEstablished()` | The timestamp indicating when a user first established the UID2 with the publisher. |
 
 ### Response Statuses
 
@@ -86,10 +98,11 @@ Available information returned through the SDK is outlined in the following tabl
 | `KeysNotSynced` | The client has failed to synchronize keys from the UID2 service. |
 | `VersionNotSupported` |  The client library does not support the version of the encrypted token. |
 
-
 ## Usage for UID2 Sharers
 
 A UID2 sharer is any participant that wants to share UID2s with another participant. Raw UID2s must be encrypted into UID2 tokens before sending them to another participant. For an example of usage, see [com.uid2.client.test.IntegrationExamples](https://github.com/IABTechLab/uid2-client-java/blob/master/src/test/java/com/uid2/client/test/IntegrationExamples.java) (`runSharingExample` method).
+
+>IMPORTANT: The UID2 token generated during this process is for sharing only&#8212;you cannot use it in the bid stream. There is a different workflow for generating tokens for the bid stream: see [Sharing in the Bid Stream](../sharing/sharing-bid-stream.md).
 
 The following instructions provide an example of how you can implement sharing using the UID2 SDK for C++, either as a sender or a receiver.
 
@@ -143,6 +156,4 @@ The following instructions provide an example of how you can implement sharing u
 
 ## FAQs
 
-For a list of frequently asked questions for DSPs, see [FAQs for Demand-Side Platforms (DSPs)](../getting-started/gs-faqs.md#faqs-for-demand-side-platforms-dsps).
-
-For a full list, see [Frequently Asked Questions](../getting-started/gs-faqs.md).
+For a list of frequently asked questions for DSPs, see [FAQs for DSPs](../getting-started/gs-faqs.md#faqs-for-dsps).

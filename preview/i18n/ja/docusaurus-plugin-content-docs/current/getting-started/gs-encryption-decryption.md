@@ -5,6 +5,9 @@ hide_table_of_contents: false
 sidebar_position: 11
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Encrypting Requests and Decrypting Responses
 
 すべての UID2 [エンドポイント](../endpoints/summary-endpoints.md) は、リクエストの [暗号化](#encrypting-requests) とそれぞれのレスポンスの [復号化](#decrypting-responses) を必要とします。
@@ -13,15 +16,15 @@ sidebar_position: 11
 
 UID2 API リクエストの暗号化と各レスポンスの復号化について知っておく必要があるのは、以下のとおりです:
 
-- API を使用するには、クライアントの API キーに加えて、クライアントシークレットが必要です。
-- 独自のカスタムスクリプトを作成するか、以下のセクションで提供される Python スクリプトを使用できます。
+- API を使用するには、クライアントの API Key に加えて、クライアントシークレットが必要です。
+- 独自のコードを書くことも、提供されているコード例の一つを使うこともできます: [Encryption and Decryption Code Examples](#encryption-and-decryption-code-examples) を参照してください。
 - リクエストとレスポンスには、96 ビットの初期化ベクトルと 128 ビットの認証タグを持つ AES/GCM/NoPadding 暗号化アルゴリズムが使用されます。
-- リクエストの生の暗号化されていない JSON ボディは、バイナリの　[暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) にラップされ、その後 [暗号化リクエストエンベローブ](#encrypted-request-envelope) にしたがって暗号化とフォーマットが行われます。
-- レスポンス JSON ボディはバイナリの　[復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope) にラップされ、[暗号化レスポンスエンベローブ](#encrypted-response-envelope) にしたがって暗号化・整形されます。
+- リクエストの暗号化されていない JSON ボディは、バイナリの [暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) にラップされ、その後 [暗号化リクエストエンベローブ](#encrypted-request-envelope) にしたがって暗号化とフォーマットが行われます。
+- レスポンス JSON ボディはバイナリの [復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope) にラップされ、[暗号化レスポンスエンベローブ](#encrypted-response-envelope) にしたがって暗号化・整形されます。
 
 ## Workflow
 
-UID2 API のハイレベルなリクエスト・レスポンスワークフローは、以下のステップです:
+UID2 API のリクエスト・レスポンスワークフローは、以下のステップです:
 
 1. 入力パラメータを含むリクエストボディを JSON 形式で用意します。
 2. リクエスト JSON を[暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) でラップします。
@@ -31,67 +34,69 @@ UID2 API のハイレベルなリクエスト・レスポンスワークフロ�
 6. [暗号化レスポンスエンベローブ](#encrypted-response-envelope) を解析します。
 7. レスポンスエンベローブのデータを復号化します。
 8. 得られた [復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope) を解析します。
-9. （オプション、推奨）レスポンスエンベローブの nonce がリクエストエンベローブの nonce と一致することを確認します。
+9.  (オプション、推奨)レスポンスエンベローブの nonce がリクエストエンベローブの nonce と一致することを確認します。
 10. 暗号化されていないエンベローブからレスポンス JSON オブジェクトを抽出します。
 
-[リクエストの暗号化とレスポンスの復号化](#example-encryption-and-decryption-script)の Python サンプルスクリプトは、ステップ2〜10の自動化に役立ち、アプリケーションにこれらのステップを実装する方法の参考となります。
+[encrypting requests and decrypting responses](#encryption-and-decryption-code-examples) のコード例は、Step 2-10 を自動化するのに役立ち、アプリケーションでこれらのステップを実装する方法のリファレンスとなります。
 
-それぞれの UID2 [エンドポイント](../endpoints/summary-endpoints.md) では、それぞれの JSON ボディフォーマットの要件とパラメータを説明し、呼び出し例を含み、復号した応答を示しています。以下のセクションでは、Python による暗号化および記述スクリプトの例、フィールドレイアウトの要件、リクエストとレスポンスの例を示します。
+各 UID2 [endpoints](../endpoints/summary-endpoints.md) では、JSONボディフォーマットの要件とパラメータを説明し、呼び出し例を含め、復号化されたレスポンスを示しています。以下のセクションでは、暗号化と復号のコード例、フィールドレイアウトの要件、リクエストとレスポンスの例を示します。
 
 ## Encrypting Requests
 
-リクエストを暗号化するための独自のスクリプトを作成するか、UID2 SDK を使用するか、提供されている[Pythonサンプルスクリプト](#example-encryption-and-decryption-script)を使用するかを選択できます。独自のスクリプトを作成する場合は、[暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope)および[暗号化リクエストエンベローブ](#encrypted-request-envelope)に記載のフィールドレイアウト要件に必ずしたがってください。
+リクエストを暗号化するコードを自分で書くか、UID2 SDK を使うか、提供されているコード例のいずれかを使うかの選択肢があります([Encryption and Decryption Code Examples](#encryption-and-decryption-code-examples) を参照してください)。自分でコードを書く場合は、[Unencrypted Request Data Envelope](#unencrypted-request-data-envelope) と [Encrypted Request Envelope](#encrypted-request-envelope) に記載されているフィールドレイアウトの要件に従うようにしてください。
 
 ### Unencrypted Request Data Envelope
 
-次の表は、リクエスト暗号化スクリプトのフィールドレイアウトを説明するものです。
+以下の表に、リクエスト暗号化コードのフィールドレイアウトを示します。
 
 | Offset (Bytes) | Size (Bytes) | Description                                                                                                                                                                                                                                                   |
 | :------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 0              | 8            | UNIX タイムスタンプ（ミリ秒単位）です。int64 のビッグエンディアンでなければなりません。                                                                                                                                                                       |
+| 0              | 8            | UNIX タイムスタンプ (ミリ秒単位)です。int64 のビッグエンディアンでなければなりません。                                                                                                                                                                       |
 | 8              | 8            | Nonce: リプレイ攻撃から保護するために使用されるランダムな 64 ビットのデータです。対応する [復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope) には、レスポンスが有効とみなされるために同じ nonce 値が含まれていなければなりません。 |
 | 16             | N            | UTF-8 エンコーディングでシリアライズされたリクエスト JSON ドキュメントをペイロードとします。                                                                                                                                                                  |
 
 ### Encrypted Request Envelope
 
-次の表は、リクエスト暗号化スクリプトのフィールドレイアウトを説明するものです。
+次の表は、リクエスト暗号化コードのフィールドレイアウトを説明するものです。
 
 | Offset (Bytes) | Size (Bytes) | Description                                                                                                                                 |
 | :------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
-| 0              | 1            | エンベローブフォーマットのバージョン。常に `1` でなければなりません。                                                                       |
-| 1              | 12           | 96 ビットの初期化ベクトル（IV）、データ暗号化のランダム化に使用されます。                                                                   |
+| 0              | 1            | エンベローブフォーマットのバージョン。`1` でなければなりません。                                                                       |
+| 1              | 12           | 96 ビットの初期化ベクトル (IV)、データ暗号化のランダム化に使用されます。                                                                   |
 | 13             | N            | ペイロード([暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope)) は AES/GCM/NoPadding アルゴリズムで暗号化されます。 |
 | 13 + N         | 16           | データの整合性を確認するために使用される 128 ビット GCM 認証タグです。                                                                      |
 
 ## Decrypting Responses
 
-レスポンスを復号化するスクリプトを独自に作成するか、UID2 SDK を使用するか、提供されている [Python サンプルスクリプト](#example-encryption-and-decryption-script) を使用するかを選択できます。独自のスクリプトを作成する場合は、[暗号化前リクエストデータエンベローブ](#encrypted-response-envelope)および[復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope)に記載のフィールドレイアウト要件に必ずしたがってください。
+レスポンスを復号化するコードを自分で書くか、UID2 SDKを使うか、提供されているコード例のいずれかを使うかの選択肢があります([Encryption and Decryption Code Examples](#encryption-and-decryption-code-examples) を参照してください)。独自のコードを書く場合は、[Encrypted Response Envelope](#encrypted-response-envelope) および [Encrypted Response Envelope](#unencrypted-response-data-envelope) に記載されているフィールドレイアウトの要件に従うようにしてください。
 
-> NOTE: レスポンスは、サービスが HTTP ステータスコード 200 を返す場合のみ、暗号化されます。
+:::note
+レスポンスは、サービスが HTTP ステータスコード 200 を返す場合のみ、暗号化されます。
+:::
 
 ### Encrypted Response Envelope
 
-次の表は、応答復号化スクリプトのフィールドレイアウトを説明するものです。
+次の表は、レスポンス復号化コードのフィールドレイアウトを説明するものです。
 
 | Offset (Bytes) | Size (Bytes) | Description                                                                                                                                        |
 | :------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0              | 12           | 96 ビットの初期化ベクトル（IV）、データ暗号化のランダム化に使用されます。                                                                          |
+| 0              | 12           | 96 ビットの初期化ベクトル (IV)、データ暗号化のランダム化に使用されます。                                                                          |
 | 12             | N            | ペイロード([復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope)) は、AES/GCM/NoPadding アルゴリズムで暗号化されています。 |
 | 12 + N         | 16           | データの整合性を確認するために使用される 128 ビット GCM 認証タグ。                                                                                 |
 
 ### Unencrypted Response Data Envelope
 
-次の表は、応答復号化スクリプトのフィールドレイアウトを説明するものです。
+次の表は、レスポンス復号化コードのフィールドレイアウトを説明するものです。
 
 | Offset (Bytes) | Size (Bytes) | Description                                                                                                                                                                |
 | :------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0              | 8            | UNIX タイムスタンプ（ミリ秒単位）です。int64 のビッグエンディアンでなければなりません。                                                                                    |
-| 8              | 8            | Nonce: レスポンスが有効であるとみなされるためには、これは [暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) の nonce と一致する必要があります。　 |
+| 0              | 8            | UNIX タイムスタンプ (ミリ秒単位)です。int64 のビッグエンディアンでなければなりません。                                                                                    |
+| 8              | 8            | Nonce: レスポンスが有効であるとみなされるためには、これは [暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) の nonce と一致する必要があります。 |
 | 16             | N            | UTF-8 エンコーディングでシリアライズされたレスポンス JSON ドキュメントをペイロードとします。                                                                               |
 
 ### Response Example
 
-たとえば、[先行例](#request-example) のメールアドレスに対する [POST /token/generate](../endpoints/post-token-generate.md) リクエストに対する復号されたレスポンスは、次のようになることが考えられます:
+例えば、[先行例](#request-example) のメールアドレスに対する [POST /token/generate](../endpoints/post-token-generate.md) リクエストに対する復号されたレスポンスは、次のようになることが考えられます:
 
 ```json
 {
@@ -108,22 +113,114 @@ UID2 API のハイレベルなリクエスト・レスポンスワークフロ�
 }
 ```
 
-## Example Encryption and Decryption Script
+## Encryption and Decryption Code Examples
 
-リクエストを暗号化し、レスポンスを復号化するための Python スクリプト (`uid2_request.py`) の例を以下に示します。必要なパラメータはスクリプトの先頭に記載されています。また、`python3 uid2_request.py` を実行することでも確認できます。
->Windowsの場合は、`python3`を`python`に置き換えてください。PowerShellの代わりにWindowsコマンドプロンプトを使用する場合は、JSONを囲むシングルクォートも削除する必要があります（たとえば、`echo {"email": "test@example.com"}` を使用します）。
+このセクションには、さまざまなプログラミング言語による暗号化と復号化のコード例が示されています。
 
-[POST /token/refresh](../endpoints/post-token-refresh.md) エンドポイントでは、スクリプトは `refresh_token` と `refresh_response_key` に、事前に [POST /token/generate](../endpoints/post-token-generate.md) または [POST /token/refresh](../endpoints/post-token-refresh.md) で取得した値を使用します。
+[POST /token/refresh](../endpoints/post-token-refresh.md) エンドポイントでは、[POST /token/generate](../endpoints/post-token-generate.md) または [POST /token/refresh](../endpoints/post-token-refresh.md) へのコールで事前に取得した `refresh_token` と `refresh_response_key` の値を使用します。
 
-### Prerequisites
-このスクリプトは `pycryptodomex` と `requests` パッケージを必要とします。これらは以下の手順でインストールできます：
+:::note
+Windows の場合、PowerShell の代わりに Windows コマンドプロンプトを使用している場合は、JSON を囲むシングルクォートも削除する必要があります。例えば、`echo {"email": "test@example.com"}` とします。
+:::
+
+### Prerequisites and Notes
+
+コードサンプルを使用する前に、使用している言語の前提条件と注意事項を確認してください。
+
+<Tabs groupId="language-selection">
+<TabItem value='py' label='Python'>
+
+以下のコードサンプルは Python を使ってリクエストを暗号化し、レスポンスを復号化します。必要なパラメータはコード例の一番上に示されており、 `python3 uid2_request.py` を実行することで得ることができます。
+
+Python のコードには `pycryptodomex` と `requests` パッケージが必要です。これらは以下のようにしてインストールできます:
+
 ```console
 pip install pycryptodomex
 pip install requests
 ```
 
-#### uid2_request.py
-```py
+</TabItem>
+<TabItem value='java' label='Java'>
+
+--------------------------------------------------------
+以下のコードサンプルは、Java を使用してリクエストを暗号化し、レスポンスを復号化します。必要なパラメータは main 関数の先頭に示されています:
+
+```
+java -jar Uid2Request-1.0-jar-with-dependencies.jar
+```
+
+Java のサンプルは JDK version 11 以降用に書かれており、クラスパスに com.google.code.gson ライブラリーが必要です。
+
+Maven を使用している場合は、以下の最小限の `pom.xml` を使用し、`mvn package` を実行してプロジェクトをビルドすることができます:
+
+```xml
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.example</groupId>
+  <artifactId>Uid2Request</artifactId>
+  <version>1.0</version>
+
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.4.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+              <manifest>
+                <mainClass>org.example.Uid2Request</mainClass>
+              </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+```
+
+</TabItem>
+<TabItem value='cs' label='C#'>
+
+以下のコードサンプルは、C# を使用してリクエストを暗号化し、レスポンスを復号化します。必要なパラメータはファイルの先頭に記載されています。また、`.\uid2_request` をビルドして実行することでも確認できます。
+
+このファイルには.NET 7.0が必要です。必要であれば、それ以前のバージョンを使用することもできますが、.NET Core 3.0以降でなければなりません。
+
+ バージョンを変更するには、[top-level statements](https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/program-structure/top-level-statements) を Main メソッドに、[using 宣言](https://learn.microsoft.com/ja-jp/cpp/cpp/using-declaration?view=msvc-170) を [using ステートメント](https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/proposals/csharp-8.0/using) に置き換えてください。
+</TabItem>
+</Tabs>
+
+### Code Example
+
+使いたいコードサンプルを選んでください。[Prerequisites and Notes](#prerequisites-and-notes) を忘れずに確認してください。
+
+<Tabs groupId="language-selection">
+<TabItem value='py' label='Python'>
+
+```py title="uid2_request.py"
 """
 Usage:
    echo '<json>' | python3 uid2_request.py <url> <api_key> <client_secret>
@@ -199,3 +296,254 @@ else:
    print("Response JSON:")
    print(json.dumps(json_resp, indent=4))
 ```
+</TabItem>
+<TabItem value='java' label='Java'>
+
+```java title="Uid2Request.java"
+package org.example;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.Base64;
+import javax.crypto.Cipher;
+import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+public class Uid2Request {
+  public static final int NONCE_LENGTH_BYTES = 8;
+  private static final int GCM_TAG_LENGTH_BYTES = 16;
+  private static final int GCM_IV_LENGTH_BYTES = 12;
+
+  public static void main(String[] args) throws Exception {
+    if (args.length != 3 && args.length != 4) {
+      System.out.println("Usage: java -jar Uid2Request-jar-with-dependencies.jar <url> <api_key> <client_secret>" + "\n");
+      System.out.println("Example: echo '{\"email\": \"test@example.com\"}' |  java -jar Uid2Request-jar-with-dependencies.jar https://prod.uidapi.com/v2/token/generate PRODGwJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=" + "\n");
+      System.out.println("Refresh Token Usage: java -jar Uid2Request-jar-with-dependencies.jar <url> --refresh-token <refresh_token> <refresh_response_key>"  + "\n");
+      System.out.println("Refresh Token Example: java -jar Uid2Request-jar-with-dependencies.jar https://prod.uidapi.com/v2/token/refresh --refresh-token AAAAAxxJ...(truncated, total 388 chars) v2ixfQv8eaYNBpDsk5ktJ1yT4445eT47iKC66YJfb1s="  + "\n");
+      System.out.println("Refresh Token Example: java -jar Uid2Request-jar-with-dependencies.jar https://prod.uidapi.com/v2/token/refresh --refresh-token AAAAAxxJ...(truncated, total 388 chars) v2ixfQv8eaYNBpDsk5ktJ1yT4445eT47iKC66YJfb1s="  + "\n");
+      System.exit(1);
+    }
+
+    String url = args[0];
+    boolean isRefresh = "--refresh-token".equals(args[1]);
+    byte[] secret = Base64.getDecoder().decode(args[isRefresh ? 3 : 2]);
+
+    String payload = isRefresh ? args[2] : new BufferedReader(new InputStreamReader(System.in)).readLine();
+
+    HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+    connection.setRequestMethod("POST");
+
+    if (!isRefresh) {
+      String apiKey = args[1];
+
+      byte[] iv = new byte[GCM_IV_LENGTH_BYTES];
+      long timestamp = Instant.now().toEpochMilli();
+      byte[] requestNonce = new byte[NONCE_LENGTH_BYTES];
+      byte[] plaintext = payload.getBytes(StandardCharsets.UTF_8);
+
+      SecureRandom secureRandom = new SecureRandom();
+      secureRandom.nextBytes(iv);
+      secureRandom.nextBytes(requestNonce);
+
+      ByteBuffer body = ByteBuffer.allocate(8 + requestNonce.length + plaintext.length);
+      body.putLong(timestamp);
+      body.put(requestNonce);
+      body.put(plaintext);
+
+      Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+      GCMParameterSpec parameterSpec = new GCMParameterSpec(GCM_TAG_LENGTH_BYTES * 8, iv);
+      cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(secret, "AES"), parameterSpec);
+
+      ByteBuffer envelope = ByteBuffer.allocate(1 + body.array().length + GCM_IV_LENGTH_BYTES + GCM_TAG_LENGTH_BYTES);
+      envelope.put((byte) 1);
+      envelope.put(iv);
+      envelope.put(cipher.doFinal(body.array()));
+
+      payload = Base64.getEncoder().encodeToString(envelope.array());
+      connection.setRequestProperty("Authorization", "Bearer " + apiKey);
+    }
+
+    connection.setDoOutput(true);
+    try (OutputStream os = connection.getOutputStream()) {
+      os.write(payload.getBytes(StandardCharsets.UTF_8));
+    }
+
+    // Handle response
+    int status = connection.getResponseCode();
+    BufferedReader reader = status == 200 ?
+        new BufferedReader(new InputStreamReader(connection.getInputStream())) :
+        new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+    StringBuilder response = new StringBuilder();
+    String line;
+    while ((line = reader.readLine()) != null) {
+      response.append(line);
+    }
+    reader.close();
+
+    if (status != HttpURLConnection.HTTP_OK) {
+      System.out.println("Error: HTTP status code " + status);
+      System.out.println(response);
+      return;
+    }
+
+    byte[] respBytes = Base64.getDecoder().decode(response.toString());
+
+    Cipher respCipher = Cipher.getInstance("AES/GCM/NoPadding");
+    respCipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(secret, "AES"), new GCMParameterSpec(GCM_TAG_LENGTH_BYTES * 8, respBytes, 0, GCM_IV_LENGTH_BYTES));
+    byte[] decrypted = respCipher.doFinal(respBytes, GCM_IV_LENGTH_BYTES, respBytes.length - GCM_IV_LENGTH_BYTES);
+
+    JsonObject jsonResponse;
+    if (!isRefresh) {
+      jsonResponse = JsonParser.parseString(new String(Arrays.copyOfRange(decrypted, 8 + NONCE_LENGTH_BYTES, decrypted.length), StandardCharsets.UTF_8)).getAsJsonObject();
+    } else {
+      jsonResponse = JsonParser.parseString(new String(decrypted, StandardCharsets.UTF_8)).getAsJsonObject();
+    }
+    String prettyJsonResponse = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(jsonResponse);
+    System.out.println("Response JSON:");
+    System.out.println(prettyJsonResponse);
+  }
+}```
+
+</TabItem>
+<TabItem value='cs' label='C#'>
+
+```cs title="uid2_request.cs"
+using System.Buffers.Binary;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
+
+
+if (args.Length != 3 && args.Length != 4)
+{
+    Console.WriteLine("""
+Usage:
+   echo '<json>' | .\uid2_request <url> <api_key> <client_secret>
+Example:
+   echo '{"email": "test@example.com"}' | .\uid2_request https://prod.uidapi.com/v2/token/generate UID2-C-L-999-fCXrMM.fsR3mDqAXELtWWMS+xG1s7RdgRTMqdOH2qaAo= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=
+   
+Refresh Token Usage:
+   .\uid2_request <url> --refresh-token <refresh_token> <refresh_response_key>
+Refresh Token Usage example:
+   .\uid2_request https://prod.uidapi.com/v2/token/refresh --refresh-token AAAAAxxJ...(truncated, total 388 chars) v2ixfQv8eaYNBpDsk5ktJ1yT4445eT47iKC66YJfb1s=
+""");
+
+    Environment.Exit(1);
+}
+
+const int GCM_IV_LENGTH = 12;
+
+string url = args[0];
+byte[] secret;
+
+HttpResponseMessage? response;
+bool isRefresh = args[1] == "--refresh-token";
+
+if (isRefresh)
+{
+    string refreshToken = args[2];
+    secret = Convert.FromBase64String(args[3]);
+
+    Console.WriteLine($"\nRequest: Sending refresh_token to {url}\n");
+    using HttpClient httpClient = new HttpClient();
+    var content = new StringContent(refreshToken, Encoding.UTF8);
+    response = await httpClient.PostAsync(url, content);
+}
+else
+{
+    string apiKey = args[1];
+    secret = Convert.FromBase64String(args[2]);
+
+    string payload = Console.In.ReadToEnd();
+
+    var request = new HttpRequestMessage(HttpMethod.Post, url);
+    request.Headers.Add("Authorization", $"Bearer {apiKey}");
+
+    var unixTimestamp = new byte[8];
+    BinaryPrimitives.WriteInt64BigEndian(unixTimestamp, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+
+    var nonce = new byte[8];
+    var rnd = new Random();
+    rnd.NextBytes(nonce);
+
+    var payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+    var unencryptedRequestDataEnvelope = new byte[unixTimestamp.Length + nonce.Length + payloadBytes.Length];
+    unixTimestamp.CopyTo(unencryptedRequestDataEnvelope, 0);
+    nonce.CopyTo(unencryptedRequestDataEnvelope, unixTimestamp.Length);
+    payloadBytes.CopyTo(unencryptedRequestDataEnvelope, unixTimestamp.Length + nonce.Length);
+
+    var iv = new byte[GCM_IV_LENGTH];
+    rnd.NextBytes(iv);
+
+    var encryptedPayload = new byte[unencryptedRequestDataEnvelope.Length];
+    var tag = new byte[AesGcm.TagByteSizes.MaxSize];
+    using AesGcm aesGcm = new AesGcm(secret);
+    aesGcm.Encrypt(iv, unencryptedRequestDataEnvelope, encryptedPayload, tag);
+
+    var envelopeMemoryStream = new MemoryStream(1 + iv.Length + encryptedPayload.Length + AesGcm.TagByteSizes.MaxSize);
+    envelopeMemoryStream.WriteByte(1); //version of the envelope format
+    envelopeMemoryStream.Write(iv);
+    envelopeMemoryStream.Write(encryptedPayload);
+    envelopeMemoryStream.Write(tag);
+    var envelope = Convert.ToBase64String(envelopeMemoryStream.ToArray());
+
+    request.Content = new StringContent(envelope, Encoding.UTF8);
+
+    var client = new HttpClient();
+    response = await client.SendAsync(request);
+}
+
+var responseStream = await response.Content.ReadAsStreamAsync();
+using var reader = new StreamReader(responseStream);
+
+var responseBody = await reader.ReadToEndAsync();
+
+if (response.StatusCode != HttpStatusCode.OK)
+{
+    Console.WriteLine($"Response: Error HTTP status code {(int)response.StatusCode}" + ((response.StatusCode == HttpStatusCode.Unauthorized) ? ", check api_key" : ""));
+    Console.WriteLine(responseBody);
+}
+else
+{
+    var encryptedResponseEnvelope = Convert.FromBase64String(responseBody);
+
+    var responseMemoryStream = new MemoryStream(encryptedResponseEnvelope);
+    byte[] iv = new byte[GCM_IV_LENGTH];
+    responseMemoryStream.Read(iv);
+
+    int encryptedPayloadLength = encryptedResponseEnvelope.Length - GCM_IV_LENGTH - AesGcm.TagByteSizes.MaxSize;
+    byte[] encryptedPayload = new byte[encryptedPayloadLength];
+    responseMemoryStream.Read(encryptedPayload);
+
+    byte[] tag = new byte[AesGcm.TagByteSizes.MaxSize];
+    responseMemoryStream.Read(tag);
+
+    using AesGcm aesGcm = new AesGcm(secret);
+    byte[] unencryptedResponseDataEnvelope = new byte[encryptedPayload.Length];
+    aesGcm.Decrypt(iv, encryptedPayload, tag, unencryptedResponseDataEnvelope);
+
+    int offset = isRefresh ? 0 : 16; //8 bytes for timestamp + 8 bytes for nonce
+    var json = Encoding.UTF8.GetString(unencryptedResponseDataEnvelope, offset, unencryptedResponseDataEnvelope.Length - offset);
+
+    Console.WriteLine("Response JSON:");
+
+    using var jDoc = JsonDocument.Parse(json);
+    Console.WriteLine(JsonSerializer.Serialize(jDoc, new JsonSerializerOptions { WriteIndented = true }));
+}
+```
+</TabItem>
+</Tabs>

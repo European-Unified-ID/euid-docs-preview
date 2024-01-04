@@ -7,18 +7,19 @@ sidebar_position: 04
 
 # UID2 SDK for Java (Server-Side) Reference Guide
 
-UID2 SDK for Java (Server-Side) を使用すると、以下のことが容易になります：
+UID2 SDK for Java (Server-Side) を使用すると、以下のことが容易になります:
 
 - UID2 Advertising Token の生成
 - UID2 Advertising Token の更新
 - raw UID2を暗号化して UID2 Token を作成する
 - UID2 Advertising Token を復号化して raw UID2 にアクセスする
 
-
 <!-- This guide includes the following information:
 
 - [Overview](#overview)
 - [Functionality](#functionality)
+- [Version](#version)
+- [GitHub Repository/Binary](#github-repositorybinary)
 - [Initialization](#initialization)
 - [Interface](#interface)
   - [Response Content](#response-content)
@@ -32,19 +33,25 @@ UID2 SDK for Java (Server-Side) を使用すると、以下のことが容易に
 
 ## Functionality
 
-この SDK は、Server-Side のコーディングに Java を使用している DSP または UID2 Sharer のために、UID2 とのインテグレーションを簡素化します。次の表に、このSDKがサポートする機能を示します。
+このSDKは、Server-Sideのコーディングに Java を使用しているパブリッシャー、DSP、UID2 Sharers のために、UID2 とのインテグレーションを簡素化します。次の表に、この SDK がサポートする機能を示します。
 
 | Encrypt Raw UID2 to UID2 Token | Decrypt UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token |
 | :--- | :--- | :--- | :--- |
-| Yes | Yes | Yes | Yes |
+| Supported | Supported | Supported | Supported |
 
 ## Version
 
 この SDK には Java version 1.8 以降が必要です。
 
-## SDK Repository
+## GitHub Repository/Binary
 
-この SDK は GitHub で公開されています: [UID2 SDK for Java](https://github.com/IABTechLab/uid2-client-java/blob/master/README.md)
+この SDK は以下のオープンソースの GitHub リポジトリにあります:
+
+- [UID2 SDK for Java](https://github.com/IABTechLab/uid2-client-java/blob/master/README.md)
+
+バイナリは Maven リポジトリで公開されています:
+
+- [https://central.sonatype.com/artifact/com.uid2/uid2-client](https://central.sonatype.com/artifact/com.uid2/uid2-client)
 
 ## Initialization
 
@@ -53,7 +60,7 @@ UID2 SDK for Java (Server-Side) を使用すると、以下のことが容易に
 
 | Parameter | Description | Recommended Value |
 | :--- | :--- | :--- |
-| `endpoint` | UID2 Service　のエンドポイント。 | N/A |
+| `endpoint` | UID2 Service のエンドポイント。 | N/A |
 | `authKey` | クライアントに付与された認証トークン。UID2 へのアクセスについては、 [Contact Info](../getting-started/gs-account-setup.md#contact-info) を参照してください。 | N/A |
 
 ## Interface 
@@ -64,22 +71,25 @@ UID2 SDK for Java (Server-Side) を使用すると、以下のことが容易に
 
 DSP の場合は、入札のために UID2 Advertising Token を復号化して UID2 を返すインターフェースを呼び出します。ユーザーのオプトアウトを処理する入札ロジックの詳細については、[DSPインテグレーションガイド](../guides/dsp-guide.md) を参照してください。
 
-以下の例では、Java で decrypt メソッドを呼び出しています:
+以下は、Java での decrypt メソッド呼び出しです:
 
 ```java
 import com.uid2.client.IUID2Client
-DecryptionResponse decrypt(String token)
+
+IUID2Client client = UID2ClientFactory.create(TEST_ENDPOINT, TEST_API_KEY, TEST_SECRET_KEY);
+client.refresh(); //Note that refresh() should be called once after create(), and then once per hour
+DecryptionResponse result = client.decrypt(TEST_TOKEN);
 ```
 
 ### Response Content
 
 SDK から返される利用可能な情報の概要を次の表に示します。
 
-| Property | Description |
+| Function | Description |
 | :--- | :--- |
-| `Status` | 復号結果のステータス。指定可能な値の一覧と定義については、[Response Statuses](#response-statuses) を参照してください。 |
-| `UID2` | UID2 Advertising Token に対応する raw UID2。|
-| `Established` | ユーザーがパブリッシャーと最初に UID2 を確立した時を示すタイムスタンプ。|
+| `GetStatus()` | 復号結果のステータス。指定可能な値の一覧と定義については、[Response Statuses](#response-statuses) を参照してください。 |
+| `GetUid()` | UID2 Advertising Token に対応する raw UID2。 |
+| `GetEstablished()` | ユーザーがパブリッシャーと最初に UID2 を確立した時を示すタイムスタンプ。 |
 
 ### Response Statuses
 
@@ -93,20 +103,20 @@ SDK から返される利用可能な情報の概要を次の表に示します�
 | `KeysNotSynced` | クライアントは UID2 Service からの鍵の同期に失敗しました。|
 | `VersionNotSupported` | クライアントライブラリが暗号化トークンのバージョンをサポートしていません。|
 
-
 ## Usage for UID2 Sharers
 
 UID2 Sharer とは、UID2 を他の参加者と共有したい参加者のことです。raw UID2を他の参加者に送信する前に、UID2 Token に暗号化する必要があります。使用例については、[com.uid2.client.test.IntegrationExamples](https://github.com/IABTechLab/uid2-client-java/blob/master/src/test/java/com/uid2/client/test/IntegrationExamples.java) (`runSharingExample` メソッド) を参照してください。
 
-次の手順では、UID2 SDK for Java を送信者または受信者として使用して共有を実装する方法の例を示します。
+>IMPORTANT: このプロセスで生成される UID2 Token は共有専用です&#8212;ビッドストリームでは使用できません。ビッドストリーム用のトークン生成には別のワークフローがあります: [Sharing in the Bid Stream](../sharing/sharing-bid-stream.md) を参照してください。
 
+次の手順では、UID2 SDK for Java を送信者または受信者として使用して共有を実装する方法の例を示します。
 
 1. ```IUID2Client``` のリファレンスを作成します:
 
    ```java
    IUID2Client client = UID2ClientFactory.create(UID2_BASE_URL, UID2_API_KEY, UID2_SECRET_KEY);
    ```
-2. 起動時に一度リフレッシュし、その後定期的にリフレッシュします（推奨リフレッシュ間隔は1時間毎）:
+2. 起動時に一度リフレッシュし、その後定期的にリフレッシュします (推奨リフレッシュ間隔は1時間毎):
 
    ```java
    client.refresh();
@@ -151,6 +161,4 @@ UID2 Sharer とは、UID2 を他の参加者と共有したい参加者のこと
 
 ## FAQs
 
-DSPに関するよくある質問については、[FAQs for Demand-Side Platforms (DSPs)](../getting-started/gs-faqs.md#faqs-for-demand-side-platforms-dsps)　を参照してください。
-
-すべてのリストは  [Frequently Asked Questions](../getting-started/gs-faqs.md) を参照してください。
+DSP に関するよくある質問については、 [FAQs for DSPs](../getting-started/gs-faqs.md#faqs-for-dsps) を参照してください。

@@ -96,10 +96,7 @@ function PartnerSection({ title, partners }: PartnerSection) {
           {partners.map((partner, idx) => (
             <li key={idx} className={styles.partnerItem}>
               <img
-                src={
-                  // eslint-disable-next-line @typescript-eslint/no-var-requires
-                  require(`@site/static/img/partners/${partner.logo}`).default
-                }
+                src={`/img/partners/${partner.logo}`}
                 alt={partner.name}
                 className={styles.partnerLogo}
               />

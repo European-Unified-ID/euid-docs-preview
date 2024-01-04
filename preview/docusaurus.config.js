@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const lightCodeTheme = require("prism-react-renderer").themes.github;
+const darkCodeTheme = require("prism-react-renderer").themes.dracula;
 
 function dropdownItemHtml(label, desc) {
   return `<div class="dropdown__heading">
@@ -20,15 +20,15 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: "https://unifiedid2.github.io",
+  url: "https://unifiedid.com",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/uid2-docs-preview/",
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "UnifiedID2", // Usually your GitHub org/user name.
-  projectName: "uid2-docs-preview", // Usually your repo name.
+  organizationName: "IABTechLab", // Usually your GitHub org/user name.
+  projectName: "uid2docs", // Usually your repo name.
   trailingSlash: false,
 
   onBrokenLinks: "warn",
@@ -56,7 +56,7 @@ const config = {
       ja: {
         label: "日本語",
         direction: "ltr",
-        htmlLang: "jp-JP",
+        htmlLang: "ja",
         calendar: "japanese",
       },
     },
@@ -102,7 +102,7 @@ const config = {
       // Replace with your project's social card
       image: "img/uid2-social-card.jpg",
       colorMode: {
-        disableSwitch: true,
+        defaultMode: "light"
       },
 
       navbar: {
@@ -273,7 +273,7 @@ const config = {
               },
               {
                 label: "Opt-out",
-                href: "https://transparentadvertising.org/",
+                href: "https://www.transparentadvertising.com/",
               },
               {
                 label: "Do not sell my data",
@@ -287,16 +287,13 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ["csharp", "java"],
       },
       algolia: {
         // N.b. per Algolia, these are public values - once we get them, we can commit them to the open source repo.
         appId: "GRNBXN1TTS", //prod
         apiKey: "97e7dc35be9559b65f0d03c0c9684272", //prod
         indexName: "unifiedid", //prod
-
-        // Setting this to false for now - it seems we don't have our docsearch meta tags
-        // set correctly. See https://discourse.algolia.com/t/algolia-searchbar-is-not-working-with-docusaurus-v2/14659/2
-        contextualSearch: false,
 
         // appId: "TESTINGXSOWQK10AP", //staging
         // apiKey: "58f35480017be37aca9f762323a0b4d1", //staging

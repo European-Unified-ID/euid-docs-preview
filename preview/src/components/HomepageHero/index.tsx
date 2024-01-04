@@ -4,15 +4,30 @@ import Translate from "@docusaurus/Translate";
 import HeroBg from "./HeroBgAnimation";
 import styles from "./styles.module.scss";
 import { useIsJapanese } from "@site/src/utils/isJapanese";
+import { useColorMode } from "@docusaurus/theme-common";
 export default function HomepageHero(): JSX.Element {
   const isJapanese = useIsJapanese();
+  const { setColorMode, colorMode } = useColorMode();
+
+  //quick fix for updating color mode on page load breaking after theme upgrade
+  React.useEffect(() => {
+    const originalTheme = colorMode;
+
+    // The second parameter exists, it's just not on the type :(
+    setColorMode("dark", { persist: false });
+
+    return () => {
+      setColorMode(originalTheme);
+    };
+  }, []);
+
   return (
     <header className={clsx("bg-11-o-clock text-white", styles.homepageHero)}>
       <div
         className={clsx(
           "container",
           styles.homepageHeroContent,
-          styles.textShadow
+          styles.textShadow,
         )}
       >
         <div className="row">

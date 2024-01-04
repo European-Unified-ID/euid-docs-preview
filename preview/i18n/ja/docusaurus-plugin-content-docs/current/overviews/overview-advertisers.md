@@ -8,40 +8,34 @@ banner_title: 広告主向け UID2 の概要
 banner_description: Unified ID 2.0 でキャンペーンのアクティベーションをアップグレードしましょう。
 ---
 
-広告主は、Unified ID 2.0によってファーストパーティデータ戦術をアップグレードし、1つの識別子でデバイスをまたいだオムニチャネルキャンペーンを実現できます。
+広告主として、Unified ID 2.0(UID2)でファーストパーティデータ戦術をアップグレードし、1 つの識別子でデバイスをまたいだオムニチャネルキャンペーンを提供することで、より耐久性のある ID 戦略とより優れたアドレサビリティを実現できます。
 
-以下のセクションでは、UID2 を採用する広告主のためのワークフロー、インテグレーションタイプ、ドキュメントを説明します。
-
-
-## Audience
-
-このページは、ファーストパーティデータを活用して、より耐久性のあるアイデンティティ戦略や、より優れたアドレサビリティを実現したい広告主向けのページです。
+UID2 を採用する広告主にとってのメリット、ワークフロー、ドキュメント、その他のリソース、および UID2 の導入手順について説明します。
 
 ## Benefits of UID2 for Advertisers
 
-広告戦略の一部として UID2 を使用することで得られるメリットの一部を次に示します:
+広告戦略の一部として UID2 を使用することで得られる利点の一部を次に示します:
 - メディア購入プラットフォームで、プライバシーに配慮した形の CRM データを使用することができます。
 - 世帯および個人レベルでの ID 解決を簡素化します。
 - チャンネルやデバイスを問わず、フリケンシーや抑制されたオーディエンスを管理します。
-- クッキーが存在しないコネクテッドTVやモバイルアプリでの ID ユースケースをサポートします。
-- キャンペーンをより総合的にターゲットし測定します。
+- クッキーが存在しないコネクテッド TV やモバイルアプリでの ID ユースケースをサポートします。
+- キャンペーンをより総合的にターゲティングし測定します。
 - 消費者のプライバシー管理を改善することを目的として、オプトアウトを提供します。
-
-
-## Resources
-
-広告主が UID2 を実装するために、以下のドキュメントリソースを用意しています。
-
-| Integration Type| Documentation | Content Description | Audience |
-| :--- | :--- | :--- | :--- |
-| ユーザーデータを収集し、それを他の UID2 参加者にプッシュする組織のためのインテグレーション手順 | [Advertiser/Data Provider Integration Guide](../guides/advertiser-dataprovider-guide.md) | 広告主とデータプロバイダーのためのインテグレーションガイドで、オーディエンスの構築とターゲティングのための ID マッピングのためのインテグレーションワークフローを網羅しています。 | Advertisers<br/>Data Providers |
-| Snowflake | [Snowflake Integration Guide](../guides/snowflake_integration.md) | Snowflakeでメールアドレスから UID を生成する手順です。 | Advertisers<br/>Data Providers |
 
 ## Workflow for Advertisers
 
-以下の図は、広告主が UID2 を実装するための UID2 ワークフローです。
+以下のステップは、ユーザーデータを収集し DSP にプッシュする組織 (広告主、ID グラフプロバイダー、サードパーティデータプロバイダーなど) を想定したワークフローのアウトラインを提供するものです。
 
-![Advertiser Workflow](../workflows/images/UID2AdvertiserAndThirdPartyDataProviderWorkflow.jpg)
+バックグラウンドで以下の処理が行われます:
+* データプロバイダーは、ローテーションされたソルトバケットの UID2 Operator を監視し、必要に応じて UID2 を更新します。
+
+以下のステップは、広告主やデータプロバイダーが UID2 とインテグレーションする方法の一例です:
+
+1. 広告主またはデータプロバイダーが、同意を得たユーザーの [directly identifying information (DII)](../ref-info/glossary-uid.md#gl-dii) を UID2 Operator に送信します。
+2. UID2 Operator は、raw UID2 とソルトバケット ID を生成して返します。
+3. 広告主またはデータプロバイダーは UID2 とソルトバケット ID を保存し、UID2 ベースのファーストパーティおよびサードパーティのオーディエンスセグメントをDSPに送信します。
+
+![Data Provider Workflow](images/UID2AdvertiserAndThirdPartyDataProviderWorkflow.jpg)
 
 ## Getting Started
 
@@ -52,15 +46,24 @@ banner_description: Unified ID 2.0 でキャンペーンのアクティベーシ
    担当者が連絡し、ニーズを伺い、適切なステップをアドバイスします。
 1. [参加者](../intro.md#participants)の役割を決めます。
 1. どの実装オプションを使用するかを決めます。
-1. 認証情報を受け取り（[API keys](../getting-started/gs-api-keys.md) を参照）、選択したオプションのインテグレーションガイドの指示に従います。
+1. 認証情報を受け取り ([UID2 Credentials](../getting-started/gs-credentials.md) を参照)、選択したオプションのインテグレーションガイドの指示に従います。
 
-     Note：リクエストメッセージは必ずUID2まで暗号化してください。詳細は、[リクエストの暗号化とレスポンスの復号化](../getting-started/gs-encryption-decryption.md)を参照してください。
+   :::note
+   UID2 へのリクエストメッセージは必ず暗号化してください。詳細は、[リクエストの暗号化とレスポンスの復号化](../getting-started/gs-encryption-decryption.md)を参照してください。
+   :::
 1. テストします。
 1. 本番稼働します。
 
+## Implementation Resources
 
-## Frequently Asked Questions for Advertisers
+広告主やデータプロバイダーが UID2 を実装するために、以下のドキュメントリソースを利用できます。
 
-UID2フレームワークを使用する広告主向けのFAQ一覧は、[広告主およびデータプロバイダー向けFAQ](../getting-started/gs-faqs.md#faqs-for-advertisers-and-data-providers) を参照してください。
+| Integration Type| Documentation | Content Description |
+| :--- | :--- | :--- |
+| ユーザーデータを収集し、他の UID2 参加者にプッシュする組織のためのインテグレーション手順 | [Advertiser/Data Provider Integration Guide](../guides/advertiser-dataprovider-guide.md) | このガイドでは、オーディエンスの構築とターゲティングのために ID をマッピングするインテグレーションワークフローについて説明します。 |
+| Snowflake | [Snowflake Integration Guide](../guides/snowflake_integration.md) | このガイドでは、Snowflake を使ってメールアドレスから UID2 を生成する手順を説明します。 |
+| AWS Entity Resolution | [AWS Entity Resolution Integration Guide](../guides/integration-aws-entity-resolution.md) | このガイドでは、AWS Entity Resolution を使用して UID2 とインテグレーションする手順を説明します。 |
 
-すべてのリストは、[よくある質問](../getting-started/gs-faqs.md)を参照してください。
+## FAQs for Advertisers
+
+UID2 フレームワークを使用する広告主向けのよくある質問については、[FAQs for Advertisers and Data Providers](../getting-started/gs-faqs.md#faqs-for-advertisers-and-data-providers) を参照してください。

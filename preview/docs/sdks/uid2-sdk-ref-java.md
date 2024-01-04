@@ -7,7 +7,7 @@ sidebar_position: 04
 
 # UID2 SDK for Java (Server-Side) Reference Guide
 
-You can use the UID2 SDK for Java (server-side) to facilitate:
+You can use the UID2 SDK for Java (server-side) to facilitate the following:
 
 - Generating UID2 advertising tokens
 - Refreshing UID2 advertising tokens
@@ -18,6 +18,8 @@ You can use the UID2 SDK for Java (server-side) to facilitate:
 
 - [Overview](#overview)
 - [Functionality](#functionality)
+- [Version](#version)
+- [GitHub Repository/Binary](#github-repositorybinary)
 - [Initialization](#initialization)
 - [Interface](#interface)
   - [Response Content](#response-content)
@@ -35,15 +37,21 @@ This SDK simplifies integration with UID2 for any publishers, DSPs, and UID2 sha
 
 | Encrypt Raw UID2 to UID2 Token | Decrypt UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token |
 | :--- | :--- | :--- | :--- |
-| Yes | Yes | Yes | Yes |
+| Supported | Supported | Supported | Supported |
 
 ## Version
 
 The SDK requires Java version 1.8 or later.
 
-## SDK Repository
+## GitHub Repository/Binary
 
-This SDK is available in GitHub: [UID2 SDK for Java](https://github.com/IABTechLab/uid2-client-java/blob/master/README.md).
+This SDK is in the following open-source GitHub repository:
+
+- [UID2 SDK for Java](https://github.com/IABTechLab/uid2-client-java/blob/master/README.md)
+
+The binary is published on the Maven repository:
+
+- [https://central.sonatype.com/artifact/com.uid2/uid2-client](https://central.sonatype.com/artifact/com.uid2/uid2-client)
 
 ## Initialization
 
@@ -62,22 +70,25 @@ The interface allows you to decrypt UID2 advertising tokens and return the corre
 
 If you're a DSP, for bidding, call the interface to decrypt a UID2 advertising token and return the UID2. For details on the bidding logic for handling user opt-outs, see [DSP Integration Guide](../guides/dsp-guide.md).
 
-The following example calls the decrypt method in Java:
+The following is the decrypt method in Java:
 
 ```java
 import com.uid2.client.IUID2Client
-DecryptionResponse decrypt(String token)
+ 
+IUID2Client client = UID2ClientFactory.create(TEST_ENDPOINT, TEST_API_KEY, TEST_SECRET_KEY);
+client.refresh(); //Note that refresh() should be called once after create(), and then once per hour
+DecryptionResponse result = client.decrypt(TEST_TOKEN);
 ```
 
 ### Response Content
 
 Available information returned through the SDK is outlined in the following table.
 
-| Property | Description |
+| Function | Description |
 | :--- | :--- |
-| `Status` | The decryption result status. For a list of possible values and definitions, see [Response Statuses](#response-statuses). |
-| `UID2` | The raw UID2 for the corresponding UID2 advertising token. |
-| `Established` | The timestamp indicating when a user first established the UID2 with the publisher. |
+| `GetStatus()` | The decryption result status. For a list of possible values and definitions, see [Response Statuses](#response-statuses). |
+| `GetUid()` | The raw UID2 for the corresponding UID2 advertising token. |
+| `GetEstablished()` | The timestamp indicating when a user first established the UID2 with the publisher. |
 
 ### Response Statuses
 
@@ -95,6 +106,8 @@ Available information returned through the SDK is outlined in the following tabl
 
 A UID2 sharer is any participant that wants to share UID2s with another participant. Raw UID2s must be encrypted into UID2 tokens before sending them to another participant. For an example of usage, see [com.uid2.client.test.IntegrationExamples](https://github.com/IABTechLab/uid2-client-java/blob/master/src/test/java/com/uid2/client/test/IntegrationExamples.java) (`runSharingExample` method).
 
+>IMPORTANT: The UID2 token generated during this process is for sharing only&#8212;you cannot use it in the bid stream. There is a different workflow for generating tokens for the bid stream: see [Sharing in the Bid Stream](../sharing/sharing-bid-stream.md).
+
 The following instructions provide an example of how you can implement sharing using the UID2 SDK for Java, either as a sender or a receiver.
 
 1. Create an ```IUID2Client``` reference:
@@ -102,7 +115,7 @@ The following instructions provide an example of how you can implement sharing u
    ```java
    IUID2Client client = UID2ClientFactory.create(UID2_BASE_URL, UID2_API_KEY, UID2_SECRET_KEY);
    ```
-2. Refresh once at startup, and then periodically (recommended refresh interval is hourly):
+2. Refresh once at startup, and then periodically. Recommended refresh interval is hourly: for details, see [Best Practices for Managing UID2 Tokens](../sharing/sharing-best-practices#key-refresh-cadence).
 
    ```java
    client.refresh();
@@ -146,6 +159,4 @@ The following instructions provide an example of how you can implement sharing u
 
 ## FAQs
 
-For a list of frequently asked questions for DSPs, see [FAQs for Demand-Side Platforms (DSPs)](../getting-started/gs-faqs.md#faqs-for-demand-side-platforms-dsps).
-
-For a full list, see [Frequently Asked Questions](../getting-started/gs-faqs.md).
+For a list of frequently asked questions for DSPs, see [FAQs for DSPs](../getting-started/gs-faqs.md#faqs-for-dsps).

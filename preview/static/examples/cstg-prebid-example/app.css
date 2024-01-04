@@ -59,8 +59,7 @@ a {
   width: auto;
 }
 
-
-#email_euid {
+#email {
   background-color: white;
   flex-shrink: 0;
   height: auto;
@@ -84,11 +83,11 @@ h1 {
   padding-bottom: 20px;
 }
 
-#euid_state .label {
+#uid2_state .label {
   white-space: nowrap;
   padding-right: 20px;
 }
-#euid_state tr {
+#uid2_state tr {
   margin-top: 10px;
 }
 

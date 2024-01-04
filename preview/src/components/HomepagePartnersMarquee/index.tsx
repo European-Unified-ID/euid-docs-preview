@@ -47,11 +47,7 @@ export default function HomepagePartnersMarquee(): JSX.Element {
                 {featuredPartners.map((partner, idx) => (
                   <li key={idx} className={clsx(styles.marqueeItem)}>
                     <img
-                      src={
-                        // eslint-disable-next-line @typescript-eslint/no-var-requires
-                        require(`@site/static/img/partners/${partner.logo}`)
-                          .default
-                      }
+                      src={`/img/partners/${partner.logo}`}
                       alt={partner.name}
                       className={styles.marqueeImage}
                     />
@@ -63,11 +59,7 @@ export default function HomepagePartnersMarquee(): JSX.Element {
                 {featuredPartners.map((partner, idx) => (
                   <li key={idx} className={clsx(styles.marqueeItem)}>
                     <img
-                      src={
-                        // eslint-disable-next-line @typescript-eslint/no-var-requires
-                        require(`@site/static/img/partners/${partner.logo}`)
-                          .default
-                      }
+                      src={`/img/partners/${partner.logo}`}
                       alt={partner.name}
                       className={styles.marqueeImage}
                     />

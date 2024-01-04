@@ -13,6 +13,8 @@ You can use UID2 server-side SDKs to facilitate decrypting of UID2 tokens to acc
 
 - [Overview](#overview)
 - [Functionality](#functionality)
+- [Version](#version)
+- [GitHub Repository/Binary](#github-repositorybinary)
 - [Initialization](#initialization)
 - [Interface](#interface)
   - [Response Content](#response-content)
@@ -30,15 +32,22 @@ This SDK simplifies integration with UID2 for any DSPs or UID2 sharers who are u
 
 | Encrypt Raw UID2 to UID2 Token | Decrypt UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token |
 | :--- | :--- | :--- | :--- |
-| Yes | Yes | No | No |
+| Supported | Supported | Not supported | Not supported |
 
 ## Version
 
 The library uses .NET Standard 2.1. unit tests. The sample app uses .NET 5.0.
 
-## SDK Repository
+## GitHub Repository/Binary
 
-This SDK is available in GitHub: [UID2 SDK for .NET](https://github.com/IABTechLab/uid2-client-net/blob/master/README.md).
+
+This SDK is in the following open-source GitHub repository:
+
+- [UID2 SDK for .NET](https://github.com/IABTechLab/uid2-client-net/blob/master/README.md)
+
+The binary is published in this location:
+
+- [https://www.nuget.org/packages/UID2.Client](https://www.nuget.org/packages/UID2.Client)
 
 ## Initialization
 
@@ -57,11 +66,14 @@ The interface allows you to decrypt UID2 advertising tokens and return the corre
 
 If you're a DSP, for bidding, call the interface to decrypt a UID2 advertising token and return the UID2. For details on the bidding logic for handling user opt-outs, see [DSP Integration Guide](../guides/dsp-guide.md).
 
-The following example calls the decrypt method in C#:
+The following is the decrypt method in C#:
 
 ```cs
 using UID2.Client.IUID2Client
-DecryptionResponse Decrypt(string token)
+ 
+var client = UID2ClientFactory.Create(_baseUrl, _authKey, _secretKey);
+client.Refresh(); //Note that refresh() should be called once after create(), and then once per hour
+var result = client.Decrypt(_advertisingToken);
 ```
 
 ### Response Content
@@ -89,6 +101,8 @@ Available information returned through the SDK is outlined in the following tabl
 ## Usage for UID2 Sharers
 
 A UID2 sharer is any participant that wants to share UID2s with another participant. Raw UID2s must be encrypted into UID2 tokens before sending them to another participant. For an example of usage, see [com.uid2.client.test.IntegrationExamples](https://github.com/IABTechLab/uid2-client-java/blob/master/src/test/java/com/uid2/client/test/IntegrationExamples.java) (`runSharingExample` method).
+
+>IMPORTANT: The UID2 token generated during this process is for sharing only&#8212;you cannot use it in the bid stream. There is a different workflow for generating tokens for the bid stream: see [Sharing in the Bid Stream](../sharing/sharing-bid-stream.md).
 
 The following instructions provide an example of how you can implement sharing using the UID2 SDK for C# / .NET, either as a sender or a receiver.
 
@@ -141,6 +155,4 @@ The following instructions provide an example of how you can implement sharing u
 
 ## FAQs
 
-For a list of frequently asked questions for DSPs, see [FAQs for Demand-Side Platforms (DSPs)](../getting-started/gs-faqs.md#faqs-for-demand-side-platforms-dsps).
-
-For a full list, see [Frequently Asked Questions](../getting-started/gs-faqs.md).
+For a list of frequently asked questions for DSPs, see [FAQs for DSPs](../getting-started/gs-faqs.md#faqs-for-dsps).
