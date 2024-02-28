@@ -1,17 +1,20 @@
 ---
-title: JavaScript Express Integration
-sidebar_label: JavaScript Express
-pagination_label: JavaScript Express Integration
-description: Information about integrating with UID2 SDK for JavaScript as part of your UID2 implementation.
+title: Client-Side Integration Guide for JavaScript
+sidebar_label: Client-Side Integration, JavaScript
+pagination_label: Client-Side Integration Guide for JavaScript
+description: Information about integrating with UID2 SDK for JavaScript as part of your UID2 client-side integration.
 hide_table_of_contents: false
 sidebar_position: 04
 ---
 
-# JavaScript Express Integration Guide
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Client-Side Integration Guide for JavaScript
 
 This guide is for publishers who want to integrate with UID2 and generate [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) (advertising tokens) using only JavaScript client-side changes on their website with minimum effort.
 
-This guide does not apply to publishers who want to use a [private operator](../ref-info/glossary-uid.md#gl-private-operator), or who want to generate tokens server-side. Those publishers should follow the [JavaScript Standard Integration Guide](integration-javascript-standard.md).
+This guide does not apply to publishers who want to use a [private operator](../ref-info/glossary-uid.md#gl-private-operator), or who want to generate tokens server-side. Those publishers should follow the [Server-Side Integration Guide for JavaScript](integration-javascript-server-side.md).
 
 UID2 provides a UID2 SDK for JavaScript (see [UID2 SDK for JavaScript Reference Guide](../sdks/client-side-identity.md)) with the following features:
 
@@ -42,14 +45,16 @@ If you want to use a debug build of the SDK, use the following URL instead:
 
 ## Sample Implementation Website
 
-For an example application, see this example:
-- Code: [Example JavaScript Express Integration](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/cstg)
-- Running site: [UID2 SDK Integration Example](https://cstg-integ.uidapi.com/)
+For an example website, see this example:
+- Code: [Example Client-Side Integration for JavaScript](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/cstg)
+- Running site: [Client-Side Integration Example, UID2 JavaScript SDK](https://cstg-integ.uidapi.com/)
+
+<!-- (Source code for running site: https://github.com/IABTechLab/uid2-web-integrations) -->
   
 
 ## Complete UID2 Account Setup
 
-Complete the UID2 account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page. As part of the account setup process, you'll need to provide a list of domain names for the sites that you'll be using with this UID2 SDK for JavaScript.
+Complete the UID2 account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page. As part of the account setup process, you'll need to provide a list of **domain names** for the sites that you'll be using with this UID2 SDK for JavaScript.
 
 When account setup is complete, you'll receive a **public key** and **subscription ID**. These values are unique to you, and you'll use them to configure the UID2 module.
 
@@ -111,7 +116,7 @@ __uid2.init({
 Tokens from the UID2 integration environment are not valid for passing to the bid stream. For the integration environment, you will have different **subscription ID** and **public key** values.
 :::
 
-### Optional: Reduce Latency by Setting the API Base URL
+### Optional: Reduce Latency by Setting the API Base URL for the Production Environment
 
 By default, in the production environment, the JS SDK makes API calls to a UID2 server in the USA. Depending on where your users are based, you might consider choosing a server closer to your users in order to reduce latency.
 
@@ -154,24 +159,27 @@ Once it's configured, the UID2 SDK takes care of the following:
 
 You can pass the user's DII to the UID2 SDK either hashed or unhashed. If you pass the DII unhashed, the UID2 SDK hashes it for you. If you want to pass the DII to the SDK already hashed, you must normalize it before hashing. For details, see [Normalization and Encoding](../getting-started/gs-normalization-encoding.md). 
 
+## Format Examples for DII
+
 The SDK encrypts the hashed DII before sending it to the UID2 service.
 
 You can configure the SDK using any one of the four accepted DII formats, for any specific user. The DII format might vary per user but you can only send one value per user.
 
-The following sections demonstrate the different ways that you can configure the UID2 SDK and list the requirements for the DII passed to the SDK:
+The following examples demonstrate the different ways that you can configure the UID2 SDK and list the requirements for the DII passed to the SDK:
 
-- [Configure for Email Address](#configure-for-email-address)
-- [Configure for Hashed Email Address](#configure-for-hashed-email-address)
-- [Configure for Phone Number](#configure-for-phone-number)
-- [Configure for Hashed Phone Number](#configure-for-hashed-phone-number)
+- Configure for Email Address
+- Configure for Hashed Email Address
+- Configure for Phone Number
+- Configure for Hashed Phone Number
 
 If the SDK is configured multiples times, it uses the most recent configuration values.
 
 For an example of how to generate email and phone hashes in JavaScript, see [Example Code: Hashing and Base-64 Encoding](#example-code-hashing-and-base-64-encoding).
 
-### Configure for Email Address
+<Tabs>
+<TabItem value='example_email_unhashed' label='Email, Unhashed'>
 
-Configure the UID2 SDK with an email address:
+The following example configures the UID2 SDK with an email address.
 
 ```js
 await __uid2.setIdentityFromEmail(
@@ -183,13 +191,15 @@ await __uid2.setIdentityFromEmail(
 );
 ```
 
-No normalization or hashing is required by the publisher.
+In this scenario:
 
-The UID2 SDK normalizes and hashes the email address before sending the encrypted hash to the UID2 service.
+- No normalization or hashing is required by the publisher.
+- The UID2 SDK normalizes and hashes the email address before sending the encrypted hash to the UID2 service.
 
-### Configure for Hashed Email Address
+</TabItem>
+<TabItem value='example_email_hash' label='Email, Normalized and Hashed'>
 
-Configure the UID2 SDK with a hashed email address:
+The following example configures the UID2 SDK with a hashed email address.
 
 ```js
 await __uid2.setIdentityFromEmailHash(
@@ -201,13 +211,14 @@ await __uid2.setIdentityFromEmailHash(
 );
 ```
 
-**The publisher is responsible for normalizing and hashing the email address**. For details, see [Normalization and Encoding](../getting-started/gs-normalization-encoding.md).
+In this scenario:
+- **The publisher is responsible for normalizing and hashing the email address**. For details, see [Normalization and Encoding](../getting-started/gs-normalization-encoding.md).
+- The UID2 SDK encrypts the hash before sending it to the UID2 service.
 
-The UID2 SDK encrypts the hash before sending it to the UID2 service.
+</TabItem>
+<TabItem value='example_phone_unhashed' label='Phone number, Unhashed'>
 
-### Configure for Phone Number
-
-Configure the UID2 SDK with a phone number:
+The following example configures the UID2 SDK with a phone number.
 
 ```js
 await __uid2.setIdentityFromPhone(
@@ -218,14 +229,15 @@ await __uid2.setIdentityFromPhone(
     }
 );
 ```
+In this scenario:
 
-**The publisher is responsible for normalizing the phone number**. For details, see [Phone Number Normalization](../getting-started/gs-normalization-encoding.md#phone-number-normalization).
+- **The publisher is responsible for normalizing the phone number**. For details, see [Phone Number Normalization](../getting-started/gs-normalization-encoding.md#phone-number-normalization).
+- The UID2 SDK hashes the phone number before sending the encrypted hash to the UID2 service.
 
-The UID2 SDK hashes the phone number before sending the encrypted hash to the UID2 service.
+</TabItem>
+<TabItem value='example_phone_hash' label='Phone, Normalized and Hashed'>
 
-### Configure for Hashed Phone Number
-
-Configure the UID2 SDK with a hashed phone number:
+The following example configures the UID2 SDK with a hashed phone number:
 
 ```js
 await __uid2.setIdentityFromPhoneHash(
@@ -237,9 +249,12 @@ await __uid2.setIdentityFromPhoneHash(
 );
 ```
 
-**The publisher is responsible for normalizing and hashing the phone number**. For details, see [Normalization and Encoding](../getting-started/gs-normalization-encoding.md).
+In this scenario:
+- **The publisher is responsible for normalizing and hashing the phone number**. For details, see [Normalization and Encoding](../getting-started/gs-normalization-encoding.md).
+- The UID2 SDK encrypts the hash before sending it to the UID2 service.
 
-The UID2 SDK encrypts the hash before sending it to the UID2 service.
+</TabItem>
+</Tabs>
 
 ## Token Storage and Refresh
 

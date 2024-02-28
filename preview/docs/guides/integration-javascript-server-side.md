@@ -1,7 +1,7 @@
 ---
-title: JavaScript Standard Integration
-sidebar_label: JavaScript Standard
-pagination_label: JavaScript Standard Integration Guide
+title: Server-Side Integration Guide for JavaScript
+sidebar_label: Server-Side Integration, JavaScript
+pagination_label: Server-Side Integration Guide for JavaScript
 description: Information for publishers covering standard web integration scenarios that use the UID2 SDK for JavaScript and requires token to be generated on the server side and passed to the publishers' web pages.
 hide_table_of_contents: false
 sidebar_position: 02
@@ -10,9 +10,9 @@ sidebar_position: 02
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# JavaScript Standard Integration Guide
+# Server-Side Integration Guide for JavaScript
 
-This guide is intended for publishers with web assets who want to generate identity tokens using UID2 for the RTB bid stream, while integrating directly with UID2 rather than UID2-enabled single-sign-on or identity providers. This requires server-side changes such as generating UID2 tokens on the server side and passing them to the publishers' web pages. If you want to integrate with UID2 via only client-side JavaScript changes, refer to [JavaScript Express Integration Guide](publisher-client-side.md) instead. 
+This guide is intended for publishers with web assets who want to generate identity tokens using UID2 for the RTB bid stream, while integrating directly with UID2 rather than UID2-enabled single-sign-on or identity providers. This requires server-side changes such as generating UID2 tokens on the server side and passing them to the publishers' web pages. If you want to integrate with UID2 via only client-side JavaScript changes, refer to [Client-Side Integration Guide for JavaScript](publisher-client-side.md) instead. 
 
 For technical details about the SDK, see [UID2 SDK for JavaScript Reference Guide](../sdks/client-side-identity.md).
 
@@ -29,9 +29,9 @@ For technical details about the SDK, see [UID2 SDK for JavaScript Reference Guid
 
 ## Sample Implementation Website
 
-For an example application, see the UID2 Google ESP with SDK v3 example:
-- Code and docs: [UID2 SDK ESP Integration Example](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-esp-integration/with_sdk_v3)
-- Running site: [Client-Side UID2 SDK Integration Example](https://esp-jssdk-integ.uidapi.com/)
+For an example application, see the UID2 Google Secure Signals with SDK v3 example:
+- Code and docs: [UID2 SDK Secure Signals Integration Example](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-secure-signals-integration/with_sdk_v3)
+- Running site: [Client-Side UID2 SDK Integration Example](https://secure-signals-jssdk-integ.uidapi.com/)
 
 ## Introduction
 
@@ -66,13 +66,12 @@ The following sections provide additional details for each step in the diagram:
 
 ### Establish Identity: User Login
 
-
 After authentication in step 1-c, which forces the user to accept the rules of engagement and allows the publisher to validate the user's email address or phone number, a UID2 token must be generated on the server side. The following table details the token generation steps.
 
 | Step | Endpoint/SDK | Description |
 | :--- | :--- | :--- |
-| 1-d | [POST /token/generate](../endpoints/post-token-generate.md) | After the user authenticates and authorizes the creation of a UID2, use the [POST /token/generate](../endpoints/post-token-generate.md) endpoint to generate a UID2 token using the email address or phone number provided by the user. Make sure it is normalized. |
-| 1-e | [POST /token/generate](../endpoints/post-token-generate.md) | The endpoint returns a UID2 token generated from the user's email address, phone number, or the respective hash. |
+| 1-d | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | After the user authenticates and authorizes the creation of a UID2, use the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint to generate a UID2 token using the email address or phone number provided by the user. Make sure it is normalized. |
+| 1-e | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | The endpoint returns a UID2 token generated from the user's email address, phone number, or the respective hash. |
 | 1-f | UID2 SDK for JavaScript | The SDK sends the returned UID2 token from step 1-e to the SDK in the `identity` property of its [init() function](../sdks/client-side-identity.md#initopts-object-void). |
 | 1-g | UID2 SDK for JavaScript | Provide the SDK a callback function that will receive identity updates from the SDK and use them to initiate targeted advertising. |
 
@@ -198,7 +197,7 @@ As part of its initialization, the SDK sets up a [token auto-refresh](../sdks/cl
 | Step | Endpoint/SDK | Description |
 | :--- | :--- | :--- |
 | 3-a | [UID2 SDK for JavaScript](../sdks/client-side-identity.md) | The SDK automatically refreshes UID2 tokens in the background. No manual action is required. |
-| 3-b | [UID2 SDK for JavaScript](../sdks/client-side-identity.md) | If the user hasn't opted out, the [POST /token/refresh](../endpoints/post-token-refresh.md) endpoint automatically returns new identity tokens. |
+| 3-b | [UID2 SDK for JavaScript](../sdks/client-side-identity.md) | If the user hasn't opted out, the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint automatically returns new identity tokens. |
 
 
 ### Clear Identity: User Logout

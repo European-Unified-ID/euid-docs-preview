@@ -1,7 +1,7 @@
 ---
 title: UID2 Server-Side Integration Guide for Prebid.js
-sidebar_label: Server-Side Integration Guide for Prebid.js
-pagination_label: UID2 Server-Side Integration Guide for Prebid.js
+sidebar_label: Server-Side Integration for Prebid.js
+pagination_label: UID2 Server-Side Integration for Prebid.js
 description: Information about setting up a server-side Prebid.js integration.
 hide_table_of_contents: false
 sidebar_position: 04
@@ -36,7 +36,7 @@ This guide includes the following information:
 - [Configuration Parameters for userSync](#configuration-parameters-for-usersync) 
   - [Configuration Parameter Examples: Value](#configuration-parameter-examples-value)
   - [Sample Token](#sample-token)
-- [Optional: Reduce Latency by Setting the API Base URL](#optional-reduce-latency-by-setting-the-api-base-url) 
+- [Optional: Reduce Latency by Setting the API Base URL for the Production Environment](#optional-reduce-latency-by-setting-the-api-base-url-for-the-production-environment) 
  -->
 
 This guide is for publishers who have access to [DII](../ref-info/glossary-uid.md#gl-dii) (email address or phone number) on the server side and want to integrate with UID2 and generate [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) (advertising tokens) to be passed by Prebid.js in the RTB bid stream. 
@@ -96,7 +96,7 @@ You'll need to configure the UID2 Prebid module to complete the following two ac
 
 ### Generating a UID2 Token on the Server
 
-To generate a token, call the [POST /token/generate](../endpoints/post-token-generate.md) endpoint.
+To generate a token, call the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint.
 
 For an example, see [Sample Token](#sample-token).
 
@@ -113,8 +113,8 @@ There are two ways to refresh a UID2 token, as shown in the following table.
 
 You must provide the Prebid module with the full JSON response body from the applicable endpoint:
 
-- [POST /token/generate](../endpoints/post-token-generate.md) for a new UID2 token.
-- [POST /token/refresh](../endpoints/post-token-refresh.md) for a refreshed UID2 token.
+- [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) for a new UID2 token.
+- [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) for a refreshed UID2 token.
 
 For an example, see [Sample Token](#sample-token).
 
@@ -132,8 +132,8 @@ When you configure the module to use Client Refresh mode, you must choose **one*
 
 | Option | Details | Use Case | 
 | --- | --- | --- |
-| Set `params.uid2Cookie` to the name of the cookie that contains the response body as a JSON string. | See [Client Refresh Mode Cookie Example](#client-refresh-mode-cookie-example). | Use this option only if you're sure that there is enough space left in your cookie to store the response body. If you're not sure, or the cookie storage needs might vary, choose the other option. |
-| Set `params.uid2Token` to the response body as a JavaScript object. | See [Client Refresh Mode uid2Token Example](#client-refresh-mode-uid2token-example). | You might choose to provide the response body via `params.uid2Token` in either of these cases:<ul><li>If you are already storing a lot of data in the cookie and adding the response body might exceed the cookie size limit.</li><li>If you prefer to have the the Prebid module store the token value for you.</li></ul> |
+| Set `params.uid2Cookie` to the name of the cookie that contains the response body as a JSON string. | See [Client Refresh Mode Cookie Example](#client-refresh-mode-cookie-example) | Use this option only if you're sure that there is enough space left in your cookie to store the response body. If you're not sure, or the cookie storage needs might vary, choose the other option. |
+| Set `params.uid2Token` to the response body as a JavaScript object. | See [Client Refresh Mode uid2Token Example](#client-refresh-mode-uid2token-example) | You might choose to provide the response body via `params.uid2Token` in either of these cases:<ul><li>If you are already storing a lot of data in the cookie and adding the response body might exceed the cookie size limit.</li><li>If you prefer to have the Prebid module store the token value for you.</li></ul> |
 
 #### Client Refresh Mode Cookie Example
 
@@ -248,7 +248,7 @@ pbjs.setConfig({
 
 #### Passing a New Token: Server-Only Mode
 
-In server-only mode, since the prebid.js UID2 module receives only the advertising token, the token is only valid for a short period of time. For this reason, it is best to provide an advertising token on each page load.
+In server-only mode, since the Prebid.js UID2 module receives only the advertising token, the token is only valid for a short period of time. For this reason, it's best to provide an advertising token on each page load.
 
 If needed, to determine if you need to provide a new token, see [Determining Whether the Module Has a Valid Token](#determining-whether-the-module-has-a-valid-token).
 
@@ -274,9 +274,8 @@ pbjs.setConfig({
     userIds: [{ 
       name: 'uid2', 
       params: { 
-
-                 //default value is ‘localStorage’ 
-        storage: ‘cookie’  
+        // default value is 'localStorage' 
+        storage: 'cookie'  
       } 
     }] 
   } 
@@ -318,7 +317,7 @@ If you configure a user ID by calling `setConfig` (or any similar function) twic
 
 ## Checking the Integration
 
-To check that the UID2 module has a valid UID2 token, call `pbjs.getUserIds().uid2`. If a value is returned, a valid UID2 token still exists in the UID2 module.
+To check that the UID2 module has a valid UID2 token, call `pbjs.getUserIds().uid2`. If a value is returned, a valid UID2 token exists in the UID2 module.
 
 If there are problems with the integration, here are some steps you can take:
 
@@ -341,11 +340,11 @@ In this table, CR = client refresh mode, SO = server-only mode, and N/A = not ap
 | Param under userSync.userIds[] | Mode/Scope | Type | Description | Example |
 | --- | --- | --- | --- | --- |
 | name | CR: Required<br/>SO:&nbsp;Required | String | ID value for the UID2 module. Always `"uid2"`. | `"uid2"` |
-| value | CR: N/A<br/>SO: Optional | Object | An object containing the value for the advertising token. | See [Configuration Parameter Examples: Value](#configuration-parameter-examples-value). |
-| params.uid2Token | CR: Optional<br/>SO: N/A | Object | The initial UID2 token. This should be the `body` element of the decrypted response from a call to the `/token/generate` or `/token/refresh` endpoint. | See [Sample Token](#sample-token). |
-| params.uid2Cookie | CR: Optional<br/>SO: N/A  | String | The name of a cookie that holds the initial UID2 token, set by the server. The cookie should contain JSON in the same format as the uid2Token param. If `uid2Token` is supplied, this parameter is ignored. | See [Sample Token](#sample-token). |
+| value | CR: N/A<br/>SO: Optional | Object | An object containing the value for the advertising token. | See [Configuration Parameter Examples: Value](#configuration-parameter-examples-value) |
+| params.uid2Token | CR: Optional<br/>SO: N/A | Object | The initial UID2 token. This should be the `body` element of the decrypted response from a call to the `/token/generate` or `/token/refresh` endpoint. | See [Sample Token](#sample-token) |
+| params.uid2Cookie | CR: Optional<br/>SO: N/A  | String | The name of a cookie that holds the initial UID2 token, set by the server. The cookie should contain JSON in the same format as the uid2Token param. If `uid2Token` is supplied, this parameter is ignored. | See [Sample Token](#sample-token) |
 | params.uid2ApiBase | CR: Optional<br/>SO: Optional | String | Overrides the default UID2 API endpoint. For valid values, see [Environments](../getting-started/gs-environments.md). | `"https://prod.uidapi.com"` (the default)|
-| params.storage | CR: Optional<br/>SO: Optional | String | Specify the module internal storage method: `cookie` or `localStorage`. We recommend that you do not provide this parameter. Instead, allow the module to use the default. | `localStorage` (the default) |
+| params.storage | CR: Optional<br/>SO: Optional | String | Specify the module internal storage method: `cookie` or `localStorage`. We recommend that you do not provide this parameter. Instead, allow the module to use the default. | `"localStorage"` (the default) |
 
 ### Configuration Parameter Examples: Value
 
@@ -381,8 +380,8 @@ The following sample is fictitious, but shows what the token response object, re
 }
 ```
 
-## Optional: Reduce Latency by Setting the API Base URL
-<!-- GWH "Reduce Latency by Setting the API Base URL" section is identical for client side and server side. -->
+## Optional: Reduce Latency by Setting the API Base URL for the Production Environment
+<!-- GWH "Optional: Reduce Latency by Setting the API Base URL for the Production Environment" section is identical for client side and server side. -->
 By default, the UID2 module makes API calls to a UID2 server in the USA. Depending on where your users are based, you might consider choosing a server closer to your users to reduce latency.
 
 To specify a different UID2 server when you're configuring the UID2 module, set the optional params.uid2ApiBase parameter, as shown in the following example:

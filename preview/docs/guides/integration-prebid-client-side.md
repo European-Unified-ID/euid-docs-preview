@@ -1,7 +1,7 @@
 ---
 title: UID2 Client-Side Integration Guide for Prebid.js
-sidebar_label: Client-Side Integration Guide for Prebid.js
-pagination_label: UID2 Client-Side Integration Guide for Prebid.js
+sidebar_label: Client-Side Integration for Prebid.js
+pagination_label: UID2 Client-Side Integration for Prebid.js
 description: Information about setting up a client-side Prebid.js integration.
 hide_table_of_contents: false
 sidebar_position: 04
@@ -25,7 +25,7 @@ This guide includes the following information:
 - [Storing the UID2 Token in the Browser](#storing-the-uid2-token-in-the-browser)
 - [When to Pass DII to the UID2 Module](#when-to-pass-dii-to-the-uid2-module)
 - [Checking the Integration](#checking-the-integration)
-- [Optional: Reduce Latency by Setting the API Base URL](#optional-reduce-latency-by-setting-the-api-base-url)
+- [Optional: Reduce Latency by Setting the API Base URL for the Production Environment](#optional-reduce-latency-by-setting-the-api-base-url-for-the-production-environment)
  -->
 
 ## Prebid.js Version
@@ -52,7 +52,7 @@ You'll need to complete the following steps:
 
 ### Complete UID2 Account Setup
 
-Complete the UID2 account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page. As part of the account setup process for a client-side implementation, you'll need to provide a list of domain names for the sites that you'll be using with Prebid.js.
+Complete the UID2 account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page. As part of the account setup process for a client-side implementation, you'll need to provide a list of **domain names** for the sites that you'll be using with Prebid.js.
 
 :::tip
 Only root-level domains are required for account setup. For example, if you're going to use UID2 with Prebid.js on example.com, shop.example.com, and example.org, you only need to provide the domain names example.com and example.org.
@@ -129,9 +129,8 @@ pbjs.setConfig({
     userIds: [{ 
       name: 'uid2', 
       params: { 
-
-                 //default value is ‘localStorage’ 
-        storage: ‘cookie’  
+        // default value is 'localStorage' 
+        storage: 'cookie'  
       } 
     }] 
   } 
@@ -177,7 +176,7 @@ pbjs.setConfig({
 
 ## Checking the Integration
 
-To check that the UID2 module has successfully generated a UID2 token, call `pbjs.getUserIds().uid2`. If a value is returned, a valid UID2 token still exists in the UID2 module.
+To check that the UID2 module has successfully generated a UID2 token, call `pbjs.getUserIds().uid2`. If a value is returned, a valid UID2 token exists in the UID2 module.
 
 If there are problems with the integration, here are some steps you can take:
 
@@ -195,8 +194,8 @@ An example of a tool for validating and debugging Prebid.js configuration is Pro
 - Chrome web store download location: [Professor Prebid](https://chromewebstore.google.com/detail/professor-prebid/kdnllijdimhbledmfdbljampcdphcbdc)
 - Documentation on prebid.org: [Professor Prebid User Guide](https://docs.prebid.org/tools/professor-prebid.html)
 
-## Optional: Reduce Latency by Setting the API Base URL
-<!-- GWH "Reduce Latency by Setting the API Base URL" section is identical for client side and server side. -->
+## Optional: Reduce Latency by Setting the API Base URL for the Production Environment
+<!-- GWH "Optional: Reduce Latency by Setting the API Base URL for the Production Environment" section is identical for client side and server side. -->
 By default, the UID2 module makes API calls to a UID2 server in the USA. Depending on where your users are based, you might consider choosing a server closer to your users to reduce latency.
 
 To specify a different UID2 server when you're configuring the UID2 module, set the optional params.uid2ApiBase parameter, as shown in the following example:

@@ -16,7 +16,7 @@ Used by: This endpoint is used mainly by publishers.
 
 `POST '{environment}/v2/token/validate'`
 
->IMPORTANT: You must encrypt all requests, using your secret key. For details and Python script examples, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
+>IMPORTANT: You must encrypt all requests using your secret key. For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
 
 
 ### Path Parameters
@@ -35,7 +35,7 @@ Used by: This endpoint is used mainly by publishers.
 
 | Body Parameter | Data Type | Attribute | Description |
 | :--- | :--- | :--- | :--- |
-| `token` | string | Required | The advertising token returned by the [POST /token/generate](post-token-generate.md) response. |
+| `token` | string | Required | The advertising token returned by the [POST&nbsp;/token/generate](post-token-generate.md) response. |
 | `email` | string | Conditionally Required | The email address for token validation.<br/>The only valid value is: `validate@example.com`. |
 | `email_hash` | string | Conditionally Required | The [Base64-encoded SHA-256](../getting-started/gs-normalization-encoding.md#email-address-hash-encoding) hash of the [normalized](../getting-started/gs-normalization-encoding.md#email-address-normalization) email address for token validation (`validate@example.com`).<br/>The only valid value is: `ntI244ZRTXwAwpki6/M5cyBYW7h/Wq576lnN3l9+W/c=`. |
 | `phone` | string | Conditionally Required | The [normalized](../getting-started/gs-normalization-encoding.md#phone-number-normalization) phone number for which to generate tokens.<br/>The only valid value is: `+12345678901`. |
@@ -78,7 +78,7 @@ Here's an encrypted token validation request example for an email hash:
 echo '{"token": "AdvertisingTokenmZ4dZgeuXXl6DhoXqbRXQbHlHhA96leN94U1uavZVspwKXlfWETZ3b%2FbesPFFvJxNLLySg4QEYHUAiyUrNncgnm7ppu0mi6wU2CW6hssiuEkKfstbo9XWgRUbWNTM%2BewMzXXM8G9j8Q%3D", "email_hash": "LdhtUlMQ58ZZy5YUqGPRQw5xUMS5dXG5ocJHYJHbAKI="}' | python3 uid2_request.py https://prod.uidapi.com/v2/token/validate [Your-Client-API-Key] [Your-Client-Secret]
 ```
 
-For details and Python script examples, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
+For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
 
 ## Decrypted JSON Response Format
 
@@ -113,9 +113,9 @@ If the `status` value is anything other than `success`, the `message` field prov
 
 ## Using POST /token/validate to Test
 
-You can use this endpoint to test whether the [DII](../ref-info/glossary-uid.md#gl-dii) you are sending through [POST /token/generate](../endpoints/post-token-generate.md) is valid. Follow these steps.
+You can use this endpoint to test whether the [DII](../ref-info/glossary-uid.md#gl-dii) you are sending through [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) is valid. Follow these steps.
 
-1. Depending on whether the DII is a hashed or unhashed email address or phone number, send a [POST /token/generate](../endpoints/post-token-generate.md) request using one of the four valid options listed in the [Unencrypted JSON Body Parameters](#unencrypted-json-body-parameters) table&#8212;`email`, `email_hash`, `phone`, or `phone_hash`&#8212;with the corresponding value as listed in the table.
+1. Depending on whether the DII is a hashed or unhashed email address or phone number, send a [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) request using one of the four valid options listed in the [Unencrypted JSON Body Parameters](#unencrypted-json-body-parameters) table&#8212;`email`, `email_hash`, `phone`, or `phone_hash`&#8212;with the corresponding value as listed in the table.
 
 2. Store the returned `advertising_token` value for use in the next step.
 3. Send a `POST /token/validate` request using the `email`, `email_hash`, `phone`, or `phone_hash` value that you sent in Step 1, with the `advertising_token` that you saved in Step 2 as the `token` property value.

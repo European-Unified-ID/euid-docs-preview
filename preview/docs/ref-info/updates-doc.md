@@ -9,6 +9,76 @@ sidebar_position: 06
 
 Check out the latest updates to our UID2 documentation resources.
 
+### New: Audience-Specific Documentation Sidebars
+
+9 February 2024
+
+We've improved the website so that specific users clicking through on the links at the top of the [UID2 home page](https://unifiedid.com/) (Publishers, Advertisers, DSPs, Data Providers) now have a custom left sidebar, with the specific documentation that's applicable to that audience.
+
+Anyone wanting to see the full set of docs for all audiences can just click through on the Documentation link on the UID2 home page.
+
+Note that many docs are applicable to multiple audiences, and there are many interlinks between docs, so the sidebar view might change on your journey through the site. You can always get back to your specific view by clicking the link at the top: these links appear on all pages.
+
+To view the custom sidebars, go to [https://unifiedid.com](https://unifiedid.com/) and click on one of the audience links at the top: [Publishers](../overviews/overview-publishers.md). [Advertisers](../overviews/overview-advertisers.md), [DSPs](../overviews/overview-dsps.md), or [Data Providers](../overviews/overview-data-providers.md).
+
+<!-- APIDOCS-1681 -->
+
+### New: UID2 Integration Overview for JavaScript 
+
+26 January 2024
+
+We've added a new overview guide summarizing the options for publishers using the UID2 SDK for JavaScript for client-side or server-side integration. In addition, the existing guides have been renamed for consistency, with minor updates.
+
+For details, see:
+
+- [UID2 Integration Overview for JavaScript](../guides/integration-javascript)
+- [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md)
+- [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md)
+
+<!-- APIDOCS-1924 -->
+
+### New: UID2 SDK for Java, Usage for Publishers Sections
+
+22 January 2024
+
+We've added new sections in the UID2 SDK for Java documentation to help publishers implementing the SDK.
+
+For details, see [Usage for Publishers](../sdks/uid2-sdk-ref-java.md#usage-for-publishers) in the UID2 SDK for Java Reference Guide.
+
+<!-- APIDOCS-1705 -->
+
+### New: Normalization and Encoding Documentation, Examples Section
+
+19 January 2024
+
+We've expanded and clarified the existing Normalization and Encoding doc, and added a new examples section to help you make sure that you're following the process correctly.
+
+For details, see [Normalization and Encoding](../getting-started/gs-normalization-encoding.md).
+
+<!-- APIDOCS-1183, APIDOCS-1880 -->
+
+### New: Web Integration Overview for Publishers
+
+16 January 2024
+
+We've added a new page summarizing the web integration options available to publishers integrating with UID2.
+
+For details, see [Web Integration Overview](../guides/integration-options-publisher-web.md).
+
+<!-- APIDOCS-1846 -->
+
+### New: UID2 Operator Page
+
+3 January 2024
+
+We've added a reference article explaining what the UID2 Operator does and the differences between a Public Operator and a Private Operator.
+
+For details, see [The UID2 Operator](../ref-info/ref-operators-public-private.md).
+
+<!-- APIDOCS-1720 -->
+
+<!-- ## 2023 Updates -->
+
 ### New: UID2 Integration Overview for Prebid.js
 
 20 December 2023
@@ -55,28 +125,34 @@ We've replaced the previous **API Keys** page with a new page that includes info
 
 For details, see [UID2 Credentials](../getting-started/gs-credentials.md).
 
-### New: JavaScript Express Integration Guide
+### New: Client-Side Integration Guide for JavaScript
 
 21 November 2023
 
-The JavaScript Express Integration Guide is a completely new document at the existing URL, covering a new, simpler way of using the UID2 SDK for JavaScript for a client-side publisher implementation.
+The Client-Side Integration Guide for JavaScript is a completely new document at the existing URL, covering a new, simpler way of using the UID2 SDK for JavaScript for a client-side publisher implementation.
 
-For details, see [JavaScript Express Integration Guide](../guides/publisher-client-side.md).
+For details, see [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md).
 
-The content that was in the previous *UID2 SDK for JavaScript Integration Guide*  is now in a supplementary document for publishers who want to implement the JavaScript SDK on the server side: [JavaScript Standard Integration Guide](../guides/integration-javascript-standard.md).
+The content that was in the previous *UID2 SDK for JavaScript Integration Guide*  is now in a supplementary document for publishers who want to implement the JavaScript SDK on the server side.
 
-### New: Prebid.js Integration Guide
+:::note
+This document was updated in January 2024 to [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md), and the JavaScript Standard Integration Guide is now the [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md).
+:::
+
+### New: UID2 Client-Side Integration Guide for Prebid.js
 
 2 November 2023
 
-The Prebid.js Express Integration Guide is a completely new document at the existing URL, covering a new, simpler way of integrating UID2 with Prebid that does not require any server-side work.
+The UID2 Client-Side Integration Guide for Prebid.js is a completely new document at the existing URL, covering a new, simpler way of integrating UID2 with Prebid that does not require any server-side work.
 
 The content that was in the previous version of the Prebid document is now in a supplementary document, *Prebid.js Advanced Integration Guide*, for publishers who are using a private operator or who prefer to implement token generate on the server side.
 
-NOTE: These documents were further updated in later revisions. The Prebid.js Express Integration Guide is now the UID2 Client-Side Integration Guide for Prebid.js. Updated links are as follows:
+:::note
+These documents were further updated in later revisions. Updated links are as follows:
 - [UID2 Integration Overview for Prebid.js](../guides/integration-prebid.md)
 - [UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md)
 - [UID2 Server-Side Integration Guide for Prebid.js](../guides/integration-prebid-server-side.md)
+:::
 
 ### New: Opt-Out
 
@@ -104,7 +180,7 @@ Significant documentation updates reflect the enhanced functionality of Version 
 
 For details, see:
 -  [UID2 SDK for JavaScript Reference Guide](../sdks/client-side-identity.md)
--  [JavaScript Standard Integration Guide](../guides/integration-javascript-standard.md)
+-  [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md)
 
 ### New: Private Operator Guide for Google Confidential Space 
 
@@ -174,7 +250,7 @@ For details, use the language drop-down at the top of any site page, or go strai
 
 We published several new documentation pages to help users navigating the new UID2 Portal user interface, where you can manage your UID2 account.
 
-For details, see [UID2 Portal](/docs/category/uid2-portal).
+For details, see [UID2 Portal: Overview](../portal/portal-overview.md).
 
 ### New: Documentation for UID2 Sharing
 
@@ -182,7 +258,7 @@ For details, see [UID2 Portal](/docs/category/uid2-portal).
 
 We published the following new and updated documents to support use of the new UID2 sharing feature:
 
-- A set of new pages providing information relating to UID2 sharing, including an overview, use cases, implementation instructions, best practices, and more. See [UID2 Sharing](/docs/category/uid2-sharing).
+- A set of new pages providing information relating to UID2 sharing, including an overview, use cases, implementation instructions, best practices, and more. See [UID2 Sharing: Overview](../sharing/sharing-overview.md).
 - Updates to the four server-side SDKs to support UID2 sharing:
 
   - [UID2 SDK for C# / .NET: Usage for UID2 Sharers](../sdks/uid2-sdk-ref-csharp-dotnet.md#usage-for-uid2-sharers)

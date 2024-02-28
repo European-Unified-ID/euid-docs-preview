@@ -12,10 +12,10 @@ sidebar_position: 02
 <!-- It includes:
 
 * [Contact Info](#contact-info)
-* [Account Setup](#account-setup)
+* [Account Setup](#account-setup-details)
+* [Credentials](#credentials)
 * [API Versions](#api-versions)
  -->
-
 ## Contact Info
 
 UID2 フレームワークにアクセスするには、以下の The Trade Desk の担当チームにご連絡ください。
@@ -31,20 +31,28 @@ The Trade Desk のアクセス依頼は一時的なものです。システム�
 | アプリ開発者<br/>パブリッシャー                                  | UID2publishers@thetradedesk.com |
 | 代理店<br/>ブランド<br/>CDP<br/>データプロバイダー<br/>DSP<br/>SSP | UID2partners@thetradedesk.com   |
 
-## Account Setup
+## Account Setup Details
 
 UID2 に興味を示していただいたら、詳細を詰めるために担当者からご連絡を差し上げます。
 
-少なくとも以下の情報を提供していただく必要があります:
+参加者は少なくとも以下の情報を提供する必要があります:
 * 氏名
 * メールアドレス
 * 会社名
 * 契約書に署名できる正式な個人の名前と連絡先
 
-UID2 に参加する契約を結ぶと、[UID2 credentials](gs-credentials.md)と UID2 を始めるために必要な情報が提供されます。
+### Client-Side Implementation for Publishers
 
+パブリッシャーが、Client-Side でトークンが生成されるように UID2 を実装することに決めた場合は、サイトのドメイン名のリストも提供する必要があります。これは、Client-Side の実装のみを対象としたセキュリティ対策です。
+
+:::tip
+アカウント設定に必要なのは、ルートレベルのドメインだけです。たとえば、example.com、shop.example.com、example.org の Client-Side でトークンを生成するために UID2 を実装する場合、ドメイン名 example.com と example.org だけを提供します。
+:::
+
+## Credentials
+
+UID2 に参加する契約を結ぶと、[UID2 credentials](gs-credentials.md) と UID2 を始めるために必要な情報が提供されます。
 
 ## API Versions
 
-UID2 API の現在のバージョンは [UID2 API v2](../summary-doc-v2.md) です。旧バージョンをお使いの場合は、[UID2 API v1 to v2 Upgrade Guide](https://github.com/IABTechLab/uid2docs/blob/main/api-ja/v2/upgrades/upgrade-guide.md)の説明にしたがって、必ず UID2 API v2 へアップグレードしてください。
-
+UID2 API の現在のバージョンは UID2 API v2 です。

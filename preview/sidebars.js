@@ -1,5 +1,24 @@
-const sidebars = {
-  docs: [
+function removeItems(sidebar, ...remove) {
+  const result = [];
+  for (let item of sidebar) {
+    if (typeof item === 'string')
+    {
+      if (!remove.includes(item)) result.push({
+        type: 'ref', id: item
+      });
+    }
+    else {
+      if (!remove.includes(item.label)) {
+        const {items, ...rest} = item;
+        const keepItems = removeItems(items, ...remove);
+        if (keepItems?.length > 0) result.push({...rest, items: keepItems});
+      }
+    }
+  }
+  return result;
+}
+
+const fullSidebar = [
     {
       type: 'category',
       label: 'UID2 Overview',
@@ -29,10 +48,9 @@ const sidebars = {
         'getting-started/gs-permissions',
         'getting-started/gs-auth',
         'getting-started/gs-environments',
-        'getting-started/gs-api-using',
         'getting-started/gs-encryption-decryption',
         'getting-started/gs-normalization-encoding',
-        'getting-started/gs-opt-out',       
+        'getting-started/gs-opt-out',
         'getting-started/gs-faqs',
         'getting-started/gs-sharing',
       ],
@@ -42,11 +60,11 @@ const sidebars = {
       type: 'category',
       label: 'UID2 Portal',
       link: {
-        type: 'generated-index',
+        type: 'doc',
+        id: 'portal/portal-overview',
       },
-      collapsed: true,
+
       items: [
-        'portal/portal-overview',
         'portal/portal-getting-started',
         'portal/sharing-permissions',
         'portal/participant-info',
@@ -57,33 +75,14 @@ const sidebars = {
 
     {
       type: 'category',
-      label: 'SDKs',
-      link: {
-        type: 'generated-index',
-      },
-      collapsed: true,
-      items: [
-        'sdks/summary-sdks',
-        'sdks/client-side-identity',
-        'sdks/uid2-sdk-ref-java',
-        'sdks/uid2-sdk-ref-python',
-        'sdks/uid2-sdk-ref-csharp-dotnet',
-        'sdks/uid2-sdk-ref-cplusplus',
-        'sdks/uid2-sdk-ref-android',
-        'sdks/uid2-sdk-ref-ios',
-      ],
-    },
-
-    {
-      type: 'category',
       label: 'Integration Guides',
       link: {
-        type: 'generated-index',
+        type: 'doc',
+        id: 'guides/summary-guides',
       },
-      collapsed: true,
+      collapsed: false,
 
       items: [
-        'guides/summary-guides',
 
         {
           type: 'category',
@@ -91,26 +90,49 @@ const sidebars = {
           link: {
             type: 'generated-index',
           },
-          collapsed: true,
+          collapsed: false,
 
           items: [
           {
             type: 'category',
             label: 'Web',
             link: {
-              type: 'generated-index',
+              type: 'doc',
+              id: 'guides/integration-options-publisher-web',
             },
             collapsed: true,
             items: [
-              'guides/integration-prebid',
-              'guides/publisher-client-side',
-              'guides/integration-prebid-client-side',
-              'guides/integration-prebid-server-side',
-              'guides/integration-javascript-standard',
+              {
+                type: 'category',
+                label: 'Prebid',
+                link: {
+                  type: 'doc',
+                  id: 'guides/integration-prebid',
+                },
+                collapsed: true,
+                items: [
+                  'guides/integration-prebid-client-side',
+                  'guides/integration-prebid-server-side',
+                ],
+              },
+
+              {
+                type: 'category',
+                label: 'JavaScript',
+                link: {
+                  type: 'generated-index',
+                },
+                collapsed: true,
+                items: [
+                  'guides/publisher-client-side',
+                  'guides/integration-javascript-server-side',
+                ],
+              },
               'guides/custom-publisher-integration',
               'guides/google-ss-integration',
-                    ],
+            ],
           },
+
           {
             type: 'category',
             label: 'Mobile',
@@ -127,11 +149,11 @@ const sidebars = {
             type: 'category',
             label: 'Prebid',
             link: {
-              type: 'generated-index',
+              type: 'doc',
+              id: 'guides/integration-prebid',
             },
             collapsed: true,
             items: [
-              'guides/integration-prebid',
               'guides/integration-prebid-client-side',
               'guides/integration-prebid-server-side',
             ],
@@ -183,19 +205,37 @@ const sidebars = {
             'guides/operator-guide-azure-enclave',
           ],
         },
-       ],
+      ],
     },
 
-     'summary-doc-v2',
+    {
+      type: 'category',
+      label: 'SDKs',
+      link: {
+        type: 'doc',
+        id: 'sdks/summary-sdks',
+      },
+      collapsed: false,
+      items: [
+        'sdks/client-side-identity',
+        'sdks/uid2-sdk-ref-java',
+        'sdks/uid2-sdk-ref-python',
+        'sdks/uid2-sdk-ref-csharp-dotnet',
+        'sdks/uid2-sdk-ref-cplusplus',
+        'sdks/uid2-sdk-ref-android',
+        'sdks/uid2-sdk-ref-ios',
+      ],
+    },
+
     {
       type: 'category',
       label: 'Endpoints (v2)',
       link: {
-        type: 'generated-index',
+        type: 'doc',
+        id: 'endpoints/summary-endpoints',
       },
-      collapsed: true,
+      collapsed: false,
       items: [
-        'endpoints/summary-endpoints',
         'endpoints/post-token-generate',
         'endpoints/post-token-validate',
         'endpoints/post-token-refresh',
@@ -219,8 +259,168 @@ const sidebars = {
         'sharing/sharing-bid-stream',
       ],
     },
+
+    {
+      type: 'category',
+      label: 'Reference Information',
+      link: {
+        type: 'generated-index',
+      },
+      collapsed: true,
+      items: [
+        'ref-info/ref-operators-public-private',
+        'summary-doc-v2',
+      ],
+    },
+
     'ref-info/glossary-uid',
     'ref-info/updates-doc',
-  ],
+  ];
+
+
+const sidebars = {
+  docs: fullSidebar,
+
+  sidebarPublishers: removeItems(fullSidebar, 
+    'overviews/overview-advertisers',
+    'overviews/overview-dsps',
+    'overviews/overview-data-providers',
+    'overviews/overview-operators-private',
+    'guides/advertiser-dataprovider-guide',
+    'guides/snowflake_integration',
+    'guides/integration-aws-entity-resolution',
+    'guides/dsp-guide',
+    'endpoints/post-identity-buckets',
+    'endpoints/post-identity-map'
+  ),
+
+  sidebarAdvertisers: removeItems(fullSidebar, 
+    'overviews/overview-publishers',
+    'overviews/overview-dsps',
+    'overviews/overview-data-providers',
+    'overviews/overview-operators-private',
+    'Publisher Integrations',
+    'Web',
+    'guides/integration-options-publisher-web',
+    'Prebid',
+    'guides/integration-prebid',
+    'guides/integration-prebid-client-side',
+    'guides/integration-prebid-server-side',
+    'JavaScript',
+    'guides/integration-javascript',
+    'guides/publisher-client-side',
+    'guides/integration-javascript-server-side',
+    'Server-Only',
+    'guides/custom-publisher-integration',
+    'GAM Secure Signals',
+    'guides/google-ss-integration',
+    'Mobile',
+    'guides/uid2-sdk-ref-android',
+    'guides/uid2-sdk-ref-ios',
+    'Prebid',
+    'guides/integration-prebid',
+    'guides/integration-prebid-client-side',
+    'guides/integration-prebid-server-side',
+    'Google Ad Manager',
+    'guides/google-ss-integration',
+    'guides/mobile-plugin-gma-android',
+    'guides/mobile-plugin-gma-ios',
+    'guides/mobile-plugin-ima-android',
+    'guides/mobile-plugin-ima-ios',
+    'guides/dsp-guide',
+    'sdks/client-side-identity',
+    'sdks/uid2-sdk-ref-android',
+    'sdks/uid2-sdk-ref-ios',
+    'endpoints/post-token-generate',
+    'endpoints/post-token-validate',
+    'endpoints/post-token-refresh',
+    'sharing/sharing-bid-stream'
+    ),
+
+  sidebarDSPs: removeItems(fullSidebar, 
+    'overviews/overview-publishers',
+    'overviews/overview-advertisers',
+    'overviews/overview-data-providers',
+    'overviews/overview-operators-private',
+    'Publisher Integrations',
+    'Web',
+    'guides/integration-options-publisher-web',
+    'Prebid',
+    'guides/integration-prebid',
+    'guides/integration-prebid-client-side',
+    'guides/integration-prebid-server-side',
+    'JavaScript',
+    'guides/integration-javascript',
+    'guides/publisher-client-side',
+    'guides/integration-javascript-server-side',
+    'Server-Only',
+    'guides/custom-publisher-integration',
+    'GAM Secure Signals',
+    'guides/google-ss-integration',
+    'Mobile',
+    'guides/uid2-sdk-ref-android',
+    'guides/uid2-sdk-ref-ios',
+    'Prebid',
+    'guides/integration-prebid',
+    'guides/integration-prebid-client-side',
+    'guides/integration-prebid-server-side',
+    'Google Ad Manager',
+    'guides/google-ss-integration',
+    'guides/mobile-plugin-gma-android',
+    'guides/mobile-plugin-gma-ios',
+    'guides/mobile-plugin-ima-android',
+    'guides/mobile-plugin-ima-ios',
+    'guides/advertiser-dataprovider-guide',
+    'guides/snowflake_integration',
+    'guides/integration-aws-entity-resolution',
+    'sdks/client-side-identity',
+    'sdks/uid2-sdk-ref-android',
+    'sdks/uid2-sdk-ref-ios',
+    'sharing/sharing-bid-stream'
+    ),
+
+  sidebarDataProviders: removeItems(fullSidebar, 
+    'overviews/overview-publishers',
+    'overviews/overview-advertisers',
+    'overviews/overview-dsps',
+    'overviews/overview-operators-private',
+    'Publisher Integrations',
+    'Web',
+    'guides/integration-options-publisher-web',
+    'Prebid',
+    'guides/integration-prebid',
+    'guides/integration-prebid-client-side',
+    'guides/integration-prebid-server-side',
+    'JavaScript',
+    'guides/integration-javascript',
+    'guides/publisher-client-side',
+    'guides/integration-javascript-server-side',
+    'Server-Only',
+    'guides/custom-publisher-integration',
+    'GAM Secure Signals',
+    'guides/google-ss-integration',
+    'Mobile',
+    'guides/uid2-sdk-ref-android',
+    'guides/uid2-sdk-ref-ios',
+    'Prebid',
+    'guides/integration-prebid',
+    'guides/integration-prebid-client-side',
+    'guides/integration-prebid-server-side',
+    'Google Ad Manager',
+    'guides/google-ss-integration',
+    'guides/mobile-plugin-gma-android',
+    'guides/mobile-plugin-gma-ios',
+    'guides/mobile-plugin-ima-android',
+    'guides/mobile-plugin-ima-ios',
+    'guides/dsp-guide',  
+    'sdks/client-side-identity',
+    'sdks/uid2-sdk-ref-android',
+    'sdks/uid2-sdk-ref-ios',
+    'endpoints/post-token-generate',
+    'endpoints/post-token-validate',
+    'endpoints/post-token-refresh',
+    'sharing/sharing-bid-stream'
+  ),
+
 };
 module.exports = sidebars;

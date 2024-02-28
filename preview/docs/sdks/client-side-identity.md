@@ -17,7 +17,7 @@ export const New = () => (
 Use this SDK to facilitate the process of establishing client identity using UID2 and retrieving advertising tokens. The following sections describe the high-level [workflow](#workflow-overview) for establishing UID2 identity, provide the SDK [API reference](#api-reference), and explain the UID2 [storage format](#uid2-storage-format).
 
 :::tip
-If you're using Prebid.js with the UID2 Identity Module (see [UID2 Integration Overview for Prebid.js](../guides/integration-prebid.md)), or with another product that has UID2 support, you probably don't need to use the SDK at all.
+If you're using Prebid.js with the UID2 Identity Module, or with another product that has UID2 support, you probably don't need to use the SDK at all. The Prebid.js module manages everything. For details, see [UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md).
 :::
 
 This page describes version 3 of the UID2 SDK for JavaScript. If you are maintaining an integration using an earlier version, do one of the following:
@@ -26,12 +26,12 @@ This page describes version 3 of the UID2 SDK for JavaScript. If you are maintai
 
 Related information:
 - For integration steps for content publishers, see:
-  - [JavaScript Express Integration Guide](../guides/publisher-client-side.md).
-  - [JavaScript Standard Integration Guide](../guides/integration-javascript-standard.md). 
+  - [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md).
+  - [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md). 
 - For example applications with associated documentation, see:
-  - The UID2 Google ESP with SDK v3 example:
-    - [Code and docs](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-esp-integration/with_sdk_v3) and [running site](https://esp-jssdk-integ.uidapi.com/).
-  - The example of JavaScript Express Integration: [Code](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/cstg) and [running site](https://cstg-integ.uidapi.com/).
+  - The UID2 Google Secure Signals with SDK v3 example:
+    - [Code and docs](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-esp-integration/with_sdk_v3) and running site: [Client-Side UID2 SDK Integration Example](https://secure-signals-jssdk-integ.uidapi.com/).
+  - The example of JavaScript client-side integration: [Code](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/cstg) and running site ([Client-Side Integration Example, UID2 JavaScript SDK](https://cstg-integ.uidapi.com/)).
 
 ## Functionality
 
@@ -40,6 +40,14 @@ This SDK simplifies development for publishers who want to build their own custo
 | Encrypt Raw UID2 to UID2 Token | Decrypt UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token |
 | :--- | :--- | :--- | :--- |
 | Not supported | Not supported | Not supported | Supported |
+
+## API Permissions
+
+To use this SDK, you'll need to complete the UID2 account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page.
+
+You'll be granted permission to use specific functions offered by the SDK, and given credentials for that access. Bear in mind that there might be functions in the SDK that you don't have permission to use. For example, publishers get a specific API permission to generate and refresh tokens, but the SDK might support other activities, such as sharing, which require a different API permission.
+
+For details, see [API Permissions](../getting-started/gs-permissions.md).
 
 ## SDK Version
 
@@ -71,7 +79,7 @@ The SDK is published in these locations:
 ## Terminology
 
 In this document, the following terms apply:
-- **Identity** refers to a package of values, returned by the [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) endpoint, that includes the UID2 token, the refresh token, and associated values such as timestamps.
+- **Identity** refers to a package of values, returned by the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint, that includes the UID2 token, the refresh token, and associated values such as timestamps.
 - **Advertising token** refers to the UID2 token.
 - **Callback function** refers to a callback function built for the current version of this SDK and registered using the [Array Push Pattern](#array-push-pattern).
 - **Legacy callback function** refers to a callback function built for version 1.x or 2.x of this SDK and registered in the call to `init`.
@@ -117,7 +125,7 @@ The high-level client-side workflow for establishing UID2 identity using the SDK
 	- If the advertising token is available, use it to initiate requests for targeted advertising.
 	- If the advertising token is not available, either use untargeted advertising or redirect the user to your UID2 login with the consent form.
 
-For more detailed web integration steps, see [JavaScript Standard Integration Guide](../guides/integration-javascript-standard.md).
+For more detailed web integration steps, see [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md).
 
 ### Background Token Auto-Refresh
 
@@ -126,7 +134,7 @@ As part of the SDK [initialization](#initopts-object-void), a token auto-refresh
 Here's what you need to know about the token auto-refresh:
 
 - Only one token refresh call can be active at a time. 
-- If the [POST /token/refresh](../endpoints/post-token-refresh.md) response is unsuccessful because the user has opted out, or because the refresh token has expired, this suspends the background auto-refresh process and requires a new login. In all other cases, auto-refresh attempts continue in the background.
+- If the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response is unsuccessful because the user has opted out, or because the refresh token has expired, this suspends the background auto-refresh process and requires a new login. In all other cases, auto-refresh attempts continue in the background.
 - All [callback functions](#callback-function) provided using the [Array Push Pattern](#array-push-pattern) are invoked in the following cases:
 	- After each successful refresh attempt.
 	- When identity has become invalid&#8212;for example, because the user has opted out.<br/>NOTE: The callback is *not* invoked when identity is temporarily unavailable and the auto-refresh keeps failing. In this case, the SDK continues using the existing advertising token as long as it hasn't expired.
@@ -190,11 +198,15 @@ The following example callback handles the `SdkLoaded` event to call init and th
 
 #### Event Types and Payload Details
 
+<div className='no-wrap-table-code'>
+
 | Event | Payload | Details |
 | :--- | :--- | :--- |
-| `SdkLoaded` | {} | Called when the SDK script has loaded and the global `__uid2` has been constructed. When you receive this event, it is safe to call `__uid2.init`. Callbacks always receive this event once. If the SDK has already been loaded when the callback is registered, it receives the event immediately. |
+| `SdkLoaded` | `{}` | Called when the SDK script has loaded and the global `__uid2` has been constructed. When you receive this event, it is safe to call `__uid2.init`. Callbacks always receive this event once. If the SDK has already been loaded when the callback is registered, it receives the event immediately. |
 | `InitCompleted` | `{ identity: Uid2Identity  \| null }` | Called once `init()` has finished. Callbacks always receive this event once, as long as a successful call to `init` has been made. If `init` has already been completed when the callback is registered, it receives this immediately after it receives the `SdkLoaded` event. |
 | `IdentityUpdated` | `{ identity: Uid2Identity \| null }` | Called whenever the current identity changes. If the identity doesn't change after the callback is registered, callbacks do not receive this event. |
+
+</div>
 
 The `Uid2Identity` type is the same type as the identity you can provide when calling `init()`.
 
@@ -265,7 +277,7 @@ Initializes the SDK and establishes user identity for targeted advertising.
 Here's what you need to know about this function:
 
 - You can call `init()` any time after the SDK has been loaded. The recommended way to do this is by registering a callback function that handles the `SdkLoaded` event using the [Array Push Pattern](#array-push-pattern). By using this pattern you can make sure that your code works regardless of script load order, and that using `async` or `defer` on your script tags does not cause UID2 SDK errors.
-- The `identity` property in the `init()` call refers to the `body` property of the response JSON object returned from a successful [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) call with the server-side generated identity. This is a good way to provide the identity if your server-side integration ensures you always have a current token available and it is more convenient to provide it using JavaScript.
+- The `identity` property in the `init()` call refers to the `body` property of the response JSON object returned from a successful [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) call with the server-side generated identity. This is a good way to provide the identity if your server-side integration ensures you always have a current token available and it is more convenient to provide it using JavaScript.
 - If the `identity` property in the `init()` call is falsy, the SDK attempts to load the identity from local storage or the cookie.
   - Once `init()` is complete, all callbacks receive the `InitCompleted` event. If the `identity` property on the payload of this event is null, no identity could be loaded, and you should therefore [provide a valid identity](#provide-identity). This is the recommended way to provide an identity if your server-side integration does not ensure a current identity is always available, and you need to request it from the server only when necessary.
   - If you are using a first-party cookie (see [UID2 Storage Format](#uid2-storage-format)) to store the passed UID2 information for the session, a call to `init()` made by a page on a different domain might not be able to access the cookie. You can adjust the settings used for the cookie with the `cookieDomain` and `cookiePath` options.
@@ -313,8 +325,8 @@ The `opts` object supports the following properties.
 
 | Property | Data Type | Attribute | Description | Default Value |
 | :--- | :--- | :--- | :--- | :--- |
-| `identity` | object | Optional | The `body` property value from a successful [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) call that has been run on the server to generate an identity.<br/>To use the identity from a first-party cookie (see [UID2 Storage Format](#uid2-storage-format)), leave this property empty. | N/A |
-| `baseUrl` | string | Optional | The custom base URL of the UID2 operator to use when invoking the [POST /token/refresh](../endpoints/post-token-refresh.md) endpoint.<br/>For example: `https://my.operator.com`. | `https://prod.uidapi.com`. |
+| `identity` | object | Optional | The `body` property value from a successful [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) call that has been run on the server to generate an identity.<br/>To use the identity from a first-party cookie (see [UID2 Storage Format](#uid2-storage-format)), leave this property empty. | N/A |
+| `baseUrl` | string | Optional | The custom base URL of the UID2 operator to use when invoking the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint.<br/>For example: `https://my.operator.com`. | `https://prod.uidapi.com`. |
 | `refreshRetryPeriod` | number | Optional | The number of milliseconds after which to retry refreshing a token if an intermittent error occurs.<br/>This value must be >= 1000. | 5000 |
 | `cookieDomain` | string | Optional | The domain name string to apply to the UID2 cookie (see [UID2 Storage Format](#uid2-storage-format)).<br/>For example, if the `baseUrl` is `https://my.operator.com`, the `cookieDomain` value might be `operator.com`. | `undefined` |
 | `cookiePath` | string | Optional | The path string to apply to the UID2 cookie (see [UID2 Storage Format](#uid2-storage-format)). | `/` |
@@ -391,7 +403,7 @@ It might be easier to use the [callback function](#callback-function) to be noti
 
 ### isLoginRequired(): boolean
 
-Specifies whether a UID2 login ([POST /token/generate](../endpoints/post-token-generate.md) call) is required. 
+Specifies whether a UID2 login ([POST&nbsp;/token/generate](../endpoints/post-token-generate.md) call) is required. 
 
 ```html
 <script>
@@ -466,13 +478,13 @@ If cookie storage is being used, the cookie uses the properties in the following
 | Properties | Default Value | Comments |
 | :--- | :--- | :--- |
 | `Name` | `__uid_2` | N/A |
-| `Expiry` | N/A | The value is the refresh token expiration timestamp as specified in the [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) response. |
+| `Expiry` | N/A | The value is the refresh token expiration timestamp as specified in the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response. |
 | `Path` | `/` | If you want to use a different value, you can set it during SDK initialization using the `cookiePath` [init() parameter](#init-parameters). |
 | `Domain` | `undefined` | If you want to use a different value, you can set it during SDK initialization using the `cookieDomain` [init() parameter](#init-parameters). |
 
 ### Contents Structure
 
-The content of the UID2 local storage or cookie is a URI-encoded string representation of a JSON object with the structure identical to that of the `body` property in a [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) response, with the exception of the `private` object. 
+The content of the UID2 local storage or cookie is a URI-encoded string representation of a JSON object with the structure identical to that of the `body` property in a [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response, with the exception of the `private` object. 
 
 The following is an example of the UID2 cookie structure:
 

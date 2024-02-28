@@ -1,7 +1,7 @@
 ---
 title: UID2 Server-Side Integration Guide for Prebid.js
-sidebar_label: Server-Side Integration Guide for Prebid.js
-pagination_label: UID2 Server-Side Integration Guide for Prebid.js
+sidebar_label: Server-Side Integration for Prebid.js
+pagination_label: UID2 Server-Side Integration for Prebid.js
 description: Server-Side の Prebid.js インテグレーションの設定に関する情報。
 hide_table_of_contents: false
 sidebar_position: 04
@@ -36,7 +36,7 @@ This guide includes the following information:
 - [Configuration Parameters for userSync](#configuration-parameters-for-usersync) 
   - [Configuration Parameter Examples: Value](#configuration-parameter-examples-value)
   - [Sample Token](#sample-token)
-- [Optional: Reduce Latency by Setting the API Base URL](#optional-reduce-latency-by-setting-the-api-base-url) 
+- [Optional: Reduce Latency by Setting the API Base URL for the Production Environment](#optional-reduce-latency-by-setting-the-api-base-url-for-the-production-environment) 
  -->
 
 このガイドは、Server-Side で [DII](../ref-info/glossary-uid.md#gl-dii)(メールアドレスまたは電話番号) にアクセスでき、UID2 とインテグレーションして、RTB ビッドストリームで Prebid.js によって渡される [UID2 Token](../ref-info/glossary-uid.md#gl-uid2-token)(Advertising Token) を生成したいパブリッシャー向けのものです。
@@ -47,7 +47,6 @@ Prebid.js を使って UID2 とインテグレーションするには、以下�
 - トークン生成のためにサーバーサイドを変更します(オプションでトークンのリフレッシュ)。 
 
 ## Prebid.js Version
-
 この実装には、Prebid.js version 7.53.0 以降が必要です。バージョン情報については、[https://github.com/prebid/Prebid.js/releases](https://github.com/prebid/Prebid.js/releases) を参照してください。
 
 ## UID2 Prebid Module Page
@@ -97,7 +96,7 @@ UID2 Prebid モジュールを設定して、以下の2つのアクションを�
 
 ### Generating a UID2 Token on the Server
 
-トークンを生成するには、[POST /token/generate](../endpoints/post-token-generate.md) エンドポイントを呼び出します。
+トークンを生成するには、[POST&nbsp;/token/generate](../endpoints/post-token-generate.md) エンドポイントを呼び出します。
 
 例については、[Sample Token](#sample-token) を参照してください。
 
@@ -108,14 +107,14 @@ UID2 Token をリフレッシュするには、次の表に示すように 2 つ
 | Mode | Description | Link to Section | 
 | --- | --- | --- |
 | Client refresh mode | Prebid.js は内部で自動的にトークンをリフレッシュします。<br/>これは最もシンプルなアプローチです。 | [Client Refresh Mode](#client-refresh-mode) |
-| Server-only mode | Prebid.js はトークンを自動的にリフレッシュしません。トークンのリフレッシュを管理するのはパブリッシャーです。<br/>このオプションを選択する理由の例:<ul><li>[UID2 SDK for JavaScript](../sdks/client-side-identity.md) を使用してトークンをリフレッシュし、Prebid.js でトークンをビッドストリームに送信したい場合。</li><li>トークンを複数の手段(Prebid.js や Google など)でビッドストリームに送信したい場合。</li></ul> | [Server-Only Mode](#server-only-mode) |
+| Server-only mode | Prebid.js はトークンを自動的にリフレッシュしません。トークンのリフレッシュを管理するのはパブリッシャーです。<br/>このオプションを選択する理由の例:<ul><li>[UID2 SDK for JavaScript](../sdks/client-side-identity.md) を使用してトークンをリフレッシュし、Prebid.js でトークンをビッドストリームに送信したい場合。</li><li>トークンを複数の手段(Prebid.js や Google など) でビッドストリームに送信したい場合。</li></ul> | [Server-Only Mode](#server-only-mode) |
 
 ### Client Refresh Mode
 
 該当するエンドポイントからの完全な JSON レスポンスボディを Prebid module に提供する必要があります:
 
-- 新しい UID2 Token を取得するには、[POST /token/generate](../endpoints/post-token-generate.md)。
-- リフレッシュされた UID2 Token については、[POST /token/refresh](../endpoints/post-token-refresh.md)。
+- 新しい UID2 Token を取得するには、[POST&nbsp;/token/generate](../endpoints/post-token-generate.md)。
+- リフレッシュされた UID2 Token については、[POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md)。
 
 例については、[Sample Token](#sample-token) を参照してください。
 
@@ -249,7 +248,7 @@ pbjs.setConfig({
 
 #### Passing a New Token: Server-Only Mode
 
-Server-Only Mode では、prebid.js UID2 module は Advertising Token のみを受け取るため、トークンは短時間しか有効ではありません。このため、各ページのロード時に Advertising Token を提供するのが最善です。
+Server-Only Mode では、Prebid.js UID2 module は Advertising Token のみを受け取るため、トークンは短時間しか有効ではありません。このため、各ページのロード時に Advertising Token を提供するのが最善です。
 
 必要であれば、新しいトークンを提供する必要があるかどうかを判断するために、[Determining Whether the Module Has a Valid Token](#determining-whether-the-module-has-a-valid-token) を参照してください。
 
@@ -275,9 +274,8 @@ pbjs.setConfig({
     userIds: [{ 
       name: 'uid2', 
       params: { 
-
-                 //default value is ‘localStorage’ 
-        storage: ‘cookie’  
+        // default value is 'localStorage' 
+        storage: 'cookie'    
       } 
     }] 
   } 
@@ -314,7 +312,7 @@ if (!pbjs.getUserIds().uid2) {
 ```
 
 :::caution
- `setConfig`(または同様の関数)を 2 回呼び出してユーザー ID を設定した場合、User ID Submodule の ID 値を再初期化するために、`refreshUserIds` を呼び出す必要があります。
+ `setConfig`(または同様の関数) を 2 回呼び出してユーザー ID を設定した場合、User ID Submodule の ID 値を再初期化するために、`refreshUserIds` を呼び出す必要があります。
 :::
 
 ## Checking the Integration
@@ -346,7 +344,7 @@ Prebid.js の設定を検証・デバッグするツールの例として、オ�
 | params.uid2Token | CR: Optional<br/>SO: N/A | Object | 最初の UID2 Token。これは `/token/generate` または `/token/refresh` エンドポイントをコールした際に復号されたレスポンスの `body` 要素でなければなりません。 | [Sample Token](#sample-token) を参照してください。 |
 | params.uid2Cookie | CR: オプション<br/>SO: N/A  | String | サーバが設定した UID2 Token を保持するクッキーの名前。クッキーは uid2Token パラメータと同じ形式の JSON を含む必要があります。`uid2Token` を指定した場合、このパラメータは無視されます。 | [Sample Token](#sample-token) を参照してください。 |
 | params.uid2ApiBase | CR: オプション<br/>SO: オプション | String | デフォルトの UID2 API エンドポイントを上書きします。有効な値については、[Environments](../getting-started/gs-environments.md) を参照してください。 | `"https://prod.uidapi.com"` (デフォルト)|
-| params.storage | CR: オプション<br/>SO: オプション | String | モジュール内部の保存方法を指定します: `cookie` または `localStorage`。このパラメータは指定しないことを推奨します。代わりに、モジュールがデフォルトを使用するようにします。 | `localStorage` (デフォルト) |
+| params.storage | CR: オプション<br/>SO: オプション | String | モジュール内部の保存方法を指定します: `cookie` または `localStorage`。このパラメータは指定しないことを推奨します。代わりに、モジュールがデフォルトを使用するようにします。 | `"localStorage"` (デフォルト) |
 
 ### Configuration Parameter Examples: Value
 
@@ -382,9 +380,9 @@ pbjs.setConfig({
 }
 ```
 
-## Optional: Reduce Latency by Setting the API Base URL
-<!-- GWH "Reduce Latency by Setting the API Base URL" section is identical for client side and server side. -->
-デフォルトでは、UID2 module はアメリカにある UID2 サーバーに API コールを行います。ユーザーの居住地によっては、レイテンシー(遅延時間)を短縮するために、ユーザーに近いサーバーを選択することを検討してください。
+## Optional: Reduce Latency by Setting the API Base URL for the Production Environment
+<!-- GWH "Optional: Reduce Latency by Setting the API Base URL for the Production Environment" section is identical for client side and server side. -->
+デフォルトでは、UID2 module はアメリカにある UID2 サーバーに API コールを行います。ユーザーの居住地によっては、レイテンシー(遅延時間) を短縮するために、ユーザーに近いサーバーを選択することを検討してください。
 
 UID2 module を設定するときに別の UID2 サーバーを指定するには、次の例に示すように、オプションの `params.uid2ApiBase` パラメータを設定します:
 

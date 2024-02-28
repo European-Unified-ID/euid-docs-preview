@@ -20,7 +20,7 @@ This guide covers integration steps for publishers using UID2 with the Google Ad
 * [UID2 SDK for JavaScript Client-Side Integration](#uid2-sdk-for-javascript-client-side-integration)
 * [Sample Applications](#sample-applications) -->
 
->NOTE: To use the UID2 Google Ad Manager secure signals integration, if you are using an SDK you must have your UID2 integration already set up. This does not apply if you are using server-only integration. For a summary of all the integration options available, see [UID2 Integration Guides](summary-guides.md).
+>NOTE: To use the UID2 Google Ad Manager secure signals integration, if you are using an SDK you must have your UID2 integration already set up. This does not apply if you are using server-only integration. For a summary of all the integration options available, see [UID2 Integration Guides: Summary](summary-guides.md).
 
 ## Overview
 
@@ -59,7 +59,7 @@ window.googletag.cmd.push(function () {
 
 So that it can share encrypted signals, the hosted auto-loaded secure signals script must be able to make an asynchronous call to the `window.getUid2AdvertisingToken` function and, in response, receive `advertising_token` as a string.
 
-It's important to make sure that the identity token is fresh. For a server-side integration, we recommend making a call to the [POST /token/refresh](../endpoints/post-token-refresh.md#post-tokenrefresh) endpoint to get a fresh [advertising token](../endpoints/post-token-refresh.md#decrypted-json-response-format) from the JSON response.
+It's important to make sure that the identity token is fresh. For a server-side integration, we recommend making a call to the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md#post-tokenrefresh) endpoint to get a fresh [advertising token](../endpoints/post-token-refresh.md#decrypted-json-response-format) from the JSON response.
 
 The following code is an example of how you could do this.
 
@@ -81,7 +81,7 @@ If you're using the UID2 SDK for JavaScript version 3.0.0 or later, the UID2 sec
 
 This script is hosted on CDN, and GPT automatically loads it with the secure signals feature. 
 
-For details, see [JavaScript Standard Integration Guide](integration-javascript-standard.md).
+For details, see [Server-Side Integration Guide for JavaScript](integration-javascript-server-side.md).
 
 A sample application is also available for integration using the UID2 SDK for JavaScript. See [Sample Applications](#sample-applications).
 
@@ -89,7 +89,7 @@ A sample application is also available for integration using the UID2 SDK for Ja
 
 The following sample applications are available to illustrate how to integrate with the Google Ad Manager secure signals feature:
 
-- [Server-Only UID2 Integration Example](https://esp-srvonly-integ.uidapi.com/)
-- [Client-Side UID2 SDK Integration Example](https://esp-jssdk-integ.uidapi.com/)
+- [Server-Only UID2 Integration Example](https://secure-signals-srvonly-integ.uidapi.com/)
+- [Client-Side UID2 SDK Integration Example](https://secure-signals-jssdk-integ.uidapi.com/)
 
 Each sample application has its own instructions.

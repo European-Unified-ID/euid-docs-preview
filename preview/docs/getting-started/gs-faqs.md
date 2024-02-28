@@ -22,6 +22,7 @@ Here are some frequently asked questions regarding the UID2 framework.
 
    - [Will all integration partners in the EUID infrastructure (SSPs, third-party data providers, measurement providers) be automatically integrated with UID2?](#will-all-integration-partners-in-the-euid-infrastructure-ssps-third-party-data-providers-measurement-providers-be-automatically-integrated-with-uid2)
    - [Can users opt out of targeted advertising tied to their UID2 identity?](#can-users-opt-out-of-targeted-advertising-tied-to-their-uid2-identity)
+   - [When I send DII to UID2, does UID2 store the information?](#when-i-send-dii-to-uid2-does-uid2-store-the-information)
    - [How does a user know where to access the opt-out portal?](#how-does-a-user-know-where-to-access-the-opt-out-portal)
    - [Does UID2 allow the processing of HIPAA-regulated data?](#does-uid2-allow-the-processing-of-hipaa-regulated-data)
 
@@ -31,7 +32,13 @@ No. UID2 has its own framework, which is separate from EUID. As such, paperwork 
 
 #### Can users opt out of targeted advertising tied to their UID2 identity?
 
-Yes. Through the [Transparency and Control Portal](https://www.transparentadvertising.com/), users can opt out from being served targeted ads tied to their UID2 identity. Each request is distributed through the UID2 Opt-Out Service and UID2 Operators to all relevant participants. 
+Yes. Through the [Transparency and Control Portal](https://www.transparentadvertising.com/), users can opt out from being served targeted ads tied to their UID2 identity. Each request is distributed through the UID2 Opt-Out Service, and UID2 Operators make the opt-out information available to all relevant participants.
+
+#### When I send DII to UID2, does UID2 store the information?
+
+No, UID2 does not store any DII. In addition, in almost all cases, UID2 doesn't store any values at all once the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md), [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md), or [POST /identity/map](../endpoints/post-identity-map.md) call is complete.
+
+A necessary exception is the case where a user has opted out. In this scenario, UID2 stores a hashed, opaque value to indicate the opted-out user. The stored value cannot be reverse engineered back to the original value of the DII, but can be used to identify future requests for a UID2 generated from the same DII, which are therefore denied.
 
 #### How does a user know where to access the opt-out portal?
 
@@ -56,9 +63,9 @@ Here are some frequently asked questions for publishers using the UID2 framework
 
 #### How can I test that the DII sent and the returned token match up?
 
-You can use the [POST /token/validate](../endpoints/post-token-validate.md) endpoint to check whether the [DII](../ref-info/glossary-uid.md#gl-dii) that you are sending through [POST /token/generate](../endpoints/post-token-generate.md) is valid. `POST /token/validate` is used primarily for testing purposes.
+You can use the [POST&nbsp;/token/validate](../endpoints/post-token-validate.md) endpoint to check whether the [DII](../ref-info/glossary-uid.md#gl-dii) that you are sending through [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) is valid. `POST /token/validate` is used primarily for testing purposes.
 
-For details, see [Using POST /token/validate to Test](../endpoints/post-token-validate.md#using-post-tokenvalidate-to-test).
+For details, see [Using POST&nbsp;/token/validate to Test](../endpoints/post-token-validate.md#using-post-tokenvalidate-to-test).
 
 #### Do I need to decrypt tokens?
 
@@ -67,8 +74,8 @@ No, publishers do not need to decrypt [UID2 tokens](../ref-info/glossary-uid.md#
 #### How will I be notified of user opt-out?
 
 If the user has opted out, the API response notifies you in either of these cases:
-- When you generate the UID2 token by a call to the [POST /token/generate](../endpoints/post-token-generate.md) endpoint, either directly or via one of the UID2 SDKs, using the required `optout_check` parameter with a value of `1`.
-- When you refresh the UID2 token by a call to the [POST /token/refresh](../endpoints/post-token-refresh.md) endpoint, either directly or via one of the UID2 SDKs.
+- When you generate the UID2 token by a call to the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint, either directly or via one of the UID2 SDKs, using the required `optout_check` parameter with a value of `1`.
+- When you refresh the UID2 token by a call to the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint, either directly or via one of the UID2 SDKs.
 
 #### Where should I make token generation calls&#8212;from the server side or the client side?
 
@@ -79,7 +86,7 @@ You can generate UID2 tokens from either the client side or the server side. For
 
 #### Can I make token refresh calls from the client side?
 
-Yes. The [POST /token/refresh](../endpoints/post-token-refresh.md) can be called from the client side (for example, a browser or a mobile app) because it does not require using an API key.
+Yes. The [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) can be called from the client side (for example, a browser or a mobile app) because it does not require using an API key.
 
 #### How can I test the refresh token workflow?
 
@@ -89,7 +96,7 @@ The procedure is a little different depending on whether or not you are using an
 
 ##### With SDK:
 
-1. Depending on whether the DII is an email address or a phone number, send a [POST /token/generate](../endpoints/post-token-generate.md) request using one of the following values:
+1. Depending on whether the DII is an email address or a phone number, send a [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) request using one of the following values:
     - The `refresh-optout@example.com` as the `email` value.
     - The hash of `refresh-optout@example.com` as the `email_hash` value. 
     - The `+00000000002` as the `phone` value.
@@ -98,13 +105,13 @@ The procedure is a little different depending on whether or not you are using an
 
 ##### Without SDK:
 
-1. Depending on whether the [DII](../ref-info/glossary-uid.md#gl-dii) is an email address or a phone number, send a [POST /token/generate](../endpoints/post-token-generate.md) request using one of the following values:
+1. Depending on whether the [DII](../ref-info/glossary-uid.md#gl-dii) is an email address or a phone number, send a [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) request using one of the following values:
     - The `refresh-optout@example.com` as the `email` value.
     - The hash of `refresh-optout@example.com` as the `email_hash` value. 
     - The `+00000000002` as the `phone` value.
     - The hash of `+00000000002` as the `phone_hash` value.
 2. Store the returned `refresh_token` for use in the following step.
-3. Send a [POST /token/refresh](../endpoints/post-token-refresh.md) request with the `refresh_token` (saved in step 2) as the `token` value.<br/>The body response should be empty, and the `status` value should be set to `optout` because the `refresh-optout@example.com` email and the `+00000000002` phone number always result in a logged out user.
+3. Send a [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) request with the `refresh_token` (saved in step 2) as the `token` value.<br/>The body response should be empty, and the `status` value should be set to `optout` because the `refresh-optout@example.com` email and the `+00000000002` phone number always result in a logged out user.
 
 #### What is the uniqueness and rotation policy for UID2 tokens?
 
@@ -144,10 +151,12 @@ Here are some frequently asked questions for advertisers and data providers usin
    - [How should I generate the SHA-256 of DII for mapping?](#how-should-i-generate-the-sha-256-of-dii-for-mapping)
    - [Should I store large volumes of email address, phone number, or their hash mappings? ](#should-i-store-large-volumes-of-email-address-phone-number-or-their-hash-mappings)
    - [How should I handle user opt-outs?](#how-should-i-handle-user-opt-outs)
+   - [Does the same DII always result in the same raw UID2?](#does-the-same-dii-always-result-in-the-same-raw-uid2)
+
 
 #### How do I know when to refresh the UID2 due to salt bucket rotation?
 
-Metadata supplied with the UID2 generation request indicates the salt bucket used for generating the UID2. Salt buckets persist and correspond to the underlying [DII](../ref-info/glossary-uid.md#gl-dii) used to generate a UID2. Use the  [POST /identity/buckets](../endpoints/post-identity-buckets.md) endpoint to return which salt buckets rotated since a given timestamp. The returned rotated salt buckets inform you which UID2s to refresh.
+Metadata supplied with the UID2 generation request indicates the salt bucket used for generating the UID2. Salt buckets persist and correspond to the underlying [DII](../ref-info/glossary-uid.md#gl-dii) used to generate a UID2. Use the  [POST&nbsp;/identity/buckets](../endpoints/post-identity-buckets.md) endpoint to return which salt buckets rotated since a given timestamp. The returned rotated salt buckets inform you which UID2s to refresh.
 
 :::note
 We do not make any promises about when the rotation takes place. To stay as up-to-date as possible, we recommend doing the checks once per hour.
@@ -165,7 +174,7 @@ When mapping and remapping emails, be sure not to make any assumptions about the
 
 The recommended cadence for updating audiences is daily.
 
-Even though each salt bucket is updated roughly once a year, individual bucket updates are spread over the year. This means that about 1/365th of all buckets are rotated daily. If fidelity is critical, consider calling the [POST /identity/buckets](../endpoints/post-identity-buckets.md) endpoint more frequently; for example, hourly.
+Even though each salt bucket is updated roughly once a year, individual bucket updates are spread over the year. This means that about 1/365th of all buckets are rotated daily. If fidelity is critical, consider calling the [POST&nbsp;/identity/buckets](../endpoints/post-identity-buckets.md) endpoint more frequently; for example, hourly.
 
 #### How should I generate the SHA-256 of DII for mapping?
 
@@ -181,9 +190,17 @@ Unless you are using a private operator, you must map email addresses, phone num
 
 #### How should I handle user opt-outs?
 
-When a user opts out of UID2-based targeted advertising through the [Transparency and Control Portal](https://www.transparentadvertising.com/), the opt-out signal is sent to DSPs and publishers, which handle opt-outs at bid time. As an advertiser or data provider, you do not need to check for UID2 opt-out in this scenario.
+When a user opts out of UID2-based targeted advertising through the [Transparency and Control Portal](https://www.transparentadvertising.com/), the opt-out signal is sent to DSPs and publishers, who handle opt-outs at bid time. We recommend that advertisers and data providers regularly check whether a user has opted out, via the [POST /identity/map](../endpoints/post-identity-map.md) endpoint.
 
 If a user opts out through your website, you should follow your internal procedures for handling the opt-out. For example, you might choose not to generate a UID2 for that user.
+
+#### Does the same DII always result in the same raw UID2?
+
+In general yes, the process of generating a raw UID2 from DII is the same, and results in the same value, no matter who sent the request. If two UID2 participants were to send the same email address to the [POST /identity/map](../endpoints/post-identity-map.md) endpoint at the same time, they would both get the same raw UID2 in response.
+
+However, there is a variable factor, which is the [salt](../ref-info/glossary-uid.md#gl-salt) value that's used in generating the raw UID2. The salt values are rotated roughly once per year (for details, see [How often should UID2s be refreshed for incremental updates?](#how-often-should-uid2s-be-refreshed-for-incremental-updates)). If the salt value changes between one request and another, those two requests result in two different raw UID2, even when the DII is the same.
+
+For more information, see [Monitor for salt bucket rotations related to your stored raw UID2s](../guides/advertiser-dataprovider-guide.md#3-monitor-for-salt-bucket-rotations-related-to-your-stored-raw-uid2s) in the *Advertiser/Data Provider Integration Guide*.
 
 ## FAQs for DSPs
 
@@ -206,11 +223,11 @@ Here are some frequently asked questions for demand-side platforms (DSPs).
 
 #### How do I know which decryption key to apply to a UID2?
 
-Each of the server-side SDKs  (see [SDKs](../sdks/summary-sdks.md)) updates decryption keys automatically. Metadata supplied with the UID2 token discloses the IDs of the decryption keys to use. 
+Each of the server-side SDKs  (see [SDKs: Summary](../sdks/summary-sdks.md)) updates decryption keys automatically. Metadata supplied with the UID2 token discloses the IDs of the decryption keys to use. 
 
 #### Where do I get the decryption keys?
 
-You can use one of the server-side SDKs (see [SDKs](../sdks/summary-sdks.md)) to communicate with the UID2 service and fetch the latest keys. To make sure that the keys remain up-to-date, it is recommended to fetch them periodically; for example, once every hour.
+You can use one of the server-side SDKs (see [SDKs: Summary](../sdks/summary-sdks.md)) to communicate with the UID2 service and fetch the latest keys. To make sure that the keys remain up-to-date, it is recommended to fetch them periodically; for example, once every hour.
 
 #### How many decryption keys may be present in memory at any point?
 
@@ -256,7 +273,7 @@ Typically GET requests, but different DSPs may use different types.
 
 #### How strict are the requirements for honoring opt-outs? 
 
-Opt-outs must be always respected. It may take some time for an opt-out request to propagate through the system during which time it is expected that some bids may not honor the opt-out.
+Opt-outs must always be respected. It may take some time for an opt-out request to propagate through the system during which time it is expected that some bids may not honor the opt-out.
 
 #### How do SDK errors impact the DSP's ability to respond to a bid?
 

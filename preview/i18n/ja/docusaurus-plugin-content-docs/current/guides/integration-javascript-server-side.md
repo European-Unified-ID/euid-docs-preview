@@ -1,7 +1,7 @@
 ---
-title: JavaScript Standard Integration
-sidebar_label: JavaScript Standard
-pagination_label: JavaScript Standard Integration Guide
+title: Server-Side Integration Guide for JavaScript
+sidebar_label: Server-Side Integration, JavaScript
+pagination_label: Server-Side Integration Guide for JavaScript
 description: UID2 SDK for JavaScript を使用する標準的な Web インテグレーションシナリオをカバーするパブリッシャー向けの情報で、トークンを Server-Side で生成し、パブリッシャーのウェブページに渡す必要があります。
 hide_table_of_contents: false
 sidebar_position: 02
@@ -10,7 +10,7 @@ sidebar_position: 02
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# JavaScript Standard Integration Guide
+# Server-Side Integration Guide for JavaScript
 
 このガイドは、UID2 対応のシングルサインオンや ID プロバイダーではなく、UID2 と直接統インテグレーションしながら、RTB ビッドストリーム用に UID2 を使用して ID トークンを生成したいウェブアセットを持つパブリッシャーを対象としています。
 
@@ -29,9 +29,9 @@ SDK の技術的な詳細については、[UID2 SDK for JavaScript Reference Gu
 
 ## Sample Implementation Website
 
-アプリケーションの例については、SDK v3 を使用した UID2 Google ESP の例を参照してください:
-- コードとドキュメント: [UID2 SDK ESP Integration Example](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-esp-integration/with_sdk_v3)
-- ランニングサイト: [Client-Side UID2 SDK Integration Example](https://esp-jssdk-integ.uidapi.com/)
+アプリケーションの例については、SDK v3 を使用した UID2 Google Secure Signals の例を参照してください:
+- コードとドキュメント: [UID2 SDK Secure Signals Integration Example](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-secure-signals-integration/with_sdk_v3)
+- ランニングサイト: [Client-Side UID2 SDK Integration Example](https://secure-signals-jssdk-integ.uidapi.com/)
 
 ## Introduction
 
@@ -39,7 +39,7 @@ SDK の技術的な詳細については、[UID2 SDK for JavaScript Reference Gu
 
 ワークフロー図は、[Integration Steps](#integration-steps) を参照してください。また、[FAQ](#faqs) も参照してください。
 
-UID2 を使用してクライアントの ID を確立し、Advertising Token を取得するプロセスを容易にするために、このガイドで提供する Web インテグレーション手順は、JavaScript 用の UID2 SDK に依存しています。このガイドに記載されているインテグレーションステップと SDK の使用方法(現在はメールアドレスのみ)を示す [example application](https://example-jssdk-integ.uidapi.com/) を以下に示します。アプリケーションのドキュメントについては、[UID2 SDK Integration Example](https://github.com/IABTechLab/uid2-examples/blob/main/publisher/standard/README.md) を参照してください。
+UID2 を使用してクライアントの ID を確立し、Advertising Token を取得するプロセスを容易にするために、このガイドで提供する Web インテグレーション手順は、JavaScript 用の UID2 SDK に依存しています。このガイドに記載されているインテグレーションステップと SDK の使用方法(現在はメールアドレスのみ) を示す [example application](https://example-jssdk-integ.uidapi.com/) を以下に示します。アプリケーションのドキュメントについては、[UID2 SDK Integration Example](https://github.com/IABTechLab/uid2-examples/blob/main/publisher/standard/README.md) を参照してください。
 
 :::tip
 ファーストパーティ Cookie とローカルストレージの実装の詳細は、将来変更される可能性があります。潜在的な問題を回避するため、ID 管理には [UID2 SDK for JavaScript API Reference](../sdks/client-side-identity.md#api-reference) に記載されている機能を使用してください。
@@ -58,6 +58,7 @@ Google Ad Managerを使用していて、セキュアシグナル機能を使用
 ![Publisher Flow](images/publisher-flow-mermaid.png)
 
 以下のセクションでは、図中の各ステップについての詳細を説明します: 
+
  1. [Establish identity: User Login](#establish-identity-user-login)
  2. [Bid Using UID2 Tokens](#bid-using-uid2-tokens)
  3. [Refresh Tokens](#refresh-tokens)
@@ -65,10 +66,12 @@ Google Ad Managerを使用していて、セキュアシグナル機能を使用
 
 ### Establish Identity: User Login
 
+Step 1-c で認証を行い、ユーザーに利用規約を受け入れさせ、パブリッシャーがユーザーのメールアドレスまたは電話番号を検証した後、Server-Side で UID2 Token を生成する必要があります。次の表は、トークン生成ステップの詳細です。
+
 | Step | Endpoint/SDK | Description |
 | :--- | :--- | :--- |
-| 1-d  | [POST /token/generate](../endpoints/post-token-generate.md)        | ユーザーが認証され、UID2 の作成が許可されたら、[POST /token/generate](../endpoints/post-token-generate.md) エンドポイントを使用して、ユーザーの正規化したメールアドレスまたは電話番号を使って UID2 Token を生成します。 |
-| 1-e  | [POST /token/generate](../endpoints/post-token-generate.md)        | ユーザーのメールアドレス、電話番号、またはそれぞれのハッシュから生成された UID2 Token を返します。 |
+| 1-d  | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md)        | ユーザーが認証され、UID2 の作成が許可されたら、[POST&nbsp;/token/generate](../endpoints/post-token-generate.md) エンドポイントを使用して、ユーザーの正規化したメールアドレスまたは電話番号を使って UID2 Token を生成します。 |
+| 1-e  | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md)        | ユーザーのメールアドレス、電話番号、またはそれぞれのハッシュから生成された UID2 Token を返します。 |
 | 1-f  | UID2 SDK for JavaScript | Step 1-e で返された UID2 Token を、SDK の [init()関数](../sdks/client-side-identity.md#initopts-object-void) の `identity` プロパティで SDK に送信し、以下に示すように [コールバック関数](../sdks/client-side-identity.md#callback-function) を指定します。このメカニズムにより、ユーザーがログアウトするまで、UID2 Token がターゲティング広告に利用できるようになります。|
 | 1-g | UID2 SDK for JavaScript | SDK から ID 更新を受け取り、ターゲティング広告を開始するために使用するコールバック関数を SDK に提供します。 |
 
@@ -180,7 +183,7 @@ SDKは、指定された [callback function](../sdks/client-side-identity.md#cal
 ```
 
 :::info
-返された Advertising Token をどのように SSP に渡すかを検討する必要があります。`Prebid.js`([UID2 Integration Overview for Prebid.js](integration-prebid.md) を参照)や Google Ad Manager Secure Signals([Google Ad Manager Secure Signals Integration Guide](google-ss-integration.md) を参照)を使用するなど、Client-Side で UID2 を実装する他のいくつかのアプローチでは、実装に、返された Advertising Token の受け渡しを管理する関数が含まれています。UID2 SDK for JavaScriptを使用している場合は、これを自分で管理する必要があります。
+返された Advertising Token をどのように SSP に渡すかを検討する必要があります。`Prebid.js`([UID2 Integration Overview for Prebid.js](integration-prebid.md) を参照) や Google Ad Manager Secure Signals([Google Ad Manager Secure Signals Integration Guide](google-ss-integration.md) を参照) を使用するなど、Client-Side で UID2 を実装する他のいくつかのアプローチでは、実装に、返された Advertising Token の受け渡しを管理する関数が含まれています。UID2 SDK for JavaScriptを使用している場合は、これを自分で管理する必要があります。
 :::
 
 :::tip
@@ -194,7 +197,7 @@ SDKは、指定された [callback function](../sdks/client-side-identity.md#cal
 | Step | Endpoint/SDK | Description |
 | :--- | :--- | :--- |
 | 3-a | [UID2 SDK for JavaScript](../sdks/client-side-identity.md) | SDK はバックグラウンドで自動的に UID2 Token をリフレッシュします。手動で操作する必要はありません。 |
-| 3-b | [UID2 SDK for JavaScript](../sdks/client-side-identity.md) | ユーザーがオプトアウトしていない場合、[POST /token/refresh](../endpoints/post-token-refresh.md) エンドポイントは、自動的に新しい ID トークンを返します。 |
+| 3-b | [UID2 SDK for JavaScript](../sdks/client-side-identity.md) | ユーザーがオプトアウトしていない場合、[POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) エンドポイントは、自動的に新しい ID トークンを返します。 |
 
 
 ### Clear Identity: User Logout
@@ -216,4 +219,3 @@ SDKは、指定された [callback function](../sdks/client-side-identity.md#cal
 ## FAQs
 
 パブリッシャー向けのよくある質問については、[FAQs for Publishers](../getting-started/gs-faqs.md#faqs-for-publishers) を参照してください。
-

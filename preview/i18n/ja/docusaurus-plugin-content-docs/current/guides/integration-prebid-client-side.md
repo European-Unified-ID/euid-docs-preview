@@ -1,7 +1,7 @@
 ---
 title: UID2 Client-Side Integration Guide for Prebid.js
-sidebar_label: Client-Side Integration Guide for Prebid.js
-pagination_label: UID2 Client-Side Integration Guide for Prebid.js
+sidebar_label: Client-Side Integration for Prebid.js
+pagination_label: UID2 Client-Side Integration for Prebid.js
 description: Client-Side の Prebid.js インテグレーションの設定に関する情報。
 hide_table_of_contents: false
 sidebar_position: 04
@@ -25,7 +25,7 @@ This guide includes the following information:
 - [Storing the UID2 Token in the Browser](#storing-the-uid2-token-in-the-browser)
 - [When to Pass DII to the UID2 Module](#when-to-pass-dii-to-the-uid2-module)
 - [Checking the Integration](#checking-the-integration)
-- [Optional: Reduce Latency by Setting the API Base URL](#optional-reduce-latency-by-setting-the-api-base-url)
+- [Optional: Reduce Latency by Setting the API Base URL for the Production Environment](#optional-reduce-latency-by-setting-the-api-base-url-for-the-production-environment)
  -->
 
 ## Prebid.js Version
@@ -129,9 +129,8 @@ pbjs.setConfig({
     userIds: [{ 
       name: 'uid2', 
       params: { 
-
-                 //default value is ‘localStorage’ 
-        storage: ‘cookie’  
+        // default value is 'localStorage' 
+        storage: 'cookie'   
       } 
     }] 
   } 
@@ -195,9 +194,9 @@ Prebid.js の設定を検証・デバッグするツールの例として、オ�
 - Chrome ウェブストアのダウンロード場所: [Professor Prebid](https://chromewebstore.google.com/detail/professor-prebid/kdnllijdimhbledmfdbljampcdphcbdc)
 - prebid.org のドキュメント: [Professor Prebid User Guide](https://docs.prebid.org/tools/professor-prebid.html)
 
-## Optional: Reduce Latency by Setting the API Base URL
-<!-- GWH "Reduce Latency by Setting the API Base URL" section is identical for client side and server side. -->
-デフォルトでは、UID2 module はアメリカにある UID2 サーバーに API コールを行います。ユーザーの居住地によっては、レイテンシー(遅延時間)を短縮するために、ユーザーに近いサーバーを選択することを検討してください。
+## Optional: Reduce Latency by Setting the API Base URL for the Production Environment
+<!-- GWH "Optional: Reduce Latency by Setting the API Base URL for the Production Environment" section is identical for client side and server side. -->
+デフォルトでは、UID2 module はアメリカにある UID2 サーバーに API コールを行います。ユーザーの居住地によっては、レイテンシー(遅延時間) を短縮するために、ユーザーに近いサーバーを選択することを検討してください。
 
 UID2 module を設定するときに別の UID2 サーバーを指定するには、次の例に示すように、オプションの `params.uid2ApiBase` パラメータを設定します:
 

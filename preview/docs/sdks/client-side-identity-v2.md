@@ -13,12 +13,13 @@ This documentation is for earlier versions of the UID2 SDK for JavaScript. If yo
 
 Use this SDK to facilitate the process of establishing client identity using UID2 and retrieving advertising tokens. The following sections describe the high-level [workflow](#workflow-overview) for establishing UID2 identity, provide the SDK [API reference](#api-reference), and explain the [UID2 cookie format](#uid2-cookie-format). 
 
-- For integration steps for content publishers, see [JavaScript Standard Integration Guide](../guides/integration-javascript-standard.md).
+- For integration steps for content publishers, see [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md).
 - For an [example application](https://example-jssdk-integ.uidapi.com/), with associated documentation, see the [UID2 SDK Integration Example](https://github.com/IABTechLab/uid2-examples/blob/main/publisher/standard/README.md) guide.
 
 <!-- This guide includes the following information:
 
 - [Functionality](#functionality)
+- [API Permissions](#api-permissions)
 - [SDK Version](#sdk-version)
 - [GitHub Repository/Binary](#github-repositorybinary)
 - [Terminology](#terminology)
@@ -46,6 +47,14 @@ This SDK simplifies integration with UID2 for any publishers who want to support
 | :--- | :--- | :--- | :--- |
 | Not supported | Not supported | Not supported | Supported |
 
+## API Permissions
+
+To use this SDK, you'll need to complete the UID2 account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page.
+
+You'll be granted permission to use specific functions offered by the SDK, and given credentials for that access. Bear in mind that there might be functions in the SDK that you don't have permission to use. For example, publishers get a specific API permission to generate and refresh tokens, but the SDK might support other activities, such as sharing, which require a different API permission.
+
+For details, see [API Permissions](../getting-started/gs-permissions.md).
+
 ## SDK Version
 
 This documentation is for version 2 of the UID2 SDK for JavaScript.
@@ -64,7 +73,7 @@ This SDK is in the following open-source GitHub repository:
 ## Terminology
 
 In this document, the following terms apply:
-- **Identity** refers to a package of values, returned by the [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) endpoint, that includes the UID2 token, the refresh token, and associated values such as timestamps.
+- **Identity** refers to a package of values, returned by the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint, that includes the UID2 token, the refresh token, and associated values such as timestamps.
 - **Advertising token** refers to the UID2 token.
 
 ## Include the SDK Script
@@ -90,7 +99,7 @@ The high-level client-side workflow for establishing UID2 identity using the SDK
 	- If the advertising token is available, use it to initiate requests for targeted advertising.
 	- If the advertising token is not available, either use untargeted advertising or redirect the user to the UID2 login with the consent form.
 
-For web integration steps, see [JavaScript Standard Integration Guide](../guides/integration-javascript-standard.md).
+For web integration steps, see [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md).
 
 ### Workflow States and Transitions
 
@@ -117,7 +126,7 @@ Here's what you need to know about the token auto-refresh:
 
 
 - Only one token refresh call can be active at a time. 
-- If the  [POST /token/refresh](../endpoints/post-token-refresh.md) response is unsuccessful because the user has opted out, or because the refresh token has expired, this suspends the background auto-refresh process and requires a new login ([isLoginRequired()](#isloginrequired-boolean) returns `true`). In all other cases, auto-refresh attempts continue in the background.
+- If the  [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response is unsuccessful because the user has opted out, or because the refresh token has expired, this suspends the background auto-refresh process and requires a new login ([isLoginRequired()](#isloginrequired-boolean) returns `true`). In all other cases, auto-refresh attempts continue in the background.
 - The [callback function](#callback-function) specified during the SDK initialization is invoked in the following cases:
 	- After each successful refresh attempt.
 	- After an initial failure to refresh an expired advertising token.
@@ -151,7 +160,7 @@ Here's what you need to know about this function:
 
 - You can call `init()` any time after the SDK has been loaded by the corresponding script tag, typically during page loading.
 - Initialization calls require a [callback function](#callback-function) that is invoked after the SDK is initialized.
-- When creating an instance for the UID2 lifecycle on the client, the `identity` property in the `init()` call refers to the `body` property of the response JSON object returned from a successful [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) call with the server-side generated identity.
+- When creating an instance for the UID2 lifecycle on the client, the `identity` property in the `init()` call refers to the `body` property of the response JSON object returned from a successful [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) call with the server-side generated identity.
 - Since the SDK relies on [first-party cookies](#uid2-cookie-format) to store the passed UID2 information for the session, a call to `init()` made by a page on a different domain might not be able to access the cookie. You can adjust the settings used for the cookie with the `cookieDomain` and `cookiePath` options.
 - To tune specific behaviors, initialization calls might include optional configuration [parameters](#parameters).
 
@@ -200,8 +209,8 @@ The `opts` object supports the following properties.
 | Property | Data Type | Attribute | Description | Default Value |
 | :--- | :--- | :--- | :--- | :--- |
 | `callback` | `function(object): void` | Required | The function that the SDK should invoke after validating the passed identity. For details, see [Callback Function](#callback-function).| N/A |
-| `identity` | object | Optional | The `body` property value from a successful [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) call that has been run on the server to generate an identity.<br/>To use the identity from a [first-party cookie](#uid2-cookie-format), leave this property empty. | N/A |
-| `baseUrl` | string | Optional | The custom base URL of the UID2 operator to use when invoking the [POST /token/refresh](../endpoints/post-token-refresh.md) endpoint.<br/>For example: `https://my.operator.com`.  | `https://prod.uidapi.com`. |
+| `identity` | object | Optional | The `body` property value from a successful [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) call that has been run on the server to generate an identity.<br/>To use the identity from a [first-party cookie](#uid2-cookie-format), leave this property empty. | N/A |
+| `baseUrl` | string | Optional | The custom base URL of the UID2 operator to use when invoking the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint.<br/>For example: `https://my.operator.com`.  | `https://prod.uidapi.com`. |
 | `refreshRetryPeriod` | number | Optional | The number of seconds after which to retry refreshing tokens if intermittent errors occur. | 5 |
 | `cookieDomain` | string | Optional | The domain name string to apply to the [UID2 cookie](#uid2-cookie-format).<br/>For example, if the `baseUrl` is `https://my.operator.com`, the `cookieDomain` value might be `operator.com`. | `undefined` |
 | `cookiePath` | string | Optional | The path string to apply to the [UID2 cookie](#uid2-cookie-format). | `/` |
@@ -292,7 +301,7 @@ This function can be called before or after the [init()](#initopts-object-void) 
 
 ### isLoginRequired(): boolean
 
-Specifies whether a UID2 login ([POST /token/generate](../endpoints/post-token-generate.md) call) is required. 
+Specifies whether a UID2 login ([POST&nbsp;/token/generate](../endpoints/post-token-generate.md) call) is required. 
 
 This function can also provide additional context for handling missing identities, as shown in [Workflow States and Transitions](#workflow-states-and-transitions).
 
@@ -329,7 +338,7 @@ After this function is executed, the [getAdvertisingToken()](#getadvertisingtoke
 	
 Terminates any background timers or requests. The UID2 object remains in an unspecified state and cannot be used anymore. 
 
-This function is intended for use in advanced scenarios where you might want to replace the existing UID2 object with a new instance. For example, a single-page application could use this to clear the current UID2 object and construct or initialize a new one after receiving a new identity from the server in the [POST /token/generate](../endpoints/post-token-generate.md) response.
+This function is intended for use in advanced scenarios where you might want to replace the existing UID2 object with a new instance. For example, a single-page application could use this to clear the current UID2 object and construct or initialize a new one after receiving a new identity from the server in the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) response.
 
 ## UID2 Cookie Format
 
@@ -342,13 +351,13 @@ The following table lists the cookie properties.
 | Properties | Default Value | Comments |
 | :--- | :--- | :--- |
 | `Name` | `__uid_2` | N/A |
-| `Expiry` | N/A | The value is the refresh token expiration timestamp as specified in the [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) response. |
+| `Expiry` | N/A | The value is the refresh token expiration timestamp as specified in the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response. |
 | `Path` | `/` | If you want to use a different value, you can set it during SDK initialization using the `cookiePath` [init() parameter](#parameters).  |
 | `Domain` | `undefined` | If you want to use a different value, you can set it during SDK initialization using the `cookieDomain` [init() parameter](#parameters). |
 
 ### Contents Structure
 
-The UID2 cookie contents are a URI-encoded string representation of a JSON object with the structure identical to that of the `body` property in a [POST /token/generate](../endpoints/post-token-generate.md) or [POST /token/refresh](../endpoints/post-token-refresh.md) response, with the exception of the `private` object. 
+The UID2 cookie contents are a URI-encoded string representation of a JSON object with the structure identical to that of the `body` property in a [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response, with the exception of the `private` object. 
 
 The following is an example of the UID2 cookie structure:
 

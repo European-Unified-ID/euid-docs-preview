@@ -6,6 +6,7 @@ sidebar_position: 06
 use_banner: true
 banner_title: UID2 Overview for DSPs
 banner_description: Enable data strategies with a more durable identifier.
+displayed_sidebar: sidebarDSPs
 ---
 
 As a demand-side platform (DSP, media-buying platform), you can facilitate identity strategies that leverage Unified ID 2.0 (UID2) to facilitate the following:
@@ -14,6 +15,10 @@ As a demand-side platform (DSP, media-buying platform), you can facilitate ident
 - Inventory monetization for publishers
 
 Learn about benefits, workflow, documentation, and other resources for DSPs adopting UID2, as well as instructions for getting started.
+
+:::note
+If you want access in the left sidebar to the full set of UID2 documentation, see [Unified ID 2.0 Overview](../intro.md).
+:::
 
 ## Benefits of UID2 for DSPs
 
@@ -74,10 +79,10 @@ The following documentation resources are available for DSPs to implement UID2.
 
 | Type| Documentation | Content Description |
 | :--- | :--- | :--- |
-|UID2 SDK for Java | [UID2 SDK for Java (Server-Side) Reference Guide](../sdks/uid2-sdk-ref-java.md) | An SDK for anyone using Java server-side and who wants to decrypt UID2 advertising tokens to access the raw UID2.|
-|UID2 SDK for Python | [UID2 SDK for Python (Server-Side) Reference Guide](../sdks/uid2-sdk-ref-python.md) | An SDK for anyone using Python server-side and who wants to decrypt UID2 advertising tokens to access the raw UID2.|
-|UID2 SDK for C# / .NET | [UID2 SDK for C# / .NET (Server-Side) Reference Guide](../sdks/uid2-sdk-ref-csharp-dotnet.md) | An SDK for anyone using .NET server-side and who wants to decrypt UID2 advertising tokens to access the raw UID2.|
-|UID2 SDK for C++ | [UID2 SDK for C++ (Server-Side) Reference Guide](../sdks/uid2-sdk-ref-cplusplus.md) | An SDK for anyone using C++ server-side and who wants to decrypt UID2 advertising tokens to access the raw UID2.|
+|UID2 SDK for Java | [UID2 SDK for Java Reference Guide](../sdks/uid2-sdk-ref-java.md) | An SDK for anyone using Java server-side and who wants to decrypt UID2 advertising tokens to access the raw UID2.|
+|UID2 SDK for Python | [UID2 SDK for Python Reference Guide](../sdks/uid2-sdk-ref-python.md) | An SDK for anyone using Python server-side and who wants to decrypt UID2 advertising tokens to access the raw UID2.|
+|UID2 SDK for C# / .NET | [UID2 SDK for C# / .NET Reference Guide](../sdks/uid2-sdk-ref-csharp-dotnet.md) | An SDK for anyone using .NET server-side and who wants to decrypt UID2 advertising tokens to access the raw UID2.|
+|UID2 SDK for C++ | [UID2 SDK for C++ Reference Guide](../sdks/uid2-sdk-ref-cplusplus.md) | An SDK for anyone using C++ server-side and who wants to decrypt UID2 advertising tokens to access the raw UID2.|
 | Integration Guide | [DSP Integration Guide](../guides/dsp-guide.md) | This integration guide for DSPs covers handling UID2s for bidding and honoring user opt-outs. |
 
 <!-- ## Integration Requirements

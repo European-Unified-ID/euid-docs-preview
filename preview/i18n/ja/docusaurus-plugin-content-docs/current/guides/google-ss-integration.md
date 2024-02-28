@@ -9,7 +9,7 @@ sidebar_position: 10
 
 # Google Ad Manager Secure Signals Integration Guide
 
-このガイドでは、UID2 を Google Ad Manager のセキュアシグナル機能 (旧称: Encrypted Signals for Publishers、ESP)で使用するパブリッシャー向けのインテグレーション手順について説明します。
+このガイドでは、UID2 を Google Ad Manager のセキュアシグナル機能 (旧称: Encrypted Signals for Publishers、ESP) で使用するパブリッシャー向けのインテグレーション手順について説明します。
 
 <!-- It includes the following sections:
 
@@ -20,7 +20,7 @@ sidebar_position: 10
 * [UID2 SDK for JavaScript Client-Side Integration](#uid2-sdk-for-javascript-client-side-integration)
 * [Sample Applications](#sample-applications) -->
 
-> NOTE: UID2 Google Ad Manager セキュアシグナルインテグレーションを使用するには、SDK を使用している場合、UID2 インテグレーションがすでに設定されている必要があります。サーバーのみのインテグレーションを使用している場合は、この限りではありません。使用可能なすべてのインテグレーションオプションの概要は、[UID2 Integration Guides](summary-guides.md)を参照してください。
+> NOTE: UID2 Google Ad Manager セキュアシグナルインテグレーションを使用するには、SDK を使用している場合、UID2 インテグレーションがすでに設定されている必要があります。サーバーのみのインテグレーションを使用している場合は、この限りではありません。使用可能なすべてのインテグレーションオプションの概要は、[UID2 Integration Guides: Summary](summary-guides.md) を参照してください。
 
 ## Overview
 
@@ -28,7 +28,7 @@ Google secure signals は、パブリッシャーが [Google Ad Manager](https:/
 
 このフレームワークでは、次のようなステップを踏みます:
 
-1. パブリッシャーは、ユーザー ID シグナル (advertising token)をセキュアシグナル機能にプッシュします。
+1. パブリッシャーは、ユーザー ID シグナル (Advertising Token) をセキュアシグナル機能にプッシュします。
 2. セキュアシグナル機能は、Client-Side でそれらをキャッシュし、Google Ad Manager に透過的に渡します。
 3. Google Ad Manager は UID2 Token を使ってビッドリクエストを行い、パブリッシャーの設定に基づき Google AdX 内の承認済み入札者にトークンを転送します。
 
@@ -59,7 +59,7 @@ window.googletag.cmd.push(function () {
 
 暗号化されたシグナルを共有できるように、ホストされ、自動ロードされたセキュアシグナルスクリプトは `window.getUid2AdvertisingToken` 関数を非同期に呼び出し、そのレスポンスとして `advertising_token` を文字列として受け取れるようにしなければなりません。
 
-ID トークンがフレッシュであることを確認することが重要です。Server-Sideのインテグレーションでは、[POST /token/refresh](../endpoints/post-token-refresh.md#post-tokenrefresh) というエンドポイントを呼び出し、JSON レスポンスから新しい [Advertising Token](../endpoints/post-token-refresh.md#decrypted-json-response-format) を取得することが推奨されます。
+ID トークンがフレッシュであることを確認することが重要です。Server-Sideのインテグレーションでは、[POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md#post-tokenrefresh) というエンドポイントを呼び出し、JSON レスポンスから新しい [Advertising Token](../endpoints/post-token-refresh.md#decrypted-json-response-format) を取得することが推奨されます。
 
 次のコードは、その例です。
 
@@ -73,7 +73,7 @@ window.getUid2AdvertisingToken = async () => {
 
 詳しくは、[Server-Only UID2 Integration Guide](custom-publisher-integration.md) を参照してください。
 
-Server Only インテグレーションのためのサンプルアプリケーションも用意されています。[Sample Applications](#sample-applications)を参照してください。
+Server Only インテグレーションのためのサンプルアプリケーションも用意されています。[Sample Applications](#sample-applications) を参照してください。
 
 ### UID2 SDK for JavaScript Client-Side Integration
 
@@ -81,14 +81,15 @@ UID2 SDK for JavaScript バージョン 3.0.0 以降を使用している場合�
 
 このスクリプトは CDN でホストされており、GPT はセキュアシグナル機能で自動的にロードします。
 
-詳しくは、 [JavaScript Standard Integration Guide](integration-javascript-standard.md) を参照してください。
+詳しくは、 [Server-Side Integration Guide for JavaScript](integration-javascript-server-side.md) を参照してください。
 
 <!--A sample application is also available for client-side integration using the SDK. See [Sample Applications](#sample-applications).-->
 
 ## Sample Applications
 
 Google Ad Manager のセキュアシグナル機能との連携方法については、以下のサンプルアプリケーションを参照してください:
-- [Server-Only UID2 Integration Example](https://esp-srvonly-integ.uidapi.com/)
-- [Client-Side UID2 SDK Integration Example](https://esp-jssdk-integ.uidapi.com/)
+
+- [Server-Only UID2 Integration Example](https://secure-signals-srvonly-integ.uidapi.com/)
+- [Client-Side UID2 SDK Integration Example](https://secure-signals-jssdk-integ.uidapi.com/)
 
 各サンプルアプリケーションには独自のインストラクションがあります。
