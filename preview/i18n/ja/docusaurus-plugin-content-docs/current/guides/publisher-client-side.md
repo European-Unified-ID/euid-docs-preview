@@ -1,6 +1,6 @@
 ---
 title: Client-Side Integration Guide for JavaScript
-sidebar_label: Client-Side Integration, JavaScript
+sidebar_label: Client-Side Integration for JavaScript
 pagination_label: Client-Side Integration Guide for JavaScript
 description: UID2 SDK for JavaScript を UID2 実装の一部としてインテグレーションするための情報。
 hide_table_of_contents: false
@@ -54,7 +54,7 @@ SDK のデバッグビルドを使用したい場合は、代わりに以下の 
 
 ## Complete UID2 Account Setup
 
-アカウント設定ページに記載されている手順に従って、UID2 アカウントの設定を完了してください。アカウント設定プロセスの一環として、この UID2 SDK for JavaScript で使用するサイトのドメイン名のリストを提供する必要があります。
+アカウント設定ページに記載されている手順に従って、UID2 アカウントの設定を完了してください。アカウント設定プロセスの一環として、この UID2 SDK for JavaScript で使用するサイトの**ドメイン名**のリストを提供する必要があります。
 
 アカウントのセットアップが完了すると、Publicc Key(公開鍵) とSubesciption ID(サブスクリプション ID) が発行されます。これらの値はアカウント固有のもので、UID2 モジュールの設定に使用します。
 

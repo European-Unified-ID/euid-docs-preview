@@ -1,6 +1,6 @@
 ---
 title: Server-Side Integration Guide for JavaScript
-sidebar_label: Server-Side Integration, JavaScript
+sidebar_label: Server-Side Integration for JavaScript
 pagination_label: Server-Side Integration Guide for JavaScript
 description: UID2 SDK for JavaScript を使用する標準的な Web インテグレーションシナリオをカバーするパブリッシャー向けの情報で、トークンを Server-Side で生成し、パブリッシャーのウェブページに渡す必要があります。
 hide_table_of_contents: false
@@ -20,8 +20,8 @@ SDK の技術的な詳細については、[UID2 SDK for JavaScript Reference Gu
 
 - [Sample Implementation Website](#sample-implementation-website)
 - [Introduction](#introduction)
-- [Integration Steps ](#integration-steps)
-  - [Establish Identity: User Login](#establish-identity-user-login)
+- [Integration Steps](#integration-steps)
+  - [Establish Identity: Capture User Data](#establish-identity-capture-user-data)
   - [Bid Using UID2 Tokens](#bid-using-uid2-tokens)
   - [Refresh Tokens](#refresh-tokens)
   - [Clear Identity: User Logout](#clear-identity-user-logout)
@@ -59,12 +59,12 @@ Google Ad Managerを使用していて、セキュアシグナル機能を使用
 
 以下のセクションでは、図中の各ステップについての詳細を説明します: 
 
- 1. [Establish identity: User Login](#establish-identity-user-login)
+ 1. [Establish identity: capture user data](#establish-identity-capture-user-data)
  2. [Bid Using UID2 Tokens](#bid-using-uid2-tokens)
  3. [Refresh Tokens](#refresh-tokens)
  4. [Clear Identity: User Logout](#clear-identity-user-logout)
 
-### Establish Identity: User Login
+### Establish Identity: Capture User Data
 
 Step 1-c で認証を行い、ユーザーに利用規約を受け入れさせ、パブリッシャーがユーザーのメールアドレスまたは電話番号を検証した後、Server-Side で UID2 Token を生成する必要があります。次の表は、トークン生成ステップの詳細です。
 
@@ -115,13 +115,13 @@ Step 1-c で認証を行い、ユーザーに利用規約を受け入れさせ�
 <TabItem value='ts' label='TypeScript'>
 
 ```tsx
-  import { EventType, Uid2CallbackPayload } from "./uid2CallbackManager";
+  import { EventType, CallbackPayload } from "./callbackManager";
 
   window.__uid2 = window.__uid2 || {};
   window.__uid2.callbacks = window.__uid2.callbacks || [];
 
   // Step 1-f
-  window.__uid2.callbacks.push((eventType: EventType, payload: Uid2CallbackPayload) => {
+  window.__uid2.callbacks.push((eventType: EventType, payload: CallbackPayload) => {
     if (eventType === 'SdkLoaded') {
       __uid2.init({
         identity : {
@@ -137,7 +137,7 @@ Step 1-c で認証を行い、ユーザーに利用規約を受け入れさせ�
   });
 
   // Step 1-g
-  window.__uid2.callbacks.push((eventType: EventType, payload: Uid2CallbackPayload) => {
+  window.__uid2.callbacks.push((eventType: EventType, payload: CallbackPayload) => {
     if (eventType !== 'SdkLoaded') {
       if (payload.identity) {
         const advertisingToken = payload.identity.advertising_token;

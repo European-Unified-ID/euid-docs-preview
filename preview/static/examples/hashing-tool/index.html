@@ -2,10 +2,10 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>EUID Hashing Tool</title>
+    <title>UID2 Hashing Tool</title>
     <link rel="stylesheet" type="text/css" href="./app.css" />
     <link rel="shortcut icon" href="/img/favicon.ico" />
-    <script src="./euid-sdk-3.8.0.js"></script>
+    <script src="./uid2-sdk-3.3.0.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <script>
@@ -15,9 +15,9 @@
       console.log('Updating displayed values.');
 
       if (normalizedInput) {
-        const hashedValue = await window.__euidHelper.hashIdentifier(normalizedInput);
+        const hashedValue = await window.__uid2Helper.hashIdentifier(normalizedInput);
         $('#hashed').text(hashedValue);
-        const encodedValue = await window.__euidHelper.hashAndEncodeIdentifier(normalizedInput);
+        const encodedValue = await window.__uid2Helper.hashAndEncodeIdentifier(normalizedInput);
         $('#base64_encoded').text(encodedValue);  
       }
       else {
@@ -75,13 +75,13 @@
         const inputType = document.querySelector('input[name="toggle_input_type"]:checked').value;
         let normalizedInput = undefined;
         if (inputType == "mobile") {
-          const isNormalizedPhone = window.__euidHelper.isNormalizedPhone(inputValue)
+          const isNormalizedPhone = window.__uid2Helper.isNormalizedPhone(inputValue)
           if (isNormalizedPhone) {
             normalizedInput = inputValue;
           }
         }
         if (inputType === "email") {
-          normalizedInput = window.__euidHelper.normalizeEmail(inputValue);
+          normalizedInput = window.__uid2Helper.normalizeEmail(inputValue);
           $('#normalization_value').text(normalizedInput);
         }
         updateGuiElements(normalizedInput, inputType);
@@ -91,13 +91,13 @@
 
   </script>
   <body>
-    <h1>EUID Hashing Tool</h1>
+    <h1>UID2 Hashing Tool</h1>
     <p class="intro">
      Use this tool to verify that your own implementation is normalizing and 
      encoding correctly. Choose Email or Phone Number, then type or paste the
      value and click Enter. <br><br>
      <b>NOTE:</b> Normalize phone numbers before using the tool.
-     For details and examples, see <a href="https://euid.eu/docs/getting-started/gs-normalization-encoding" target="_blank">Normalization and Encoding</a>.
+     For details and examples, see <a href="https://unifiedid.com/docs/getting-started/gs-normalization-encoding">Normalization and Encoding</a>.
     </p>
 
     <input type="radio" id="toggle_email" name="toggle_input_type" value="email" onclick="handleRadioClick(this)" checked>
