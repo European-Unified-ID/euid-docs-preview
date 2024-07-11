@@ -29,7 +29,7 @@ Prebid.js を UID2 ID モジュールと一緒に使用しているや、UID2 �
 
 コンテンツパブリッシャーのインテグレーションステップについては、以下を参照してください:
   - [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md).
-  - [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md). 
+  - [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-server-side.md). 
 
 アプリケーションのサンプルと関連文書については、以下を参照してください:
   - SDK v3を使用したUID2 Google Secure Signals のサンプル:
@@ -39,7 +39,7 @@ Prebid.js を UID2 ID モジュールと一緒に使用しているや、UID2 �
 
 ## Functionality
 
-この SDK は、独自にカスタマイズした UID2 インテグレーションを行いたいパブリッシャーの開発を簡素化します。以下の表は、SDK がサポートする機能を示しています。
+この SDK は、独自にカスタマイズした UID2 インテグレーションを行いたいパブリッシャーの開発を簡素化します。次の表は、SDK がサポートする機能を示しています。
 
 | Encrypt Raw UID2 to UID2 Token | Decrypt UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token |
 | :--- | :--- | :--- | :--- |
@@ -51,7 +51,7 @@ Prebid.js を UID2 ID モジュールと一緒に使用しているや、UID2 �
 
 SDK が提供する特定の機能の使用許可が与えられ、そのアクセス用の認証情報が与えられます。SDK には、使用する権限を持たない機能があるかもしれないことに留意してください。例えば、パブリッシャーはトークンの生成と更新のために特定の API Permissions を取得しますが、SDK は共有などの他のアクティビティをサポートするかもしれません。
 
-詳細は、[API Permissions](../getting-started/gs-permissions.md) を参照してください。
+詳細は [API Permissions](../getting-started/gs-permissions.md) を参照してください。
 
 ## SDK Version
 
@@ -78,7 +78,7 @@ SDK が提供する特定の機能の使用許可が与えられ、そのアク�
 
   このインテグレーション URL には最小化されていないコードが含まれており、テストのみを目的としています。この URL を本番サイトに使用しないでください。
 
-
+  このドキュメントの最新更新時点での最新バージョンは [3.2.0](https://cdn.integ.uidapi.com/uid2-sdk-3.2.0.js) です。[the list of available versions](https://cdn.integ.uidapi.com/) も参照してください。
 
 ## Terminology
 
@@ -126,10 +126,10 @@ SDK を使用して UID2 ID を確立するための Client-Side ワークフロ
 
 	 イベントペイロードの `identity` プロパティには新しい ID が格納されるか、有効な ID がない場合は null が格納されます。
 5. 状態に基づいて ID を処理します:
-	- Advertising Token が利用可能な場合、それを使用してターゲティング広告のリクエストを開始する。
-	- Advertising Token が利用可能でない場合は、ターゲティング広告を使用しないか、同意フォームを使用してユーザーを UID2 ログインにリダイレクトします。
+	- Advertising Token が利用可能な場合、それを使用してターゲティング広告のリクエストを開始します。
+	- Advertising Token が利用可能でない場合は、ターゲティング広告を使用しないか、同意フォームでユーザーをデータキャプチャにリダイレクトします。
 
-より詳細な Web インテグレーションの手順については、[Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md) を参照してください。
+より詳細な Web インテグレーションの手順については、[Client-Server Integration Guide for JavaScript](../guides/integration-javascript-server-side.md) を参照してください。
 
 ### Background Token Auto-Refresh
 
@@ -138,7 +138,7 @@ SDKの [initialization](#initopts-object-void) の一部として、ID の Token
 Token の Auto-refresh について知っておくべきことは以下のとおりです:
 
 - 一度にアクティブにできる Token refresh call は 1 つだけです。
-- [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) レスポンスが、ユーザーがオプトアウトしたため、あるいはリフレッシュトークンの有効期限が切れたために失敗した場合、バックグラウンドでの自動更新処理を中断し、新しいログインを要求します ([isLoginRequired()](#isloginrequired-boolean) は `true` を返します)。それ以外のケースでは、auto-refresh の試みはバックグラウンドで継続されます。
+- [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) レスポンスが、ユーザーがオプトアウトしたため、あるいは Refresh Token の有効期限が切れたために失敗した場合、バックグラウンドでの自動更新処理を一時停止します。UID2ベースのターゲティング広告を再び使用するには、ユーザーからメールアドレスまたは電話番号を取得する必要があります（[isLoginRequired()](#isloginrequired-boolean)は`true`を返します）。
 - SDK の初期化時に指定された [callback function](#callback-function) は、以下の場合に呼び出されます:
 	- リフレッシュが成功するたびに呼び出されます。
 	- ユーザがオプトアウトした場合など、IDが無効になった場合。<br/>NOTE: ID が一時的に使用できなくなり、自動リフレッシュに失敗し続けた場合、コールバックは呼び出されません。この場合、SDK は有効期限が切れていない限り、既存の Advertising Token を使用し続けます。
@@ -157,7 +157,7 @@ Token の Auto-refresh について知っておくべきことは以下のとお
 
 #### Callback Function Signature
 
-コールバック関数は、イベントタイプとペイロードの2つのパラメータを受け取る必要があります。ペイロードのタイプはイベントのタイプに依存します。
+コールバック関数は、イベントタイプとペイロードの2つのパラメータを受け取る必要があります。ペイロードのタイプはイベントのタイプにより異なります。
 
 次の例のコールバックは `SdkLoaded` イベントを処理して init を呼び出し、`init` が完了した後に ID が利用できない場合は `InitCompleted` イベントを使用して ID を提供します。
 
@@ -251,9 +251,7 @@ SDK がローカルストレージまたはクッキーから以前に保存さ�
 
 ## API Reference
 
-:::info
-UID2 SDK for JavaScript とのやり取りはすべて `UID2` クラスのインスタンスであるグローバルな `__uid2` オブジェクトを介して行われます。以下の JavaScript 関数はすべて `UID2` クラスのメンバです。
-:::
+UID2 SDK for JavaScript とのすべてのインストラクションは、グローバルな `__uid2` オブジェクトを介して行われます。このオブジェクトは `UID2` クラスのインスタンスであり、以下の JavaScript 関数はすべて `UID2` クラスのメンバーです:
 
 - [constructor()](#constructor)
 - [init()](#initopts-object-void)
@@ -332,7 +330,7 @@ SDK を初期化し、ターゲティング広告用のユーザー ID を確立
 | `identity` | object | オプション | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) または [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) 呼び出しが成功したときの `body` プロパティ値です。<br/>[ファーストパーティクッキー](client-side-identity-v2.md#uid2-cookie-format) からの ID を使用するには、このプロパティを空にしておきます。 | N/A |
 | `baseUrl` | string | オプション | [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) エンドポイントを呼び出す際に使用する UID2 Operator のカスタム Base URLです。<br/>例えば: `https://my.operator.com`.  | `https://prod.uidapi.com`. |
 | `refreshRetryPeriod` | number | オプション | 断続的なエラーが発生した場合に、トークンのリフレッシュを再試行するミリ秒数です。<br/>この値は 1000 以上でなければなりません。 | 5000 |
-| `cookieDomain` | string | オプション | [UID2 cookie](client-side-identity-v2.md#uid2-cookie-format) に適用するドメイン名文字列です。<br/>例えば、`baseUrl` が `https://my.operator.com` の場合、 `cookieDomain` の値は `operator.com` となります。 | `undefined` |
+| `cookieDomain` | string | オプション | [UID2 cookie](client-side-identity-v2.md#uid2-cookie-format) に適用するドメイン名文字列です。<br/>例えば、`baseUrl` が `https://my.operator.com` の場合、`cookieDomain` の値は `operator.com` となります。 | `undefined` |
 | `cookiePath` | string | オプション | [UID2 cookie](client-side-identity-v2.md#uid2-cookie-format) に適用する Path 文字列です。 | `/` |
 | `useCookie` | `boolean` | オプション | この値を `true` に設定すると、SDK はローカルストレージではなくクッキーに ID を保存します。この値がfalseであるか、提供されていない場合でも、ファーストパーティクッキーを使用して ID を提供することができます。 | 
 | `callback` | `function(object): void` | 非推奨 | 渡された ID を検証した後に SDK が呼び出す関数です。新しいインテグレーションには使用しないでください。 | N/A |
@@ -344,7 +342,7 @@ SDK を初期化し、ターゲティング広告用のユーザー ID を確立
 
 | Error | Description |
 | :--- | :--- |
-| `TypeError` | 以下のいずれかの問題が発生しました:<br/>- 関数がすでに呼び出されている。<br/>- `opts` の値がオブジェクトではない。<br/>- コールバック関数が指定されていない。<br/>-  `callback` の値が関数でない。 |
+| `TypeError` | 以下のいずれかの問題が発生しました:<br/>- 関数がすでに呼び出されている。<br/>- `opts` の値がオブジェクトではありません。<br/>- コールバック関数が指定されていません。<br/>-  `callback` の値が関数でありません。 |
 | `RangeError` | リフレッシュの再試行期間が 1000 未満である。 |
 
 #### Legacy Callback Function
@@ -353,7 +351,7 @@ SDK を初期化し、ターゲティング広告用のユーザー ID を確立
 
 詳細については、以前のバージョンの SDK のドキュメントの[Legacy Callback Function](./client-side-identity-v2#callback-function) を参照してください。
 
-すでにレガシーコールバック関数を使用してインテグレーションを構築している場合は、現在のバージョンの SDK で変更なく使用できます。ただし、この機能は SDK の将来のバージョンで削除される予定です。新しいスタイルの [callback function](#callback-function) を使用するようにインテグレーションを更新することを強くお勧めします。
+すでにレガシーコールバック関数を使用してインテグレーションを構築している場合は、現在のバージョンの SDK で変更なく使用できます。ただし、この機能は SDK の将来のバージョンで削除される予定です。新しいスタイルの [callback function](#callback-function) を使用するようにインテグレーションを更新することを強く勧めます。
 
 ### getAdvertisingToken(): string
 
@@ -407,7 +405,7 @@ ID が利用できない場合は、[isLoginRequired()](#isloginrequired-boolean
 
 ### isLoginRequired(): boolean
 
-UID2 ログイン ([POST&nbsp;/token/generate](../endpoints/post-token-generate.md) 呼び出し) が必要かどうかを指定します。
+UID2 ログイン [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) 呼び出しが必要かどうかを指定します。
 
 ```html
 <script>
@@ -419,15 +417,15 @@ UID2 ログイン ([POST&nbsp;/token/generate](../endpoints/post-token-generate
 
 | Value | Description |
 | :--- | :--- |
-| `true` | ID が利用できないため、UID2 ログインが必要です。この値は以下のいずれかを示します:<br/>- ユーザーがオプトアウトした。<br/>- Refresh token の有効期限が切れた。<br/>- ファーストパーティクッキーは利用できず、サーバーが生成した ID も提供されていない。 |
-| `false` | ログインは必要ありません。この値は以下のいずれかを示します:<ul><li>IDが存在し、有効。</li><li>IDの有効期限が切れており(ただし Refresh Token の有効期限は切れていない)、断続的なエラーによりトークンがリフレッシュされなかった。自動更新に成功すると、IDが復元される場合がある。</li></ul> |
+| `true` | ID が利用できません。この値は以下のいずれかを示します:<ul><li>ユーザーがオプトアウトした。</li><li>Refresh token の有効期限が切れた。</li><li>ファーストパーティクッキーは利用できず、サーバーで生成した ID も提供されていません。</li></ul> |
+| `false` | この値は以下のいずれかを示します:<ul><li>ID が存在し、有効。</li><li>ID の有効期限が切れており、断続的なエラーによりトークンがリフレッシュされなかった。</li><li>ID の有効期限が切れており、断続的なエラーによりトークンがリフレッシュされなかった。</li></ul> |
 | `undefined` | SDK の初期化はまだ完了していません。 |
 
 ### disconnect(): void
 
 UID2 ID をファーストパーティクッキーとローカルストレージから消去します ([UID2 ストレージフォーマット](#uid2-storage-format) を参照してください)。これによりクライアントの ID セッションが閉じられ、クライアントのライフサイクルが切断されます。
 
-未認証のユーザーが存在する場合、またはユーザーがパブリッシャーのサイトのターゲティング広告からログアウトする場合、次の呼び出しを行います:
+ユーザーがパブリッシャーのサイトからログアウトしたら、次の呼び出しを行います:
 
 ```html
 <script>
@@ -437,7 +435,7 @@ UID2 ID をファーストパーティクッキーとローカルストレージ
 
 この関数が実行されると、[getAdvertisingToken()](#getadvertisingtoken-string) 関数は `undefined` を返し、[isLoginRequired()](#isloginrequired-boolean) 関数は `true` を返します。
 
-:::danger
+:::warning
 SDK が正しいクッキーにアクセスするために `cookieDomain` または `cookiePath` を指定する必要があり、かつ `init` が完了していない場合、SDK はクッキーをクリアできません。この場合、エラーは発生しません。
 :::
 
@@ -467,7 +465,7 @@ UID2 SDK に新しい ID を提供するには、この関数を使用します�
 
 利用可能な有効な ID がある場合、返り値は保存されている完全な ID を表すオブジェクトです。オブジェクトのプロパティは、[contents structure](#contents-structure) セクションで説明した、格納されている値と同じです。
 
-現在有効な ID がない場合 (ID が一時的に使用できないだけであっても)、戻り値は null です。ID が一時的に使用できないだけなのかどうかを知る必要がある場合は、 [isLoginRequired()](#isloginrequired-boolean) を呼び出します。
+現在有効な ID がない場合 (ID が一時的に使用できないだけであっても)、戻り値は null です。ID が一時的に使用できないだけなのかどうかを知る必要がある場合は [isLoginRequired()](#isloginrequired-boolean) を呼び出します。
 
 ## UID2 Storage Format
 
@@ -477,7 +475,7 @@ SDK はユーザーの ID を保存するのに、ローカルストレージか
 
 ### UID2 Cookie Properties
 
-クッキーが使用されている場合、クッキーは以下の表のプロパティを使用します。
+クッキーが使用されている場合、クッキーは次の表のプロパティを使用します。
 
 | Properties | Default Value | Comments |
 | :--- | :--- | :--- |
@@ -504,7 +502,7 @@ UID2 Cookie の内容は、[POST&nbsp;/token/generate](../endpoints/post-token-g
    }
 }
 ```
-:::danger
+:::warning
 `private` オブジェクトの内容は明示的に指定されておらず、SDK が解釈するようになっています。このオブジェクトの構造、セマンティクス、互換性について、いかなる仮定もしないでください。クッキーの更新はその構造を保持しなければなりません。
 :::
 
@@ -563,7 +561,7 @@ SDK の version 3 の利点を得るために、以下の変更を実施する�
 
 [Callback Function](#callback-function) のセクションを確認し、新しいシステムを使用してあなたの要求を実装するための最良の方法を検討する必要があります。しかし、参考になる一般的なガイドラインがいくつかあります:
 - `event` パラメータをチェックしてください。値が `SdkLoaded` の場合は、すぐにリターンします。
-- そうでなければ、 `payload` パラメータに `identity` プロパティがあるかどうかを確認します。
+- そうでなければ、`payload` パラメータに `identity` プロパティがあるかどうかを確認します。
   - `identity` プロパティにオブジェクトがない場合、UID2 ID は利用できません。同じような状況では、前のコールバックが行った処理を呼び出す必要があります。
   - そうでない場合、`identity` プロパティは `advertising_token` という名前の `string` プロパティを持つオブジェクトとなります。これは、以前のコールバックと同じように使用する必要があります。
 
@@ -577,7 +575,7 @@ window.__uid2.callbacks.push(callbackFunction);
 
 #### Take advantage of `setIdentity` and other new features
 
-以前のバージョンの SDK では新しい ID を提供する方法は一つしかありませんでした: `init` の呼び出しです。このため、パブリッシャーによっては、ページのライフサイクルの後半で新しい ID を提供するために、さまざまな回避策を利用しなければなりませんでした。これらの回避策を取り除き、 `init` が呼ばれた後に SDK に新しい ID を渡したい場合は `setIdentity` を呼び出すだけで、インテグレーションを簡素化できるかもしれません。
+以前のバージョンの SDK では新しい ID を提供する方法は一つしかありませんでした: `init` の呼び出しです。このため、パブリッシャーによっては、ページのライフサイクルの後半で新しい ID を提供するために、さまざまな回避策を利用しなければなりませんでした。これらの回避策を取り除き、`init` が呼ばれた後に SDK に新しい ID を渡したい場合は `setIdentity` を呼び出すだけで、インテグレーションを簡素化できるかもしれません。
 
 #### Change how you call init
 

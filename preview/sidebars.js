@@ -71,6 +71,7 @@ const fullSidebar = [
         'portal/team-members',
         'portal/email-contacts',
         'portal/api-keys',
+        'portal/client-side-integration',
       ],
     },
 
@@ -84,7 +85,6 @@ const fullSidebar = [
       collapsed: false,
 
       items: [
-
         {
           type: 'category',
           label: 'Publisher Integrations',
@@ -139,14 +139,18 @@ const fullSidebar = [
             type: 'category',
             label: 'Mobile',
             link: {
-              type: 'generated-index',
+              type: 'doc',
+              id: 'guides/integration-mobile-overview',
             },
             collapsed: true,
             items: [
-              'sdks/uid2-sdk-ref-android',
-              'sdks/uid2-sdk-ref-ios',
+              'guides/integration-mobile-client-side',
+              'guides/integration-mobile-client-server',
             ],
           },
+
+          'guides/integration-ctv-guide',
+
           {
             type: 'category',
             label: 'Prebid',
@@ -160,6 +164,7 @@ const fullSidebar = [
               'guides/integration-prebid-server-side',
             ],
           },
+
           {
             type: 'category',
             label: 'Google Ad Manager',
@@ -187,12 +192,24 @@ const fullSidebar = [
           collapsed: true,
           items: [
             'guides/advertiser-dataprovider-guide',
+            'guides/publisher-client-side',
             'guides/snowflake_integration',
             'guides/integration-aws-entity-resolution',
           ],
         },
 
-        'guides/dsp-guide',
+        {
+          type: 'category',
+          label: 'DSP Integrations',
+          link: {
+            type: 'generated-index',
+          },
+          collapsed: true,
+          items: [
+            'guides/dsp-guide',
+            'guides/integration-dsp-no-sdk',
+          ],
+        },
 
         {
           type: 'category',
@@ -243,6 +260,7 @@ const fullSidebar = [
         'endpoints/post-token-refresh',
         'endpoints/post-identity-buckets',
         'endpoints/post-identity-map',
+        'endpoints/post-optout-status',
       ],
     },
 
@@ -285,6 +303,7 @@ const fullSidebar = [
       collapsed: true,
       items: [
         'ref-info/ref-operators-public-private',
+        'ref-info/ref-server-side-token-generation',
         'summary-doc-v2',
       ],
     },
@@ -302,12 +321,14 @@ const sidebars = {
     'overviews/overview-dsps',
     'overviews/overview-data-providers',
     'overviews/overview-operators-private',
+    'Advertiser/Data Provider Integrations',
     'guides/advertiser-dataprovider-guide',
     'guides/snowflake_integration',
     'guides/integration-aws-entity-resolution',
     'guides/dsp-guide',
     'endpoints/post-identity-buckets',
-    'endpoints/post-identity-map'
+    'endpoints/post-identity-map',
+    'endpoints/post-optout-status'
   ),
 
   sidebarAdvertisers: removeItems(fullSidebar, 
@@ -324,7 +345,6 @@ const sidebars = {
     'guides/integration-prebid-server-side',
     'JavaScript',
     'guides/integration-javascript',
-    'guides/publisher-client-side',
     'guides/integration-javascript-server-side',
     'Server-Only',
     'guides/custom-publisher-integration',
@@ -403,7 +423,6 @@ const sidebars = {
     'guides/integration-prebid-server-side',
     'JavaScript',
     'guides/integration-javascript',
-    'guides/publisher-client-side',
     'guides/integration-javascript-server-side',
     'Server-Only',
     'guides/custom-publisher-integration',

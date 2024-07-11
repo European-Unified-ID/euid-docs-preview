@@ -1,5 +1,5 @@
 ---
-title: UID2 Server-Side Integration Guide for Prebid.js
+title: UID2 Client-Server Integration Guide for Prebid.js
 sidebar_label: Server-Side Integration for Prebid.js
 pagination_label: UID2 Server-Side Integration for Prebid.js
 description: Server-Side の Prebid.js インテグレーションの設定に関する情報。
@@ -8,42 +8,16 @@ sidebar_position: 04
 ---
 
 import Link from '@docusaurus/Link';
+import AddPrebidjsToYourSite from '/docs/snippets/_prebid-add-prebidjs-to-your-site.mdx';
+import StoreUID2TokenInBrowser from '/docs/snippets/_prebid-storing-uid2-token-in-browser.mdx';
 
-# UID2 Server-Side Integration Guide for Prebid.js
-<!-- 
-This guide includes the following information:
+# UID2 Client-Server Integration Guide for Prebid.js
 
-- [Prebid.js Version](#prebidjs-version)
-- [UID2 Prebid Module Page](#uid2-prebid-module-page)
-- [Integration Overview: High-Level Steps](#integration-overview-high-level-steps)
-- [Complete UID2 Account Setup](#complete-uid2-account-setup)
-- [Add Prebid.js to Your Site](#add-prebidjs-to-your-site)
-- [Configure the UID2 Module](#configure-the-uid2-module)
-  - [Generating a UID2 Token on the Server](#generating-a-uid2-token-on-the-server)
-  - [Client Refresh Mode](#client-refresh-mode)
-    - [Client Refresh Mode Response Configuration Options](#client-refresh-mode-response-configuration-options)
-    - [Client Refresh Mode Cookie Example](#client-refresh-mode-cookie-example)
-    - [Configuration](#configuration)
-    - [Client Refresh Mode uid2Token Example](#client-refresh-mode-uid2token-example)
-  - [Server-Only Mode](#server-only-mode)
-    - [Server-Only Mode Cookie Example](#server-only-mode-cookie-example)
-    - [Server-Only Mode Value Example](#server-only-mode-value-example)
-- [Prebid Implementation Notes and Tips](#prebid-implementation-notes-and-tips)
-- [Storing the UID2 Token in the Browser](#storing-the-uid2-token-in-the-browser)
-- [When to Pass a New Token to the UID2 Module](#when-to-pass-a-new-token-to-the-uid2-module)
-  - [Passing a New Token: Client Refresh Mode](#passing-a-new-token-client-refresh-mode)
-  - [Passing a New Token: Server-Only Mode](#passing-a-new-token-server-only-mode)
-- [Determining Whether the Module Has a Valid Token](#determining-whether-the-module-has-a-valid-token)
-- [Checking the Integration](#checking-the-integration)
-- [Configuration Parameters for userSync](#configuration-parameters-for-usersync) 
-  - [Configuration Parameter Examples: Value](#configuration-parameter-examples-value)
-  - [Sample Token](#sample-token)
-- [Optional: Reduce Latency by Setting the API Base URL for the Production Environment](#optional-reduce-latency-by-setting-the-api-base-url-for-the-production-environment) 
- -->
+このガイドは、Server-Side で <Link href="../ref-info/glossary-uid#gl-dii">DII</Link>(メールアドレスまたは電話番号) にアクセスでき、UID2 とインテグレーションして、RTB <Link href="../ref-info/glossary-uid#gl-bidstream">ビッドストリーム</Link>で Prebid.js によって渡される <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 token</Link>(Advertising Token) を生成したいパブリッシャー向けのものです。
 
-このガイドは、Server-Side で [DII](../ref-info/glossary-uid.md#gl-dii)(メールアドレスまたは電話番号) にアクセスでき、UID2 とインテグレーションして、RTB ビッドストリームで Prebid.js によって渡される [UID2 Token](../ref-info/glossary-uid.md#gl-uid2-token)(Advertising Token) を生成したいパブリッシャー向けのものです。
+これは Client-Server インテグレーションと呼ばれ、一部のインテグレーションステップが Client-Side で行われ、一部が Server-Side で行われます。
 
-Prebid.js を使って UID2 とインテグレーションするには、以下のことが必要です:
+Prebid.js を使って UID2 とインテグレーションするには、以下が必要です:
 
 - サイトの HTML と JavaScript に変更を加えます。
 - トークン生成のためにサーバーサイドを変更します(オプションでトークンのリフレッシュ)。 
@@ -73,19 +47,11 @@ GWH note 12/14/23: We have client-side and server-side examples for JS SDK but o
 
 [Account Setup](../getting-started/gs-account-setup.md) ページに記載されている手順に従って、UID2 アカウントのセットアップを完了します。
 
-アカウントのセットアップが完了すると、固有の API Keyと クライアントシークレットが発行されます。ここれらの値はアカウント独自のもので、安全に管理することが重要です。詳細は [API Key and Client Secret](../getting-started/gs-credentials.md#api-key-and-client-secret) を参照してください。
+アカウントのセットアップが完了すると、固有の API Key と クライアントシークレットが発行されます。ここれらの値はアカウント独自のもので、安全に管理することが重要です。詳細は [API Key and Client Secret](../getting-started/gs-credentials.md#api-key-and-client-secret) を参照してください。
 
 ## Add Prebid.js to Your Site
-<!-- GWH "Add Prebid.js to Your Site" section is identical for client side and server side. -->
-Prebid.js をサイトに追加するには、Prebid.js ドキュメントの [Getting Started for Developers](https://docs.prebid.org/dev-docs/getting-started.html) の指示に従ってください。
 
-Prebid.js パッケージをダウンロードするときに、**User ID Modules** セクションに記載されている **Unified ID 2.0** というモジュールの隣にあるボックスをチェックして、UID2 module を追加します。
-
-サイトに Prebid.js を追加し、正常に動作することを確認したら、UID2 module を設定する準備が整います。
-
-:::tip
-UID2 module がインストールされていることを確認するには、[`pbjs.installedModules` array](https://docs.prebid.org/dev-docs/publisher-api-reference/installedModules.html) で文字列 `uid2IdSystem` を見つけます。
-:::
+<AddPrebidjsToYourSite />
 
 ## Configure the UID2 Module
 
@@ -93,7 +59,7 @@ UID2 Prebid モジュールを設定して、以下の2つのアクションを�
 
 | Step | Action | Link to Instructions |
 | --- | --- | --- |
-| 1 | Server-Side API コールを送信して UID2 Token を生成する。 | [Generating a UID2 Token on the Server](#generating-a-uid2-token-on-the-server) |
+| 1 | Server-Side API コールを送信して UID2 Token を生成します。 | [Generating a UID2 Token on the Server](#generating-a-uid2-token-on-the-server) |
 | 2 | Prebid module がトークンのリフレッシュと必要に応じてオプトアウトを管理できるように、レスポンス値を保存します。 | [Refreshing a UID2 Token](#refreshing-a-uid2-token) |
 
 ### Generating a UID2 Token on the Server
@@ -262,29 +228,17 @@ Prebid の実施を計画する際には、以下を考慮してください:
 
 - リフレッシュされたトークンを生成するために使用された元のトークンと一致しない新しいトークンを提供した場合、モジュールは保存されているすべてのトークンを破棄し、代わりに新しいトークンを使用し、リフレッシュされた状態を維持します。
 
-- インテグレーションテストでは、`params.uid2ApiBase` を `"https://operator-integ.uidapi.com"` に設定します。この値は、トークンを生成する環境と同じ環境 (本番環境またはテスト環境) に設定しなければなりません。
+- インテグレーションテストでは、`params.uid2ApiBase` を `"https://operator-integ.uidapi.com"` に設定します。この値は、トークンを生成する環境と同じ環境 (本番環境またはインテグレーション環境) に設定しなければなりません。
 
-## Storing the UID2 Token in the Browser
-<!-- GWH same section in integration-prebid.md, integration-prebid-client-side.md, and integration-prebid-client-side.md. Ensure consistency -->
-デフォルトでは、UID2 module はローカルストレージを使ってデータを保存します。代わりにクッキーを使用するには、以下の例に示すように `params.storage` を `cookie` に設定します。
+- Prebid.js Server-Side インテグレーションの場合、クライアントサイドインテグレーション機能を無効にして、より小さな Prebid.js ビルドを作成できます。これを行うには、`--disable UID2_CSTG` フラグを渡します:
 
-詳細は Prebid ドキュメントの [Unified ID 2.0 Configuration](https://docs.prebid.org/dev-docs/modules/userid-submodules/unified2.html#unified-id-20-configuration) を参照してください。
-
-```js
-pbjs.setConfig({ 
-  userSync: { 
-    userIds: [{ 
-      name: 'uid2', 
-      params: { 
-        // default value is 'localStorage' 
-        storage: 'cookie'    
-      } 
-    }] 
-  } 
-}); 
+```
+    $ gulp build --modules=uid2IdSystem --disable UID2_CSTG
 ```
 
-クッキーのサイズが大きくなり、問題が発生する可能性があります。ただし、ローカルストレージがオプションでない場合、これが考えられるアプローチの 1 つです。
+## Storing the UID2 Token in the Browser
+
+<StoreUID2TokenInBrowser />
 
 ## Determining Whether the Module Has a Valid Token
 
@@ -319,7 +273,7 @@ if (!pbjs.getUserIds().uid2) {
 
 ## Checking the Integration
 
-UID2 Module に有効な UID2 Token があるかどうかを確認するには、 `pbjs.getUserIds().uid2` を呼び出します。値が返された場合、UID2 Module に有効な UID2 Token が存在します。
+UID2 Module に有効な UID2 Token があるかどうかを確認するには `pbjs.getUserIds().uid2` を呼び出します。値が返された場合、UID2 Module に有効な UID2 Token が存在します。
 
 インテグレーションに問題がある場合、以下のような手順があります:
 
@@ -382,9 +336,9 @@ pbjs.setConfig({
 }
 ```
 
-## Optional: Reduce Latency by Setting the API Base URL for the Production Environment
-<!-- GWH "Optional: Reduce Latency by Setting the API Base URL for the Production Environment" section is identical for client side and server side. -->
-デフォルトでは、UID2 module はアメリカにある UID2 サーバーに API コールを行います。ユーザーの居住地によっては、レイテンシー(遅延時間) を短縮するために、ユーザーに近いサーバーを選択することを検討してください。
+## Optional: Specifying the API Base URL to Reduce Latency
+<!-- GWH "Optional: Specifying the API Base URL to Reduce Latency" section is identical for client side and server side. -->
+デフォルトでは、UID2 module はアメリカにある UID2 本番環境サーバーに API コールを行います。ユーザーの居住地によっては、レイテンシー(遅延時間) を短縮するために、ユーザーに近いサーバーを選択することを検討してください。
 
 UID2 module を設定するときに別の UID2 サーバーを指定するには、次の例に示すように、オプションの `params.uid2ApiBase` パラメータを設定します:
 

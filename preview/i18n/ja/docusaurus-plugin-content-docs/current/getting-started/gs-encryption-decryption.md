@@ -24,12 +24,12 @@ UID2 API リクエストの暗号化と各レスポンスの復号化につい�
 - API を使用するには、クライアントの API Key に加えて、クライアントシークレットが必要です。
 - 独自のコードを書くことも、提供されているコード例の一つを使うこともできます: [Encryption and Decryption Code Examples](#encryption-and-decryption-code-examples) を参照してください。
 - リクエストとレスポンスには、96 ビットの初期化ベクトルと 128 ビットの認証タグを持つ AES/GCM/NoPadding 暗号化アルゴリズムが使用されます。
-- リクエストの暗号化されていない JSON ボディは、バイナリの [暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) にラップされ、その後 [暗号化リクエストエンベローブ](#encrypted-request-envelope) にしたがって暗号化とフォーマットが行われます。
-- レスポンス JSON ボディはバイナリの [復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope) にラップされ、[暗号化レスポンスエンベローブ](#encrypted-response-envelope) にしたがって暗号化・整形されます。
+- リクエストの暗号化されていない JSON ボディは、バイナリの [暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) にラップされ、その後 [暗号化リクエストエンベローブ](#encrypted-request-envelope) に従って暗号化とフォーマットが行われます。
+- レスポンス JSON ボディはバイナリの [復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope) にラップされ、[暗号化レスポンスエンベローブ](#encrypted-response-envelope) に従って暗号化・整形されます。
 
 ## Workflow
 
-UID2 API のリクエスト・レスポンスワークフローは、以下のステップです:
+UID2 API のリクエストレスポンスワークフローは、以下のステップです:
 
 1. 入力パラメータを含むリクエストボディを JSON 形式で用意します。
 2. リクエスト JSON を[暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) でラップします。
@@ -52,7 +52,7 @@ UID2 API のリクエスト・レスポンスワークフローは、以下の�
 
 ### Unencrypted Request Data Envelope
 
-以下の表に、リクエスト暗号化コードのフィールドレイアウトを示します。
+次の表に、リクエスト暗号化コードのフィールドレイアウトを示します。
 
 | Offset (Bytes) | Size (Bytes) | Description |
 | :--- | :--- | :--- |
@@ -101,7 +101,7 @@ UID2 API のリクエスト・レスポンスワークフローは、以下の�
 
 ### Response Example
 
-例えば、先行例 のメールアドレスに対する [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) リクエストに対する復号されたレスポンスは、次のようになることが考えられます:
+例えば、先行例 のメールアドレスに対する [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) リクエストに対する復号されたレスポンスは、次のようになります:
 
 ```json
 {
@@ -124,7 +124,6 @@ UID2 API のリクエスト・レスポンスワークフローは、以下の�
 
 [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) エンドポイントでは、[POST&nbsp;/token/generate](../endpoints/post-token-generate.md) または [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) へのコールで事前に取得した `refresh_token` と `refresh_response_key` の値を使用します。
 
-## Encryption and Decryption Code Examples
 :::note
 Windows の場合、PowerShell の代わりに Windows コマンドプロンプトを使用している場合は、JSON を囲むシングルクォートも削除する必要があります。例えば、`echo {"email": "test@example.com"}` とします。
 :::
@@ -211,12 +210,14 @@ Maven を使用している場合は、以下の最小限の `pom.xml` を使用
   </build>
 </project>
 ```
+
 </TabItem>
 <TabItem value='cs' label='C#'>
 
 以下のコードサンプルは、C# を使用してリクエストを暗号化し、レスポンスを復号化します。必要なパラメータはファイルの先頭に記載されています。また、`.\uid2_request` をビルドして実行することでも確認できます。
 
 このファイルには.NET 7.0が必要です。必要であれば、それ以前のバージョンを使用することもできますが、.NET Core 3.0以降でなければなりません。バージョンを変更するには、[top-level statements](https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/program-structure/top-level-statements) を Main メソッドに、[using 宣言](https://learn.microsoft.com/ja-jp/cpp/cpp/using-declaration?view=msvc-170) を [using ステートメント](https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/proposals/csharp-8.0/using) に置き換えてください。
+
 </TabItem>
 </Tabs>
 
@@ -323,8 +324,10 @@ else:
    print(json.dumps(json_resp, indent=4))
 
 ```
+
 </TabItem>
 <TabItem value='java' label='Java'>
+
 
 ```java title="Uid2Request.java"
 package org.example;
@@ -451,8 +454,10 @@ public class Uid2Request {
   }
 }
 ```
+
 </TabItem>
 <TabItem value='cs' label='C#'>
+
 
 ```cs title="uid2_request.cs"
 using System.Buffers.Binary;

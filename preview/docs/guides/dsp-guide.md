@@ -1,7 +1,7 @@
 ---
 title: DSP Integration
 sidebar_label: DSP Integration Guide
-description: A guide for DSPs who transact on UID2s in the bid stream.
+description: A guide for DSPs who transact on UID2s in the bidstream.
 hide_table_of_contents: false
 sidebar_position: 05
 ---
@@ -10,20 +10,15 @@ import Link from '@docusaurus/Link';
 
 # DSP Integration Guide
 
-This guide is for DSPs who transact on UID2s in the bid stream.
+This guide is for DSPs who transact on UID2s in the <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link>.
 
 DSPs receive UID2 tokens in bid requests, and decrypt the UID2 tokens to arrive at raw UID2s that they can use for bidding, using one of the server-side SDKs that support this function.
 
 For a summary of available server-side SDKs, see [SDKs: Summary](../sdks/summary-sdks.md).
 
->NOTE: If your back end is written in a language not covered by one of the available server-side SDKs, ask your UID2 contact in case there is additional information available to help you. If you're not sure who to ask, see [Contact Info](../getting-started/gs-account-setup.md#contact-info).
-
-<!-- It includes the following sections:
-
-* [Integration Steps](#integration-steps)
-   - [Honor User Opt-Outs](#honor-user-opt-outs)
-
-* [FAQs](#faqs) -->
+:::note
+If your back end is written in a language not covered by one of the available server-side SDKs, ask your UID2 contact in case there is additional information available to help you. If you're not sure who to ask, see [Contact Info](../getting-started/gs-account-setup.md#contact-info).
+:::
 
 ## Integration Steps 
 
@@ -34,6 +29,14 @@ The following describes the integration workflow for DSP to support UID2 as part
 ![DSP Flow](https://mermaid.ink/svg/eyJjb2RlIjoiICBzZXF1ZW5jZURpYWdyYW1cbiAgICBwYXJ0aWNpcGFudCBVIGFzIFVzZXJcbiAgICBwYXJ0aWNpcGFudCBTU1BcbiAgICBwYXJ0aWNpcGFudCBEU1BcbiAgICBwYXJ0aWNpcGFudCBVSUQyIGFzIFVJRDIgU2VydmljZVxuICAgIHBhcnRpY2lwYW50IFRDIGFzIFRyYW5zcGFyZW5jeSAmIENvbnNlbnQgUG9ydGFsXG4gICAgTm90ZSBvdmVyIFUsVEM6IDEuIEhvbm9yIHVzZXIgb3B0LW91dHMuXG4gICAgVS0-PlRDOiAxLWEuIFVzZXIgb3B0cyBvdXQuXG4gICAgYWN0aXZhdGUgVENcbiAgICBUQy0-PlVJRDI6IDEtYi4gVUlEMiBzZXJ2aWNlIHJlY2VpdmVzIG9wdC1vdXQuXG4gICAgZGVhY3RpdmF0ZSBUQ1xuICAgIGFjdGl2YXRlIFVJRDJcbiAgICBVSUQyLT4-RFNQOiAxLWMuIERTUCByZWNlaXZlcyBvcHQtb3V0LlxuICAgIGRlYWN0aXZhdGUgVUlEMlxuICAgIE5vdGUgb3ZlciBVLFRDOiAyLiBEZWNyeXB0IFVJRDIgdG9rZW5zIHRvIHVzZSBpbiBSVEIuXG4gICAgU1NQLS0-PkRTUDogVGhlIFNTUCBjYWxscyBhIERTUCBmb3IgYmlkLlxuICAgIERTUC0-PkRTUDogMi1hLiBEZWNyeXB0IFVJRDIgdG9rZW5zLlxuICAgIERTUC0-PkRTUDogMi1iLiBFeGVjdXRlIGJpZGRpbmcgbG9naWMsIGhvbm9yaW5nIHVzZXIgb3B0LW91dHMuXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
 
 ### Honor User Opt-Outs
+
+This section includes the following information for DSPs, who must honor user opt-out of UID2:
+
+- [Opt-Out Webhook](#opt-out-webhook)
+- [POST /optout/status Endpoint](#post-optoutstatus-endpoint)
+- [Bidding Opt-Out Logic](#bidding-opt-out-logic)
+
+#### Opt-Out Webhook
 
 To receive and honor user opt-outs from the UID2 service, the DSP establishes a pre-configured interface (an opt-out webhook/API endpoint) and provides it to the UID2 service during onboarding. When a user opts out, the UID2 service sends the user's raw UID2 and the corresponding opt-out timestamp to the pre-configured interface.
 
@@ -51,6 +54,11 @@ The following example illustrates a webhook configured to receive the raw UID2 a
 ```html
 https://dsp.example.com/optout?user=%%identity%%&optouttime=%%timestamp%%
 ```
+
+#### POST /optout/status Endpoint
+
+DSPs can check the opt-out status of raw UID2s using the [POST&nbsp;/optout/status](../endpoints/post-optout-status.md) endpoint.
+
 #### Bidding Opt-Out Logic
 
 Use the logic below during bidding (2-b) to honor a user's opt-out.

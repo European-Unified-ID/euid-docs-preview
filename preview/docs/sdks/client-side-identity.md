@@ -29,7 +29,7 @@ Related information:
 
 For integration steps for content publishers, see:
   - [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md).
-  - [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md). 
+  - [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-server-side.md). 
 
 For example applications with associated documentation, see:
   - The UID2 Google Secure Signals with SDK v3 example:
@@ -49,7 +49,7 @@ This SDK simplifies development for publishers who want to build their own custo
 
 To use this SDK, you'll need to complete the UID2 account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page.
 
-You'll be granted permission to use specific functions offered by the SDK, and given credentials for that access. Bear in mind that there might be functions in the SDK that you don't have permission to use. For example, publishers get a specific API permission to generate and refresh tokens, but the SDK might support other activities, such as sharing, which require a different API permission.
+You'll be granted permission to use specific functions offered by the SDK, and given credentials for that access. Bear in mind that there might be functions in the SDK that you don't have permission to use. For example, publishers get a specific API permission to generate and refresh tokens, but the SDK might support other activities that require a different API permission.
 
 For details, see [API Permissions](../getting-started/gs-permissions.md).
 
@@ -129,7 +129,7 @@ The high-level client-side workflow for establishing UID2 identity using the SDK
 	- If the advertising token is available, use it to initiate requests for targeted advertising.
 	- If the advertising token is not available, either use untargeted advertising or redirect the user to the data capture with the consent form.
 
-For more detailed web integration steps, see [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md).
+For more detailed web integration steps, see [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-server-side.md).
 
 ### Background Token Auto-Refresh
 
@@ -251,9 +251,7 @@ At any time after `init` has completed, you can call [`setIdentity`](#setidentit
 
 ## API Reference
 
-:::info
-All interactions with the UID2 SDK for JavaScript are done through the global `__uid2` object, which is an instance of the `UID2` class. All of the following JavaScript functions are members of the `UID2` class. 
-:::
+All interactions with the UID2 SDK for JavaScript are done through the global `__uid2` object, which is an instance of the `UID2` class. All of the following JavaScript functions are members of the `UID2` class: 
 
 - [constructor()](#constructor)
 - [init()](#initopts-object-void)
@@ -437,7 +435,7 @@ When a user logs out of the publisher's site, make the following call:
 
 After this function is executed, the [getAdvertisingToken()](#getadvertisingtoken-string) function returns `undefined` and the [isLoginRequired()](#isloginrequired-boolean) function returns `true`.
 
-:::danger
+:::warning
 If you need to provide a `cookieDomain` or `cookiePath` for the SDK to access the correct cookie, and `init` has not been completed, the SDK cannot clear the cookie. In this case, no error is raised.
 :::
 
@@ -504,7 +502,7 @@ The following is an example of the UID2 cookie structure:
    }
 }
 ```
-:::danger
+:::warning
 The contents of the `private` object are explicitly unspecified and are left for the SDK to interpret. Do not make any assumptions about the structure, semantics, or compatibility of this object. Any updates to the cookie must retain its structure.
 :::
 

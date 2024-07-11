@@ -2,7 +2,7 @@
 title: Client-Side Integration Guide for JavaScript
 sidebar_label: Client-Side Integration for JavaScript
 pagination_label: Client-Side Integration Guide for JavaScript
-description: UID2 SDK for JavaScript を UID2 実装の一部としてインテグレーションするための情報。
+description: Client-Side インテグレーションで UID2 SDK for JavaScript を使用する際の情報。
 hide_table_of_contents: false
 sidebar_position: 04
 ---
@@ -13,20 +13,31 @@ import Link from '@docusaurus/Link';
 
 # Client-Side Integration Guide for JavaScript
 
-このガイドは、UID2 と インテグレーションし、ウェブサイト上で JavaScript Client-Side の変更のみを使用して、最小限の労力で [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) (Advertising Token) を生成したいパブリッシャー向けのものです。
+<!-- The below segment is for UID2 only: not applicable for advertisers since EUID doesn't support sharing. -->
+このガイドは、UID2 とインテグレーションして、ウェブサイト上で JavaScript クライアントサイドの変更のみを使用して、最小限の努力で <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 Token</Link> (Advertising Token) を生成するすべての参加者向けです。
 
-このガイドは [Private Operator](../ref-info/glossary-uid.md#gl-private-operator) を使いたいパブリッシャーや、Server-Side でトークンを生成したいパブリッシャーには適用されません。それらのパブリッシャーは [Server-Side Integration Guide for JavaScript](integration-javascript-server-side.md) に従う必要があります。
+この方法は、次の参加者タイプで使用されます:
 
-UID2 は、以下の機能を備えた UID2 SDK for JavaScript([UID2 SDK for JavaScript Reference Guide](../sdks/client-side-identity.md) を参照してください) を提供しています:
+- このワークフローは、UID2 Token をビッドストリームに送信したいパブリッシャー向けです。
+- さらに、広告主やデータプロバイダは、トラッキングピクセルに UID2 Token を追加するために使用します (詳細は [Tokenized Sharing in Pixels](sharing/sharing-tokenized-from-data-pixel.md) を参照してください)。
 
-- UID2 Token 生成
-- UID2 Token 自動リフレッシュ
-- UID2 Token のブラウザへの自動保存
+<!-- End of UID2-only section. -->
+<!-- Begin EUID-only section. -->
+<!-- This guide is for publishers who want to integrate with UID2 and generate EUID tokens (advertising tokens) using only JavaScript client-side changes on their website with minimum effort. -->
+<!-- End of EUID-only section. -->
 
-次の手順を完了する必要があります:
+このガイドは、<Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link> を使いたいパブリッシャーや、Server-Side でトークンを生成したいパブリッシャーには適用されません。これらのパブリッシャーは、[Client-Server Integration Guide for JavaScript](integration-javascript-server-side.md) に従う必要があります。
+
+UID2 は、UID2 SDK for JavaScript を提供しています (詳細は [UID2 SDK for JavaScript Reference Guide](../sdks/client-side-identity.md) を参照してください)。この SDK には以下の機能があります:
+
+- UID2 Token の生成
+- UID2 Token の自動リフレッシュ
+- ブラウザへの UID2 Token の自動保存
+
+実装するには、以下の手順を完了する必要があります:
 
 1. [Complete UID2 account setup](#complete-uid2-account-setup)
-2. [Add UID2 SDK For JavaScript to your site](#add-uid2-sdk-for-javascript-to-your-site)
+2. [Add SDK For JavaScript to your site](#add-sdk-for-javascript-to-your-site)
 3. [Configure the SDK for JavaScript](#configure-the-sdk-for-javascript)
 4. [Check that the token was successfully generated](#check-that-the-token-was-successfully-generated)
 
@@ -57,13 +68,13 @@ SDK のデバッグビルドを使用したい場合は、代わりに以下の 
 
 アカウント設定ページに記載されている手順に従って、UID2 アカウントの設定を完了してください。アカウント設定プロセスの一環として、この UID2 SDK for JavaScript で使用するサイトの**ドメイン名**のリストを提供する必要があります。
 
-アカウントのセットアップが完了すると、Publicc Key(公開鍵) とSubesciption ID(サブスクリプション ID) が発行されます。これらの値はアカウント固有のもので、UID2 モジュールの設定に使用します。
+アカウントのセットアップが完了すると、Publicc Key(公開鍵) と Subesciption ID(サブスクリプション ID) が発行されます。これらの値はアカウント固有のもので、UID2 モジュールの設定に使用します。
 
 :::tip
 アカウント設定に必要なのは、ルートレベルのドメインだけです。例えば、JavaScript 用の UID2 SDK を example.com、shop.example.com、example.org で使用する場合、ドメイン名 example.com と example.org を指定するだけです。
 :::
 
-## Add UID2 SDK For JavaScript to Your Site
+## Add SDK For JavaScript to Your Site
 
 以下のコードスニペットは、ウェブサイトに追加する必要があるコードの概要です。また、SDK がトリガーできるさまざまなイベントも示しています。
 
@@ -106,7 +117,7 @@ SDK の詳細については、[UID2 SDK for JavaScript Reference Guide](../sdks
 
 ### Using the UID2 Integration Environment
 
-デフォルトでは、SDK は UID2 本番環境 `https://prod.uidapi.com` で動作するように設定されています。代わりに UID2 テスト環境を使用したい場合は、`init` を呼び出す際に以下の URL を指定してください:
+デフォルトでは、SDK は UID2 本番環境 `https://prod.uidapi.com` で動作するように設定されています。代わりに UID2 インテグレーション環境を使用したい場合は、`init` を呼び出す際に以下の URL を指定してください:
 
 ```js
 __uid2.init({
@@ -114,20 +125,16 @@ __uid2.init({
 });
 ```
 :::note
-UID2 テスト環境からのトークンは、ビッドストリームに渡しても無効です。テスト環境では、**subscription ID** と **public key** の値が異なります。
+UID2 インテグレーション環境からのトークンは、<Link href="../ref-info/glossary-uid#gl-bidstream">ビッドストリーム</Link>に渡しても無効です。インテグレーション環境では、**subscription ID** と **public key** の値が異なります。
 :::
 
-### Optional: Reduce Latency by Setting the API Base URL for the Production Environment
+### Optional: Specifying the API Base URL to Reduce Latency
 
-デフォルトでは、本番環境の JS SDK はアメリカにある UID2 サーバーに API コールを行います。ユーザーの所在地によっては、待ち時間を短縮するために、ユーザーに近いサーバーを選択することができます。
+デフォルトでは、この SDK は米国の UID2 本番環境サーバーにリクエストを送信します。
 
-例えば、シンガポールのパブリッシャーは base URL を `https://sg.prod.uidapi.com` に設定することができます。これは UID2 の本番環境ですが、サーバーはシンガポールにあります。
+ユースケースに最適な URL を選択する方法と、有効なベース URL の全リストについては、[Environments](../getting-started/gs-environments.md) を参照してください。
 
-Base URL のリストについては、[Environments](../getting-started/gs-environments.md) を参照してください。
-
-パブリッシャーは base URL を `https://global.prod.uidapi.com` に設定することもできます。この URL は読者(サイト利用者) を地理的に近い地域に誘導します。読者が地理的に分散している場合に最適です。
-
-別の UID2 サーバーを指定するには、`init` 呼び出しで変更できます:
+デフォルト以外の UID2 サーバーを指定するには、`init` 呼び出しで変更します:
 
 ```js
 __uid2.init({
@@ -139,12 +146,12 @@ __uid2.init({
 
 UID2 は、Client-Side のトークン生成機能を使用するために必要な以下の値をパブリッシャーに提供します:
 
-* Subscription ID(サブスクリプション DI)
+* Subscription ID(サブスクリプション ID)
 * Public key(公開鍵)
 
-パブリッシャーのテスト環境用に 1 セット、本番環境用に別のセットを用意します。
+パブリッシャーのインテグレーション環境用に 1 セット、本番環境用に別のセットを用意します。
 
-SDK を設定するには、アカウントセットアップ時に受け取った **public key** と **subscription ID**、およびユーザーのハッシュ化またはハッシュ化していない [DII](../ref-info/glossary-uid.md#gl-dii)(メールアドレスまたは電話番号) を含むオブジェクトを指定して、以下のメソッドのいずれかを呼び出します:
+SDK を設定するには、アカウントセットアップ時に受け取った **public key** と **Subscription ID**、およびユーザーのハッシュ化またはハッシュ化していない <Link href="../ref-info/glossary-uid#gl-dii">DII</Link>(メールアドレスまたは電話番号) を含むオブジェクトを指定して、以下のメソッドのいずれかを呼び出します:
 
 *  `__uid2.setIdentityFromEmail`
 *  `__uid2.setIdentityFromEmailHash`
@@ -168,10 +175,10 @@ SDK は、特定のユーザーに対して、4 つの DII フォーマットの
 
 以下のセクションでは、UID2 SDK を構成するさまざまな方法を示し、SDK に渡される DII の要件を示します:
 
-- メールアドレスの設定
-- ハッシュ化されたメールアドレスの設定
-- 電話番号の設定
-- ハッシュ化された電話番号の設定
+- メールアドレス, ハッシュ化されていない
+- メールアドレス, 正規化とハッシュ化
+- 電話番号, ハッシュ化されていない
+- 電話番号, 正規化とハッシュ化
 
 SDK が複数回設定された場合、最新の設定値が使用されます。
 
@@ -204,7 +211,7 @@ await __uid2.setIdentityFromEmail(
 
 ```js
 await __uid2.setIdentityFromEmailHash(
-    'eVvLS/Vg+YZ6+z3i0NOpSXYyQAfEXqCZ7BTpAjFUBUc=',
+    'lz3+Rj7IV4X1+Vr1ujkG7tstkxwk5pgkqJ6mXbpOgTs=',
     {
         subscriptionId: subscriptionId,
         serverPublicKey: publicKey,
@@ -217,13 +224,13 @@ await __uid2.setIdentityFromEmailHash(
 - UID2 SDK は、UID2 Service に送信する前にハッシュを暗号化します。
 
 </TabItem>
-<TabItem value='example_phone_unhashed' label='Phone number, Unhashed'>
+<TabItem value='example_phone_unhashed' label='Phone Number, Unhashed'>
 
 以下の例では、UID2 SDK を電話番号で設定しています。
 
 ```js
 await __uid2.setIdentityFromPhone(
-    '+1111111111',
+    '+12345678901',
     {
         subscriptionId: subscriptionId,
         serverPublicKey: publicKey,
@@ -232,17 +239,17 @@ await __uid2.setIdentityFromPhone(
 ```
 このシナリオでは:
 
-- **電話番号の正規化とハッシュ化はパブリッシャーの責任です。** 詳細は、[Normalization and Encoding](../getting-started/gs-normalization-encoding.md) を参照してください。
+- **電話番号の正規化とハッシュ化はパブリッシャーの責任です。** 詳細は [Normalization and Encoding](../getting-started/gs-normalization-encoding.md) を参照してください。
 - UID2 SDK は、暗号化されたハッシュを UID2 Service に送信する前に、電話番号をハッシュ化します。
 
 </TabItem>
-<TabItem value='example_phone_hash' label='Phone, Normalized and Hashed'>
+<TabItem value='example_phone_hash' label='Phone Number, Normalized and Hashed'>
 
 以下の例では、UID2 SDK をハッシュ化された電話番号で設定しています。
 
 ```js
 await __uid2.setIdentityFromPhoneHash(
-    'eVvLS/Vg+YZ6+z3i0NOpSXYyQAfEXqCZ7BTpAjFUBUc=',
+    'EObwtHBUqDNZR33LNSMdtt5cafsYFuGmuY4ZLenlue4=',
     {
         subscriptionId: subscriptionId,
         serverPublicKey: publicKey,
@@ -251,7 +258,7 @@ await __uid2.setIdentityFromPhoneHash(
 ```
 
 このシナリオでは:
-- **電話番号の正規化とハッシュ化はパブリッシャーの責任です。** 詳細は、[Normalization and Encoding](../getting-started/gs-normalization-encoding.md) を参照してください。
+- **電話番号の正規化とハッシュ化はパブリッシャーの責任です。** 詳細は [Normalization and Encoding](../getting-started/gs-normalization-encoding.md) を参照してください。
 - UID2 SDK は、UID2 Service に送信する前にハッシュを暗号化します。
 
 </TabItem>
@@ -259,15 +266,15 @@ await __uid2.setIdentityFromPhoneHash(
 
 ## Token Storage and Refresh
 
-[Configure the SDK for JavaScript](#configure-the-sdk-for-javascript) に記載されているメソッドのいずれかを正常に呼び出すと、[identity](../ref-info/glossary-uid.md#gl-identity) が生成され、`UID2-sdk-identity` というキーでローカルストレージに保存されます。SDK は UID2 Token を定期的にリフレッシュします。
+[Configure the SDK for JavaScript](#configure-the-sdk-for-javascript) に記載されているメソッドのいずれかを正常に呼び出すと、<Link href="../ref-info/glossary-uid#gl-identity">identity</Link> が生成され、`UID2-sdk-identity` というキーでローカルストレージに保存されます。SDK は UID2 Token を定期的にリフレッシュします。
 
-:::danger
+:::warning
 ローカルストレージに保存されているオブジェクトのフォーマットは予告なく変更される可能性があります。ローカルストレージのオブジェクトを直接読み込んだり更新したり**しないこと**でください。
 :::
 
 ## Example Integration Code and When to Pass DII to the UID2 SDK
 
-[identity](../ref-info/glossary-uid.md#gl-identity) がない状態で最初のページをロードする場合、トークン生成の呼び出しを開始するには、DII で `setIdentity` メソッドのいずれかを呼び出す必要があります。ID が生成されると、SDK からの `IdentityUpdated` イベントを待つことで、ビッドストリームに送信する Advertiser Token ([UID2 token](../ref-info/glossary-uid.md#gl-uid2-token)) を利用できるようになります。例として、`advertising_token_to_use` の値がどのように設定されるかを以下のコードスニペットで示します。
+パブリッシャーで、<Link href="../ref-info/glossary-uid#gl-identity">identity</Link> がない状態で最初のページをロードする場合、トークン生成の呼び出しを開始するには、DII で `setIdentity` メソッドのいずれかを呼び出す必要があります。ID が生成されると、SDK からの `IdentityUpdated` イベントを待つことで、ビッドストリームに送信する Advertiser Token (<Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 token</Link>) を利用できるようになります。例として、`advertising_token_to_use` の値がどのように設定されるかを以下のコードスニペットで示します。
 
 場合によっては、ユーザーの DII はページロード時に利用できず、DII の取得には何らかの関連コストがかかります。例えば、DII を取得するために API コールが必要な場合や、DII 情報を提供するためにユーザーにプロンプトが表示される場合があります。
 
@@ -349,12 +356,11 @@ window.__uid2.callbacks.push(async (eventType, payload) => {
 
 トークンが正常に生成されたことを確認するには、ブラウザの開発者ツールを使ってローカルストレージからトークンを探します。
 
-![Publisher Workflow](images/TokenDebugger.png)
+![Publisher Workflow](images/TokenDebugger-uid2.png)
 
 トークンの生成に問題があった場合は、**Network** タブでリクエストを見つけてください。`client-generate` という文字列でフィルタリングすることで、リクエストを見つけることができます。リクエストに失敗した理由についての情報は、レスポンスの中にあるはずです。
 
 ![Publisher Workflow](images/NetworkTraffic.png)
-
 
 ## Example Code: Hashing and Base-64 Encoding
 

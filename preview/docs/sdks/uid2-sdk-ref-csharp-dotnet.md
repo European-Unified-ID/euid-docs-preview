@@ -14,22 +14,6 @@ You can use the UID2 SDK for C# / .NET on the server side to facilitate the foll
 - Encrypting raw UID2s to create UID2 tokens for sharing.
 - Decrypting UID2 tokens to access the raw UID2s.
 
-<!-- This guide includes the following information:
-
-- [Functionality](#functionality)
-- [API Permissions](#api-permissions)
-- [Version](#version)
-- [GitHub Repository/Binary](#github-repositorybinary)
-- [Initialization](#initialization)
-- [Interface](#interface)
-  - [Encryption Response Content](#encryption-response-content)
-  - [Encryption Response Statuses](#encryption-response-statuses)
-  - [Decryption Response Content](#decryption-response-content)
-  - [Decryption Response Statuses](#decryption-response-statuses)
-- [Usage for DSPs](#usage-for-dsps)
-- [Usage for UID2 Sharers](#usage-for-uid2-sharers)
-- [FAQs](#faqs) -->
-
 ## Functionality
 
 This SDK simplifies integration with UID2 for any DSPs or UID2 sharers who are using C# / .NET for their server-side coding. The following table shows the functions it supports.
@@ -99,7 +83,7 @@ When encrypting with the `SharingClient`, the SDK returns the following informat
 | Value | Description |
 | :--- | :--- |
 | `Success` | The raw UID2 was successfully encrypted and a UID2 token was returned. |
-| `NotAuthorizedForKey` | The requester does not have authorization to use the encryption key. |
+| `NotAuthorizedForKey` | The requester does not have authorization to use the <a href="../ref-info/glossary-uid#gl-encryption-key">encryption key</a>. |
 | `NotAuthorizedForMasterKey` | The requester does not have authorization to use the master key. |
 | `NotInitialized` | The client library is waiting to be initialized. |
 | `KeysNotSynced` | The client has failed to synchronize keys from the UID2 service. |
@@ -131,7 +115,7 @@ Whether decrypting with the `BidstreamClient` or the `SharingClient`, the SDK re
 
 ## Usage for DSPs
 
-The following instructions provide an example of how you can decode bid stream tokens using the UID2 SDK for .NET as a DSP.
+The following instructions provide an example of how you can decode bidstream tokens using the UID2 SDK for .NET as a DSP.
 
 1. Create a `BidstreamClient`:
 
@@ -147,7 +131,7 @@ client.Refresh();
 
 3. Decrypt a token into a raw UID2. Pass the token, and then do one of the following: 
  * If the bid request originated from a publisher's website, pass the domain name. The domain name must be all lower case, without spaces and without subdomain. For example, for `Subdomain.DOMAIN.com`, pass `domain.com` instead.
- * If the bid request originated from a mobile app, pass the [app name](../ref-info/glossary-uid.md#gl-app-name).
+ * If the bid request originated from a mobile app, pass the <Link href="../ref-info/glossary-uid#gl-app-name">app name</Link>.
  * Otherwise, pass `null`.
 
 
@@ -168,10 +152,12 @@ For a full example, see the `ExampleBidStreamClient` method in [SampleApp/Progra
 
 ## Usage for UID2 Sharers
 
-A UID2 sharer is any participant that wants to share UID2s with another participant. Raw UID2s must be encrypted into UID2 tokens before sending them to another participant.
+A UID2 <Link href="../ref-info/glossary-uid#gl-sharing-participant">sharing participant</Link> is a company that takes part in sharing, either as a sender or a receiver, to share UID2s with another participant.
+
+Advertisers and data providers can use this SDK to share UID2s with other authorized UID2 sharing participants (<Link href="../ref-info/glossary-uid#gl-tokenized-sharing">tokenized sharing</Link>). They can encrypt [raw UID2s](../ref-info/glossary-uid#gl-raw-uid2) into <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 tokens</Link> and then send them to another participant for sharing in pixels (see [Tokenized Sharing in Pixels](../sharing/sharing-tokenized-from-data-pixel.md)). If you are not sending data in pixels, you can take part in UID2 sharing as long as you follow the requirements laid out in [Security Requirements for UID2 Sharing](../sharing/sharing-security.md).
 
 :::important
-The UID2 token generated during this process is for sharing only&#8212;you cannot use it in the bid stream. There is a different workflow for generating tokens for the bid stream: see [Tokenized Sharing in the Bid Stream](../sharing/sharing-tokenized-from-data-bid-stream.md).
+The UID2 token generated during this process is for sharing only&#8212;you cannot use it in the <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link>. There is a different workflow for generating tokens for the bidstream: see [Tokenized Sharing in the Bidstream](../sharing/sharing-tokenized-from-data-bid-stream.md).
 :::
 
 The following instructions provide an example of how you can implement sharing using the UID2 SDK for C# / .NET, either as a sender or a receiver.

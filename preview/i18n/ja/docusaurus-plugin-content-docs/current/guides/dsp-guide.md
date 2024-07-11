@@ -10,20 +10,15 @@ import Link from '@docusaurus/Link';
 
 # DSP Integration Guide
 
-このガイドは、ビッドストリームで UID2 の取引を行う DSP を対象としています。
+このガイドは、<Link href="../ref-info/glossary-uid#gl-bidstream">ビッドストリーム</Link>で UID2 の取引を行う DSP を対象としています。
 
 DSP はビッドリクエストで UID2 Token を受け取り、この機能をサポートする Server-Side SDK のいずれかを使用して UID2 Token を復号化し、入札に使用できる raw UID2 を取得します。
 
 利用可能な Server-Side SDK の概要については、[SDKs: Summary](../sdks/summary-sdks.md) を参照してください。
 
->NOTE: バックエンドが、利用可能な Server-Side SDK のいずれでもカバーされていない言語で書かれている場合は、UID2 の担当者に問い合わせてください。誰に聞けばいいかわからない場合は、[連絡先情報](../getting-started/gs-account-setup.md#contact-info) を参照してください。
-
-<!-- It includes the following sections:
-
-* [Integration Steps](#integration-steps)
-   - [Honor User Opt-Outs](#honor-user-opt-outs)
-
-* [FAQs](#faqs) -->
+:::note
+バックエンドが、利用可能な Server-Side SDK のいずれでもカバーされていない言語で書かれている場合は、UID2 の担当者に問い合わせてください。誰に聞けばいいかわからない場合は、[連絡先情報](../getting-started/gs-account-setup.md#contact-info) を参照してください。
+:::
 
 ## Integration Steps 
 
@@ -35,20 +30,35 @@ DSP はビッドリクエストで UID2 Token を受け取り、この機能を�
 
 ### Honor User Opt-Outs
 
-UID2 Service からユーザーのオプトアウトを受信して受け入れるために、DSP は事前に設定されたインターフェース(out-put Webhook/API endpoint) を確立し、オンボーディング中にUID2 Service に提供します。ユーザーがオプトアウトすると、UID2 Service はユーザーの raw UID2 と、対応するオプトアウトタイムスタンプを、事前に設定されたインターフェースに送信します。
+このセクションには、UID2 のユーザーオプトアウトを受け入れる必要がある DSP 向けの以下の情報が含まれています:
 
-UID2 Service は、ユーザーがオプトアウトしてから数秒以内に以下のデータを送信します。これを DSP が記録し、[Decrypt UID2 Tokens for RTB Use](#decrypt-uid2-tokens-for-rtb-use) で定義されている入札ロジックを使用するようにします。
+- [Opt-Out Webhook](#opt-out-webhook)
+- [POST /optout/status Endpoint](#post-optoutstatus-endpoint)
+- [Bidding Opt-Out Logic](#bidding-opt-out-logic)
 
-| Parameter   | Description                            |
-| :---------- | :------------------------------------- |
-| `identity`  | オプトアウトしたユーザーの raw UID2 です。 |
-| `timestamp` | ユーザーがオプトアウトした時刻です。(情報のみ) |
+#### Opt-Out Webhook
 
-次の例は、raw UID2 とそれに対応するタイムスタンプを受信するように設定された Webhook を示しています。
+UID2 Service からユーザーオプトアウトを受け取り、それを受け入れるために DSP が事前に設定されたインターフェース (オプトアウト Webhook/API エンドポイント) を確立し、オンボーディング中に UID2 Service に提供します。ユーザーがオプトアウトすると、UID2 Service はユーザーの raw UID2 と対応するオプトアウトタイムスタンプを事前に設定されたインターフェースに送信します。
+
+UID2 Service は、ユーザーのオプトアウトから数秒以内に次のデータを送信し、DSP は [Decrypt UID2 Tokens for RTB Use](#decrypt-uid2-tokens-for-rtb-use) で定義された入札ロジックを使用します。
+
+| Parameter | Description |
+| :--- | :--- |
+| `identity` | オプトアウトしたユーザーの raw UID2。 |
+| `timestamp` | ユーザーがオプトアウトした時刻 (情報のみ)。 |
+
+DSP は、オプトアウトデータに 200 レスポンスコードで応答する必要があります。
+
+次の例は、raw UID2 と対応するタイムスタンプを受信するように構成された Webhook を示しています:
 
 ```html
 https://dsp.example.com/optout?user=%%identity%%&optouttime=%%timestamp%%
 ```
+
+#### POST /optout/status Endpoint
+
+DSP は、[POST&nbsp;/optout/status](../endpoints/post-optout-status.md) エンドポイントを使用して raw UID2 のオプトアウトステータスを確認できます。
+
 #### Bidding Opt-Out Logic
 
 入札時 (2-b)に以下のロジックを使用し、ユーザーのオプトアウトを受け入れます。
@@ -63,7 +73,7 @@ Server-Side SDK のいずれか ([SDKs: Summary](../sdks/summary-sdks.md) を参
 
 ### Decrypt UID2 Tokens for RTB Use
 
-以下の表は、[Integration Steps](#integration-steps) で示したワークフロー図の Step 2 の詳細です。
+次の表は、[Integration Steps](#integration-steps) で示したワークフロー図の Step 2 の詳細です。
 
 | Step | SDK | Description |
 | :--- | :--- | :--- |

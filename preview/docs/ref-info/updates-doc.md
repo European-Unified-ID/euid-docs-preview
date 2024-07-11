@@ -11,6 +11,59 @@ import Link from '@docusaurus/Link';
 
 Check out the latest updates to our UID2 documentation resources.
 
+### New: Prebid Mobile SDK Integration (Android)
+
+We've added a new section to the two mobile integration guides with instructions for mobile integration using Prebid, currently for Android only:
+
+- [UID2 Client-Side Integration Guide for Mobile: Prebid Integration](../guides/integration-mobile-client-side#optional-uid2-prebid-mobile-sdk-integration)
+- [UID2 Client-Server Integration Guide for Mobile: Prebid Integration](../guides/integration-mobile-client-server#optional-uid2-prebid-mobile-sdk-integration)
+
+<!-- APIDOCS-2264 -->
+
+### New: CTV Integration Guide
+
+21 June 2024
+
+We've just added a new guide for CTV publishers who want to integrate with UID2.
+
+For details, see [CTV Integration Guide](../guides/integration-ctv-guide.md).
+
+<!-- APIDOCS-2264 -->
+
+### New: Opt-Out API
+
+24 May 2024
+
+We added documentation for a new API call that checks the opt-out status of raw UID2s.
+
+Given a list of raw UID2s, this endpoint returns the raw UID2s that have opted out, as well as the time that the opt-out took place.
+
+For details, see [POST&nbsp;/optout/status](../endpoints/post-optout-status.md).
+
+<!-- APIDOCS-2252 -->
+
+### New: Client-Side and Server-Side Guides for Mobile
+
+17 May 2024
+
+We've added the following integration guides to support publishers who want to implement UID2 for their Android or iOS mobile apps:
+
+- [UID2 Mobile Integration Overview for Android and iOS](../guides/integration-mobile-overview)
+- [UID2 Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side)
+- [UID2 Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server)
+
+<!-- APIDOCS-1903-->
+
+### New: UID2 Portal Client-Side Integration Page
+
+6 May 2024
+
+The UID2 Portal documentation now includes a new page, [Client-Side Integration](../portal/client-side-integration.md).
+
+The Client-Side Integration page in the UID2 Portal allows you to set up and manage the values that are needed if you are generating UID2 tokens on the client side, such as specifying your domains.
+
+<!-- APIDOCS-2120 -->
+
 ### New: UID2 Portal API Keys Page
 
 25 April 2024
@@ -49,7 +102,7 @@ For details, see [UID2 Hashing Tool](../getting-started/gs-normalization-encodin
 
 The Java SDK now supports Advertisers and Data Providers wanting to use the [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) endpoint.
 
-For details, see the updated documentation in the *UID2 SDK for Java Reference Guide*: [Usage for Advertisers and Data Providers](../sdks/uid2-sdk-ref-java.md#usage-for-advertisers-and-data-providers).
+For details, see the updated documentation in the *UID2 SDK for Java Reference Guide*: [Usage for Advertisers and Data Providers](../sdks/uid2-sdk-ref-java.md#usage-for-advertisersdata-providers).
 
 ### New: Audience-Specific Documentation Sidebars
 
@@ -69,13 +122,13 @@ To view the custom sidebars, go to [https://unifiedid.com](https://unifiedid.com
 
 26 January 2024
 
-We've added a new overview guide summarizing the options for publishers using the UID2 SDK for JavaScript for client-side or server-side integration. In addition, the existing guides have been renamed for consistency, with minor updates.
+We've added a new overview guide summarizing the options for publishers using the UID2 SDK for JavaScript for client-side or client-server integration. In addition, the existing guides have been renamed for consistency, with minor updates.
 
 For details, see:
 
 - [UID2 Integration Overview for JavaScript](../guides/integration-javascript)
 - [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md)
-- [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md)
+- [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-server-side.md)
 
 <!-- APIDOCS-1924 -->
 
@@ -133,7 +186,7 @@ For details, see:
 
 - [UID2 Integration Overview for Prebid.js](../guides/integration-prebid.md)
 - [UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md)
-- [UID2 Server-Side Integration Guide for Prebid.js](../guides/integration-prebid-server-side.md)
+- [UID2 Client-Server Integration Guide for Prebid.js](../guides/integration-prebid-server-side.md)
 
 ### New: Encryption/Decryption Examples in Java and C#
 
@@ -178,7 +231,7 @@ For details, see [Client-Side Integration Guide for JavaScript](../guides/publis
 The content that was in the previous *UID2 SDK for JavaScript Integration Guide*  is now in a supplementary document for publishers who want to implement the JavaScript SDK on the server side.
 
 :::note
-This document was updated in January 2024 to [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md), and the JavaScript Standard Integration Guide is now the [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md).
+This document was updated in January 2024 to [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md), and the JavaScript Standard Integration Guide is now the [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-server-side.md).
 :::
 
 ### New: UID2 Client-Side Integration Guide for Prebid.js
@@ -193,7 +246,7 @@ The content that was in the previous version of the Prebid document is now in a 
 These documents were further updated in later revisions. Updated links are as follows:
 - [UID2 Integration Overview for Prebid.js](../guides/integration-prebid.md)
 - [UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md)
-- [UID2 Server-Side Integration Guide for Prebid.js](../guides/integration-prebid-server-side.md)
+- [UID2 Client-Server Integration Guide for Prebid.js](../guides/integration-prebid-server-side.md)
 :::
 
 ### New: Opt-Out
@@ -222,7 +275,7 @@ Significant documentation updates reflect the enhanced functionality of Version 
 
 For details, see:
 -  [UID2 SDK for JavaScript Reference Guide](../sdks/client-side-identity.md)
--  [Server-Side Integration Guide for JavaScript](../guides/integration-javascript-server-side.md)
+-  [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-server-side.md)
 
 ### New: Private Operator Guide for Google Confidential Space 
 
@@ -232,6 +285,7 @@ This new guide provides information for setting up the UID2 Operator Service in 
 
 For details, see [UID2 Private Operator for GCP Integration Guide](../guides/operator-private-gcp-confidential-space.md).
 
+<!-- APIDOCS-1655 -->
 
 ### Update: Normalization and Encoding Rules
 
@@ -248,7 +302,7 @@ For details, see:
 
 8 August 2023
 
-A new guide for publishers that provides information about the UID2 Interactive Media Ads (IMA) Plugin for Android. This plugin enables publishers who use the Google IMA SDK for Android to send [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) as secure signals in ad requests from Android apps.
+A new guide for publishers that provides information about the UID2 Interactive Media Ads (IMA) Plugin for Android. This plugin enables publishers who use the Google IMA SDK for Android to send <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 tokens</Link> as secure signals in ad requests from Android apps.
 
 For details, see [UID2 IMA Plugin for Android Integration Guide](../guides/mobile-plugin-ima-android.md).
 
@@ -257,7 +311,7 @@ For details, see [UID2 IMA Plugin for Android Integration Guide](../guides/mobil
 
 8 August 2023
 
-A new guide for publishers that provides information about the UID2 Interactive Media Ads (IMA) Plugin for iOS. This plugin enables publishers who use the Google IMA SDK for iOS to send [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) as secure signals in ad requests from iOS apps.
+A new guide for publishers that provides information about the UID2 Interactive Media Ads (IMA) Plugin for iOS. This plugin enables publishers who use the Google IMA SDK for iOS to send <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 tokens</Link> as secure signals in ad requests from iOS apps.
 
 For details, see [UID2 IMA Plugin for iOS Integration Guide](../guides/mobile-plugin-ima-ios.md).
 
@@ -265,7 +319,7 @@ For details, see [UID2 IMA Plugin for iOS Integration Guide](../guides/mobile-pl
 
 4 August 2023
 
-A new guide for publishers that provides information about the UID2 Google Mobile Ads (GMA) Plugin for Android. This plugin enables publishers who use the Google GMA SDK to send [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) as secure signals in ad requests from Android apps.
+A new guide for publishers that provides information about the UID2 Google Mobile Ads (GMA) Plugin for Android. This plugin enables publishers who use the Google GMA SDK to send <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 tokens</Link> as secure signals in ad requests from Android apps.
 
 For details, see [UID2 GMA Plugin for Android Integration Guide](../guides/mobile-plugin-gma-android.md).
 
@@ -274,7 +328,7 @@ For details, see [UID2 GMA Plugin for Android Integration Guide](../guides/mobil
 
 4 August 2023
 
-A new guide for publishers that provides information about the UID2 Google Mobile Ads (GMA) Plugin for iOS. This plugin enables publishers who use the Google GMA SDK to send [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) as secure signals in ad requests from iOS apps.
+A new guide for publishers that provides information about the UID2 Google Mobile Ads (GMA) Plugin for iOS. This plugin enables publishers who use the Google GMA SDK to send <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 tokens</Link> as secure signals in ad requests from iOS apps.
 
 For details, see [UID2 GMA Plugin for iOS Integration Guide](../guides/mobile-plugin-gma-ios.md).
 
@@ -330,6 +384,6 @@ For details, see [UID2 SDK for iOS Reference Guide](../sdks/uid2-sdk-ref-ios.md)
 
 1 August 2023
 
-A new guide for publishers who want to integrate with UID2 and generate UID2 tokens (advertising tokens) to be passed by Prebid in the RTB bid stream.
+A new guide for publishers who want to integrate with UID2 and generate UID2 tokens (advertising tokens) to be passed by Prebid in the RTB bidstream.
 
 For details, see [UID2 Integration Overview for Prebid.js](../guides/integration-prebid.md). [doc name updated]-->

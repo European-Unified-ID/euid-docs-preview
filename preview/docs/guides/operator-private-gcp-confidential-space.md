@@ -8,12 +8,15 @@ sidebar_position: 18
 ---
 
 import Link from '@docusaurus/Link';
+import ReleaseMatrix from '/docs/snippets/_private-operator-release-matrix.mdx';
 
 # UID2 Private Operator for GCP Integration Guide
 
 This guide provides information for setting up the UID2 Operator Service in [Confidential Space](https://cloud.google.com/confidential-computing#confidential-space), a confidential computing option from [Google Cloud](https://cloud.google.com/docs/overview/) Platform. Confidential Space offers a secure enclave environment, known as a Trusted Execution Environment (TEE).
 
->NOTE: UID2 Private Operator for GCP is not supported in these areas: Europe, China.
+:::note
+ UID2 Private Operator for GCP is not supported in these areas: Europe, China.
+ :::
 
 The Operator Service runs in a Confidential Space "workload"&#8212;a containerized Docker image that runs in a secure cloud-based enclave on top of the Confidential Space image.
 
@@ -35,6 +38,8 @@ At a high level, the setup steps are as follows:
 1. Follow the applicable instructions for the deployment option you chose, out of the following:
    - [Terraform Template](#deployterraform-template)
    - [gcloud CLI](#deploygcloud-cli)
+1. Enable egress rule if required.
+   - See [Confidential Space Account Setup](#confidential-space-account-setup), Step 4.
 
 When all steps are complete, your implementation should be up and running.
 
@@ -60,22 +65,31 @@ Before choosing your deployment option, complete these Google Cloud setup steps:
 
 1. Install the gcloud CLI, required by both deployment options. Follow the instructions provided by Google: [Install the gcloud CLI](https://cloud.google.com/sdk/docs/install).
 
+1. Enable egress rule. If your VPC infrastructure only allows egress to known endpoints, you will need to enable an egress rule to allow the operator to retrieve the certificates required for attestation. To enable this, follow the details in this document from Google: [VPC Service Controls](https://cloud.google.com/vpc-service-controls/docs/supported-products#table_confidential_space).
+
 ### UID2 Operator Account Setup
 Ask your UID2 contact to register your organization as a UID2 Operator. If you're not sure who to ask, see [Contact Info](../getting-started/gs-account-setup.md#contact-info).
 
->TIP: It's a good idea to set  up an internal email distribution list of individuals who should be kept informed about new versions and any other technical notifications or requests, and provide that as the email contact.
+:::tip
+It's a good idea to set  up an internal email distribution list of individuals who should be kept informed about new versions and any other technical notifications or requests, and provide that as the email contact.
+:::
 
 When the registration process is complete, you'll receive the following:
 
 | Item | Description |
 | :--- | :--- |
-| `{OPERATOR_IMAGE}` | The Docker image URL for the UID2 Private Operator for GCP, used in configuration. The following example is fictitious, but shows what the Docker image URL might look like: `https://console.cloud.google.com/artifacts/docker/uid2-prod-project/us/iabtechlab/uid2-operator/sha256:2e4fae98b688002303c6263f7c4bf95344a1d9c15fb5fcf838b59032bb9813f2`. Use the image URL provided to you as part of account setup.<br/>NOTE: The image is valid for both deployment environments. |
-| `{OPERATOR_KEY}` | An operator key, exclusive to you, that identifies you with the UID2 service as a private operator. Use this as the `OPERATOR_KEY` value during  configuration. This value is both your unique identifier and a password; store it securely and do not share it.<br/>NOTE: You'll receive a separate operator key for each deployment environment. |
+| `{OPERATOR_KEY}` | An operator key, exclusive to you, that identifies you with the UID2 service as a Private Operator. Use this as the `OPERATOR_KEY` value during configuration. This value is both your unique identifier and a password; store it securely and do not share it. The operator key is not specific to a version of the operator.<br/>NOTE: You'll receive a separate operator key for each deployment environment. |
 | Instructions | Additional information details, such as instructions for setting up VMs or a link to the applicable information. |
 
 When UID2 account registration is complete, and you've installed the gcloud CLI, your next steps are:
 -  Review information about [deployment environments](#deployment-environments).
 -  Review information about the [deployment options](#deployment-options) available, including the benefits of each, and decide which to use.
+
+### Operator Versions
+
+The latest ZIP file is linked in the GCP Download column in the following table.
+
+<ReleaseMatrix />
 
 ## Deployment Environments
 
@@ -83,7 +97,9 @@ The following environments are available, and both [deployment options](#deploym
 
 As a best practice, we recommend that you test and verify your implementation in the integration environment before deploying in the production environment.
 
->NOTE: You'll receive separate `{OPERATOR_KEY}` values for each environment. Be sure to use the correct one. The `{OPERATOR_IMAGE}` value is the same for both environments.
+:::note
+You'll receive separate `{OPERATOR_KEY}` values for each environment. Be sure to use the correct one. The `{OPERATOR_IMAGE}` value is the same for both environments.
+:::
 
 | Environment | Details |
 | :--- | :--- |
@@ -120,7 +136,9 @@ The Terraform template does the following:
   - Egress: [Cloud Network Address Translation (NAT)](https://cloud.google.com/nat/docs/overview).
 - If HTTPS is enabled, provides your HTTPS certificate to Terraform.
 
->NOTE: The Terraform template uses the gcloud CLI that you installed in [Confidential Space Account Setup](#confidential-space-account-setup) Step 3.
+:::note
+The Terraform template uses the gcloud CLI that you installed in [Confidential Space Account Setup](#confidential-space-account-setup) Step 3.
+:::
 
 To deploy a new UID2 Operator in the GCP Confidential Space Enclave, using the Terraform template, follow these steps:
 
@@ -155,7 +173,7 @@ Install Terraform if it is not already installed: visit [terraform.io](https://w
 
 #### Download the Template Files
 
-Follow the instructions you receive when your registration process is complete (see [UID2 Operator Account Setup](#uid2-operator-account-setup)) to download the template files listed in the following table.
+Download the ZIP file listed in [Operator Versions](#operator-versions) in the GCP Download column. Be sure to select the latest version. Unzip the files to a convenient location. You will have the files listed in the following table.
 
 | File | Details |
 | :--- | :--- |
@@ -172,11 +190,13 @@ Provide values for the input parameters, as needed, in the `terraform.tfvars` fi
 
    | Name | Type | Default | Required | Description |
    | :--- | :--- | :--- | :--- | :--- |
-   | `project_id` | `string` | n/a | yes | The ID of the GCP project that you want the UID2 Operator to run in; for example, `UID2-Operator-Production`. |
-   | `service_account_name` | `string` | n/a | yes | The name of the service account that you want to use for your UID2 Operator instance in GCP Confidential Space. |
-   | `uid_operator_image` | `string` | n/a | yes | The Docker image URL for the UID2 Private Operator for GCP, used in configuration, which you received as part of [UID2 Operator Account Setup](#uid2-operator-account-setup). For example: `us-docker.pkg.dev/uid2-prod-project/iabtechlab/uid2-operator@sha256:{IMAGE_SHA}`. |
+   | `project_id` | `string` | `uid2-test` | yes | The ID of the GCP project that you want the UID2 Operator to run in; for example, `UID2-Operator-Production`. |
+   | `service_account_name` | `string` | `tf-test` | yes | The name of the service account that you want to use for your UID2 Operator instance in GCP Confidential Space. |
+   | `uid_operator_image` | `string` | `us-docker.pkg.dev/uid2-prod-project/iabtechlab/uid2-operator:{version_number}` | yes | The Docker image URL for the UID2 Private Operator for GCP, used in configuration. The version number changes depending on the version being deployed. |
    | `uid_operator_key` | `string` | n/a | yes | The UID2 operator key, which you received as part of [UID2 Operator Account Setup](#uid2-operator-account-setup). |
+   | `uid_operator_key_secret_name` | `string` | `secret-operator-key` | yes | The name of the key to create in Secret Manager. |
    | `uid_deployment_env` | `string` | `integ` | yes | Valid values: `integ` for integration environment, `prod` for production environment.<br/>Machine type is determined by the deployment environment: `integ` uses `n2d-standard-2` and `prod` uses `n2d-standard-16`. |
+   | `debug_mode` | `bool` | `true` | yes | Set to `true` to enable more diagnostic information. For the production environment, this must be set to `false` or the operator will not start. |
 
 1. (Optional, strongly recommended) Set the load balancer to HTTPS. Provide values for the parameters shown in the following table:
 
@@ -207,7 +227,9 @@ terraform apply
 ```
 When you run `terraform apply`, the following file is generated in the same folder: `terraform.tfstate`. This file stores state information about your managed infrastructure and configuration, and will be used for future maintenance.
 
->NOTE: Be sure to follow the recommended practices for Terraform `state` files: they are required for maintaining the deployed infrastructure, and they might contain sensitive information. For details, see [state](https://developer.hashicorp.com/terraform/language/state) in the Terraform documentation.
+:::note
+Be sure to follow the recommended practices for Terraform `state` files: they are required for maintaining the deployed infrastructure, and they might contain sensitive information. For details, see [state](https://developer.hashicorp.com/terraform/language/state) in the Terraform documentation.
+:::
 
 #### Test Terraform Using the Health Check Endpoint
 
@@ -237,7 +259,9 @@ The following table summarizes the output value from the Terraform template.
 
 To deploy a new UID2 Operator in the GCP Confidential Space Enclave using the gcloud CLI, follow these steps.
 
->NOTE: For deployment to the production environment we do not recommend this option. We recommend deploying via the Terraform template, with load balancing, and with HTTPS enabled.
+:::note
+For deployment to the production environment we do not recommend this option. We recommend deploying via the Terraform template, with load balancing, and with HTTPS enabled.
+:::
 
    1. [Set Up Service Account Rules and Permissions](#set-up-service-account-rules-and-permissions)
    1. [Create Secret for the Operator Key in Secret Manager](#create-secret-for-the-operator-key-in-secret-manager)
@@ -370,8 +394,9 @@ Placeholder values are defined in the following table.
 | :--- | :--- |
 | `{INSTANCE_NAME}` | Your own valid VM name. |
 | `{ZONE}` | The Google Cloud zone that the VM instance will be deployed on. |
+| `{IMAGE_FAMILY}` | Use `confidential-space` for Integration and Production, `confidential-space-debug` for debugging purposes in Integration only. Note that `confidential-space-debug` will not work in Production. |
 | `{SERVICE_ACCOUNT}` | The service account email that you created as part of creating your account, in this format: `{SERVICE_ACCOUNT_NAME}@{PROJECT_ID}.iam.gserviceaccount.com`.<br/>For details, see [Set Up Service Account Rules and Permissions](#set-up-service-account-rules-and-permissions) (Step 4). |
-| `{OPERATOR_IMAGE}` | The Docker image URL for the UID2 Private Operator for GCP, used in configuration.<br/>For details, see [UID2 Operator Account Setup](#uid2-operator-account-setup). |
+| `{OPERATOR_IMAGE}` | The Docker image URL for the UID2 Private Operator for GCP, used in configuration.<br/>This can be found in the `terraform.tfvars` file in the GCP download file (see [Operator Versions](#operator-versions)). |
 | `{OPERATOR_KEY_SECRET_FULL_NAME}` | The full name that you specified for the Operator Key secret (see [Create Secret for the Operator Key in Secret Manager](#create-secret-for-the-operator-key-in-secret-manager)), including the path, in the format `projects/<project_id>/secrets/<secret_id>/versions/<version>`. For example: `projects/111111111111/secrets/uid2-operator-operator-key-secret-integ/versions/1`. |
 
 ##### Sample Deployment Script&#8212;Integ
@@ -387,16 +412,18 @@ $ gcloud compute instances create {INSTANCE_NAME} \
   --maintenance-policy Terminate \
   --scopes cloud-platform \
   --image-project confidential-space-images \
-  --image-family confidential-space \
+  --image-family {IMAGE_FAMILY} \
   --service-account {SERVICE_ACCOUNT} \
-  --metadata ^~^tee-image-reference={OPERATOR_IMAGE}~tee-restart-policy=Never~tee-env-DEPLOYMENT_ENVIRONMENT=integ~tee-env-API_TOKEN_SECRET_NAME={OPERATOR_KEY_SECRET_FULL_NAME}
+  --metadata ^~^tee-image-reference={OPERATOR_IMAGE}~tee-container-log-redirect=true~tee-restart-policy=Never~tee-env-DEPLOYMENT_ENVIRONMENT=integ~tee-env-API_TOKEN_SECRET_NAME={OPERATOR_KEY_SECRET_FULL_NAME}~tee-env-CORE_BASE_URL=https://core-integ.uidapi.com~tee-env-OPTOUT_BASE_URL=https://optout-integ.uidapi.com
 ```
 
 ##### Sample Deployment Script&#8212;Prod
 
 The following example of the deployment script for the production environment uses some placeholder values.
 
->NOTE: A `machine-type` value of `n2d-standard-16` is required for the production environment.
+:::note
+A `machine-type` value of `n2d-standard-16` is required for the production environment.
+:::
 
 ```
 $ gcloud compute instances create {INSTANCE_NAME} \
@@ -409,7 +436,7 @@ $ gcloud compute instances create {INSTANCE_NAME} \
   --image-project confidential-space-images \
   --image-family confidential-space \
   --service-account {SERVICE_ACCOUNT} \
-  --metadata ^~^tee-image-reference={OPERATOR_IMAGE}~tee-restart-policy=Never~tee-env-DEPLOYMENT_ENVIRONMENT=prod~tee-env-API_TOKEN_SECRET_NAME={OPERATOR_KEY_SECRET_FULL_NAME}
+  --metadata ^~^tee-image-reference={OPERATOR_IMAGE}~tee-container-log-redirect=true~tee-restart-policy=Never~tee-env-DEPLOYMENT_ENVIRONMENT=prod~tee-env-API_TOKEN_SECRET_NAME={OPERATOR_KEY_SECRET_FULL_NAME}~tee-env-CORE_BASE_URL=https://core-prod.uidapi.com~tee-env-OPTOUT_BASE_URL=https://optout-prod.uidapi.com
 ```
 
 #### Run the Script
@@ -462,6 +489,7 @@ The following example shows the health check for the `gcloud` command line optio
 
    ```
    $ gcloud compute instances describe {INSTANCE_NAME} \
+     --zone={ZONE} \
      --format='get(networkInterfaces[0].accessConfigs[0].natIP)'
    ```
 2. To test operator status, in your browser, go to `http://{IP}:8080/ops/healthcheck`.
@@ -472,7 +500,7 @@ import AttestFailure from '/docs/snippets/_private-operator-attest-failure.mdx';
 
 <AttestFailure />
 
-### Upgrading
+## Upgrading
 
 When a new version of UID2 Google Cloud Platform Confidential Space is released, private operators receive an email notification of the update, with a new image version. There is a window of time for upgrade, after which the older version is deactivated and is no longer supported.
 
@@ -481,11 +509,11 @@ If you're upgrading to a new version, the upgrade process depends on the deploym
 - [Upgrading&#8212;Terraform Template](#upgradingterraform-template)
 - [Upgrading&#8212;gcloud CLI](#upgradinggcloud-cli)
 
-#### Upgrading&#8212;Terraform Template
+### Upgrading&#8212;Terraform Template
 
 If you deployed using the Terraform template, all you need to do to upgrade is update your deployment with the new `{OPERATOR_IMAGE}` that you received in the upgrade notification.
 
-#### Upgrading&#8212;gcloud CLI
+### Upgrading&#8212;gcloud CLI
 
 If you deployed using the gcloud CLI, you must manually bring up new instances that use the new `{OPERATOR_IMAGE}` and then shut down old instances.
 
