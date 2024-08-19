@@ -1,37 +1,34 @@
 ---
-title: SDK for JavaScript (2.x and earlier)
-description: Reference information about 2.x and earlier versions of the JavaScript client-side SDK.
+title: SDK for JavaScript (2.x and earlier versions)
+description: Reference information about earlier versions of the JavaScript client-side SDK.
 hide_table_of_contents: false
 sidebar_position: 02
-displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import SDKsSameUID2EUID from '../snippets/_euid-sdk-same-for-all.mdx';
-import ChartSvg from './images/euid-js-sdk-workflow.svg';
-import ExampleEuidCookie from '../snippets/_example-euid-cookie.mdx';
 
-# SDK for JavaScript Reference Guide (v2.x and earlier)
+# SDK for JavaScript Reference Guide (2.x and earlier versions)
 
-:::important
-This documentation is for earlier versions of the SDK for JavaScript. If you're using an earlier version, we recommend upgrading. See [SDK for JavaScript Reference Guide](sdk-ref-javascript.md), which includes a migration guide to upgrade to the current version, v4.
+:::tip
+This documentation is for earlier versions of the SDK for JavaScript. If you're using an earlier version, we recommend upgrading. See [SDK for JavaScript Reference Guide](sdk-ref-javascript.md), which includes a migration guide.
 :::
 
-Use this SDK to facilitate the process of establishing client identity using EUID and retrieving advertising tokens. The following sections describe the high-level [workflow](#workflow-overview) for establishing EUID identity, provide the SDK [API reference](#api-reference), and explain the [EUID cookie format](#euid-cookie-format).
+Use this SDK to facilitate the process of establishing client identity using UID2 and retrieving advertising tokens. The following sections describe the high-level [workflow](#workflow-overview) for establishing UID2 identity, provide the SDK [API reference](#api-reference), and explain the [UID2 cookie format](#uid2-cookie-format). 
 
-For integration steps for content publishers, see [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md).
+- For integration steps for content publishers, see [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md).
+- For an [example application](https://example-jssdk-integ.uidapi.com/), with associated documentation, see the [UID2 SDK Integration Example](https://github.com/IABTechLab/uid2-examples/blob/main/publisher/standard/README.md) guide.
 
 ## Functionality
 
-This SDK simplifies integration with EUID for any publishers who want to support EUID. The following table shows the functions it supports.
+This SDK simplifies integration with UID2 for any publishers who want to support UID2. The following table shows the functions it supports.
 
-| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to Raw EUIDs | Monitor Rotated Salt Buckets |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| &#8212; | &#8212; | &#8212; | &#9989; | &#8212; |
+| Encrypt Raw UID2 to UID2 Token | Decrypt UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token |
+| :--- | :--- | :--- | :--- |
+| Not supported | Not supported | Not supported | Supported |
 
 ## API Permissions
 
-To use this SDK, you'll need to complete the EUID account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page.
+To use this SDK, you'll need to complete the UID2 account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page.
 
 You'll be granted permission to use specific functions offered by the SDK, and given credentials for that access. Bear in mind that there might be functions in the SDK that you don't have permission to use. For example, publishers get a specific API permission to generate and refresh tokens, but the SDK might support other activities that require a different API permission.
 
@@ -47,32 +44,35 @@ This SDK is in the following open-source GitHub repository:
 
 - [https://github.com/iabtechlab/uid2-web-integrations](https://github.com/iabtechlab/uid2-web-integrations)
 
-<SDKsSameUID2EUID/>
+<!-- The binary is published in these locations:
+
+- NPM: [https://www.npmjs.com/package/@uid2/uid2-sdk](https://www.npmjs.com/package/@uid2/uid2-sdk)
+- CDN: [https://cdn.prod.uidapi.com/uid2-sdk-${VERSION_ID}.js](https://cdn.prod.uidapi.com/uid2-sdk-${VERSION_ID}.js) (** v3 JS SDK: stash per SW 8/15/23**) -->
 
 ## Terminology
 
 In this document, the following terms apply:
-- **Identity** refers to a package of values, returned by the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint, that includes the EUID token, the refresh token, and associated values such as timestamps.
-- **Advertising token** refers to the EUID token.
+- **Identity** refers to a package of values, returned by the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint, that includes the UID2 token, the refresh token, and associated values such as timestamps.
+- **Advertising token** refers to the UID2 token.
 
 ## Include the SDK Script
 
-On every page where you want to use EUID for targeted advertising, include the following SDK script:
+On every page where you want to use UID2 for targeted advertising, include the following SDK script:
 
 ```html
-<script src="https://prod.euid.eu/static/js/euid-sdk-1.0.0.js" type="text/javascript"></script>
+<script src="https://prod.uidapi.com/static/js/uid2-sdk-2.0.0.js" type="text/javascript"></script> 
 ```
 
 ## Workflow Overview
 
-The high-level client-side workflow for establishing EUID identity using the SDK consists of the following steps:
+The high-level client-side workflow for establishing UID2 identity using the SDK consists of the following steps:
 
 1. Publisher: Initialize the SDK using the [init](#initopts-object-void) function and specify a [callback function](#callback-function) to be called upon successful completion of the step.
 2. Publisher: Wait for the SDK to invoke the callback function. The callback function indicates the identity availability:
 	- If the identity is available, the SDK sets up a [background token auto-refresh](#background-token-auto-refresh).
 	- If the identity is unavailable, the reason for its unavailability is specified in the object passed to the callback function.
 3. SDK: Based on the identity [state](#workflow-states-and-transitions), the SDK does the following:
-	- If a valid identity is available, the SDK ensures that the identity is available in a [first-party cookie](#euid-cookie-format).
+	- If a valid identity is available, the SDK ensures that the identity is available in a [first-party cookie](#uid2-cookie-format).
 	- If the identity is unavailable, the SDK takes the appropriate action based on whether the identity is refreshable or not. For details, see [Workflow States and Transitions](#workflow-states-and-transitions).
 4. Publisher: Handle the identity based on its state:
 	- If the advertising token is available, use it to initiate requests for targeted advertising.
@@ -88,12 +88,12 @@ The following table outlines the four main states that the SDK can be in, based 
 | :--- | :--- | :---| :---| :---|
 | Initialization | `undefined`| `undefined`| Initial state until the callback is invoked. | N/A |
 | Identity Is Available | available |`false` | A valid identity has been successfully established or refreshed. You can use the advertising token in targeted advertising. |`ESTABLISHED` or `REFRESHED` |
-| Identity Is Temporarily Unavailable |`undefined` | `false`| The advertising token has expired, therefore automatic refresh failed. [Background auto-refresh](#background-token-auto-refresh) attempts will continue until the refresh token expires or the user opts out.<br/>You can do either of the following:<br/>- Redirect the user, asking for the email or phone number.<br/>- Use untargeted advertising.<br/>NOTE: Identity might be successfully refreshed at a later time&#8212;for example, if the EUID service is temporarily unavailable.| `EXPIRED` |
-| Identity Is Not Available  | `undefined`| `false`| The identity is not available and cannot be refreshed. The SDK clears the first-party cookie.<br/>To use EUID-based targeted advertising again, you must obtain the email or phone number from the consumer. | `INVALID`, `NO_IDENTITY`, `REFRESH_EXPIRED`, or `OPTOUT` |
+| Identity Is Temporarily Unavailable |`undefined` | `false`| The advertising token has expired, therefore automatic refresh failed. [Background auto-refresh](#background-token-auto-refresh) attempts will continue until the refresh token expires or the user opts out.<br/>You can do either of the following:<br/>- Redirect the user, asking for the email or phone number.<br/>- Use untargeted advertising.<br/>NOTE: Identity might be successfully refreshed at a later time&#8212;for example, if the UID2 service is temporarily unavailable.| `EXPIRED` |
+| Identity Is Not Available  | `undefined`| `false`| The identity is not available and cannot be refreshed. The SDK clears the first-party cookie.<br/>To use UID2-based targeted advertising again, you must obtain the email or phone number from the consumer. | `INVALID`, `NO_IDENTITY`, `REFRESH_EXPIRED`, or `OPTOUT` |
 
-The following diagram illustrates the four states, including the corresponding identity [status values](#identity-status-values), and possible transitions between them. The SDK invokes the [callback function](#callback-function) on each transition.
+The following diagram illustrates the four states, including the corresponding identity [status values](#identity-status-values) and possible transitions between them. The SDK invokes the [callback function](#callback-function) on each transition.
 
-<ChartSvg />
+![Client-Side JavaScript SDK Workflow](images/uid2-js-sdk-workflow.png)
 
 ### Background Token Auto-Refresh
 
@@ -101,8 +101,9 @@ As part of the SDK [initialization](#initopts-object-void), a token auto-refresh
 
 Here's what you need to know about the token auto-refresh:
 
-- Only one call to the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint call can be active at a time.
-- If the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response is unsuccessful because the user has opted out, or because the refresh token has expired, this suspends the background auto-refresh process. To use EUID-based targeted advertising again if the refresh token has expired, you must obtain the email or phone number from the consumer ([isLoginRequired()](#isloginrequired-boolean) returns `true`). If the user has opted out, take no further steps. In all other cases, auto-refresh attempts continue in the background.
+
+- Only one token refresh call can be active at a time. 
+- If the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response is unsuccessful because the user has opted out, or because the refresh token has expired, this suspends the background auto-refresh process. To use UID2-based targeted advertising again, you must obtain the email or phone number from the consumer ([isLoginRequired()](#isloginrequired-boolean) returns `true`). In all other cases, auto-refresh attempts continue in the background.
 - The [callback function](#callback-function) specified during the SDK initialization is invoked in the following cases:
 	- After each successful refresh attempt.
 	- After an initial failure to refresh an expired advertising token.
@@ -111,7 +112,7 @@ Here's what you need to know about the token auto-refresh:
 
 ## API Reference
 
-All interactions with the Client-Side JavaScript SDK are done through the global `__euid` object, which is a member of the `EUID` class. All of the following JavaScript functions are members of the `EUID` class:
+All interactions with the Client-Side JavaScript SDK are done through the global `__uid2` object, which is a member of the `UID2` class. All of the following JavaScript functions are members of the `UID2` class:
 
 - [constructor()](#constructor)
 - [init()](#initopts-object-void)
@@ -123,10 +124,10 @@ All interactions with the Client-Side JavaScript SDK are done through the global
 
 ### constructor()
 
-Constructs an EUID object.
+Constructs a UID2 object.
 
 :::tip
-Instead of calling this function, you can just use the global `__euid` object.
+Instead of calling this function, you can just use the global `__uid2` object.
 :::
 
 ### init(opts: object): void
@@ -137,15 +138,15 @@ Here's what you need to know about this function:
 
 - You can call `init()` any time after the SDK has been loaded by the corresponding script tag, typically during page loading.
 - Initialization calls require a [callback function](#callback-function) that is invoked after the SDK is initialized.
-- When creating an instance for the EUID lifecycle on the client, the `identity` property in the `init()` call refers to the `body` property of the response JSON object returned from a successful [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) call with the server-side generated identity.
-- Since the SDK relies on [first-party cookies](#euid-cookie-format) to store the passed EUID information for the session, a call to `init()` made by a page on a different domain might not be able to access the cookie. You can adjust the settings used for the cookie with the `cookieDomain` and `cookiePath` options.
+- When creating an instance for the UID2 lifecycle on the client, the `identity` property in the `init()` call refers to the `body` property of the response JSON object returned from a successful [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) call with the server-side generated identity.
+- Since the SDK relies on [first-party cookies](#uid2-cookie-format) to store the passed UID2 information for the session, a call to `init()` made by a page on a different domain might not be able to access the cookie. You can adjust the settings used for the cookie with the `cookieDomain` and `cookiePath` options.
 - To tune specific behaviors, initialization calls might include optional configuration [parameters](#parameters).
 
 The following is a template of an `init()` call with the server-side generated identity included.
 
 ```html
 <script>
- __euid.init({
+ __uid2.init({
    callback : function (state) {...}, // Check advertising token and its status within the passed state and initiate targeted advertising. 
    identity : {...} // The `body` property value from the token/generate or token/refresh API response.
  });
@@ -156,17 +157,16 @@ For example:
 
 ```html
 <script>
-__euid.init({
-  callback : onEuidIdentityUpdated,
-  identity : {
-    "advertising_token": "E4AAAAW2T2Fj-aRzN_G_t-1UP9Ndl-e1kJLCL0b9wTq0UORlRIFjIS4Mz7I3TYy6YrYyIGDwjHWZOifsnYTZawQcCwAkfyp0RbkLhB4Hznodt3ZLHrOYqFmvSrsbEuMrowfoGSJyFz3hj-Q4CArezZzamp1-aoOjJz3s-ydQADH7OapPv5iQBYBiWza3r3tBVY7drUMV8_08aBMqHuLyKzNUvws",
-    "identity_expires": 1724995694316,
-    "refresh_expires": 1727586794316,
-    "refresh_from": 1724995094316,
-    "refresh_response_key": "8yaj8hL5gS0fiB7CxvCxG25mDO3QWiqr73oF696QtiU=",
-    "refresh_token": "EAAABbf4KYu1LMa4+9wE7SqDIhSnSOMSmneocSaAxYl9ptV7iEOT0899ZUdtaTkSb5fHuArOtanqenPIDESXqg5uhqCDlHZfIqqq6HNBiV4ZZjPm3nA2LJAQ9Za0WydmWcpTdPSapcMyQPvW9CQTZcHNoYTVjtol4nraKDcn6ZGxea/4TA+zeFf9ohBZ8Eyt1zN+JKhB4ccvbCUeFaRrOKYyBUppGdaRiN6bL+d/uKY6XPVCw4lW7BJ87xDRb/JDfkG1bly0sIl3MWaFQK8AzEJJj8dzBYvpYAVXbvpxi/9gDEAzsdF3lT8Mdso8xj4Kx7jp79QDrIBL40E4pSDaNeNMnU8+Yo1nrQVCO2JBEy3kpvn8pUnDjxZlBTZ9I4PkmH/Q"
-  }
-});
+ __uid2.init({
+   callback : onUid2IdentityUpdated,
+   identity : {
+        "advertising_token": "AgmZ4dZgeuXXl6DhoXqbRXQbHlHhA96leN94U1uavZVspwKXlfWETZ3b/besPFFvJxNLLySg4QEYHUAiyUrNncgnm7ppu0mi6wU2CW6hssiuEkKfstbo9XWgRUbWNTM+ewMzXXM8G9j8Q=",
+        "refresh_token": "Mr2F8AAAF2cskumF8AAAF2cskumF8AAAADXwFq/90PYmajV0IPrvo51Biqh7/M+JOuhfBY8KGUn//GsmZr9nf+jIWMUO4diOA92kCTF69JdP71Ooo+yF3V5yy70UDP6punSEGmhf5XSKFzjQssCtlHnKrJwqFGKpJkYA==",
+        "identity_expires": 1633643601000,
+        "refresh_from": 1633643001000,
+        "refresh_expires": 1636322000000
+    }
+ });
 </script>
 ```
 
@@ -174,7 +174,7 @@ The following is an example of an `init()` call that uses identity from a first-
 
 ```html
 <script>
- __euid.init({
+ __uid2.init({
    callback : function (state) {...} // Check advertising token and its status within the passed state and initiate targeted advertising. 
  });
 </script>
@@ -187,11 +187,12 @@ The `opts` object supports the following properties.
 | Property | Data Type | Attribute | Description | Default Value |
 | :--- | :--- | :--- | :--- | :--- |
 | `callback` | `function(object): void` | Required | The function that the SDK should invoke after validating the passed identity. For details, see [Callback Function](#callback-function).| N/A |
-| `identity` | object | Optional | The `body` property value from a successful [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) call that has been run on the server to generate an identity.<br/>To use the identity from a [first-party cookie](#euid-cookie-format), leave this property empty. | N/A |
-| `baseUrl` | string | Optional | The custom base URL of the EUID operator to use when invoking the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint.<br/>For example: `https://my.operator.fr`. | `https://prod.euid.eu `. |
+| `identity` | object | Optional | The `body` property value from a successful [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) call that has been run on the server to generate an identity.<br/>To use the identity from a [first-party cookie](#uid2-cookie-format), leave this property empty. | N/A |
+| `baseUrl` | string | Optional | The custom base URL of the UID2 operator to use when invoking the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint.<br/>For example: `https://my.operator.com`.  | `https://prod.uidapi.com`. |
 | `refreshRetryPeriod` | number | Optional | The number of seconds after which to retry refreshing tokens if intermittent errors occur. | 5 |
-| `cookieDomain` | string | Optional | The domain name string to apply to the [EUID cookie](#euid-cookie-format).<br/>For example, if the `baseUrl` is `https://my.operator.fr`, the `cookieDomain` value might be `operator.fr`. | `undefined` |
-| `cookiePath` | string | Optional | The path string to apply to the [EUID cookie](#euid-cookie-format). | `/` |
+| `cookieDomain` | string | Optional | The domain name string to apply to the [UID2 cookie](#uid2-cookie-format).<br/>For example, if the `baseUrl` is `https://my.operator.com`, the `cookieDomain` value might be `operator.com`. | `undefined` |
+| `cookiePath` | string | Optional | The path string to apply to the [UID2 cookie](#uid2-cookie-format). | `/` |
+
 
 #### Errors
 
@@ -199,7 +200,7 @@ The `init()` function can throw the following errors.
 
 | Error | Description |
 | :--- | :--- |
-| `TypeError` | One of the following issues has occurred:<br/>- The function has already been called.<br/>- The `opts` value is not an object.<br/>- There is no callback function specified.<br/>- The `callback` value is not a function. |
+| `TypeError` | One of the following issues has occurred:<br/>- The function has already been called.<br/>- The `opts` value is not an object.<br/>- There is no callback function specified.<br/>-  The `callback` value is not a function. |
 | `RangeError` | The refresh retry period is less than 1. |
 
 #### Callback Function
@@ -213,12 +214,12 @@ The `object` parameter includes the following properties.
 | Property | Data Type | Description |
 | :--- | :--- | :--- |
 | `advertisingToken` | string | The token to be passed to SSPs for targeted advertising. If the token/identity is invalid or unavailable, the value is `undefined`. |
-| `status` | `EUID.IdentityStatus` enum | The numeric value that indicates the status of the identity. For details, see [Identity Status Values](#identity-status-values). |
+| `status` | `UID2.IdentityStatus` enum | The numeric value that indicates the status of the identity. For details, see [Identity Status Values](#identity-status-values). |
 | `statusText` | string | Additional information about the identity status. |
 
 #### Identity Status Values
 
-The [callback function](#callback-function) returns the `status` field values as numbers from the `EUID.IdentityStatus` enum, which can be turned into the corresponding strings by calling `EUID.IdentityStatus[state.status]`. The following table lists the string values for the `status` enum.
+The [callback function](#callback-function) returns the `status` field values as numbers from the `UID2.IdentityStatus` enum, which can be turned into the corresponding strings by calling `UID2.IdentityStatus[state.status]`. The following table lists the string values for the `status` enum.
 
 :::important
 The following values are intended only to inform you of identity availability. Do not use them in conditional logic.
@@ -227,7 +228,7 @@ The following values are intended only to inform you of identity availability. D
 | Status | Advertising Token Availability | Description |
 | :--- | :--- | :--- |
 | `ESTABLISHED` | Available | The identity is valid, was set from the passed value or the first-party cookie, and is now available for targeted advertising. |
-| `REFRESHED` | Available | The identity was successfully refreshed by a call to the EUID operator, and is now available for targeted advertising. |
+| `REFRESHED` | Available | The identity was successfully refreshed by a call to the UID2 operator, and is now available for targeted advertising. |
 | `EXPIRED` | Not available | No identity is available for targeted advertising, as the SDK failed to refresh the token. Since there is still a valid refresh token available, auto-refresh attempts will continue. |
 | `REFRESH_EXPIRED` | Not available | No identity is available for targeted advertising, because the refresh token on the first-party cookie or the passed identity has expired.  |
 | `NO_IDENTITY` | Not available | No identity is available for targeted advertising, because a first-party cookie was not set and no identity has been passed to the `init()` function.  |
@@ -240,11 +241,11 @@ If the identity is not available, use the [isLoginRequired()](#isloginrequired-b
 
 Gets the current advertising token. 
 
-Before calling this function, be sure to call [init()](#initopts-object-void) and wait until the callback you supply has been invoked, as shown in the following example.
+Before calling this function, be sure to call [init()](#initopts-object-void) and wait until the callback you supply has been invoked, as shown in the following example. 
 
 ```html
 <script>
-  let advertisingToken = __euid.getAdvertisingToken();
+  let advertisingToken = __uid2.getAdvertisingToken();
 </script>
 ```
 
@@ -271,7 +272,7 @@ If the `getAdvertisingTokenAsync()` function is called *after* the initializatio
 
 ```html
 <script>
-  __euid.getAdvertisingTokenAsync()
+  __uid2.getAdvertisingTokenAsync()
     .then(advertisingToken => { /* initiate targeted advertising */ })
     .catch(err => { /* advertising token not available */ });
 </script>
@@ -283,13 +284,13 @@ You can use this function to be notified of the completion of the Client-Side Ja
 
 ### isLoginRequired(): boolean
 
-Specifies whether an EUID [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) call is required.
+Specifies whether a UID2 [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) call is required. 
 
 This function can also provide additional context for handling missing identities, as shown in [Workflow States and Transitions](#workflow-states-and-transitions).
 
 ```html
 <script>
-  __euid.isLoginRequired();
+  __uid2.isLoginRequired();
 </script>
 ```
 
@@ -297,19 +298,20 @@ This function can also provide additional context for handling missing identitie
 
 | Value | Description |
 | :--- | :--- |
-| `true` | The identity is not available. This value indicates one of the following:<br/>- The refresh token has expired.<br/>- A first-party cookie is not available and no server-generated identity has been supplied. |
+| `true` | The identity is not available. This value indicates any of the following:<br/>- The user has opted out.<br/>- The refresh token has expired.<br/>- A first-party cookie is not available and no server-generated identity has been supplied. |
 | `false` | This value indicates one of the following:<br/>- The identity is present and valid.<br/>- The identity has expired, and the token was not refreshed due to an intermittent error. The identity might be restored after a successful auto-refresh attempt. |
 | `undefined` | The SDK initialization is not yet complete. |
 
+
 ### disconnect(): void
 
-Clears the EUID identity from the [first-party cookie](#euid-cookie-format). This closes the client's identity session and disconnects the client lifecycle.
+Clears the UID2 identity from the [first-party cookie](#uid2-cookie-format). This closes the client's identity session and disconnects the client lifecycle.
 
 When a user logs out of the publisher's site, make the following call:
 
 ```html
 <script>
-  __euid.disconnect();
+  __uid2.disconnect();
 </script>
 ```
 
@@ -317,11 +319,11 @@ After this function is executed, the [getAdvertisingToken()](#getadvertisingtoke
 
 ### abort(): void
 	
-Terminates any background timers or requests. The EUID object remains in an unspecified state and cannot be used anymore. 
+Terminates any background timers or requests. The UID2 object remains in an unspecified state and cannot be used anymore. 
 
-This function is intended for use in advanced scenarios where you might want to replace the existing EUID object with a new instance. For example, a single-page application could use this to clear the current EUID object and construct or initialize a new one after receiving a new identity from the server in the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) response.
+This function is intended for use in advanced scenarios where you might want to replace the existing UID2 object with a new instance. For example, a single-page application could use this to clear the current UID2 object and construct or initialize a new one after receiving a new identity from the server in the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) response.
 
-## EUID Cookie Format
+## UID2 Cookie Format
 
 The SDK uses a first-party cookie to store the user's identity.
 
@@ -331,18 +333,28 @@ The following table lists the cookie properties.
 
 | Properties | Default Value | Comments |
 | :--- | :--- | :--- |
-| `Name` | `__euid` | N/A |
+| `Name` | `__uid_2` | N/A |
 | `Expiry` | N/A | The value is the refresh token expiration timestamp as specified in the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response. |
-| `Path` | `/` | If you want to use a different value, you can set it during SDK initialization using the `cookiePath` [init() parameter](#parameters). |
+| `Path` | `/` | If you want to use a different value, you can set it during SDK initialization using the `cookiePath` [init() parameter](#parameters).  |
 | `Domain` | `undefined` | If you want to use a different value, you can set it during SDK initialization using the `cookieDomain` [init() parameter](#parameters). |
 
 ### Contents Structure
 
-The EUID cookie contents are a URI-encoded string representation of a JSON object with the structure identical to that of the `body` property in a [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response, with the exception of the `private` object. 
+The UID2 cookie contents are a URI-encoded string representation of a JSON object with the structure identical to that of the `body` property in a [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response, with the exception of the `private` object. 
 
-The following is an example of the EUID cookie structure:
+The following is an example of the UID2 cookie structure:
 
-<ExampleEuidCookie />
+```json
+{
+   "advertising_token":"AgAAAAVacu1uAxgAxH+HJ8+nWlS2H4uVqr6i+HBDCNREHD8WKsio/x7D8xXFuq1cJycUU86yXfTH9Xe/4C8KkH+7UCiU7uQxhyD7Qxnv251pEs6K8oK+BPLYR+8BLY/sJKesa/koKwx1FHgUzIBum582tSy2Oo+7C6wYUaaV4QcLr/4LPA==",
+   "refresh_token":"AgAAAXxcu2RbAAABfGHhwFsAAAF79zosWwAAAAWeFJRShH8u1AYc9dYNTB20edyHJU9mZv11e3OBDlLTlS5Vb97iQVumc7b/8QY/DDxr6FrRfEB/D85E8GzziB4YH7WUCLusHaXKLxlKBSRANSD66L02H3ss56xo92LMDMA=",
+   "identity_expires":1633643601000,
+   "refresh_from":1633643001000,
+   "refresh_expires":1636322000000,
+   "private":{     
+   }
+}
+```
 
 :::important
 The contents of the `private` object are explicitly unspecified and are left for the SDK to interpret. Do not make any assumptions about the structure, semantics, or compatibility of this object. Any updates to the cookie must retain its structure.

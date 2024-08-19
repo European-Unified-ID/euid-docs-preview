@@ -1,56 +1,51 @@
 ---
-title: Client-Server Integration Guide for Prebid.js
+title: UID2 Client-Server Integration Guide for Prebid.js
 sidebar_label: Client-Server Integration for Prebid.js
-pagination_label: EUID Client-Server Integration for Prebid.js
-description: Information about setting up a client-server Prebid.js integration.
+pagination_label: UID2 Client-Server Integration for Prebid.js
+description: Information about setting up a server-side Prebid.js integration.
 hide_table_of_contents: false
 sidebar_position: 04
-displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import IntegratingWithSSO from '../snippets/_integrating-with-sso.mdx';
-import AddPrebidjsToYourSite from '../snippets/_prebid-add-prebidjs-to-your-site.mdx';
-import StoreEUIDTokenInBrowser from '../snippets/_prebid-storing-euid-token-in-browser.mdx';
+import AddPrebidjsToYourSite from '/docs/snippets/_prebid-add-prebidjs-to-your-site.mdx';
+import StoreUID2TokenInBrowser from '/docs/snippets/_prebid-storing-uid2-token-in-browser.mdx';
 
-# EUID Client-Server Integration Guide for Prebid.js
+# UID2 Client-Server Integration Guide for Prebid.js
 
-This guide is for publishers who have access to <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> (email address or phone number) on the server side and want to integrate with EUID and generate <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> (advertising tokens) to be passed by Prebid.js in the RTB <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link>.
+This guide is for publishers who have access to <Link href="../ref-info/glossary-uid#gl-dii">DII</Link> (email address or phone number) on the server side and want to integrate with UID2 and generate <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 tokens</Link> (advertising tokens) to be passed by Prebid.js in the RTB <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link>. 
 
 This is called client-server integration because some integration steps are client-side and some are server-side.
 
-To integrate with EUID using Prebid.js, you'll need to:
+To integrate with UID2 using Prebid.js, you'll need to:
 
 - Make changes to the HTML and JavaScript on your site.
-- Make server-side changes for token generation (and, optionally, <a href="../ref-info/glossary-uid#gl-token-refresh">token refresh</a>).  
+- Make server-side changes for token generation (and, optionally, token refresh).  
 
 ## Prebid.js Version
-
 This implementation requires Prebid.js version 7.53.0 or later. For version information, see [https://github.com/prebid/Prebid.js/releases](https://github.com/prebid/Prebid.js/releases).
 
-<!-- Diff in Prebid.js supported version for UID2/EUID is fine: verif SS 11/19/24 -->
+## UID2 Prebid Module Page
+<!-- GWH TODO later: move to overview or to client side doc maybe when client-side implementation is added to the Prebid module pages. Now, they are only server side. -->
+Information about how to integrate Prebid with UID2 is also in the following locations:
+- On the Prebid site, on the [Unified ID 2.0](https://docs.prebid.org/dev-docs/modules/userid-submodules/unified2.html) page for the Prebid User ID submodule.
+- In the Prebid GitHub repository, on the [UID2 User ID Submodule](https://github.com/prebid/Prebid.js/blob/master/modules/uid2IdSystem.md) page.
 
-## EUID Prebid Module Page
+<!-- ## Integration Example
 
-Information about how to integrate Prebid with EUID is also in the following locations:
-- On the Prebid site, on the [European Unified ID](https://docs.prebid.org/dev-docs/modules/userid-submodules/euid.html) page for the Prebid User ID submodule.
-- In the Prebid GitHub repository, on the [EUID User ID Submodule](https://github.com/prebid/Prebid.js/blob/master/modules/euidIdSystem.md) page.
-
-## Integrating with Single Sign-On (SSO)
-
-<IntegratingWithSSO />
+GWH note 12/14/23: We have client-side and server-side examples for JS SDK but only server-side for Prebid. -->
 
 ## Integration Overview: High-Level Steps
 
 You'll need to complete the following steps:
 
-1. [Complete EUID account setup](#complete-euid-account-setup).
+1. [Complete UID2 account setup](#complete-uid2-account-setup).
 2. [Add Prebid.js to your site](#add-prebidjs-to-your-site).
-3. [Configure the EUID module](#configure-the-euid-module).
+3. [Configure the UID2 module](#configure-the-uid2-module).
 
-## Complete EUID Account Setup
+## Complete UID2 Account Setup
 
-Complete the EUID account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page.
+Complete the UID2 account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page.
 
 When account setup is complete, you'll receive your unique API key and client secret. These values are unique to you and it's important to keep them secure. For details, see [API Key and Client Secret](../getting-started/gs-credentials.md#api-key-and-client-secret).
 
@@ -58,30 +53,30 @@ When account setup is complete, you'll receive your unique API key and client se
 
 <AddPrebidjsToYourSite />
 
-## Configure the EUID Module
+## Configure the UID2 Module
 
-You'll need to configure the EUID Prebid module to complete the following two actions:
+You'll need to configure the UID2 Prebid module to complete the following two actions:
 
 | Step | Action | Link to Instructions |
 | --- | --- | --- |
-| 1 | Send a server-side API call to generate an EUID token. | [Generating an EUID Token on the Server](#generating-an-euid-token-on-the-server) |
-| 2 | Store the response value, so that the Prebid module can manage token refresh as well as opt-out if needed. | [Refreshing an EUID Token](#refreshing-an-euid-token) |
+| 1 | Send a server-side API call to generate a UID2 token.  | [Generating a UID2 Token on the Server](#generating-a-uid2-token-on-the-server) |
+| 2 | Store the response value, so that the Prebid module can manage token refresh as well as opt-out if needed. | [Refreshing a UID2 Token](#refreshing-a-uid2-token) |
 
-### Generating an EUID Token on the Server
+### Generating a UID2 Token on the Server
 
-For a client-server EUID integration for Prebid, the first step is to generate the EUID token on your server. Then, you can pass the token to Prebid for sending to the RTB bidstream.
+For a client-server UID2 integration for Prebid, the first step is to generate the UID2 token on your server. Then, you can pass the token to Prebid for sending to the RTB bidstream.
 
 For details, including instructions and examples, see [Server-Side Token Generation](../ref-info/ref-server-side-token-generation.md).
 
-To generate a token, call one of the SDKs or the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint. For an example of the API response, showing the token, see [Sample Token Response Object](#sample-token-response-object). You will need to pass the `Identity` response to Prebid.
+To generate a token, call one of the SDKs or the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint. For an example of the API response, showing the token, see [Sample Token](#sample-token). You will need to pass the `Identity` response to Prebid.
 
 :::warning
 For security reasons, the API key and secret used in token generation must be called server-side. Do not store these values as part of your Prebid implementation.
 :::
 
-### Refreshing an EUID Token
+### Refreshing a UID2 Token
 
-There are two ways to refresh an EUID token, as shown in the following table.
+There are two ways to refresh a UID2 token, as shown in the following table.
 
 | Mode | Description | Link to Section | 
 | --- | --- | --- |
@@ -92,17 +87,17 @@ There are two ways to refresh an EUID token, as shown in the following table.
 
 You must provide the Prebid module with the full JSON response body from the applicable endpoint:
 
-- [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) for a new EUID token.
-- [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) for a refreshed EUID token.
+- [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) for a new UID2 token.
+- [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) for a refreshed UID2 token.
 
-For an example, see [Sample Token Response Object](#sample-token-response-object).
+For an example, see [Sample Token](#sample-token).
 
-As long as the refresh token remains valid, the EUID Prebid module refreshes the EUID token as needed.
+As long as the refresh token remains valid, the UID2 Prebid module refreshes the UID2 token as needed.
 
 This section includes the following information:
 - [Client Refresh Mode Response Configuration Options](#client-refresh-mode-response-configuration-options)
 - [Client Refresh Mode Cookie Example](#client-refresh-mode-cookie-example)
-- [Client Refresh Mode euidToken Example](#client-refresh-mode-euidtoken-example)
+- [Client Refresh Mode uid2Token Example](#client-refresh-mode-uid2token-example)
 - [Passing a New Token: Client Refresh Mode](#passing-a-new-token-client-refresh-mode)
 
 #### Client Refresh Mode Response Configuration Options
@@ -111,17 +106,17 @@ When you configure the module to use Client Refresh mode, you must choose **one*
 
 | Option | Details | Use Case | 
 | --- | --- | --- |
-| Set `params.euidCookie` to the name of the cookie that contains the response body as a JSON string. | See [Client Refresh Mode Cookie Example](#client-refresh-mode-cookie-example) | Use this option only if you're sure that there is enough space left in your cookie to store the response body. If you're not sure, or the cookie storage needs might vary, choose the other option. |
-| Set `params.euidToken` to the response body as a JavaScript object. | See [Client Refresh Mode euidToken Example](#client-refresh-mode-euidtoken-example) | You might choose to provide the response body via `params.euidToken` in either of these cases:<ul><li>If you are already storing a lot of data in the cookie and adding the response body might exceed the cookie size limit.</li><li>If you prefer to have the Prebid module store the token value for you.</li></ul> |
+| Set `params.uid2Cookie` to the name of the cookie that contains the response body as a JSON string. | See [Client Refresh Mode Cookie Example](#client-refresh-mode-cookie-example) | Use this option only if you're sure that there is enough space left in your cookie to store the response body. If you're not sure, or the cookie storage needs might vary, choose the other option. |
+| Set `params.uid2Token` to the response body as a JavaScript object. | See [Client Refresh Mode uid2Token Example](#client-refresh-mode-uid2token-example) | You might choose to provide the response body via `params.uid2Token` in either of these cases:<ul><li>If you are already storing a lot of data in the cookie and adding the response body might exceed the cookie size limit.</li><li>If you prefer to have the Prebid module store the token value for you.</li></ul> |
 
 #### Client Refresh Mode Cookie Example
 
-In Client Refresh mode, Prebid.js takes care of refreshing the token. To do this, you must configure it to store the token. The following example shows the cookie and also the configuration for storing the token in a cookie called `euid_pub_cookie`.
+In Client Refresh mode, Prebid.js takes care of refreshing the token. To do this, you must configure it to store the token. The following example shows the cookie and also the configuration for storing the token in a cookie called `uid2_pub_cookie`.
 
 Cookie:
 
 ```
-euid_pub_cookie={"advertising_token":"...advertising token...","refresh_token":"...refresh token...","identity_expires":1684741472161,"refresh_from":1684741425653,"refresh_expires":1684784643668,"refresh_response_key":"...response key..."}
+uid2_pub_cookie={"advertising_token":"...advertising token...","refresh_token":"...refresh token...","identity_expires":1684741472161,"refresh_from":1684741425653,"refresh_expires":1684784643668,"refresh_response_key":"...response key..."}
 ```
 
 Configuration:
@@ -130,28 +125,28 @@ Configuration:
 pbjs.setConfig({
   userSync: {
     userIds: [{
-      name: 'euid',
+      name: 'uid2',
       params: {
-        euidCookie: 'euid_pub_cookie'
+        uid2Cookie: 'uid2_pub_cookie'
       }
     }]
   }
 });
 ```
 
-For an example of the token, see [Sample Token Response Object](#sample-token-response-object).
+For an example of the token, see [Sample Token](#sample-token).
 
-#### Client Refresh Mode euidToken Example
+#### Client Refresh Mode uid2Token Example
 
-The following example shows a sample configuration. For the contents of the token, see [Sample Token Response Object](#sample-token-response-object).
+The following example shows a sample configuration. For the contents of the token, see [Sample Token](#sample-token).
 
 ```js
 pbjs.setConfig({
   userSync: {
     userIds: [{
-      name: 'euid',
+      name: 'uid2',
       params: {
-        euidToken: {
+        uid2Token: {
           'advertising_token': '...advertising token...',
           'refresh_token': '...refresh token...',
           // etc. - see the sample token for contents of this object
@@ -176,7 +171,7 @@ To configure the module to use server-only mode, do **one** of the following:
 
 | Implementation Method | Link to Example |
 | --- | --- |
-| Set a cookie named `__euid_advertising_token` and store the advertising token value in it. | [Server-Only Mode Cookie Example](#server-only-mode-cookie-example) |
+| Set a cookie named `__uid2_advertising_token` and store the advertising token value in it. | [Server-Only Mode Cookie Example](#server-only-mode-cookie-example) |
 | Set `value` to an ID block containing the advertising token. | [Server-Only Mode Value Example](#server-only-mode-value-example) |
 
 This section includes the following information:
@@ -186,14 +181,12 @@ This section includes the following information:
 
 #### Server-Only Mode Cookie Example
 
-The following example stores the advertising token value in a cookie named `__euid_advertising_token`. The value of the cookie is the value returned in the token response object (see [Sample Token Response Object](#sample-token-response-object)).
-
-The configuration allows the EUID module to retrieve the advertising token value from the cookie.
+The following example stores the advertising token value in a cookie named `__uid2_advertising_token`. The configuration allows the UID2 module to retrieve the advertising token value from the cookie.
 
 Cookie:
 
 ```js
-__euid_advertising_token=E4A4AAAABlh75XmviGJi-hkLGs96duivRhMd3a3pe7yTIwbAHudfB9wFTj2FtJTdMW5TXXd1KAb-Z3ekQ_KImZ5Mi7xP75jRNeD6Mt6opWwXCCpQxYejP0R6WnCGnWawx9rLu59LsHv6YEA_ARNIUUl9koobfA9pLmnxE3dRedDgCKm4xHXYk01Fr8rOts6iJj2AhYISR3XkyBpqzT-vqBjsHH0g
+__uid2_advertising_token=...advertising token...
 ```
 
 Configuration:
@@ -202,7 +195,7 @@ Configuration:
 pbjs.setConfig({
     userSync: {
         userIds: [{
-            name: 'euid'
+            name: 'uid2'
         }]
     }
 });
@@ -216,9 +209,9 @@ The following example sets the `value` field to an ID block containing the adver
 pbjs.setConfig({
     userSync: {
         userIds: [{
-            name: 'euid'
+            name: 'uid2'
             value: {
-                'euid': {
+                'uid2': {
                     'id': '...advertising token...'
                 }
             }
@@ -229,7 +222,7 @@ pbjs.setConfig({
 
 #### Passing a New Token: Server-Only Mode
 
-In server-only mode, since the Prebid.js EUID module receives only the advertising token, the token is only valid for a short period of time. For this reason, it's best to provide an advertising token on each page load.
+In server-only mode, since the Prebid.js UID2 module receives only the advertising token, the token is only valid for a short period of time. For this reason, it's best to provide an advertising token on each page load.
 
 If needed, to determine if you need to provide a new token, see [Determining Whether the Module Has a Valid Token](#determining-whether-the-module-has-a-valid-token).
 
@@ -241,34 +234,34 @@ In planning your Prebid implementation, consider the following:
 
 - If you provide a new token that doesn't match the original token used to generate any refreshed tokens, the module discards all stored tokens and uses the new token instead, and keeps it refreshed.
 
-- During integration testing, set `params.euidApiBase` to `"https://integ.euid.eu/"`. You must set this value to the same environment (production or integration) that you use for generating tokens.
+- During integration testing, set `params.uid2ApiBase` to `"https://operator-integ.uidapi.com"`. You must set this value to the same environment (production or integration) that you use for generating tokens.
 
 - For a Prebid.js client-server integration, you can create a smaller Prebid.js build by disabling client-side integration functionality. To do this, pass the `--disable UID2_CSTG` flag:
 
 ```
-    $ gulp build --modules=euidIdSystem --disable UID2_CSTG
+    $ gulp build --modules=uid2IdSystem --disable UID2_CSTG
 ```
 
-## Storing the EUID Token in the Browser
+## Storing the UID2 Token in the Browser
 
-<StoreEUIDTokenInBrowser />
+<StoreUID2TokenInBrowser />
 
 ## Determining Whether the Module Has a Valid Token
 
 You can do a check to determine whether the Prebid.js module has a valid token or you need to provide a new one.
 
-To do this, check the value returned by `pbjs.getUserIds().euid`, as shown in the following example:
+To do this, check the value returned by `pbjs.getUserIds().uid2`, as shown in the following example:
 
 ```js
-if (!pbjs.getUserIds().euid) {
+if (!pbjs.getUserIds().uid2) {
   // There is no token that can be used or refreshed.
-  // Configure the EUID module with a new token
+  // Configure the UID2 module with a new token
   pbjs.setConfig({
       userSync: {
           userIds: [{
-              name: 'euid',
+              name: 'uid2',
               params: {
-                  euidToken: {
+                  uid2Token: {
                       'advertising_token': '...advertising token...',
                       'refresh_token': '...refresh token...',
                       // etc. - see the sample token for contents of this object
@@ -286,12 +279,12 @@ If you configure a user ID by calling `setConfig` (or any similar function) twic
 
 ## Checking the Integration
 
-To check that the EUID module has a valid EUID token, call `pbjs.getUserIds().euid`. If a value is returned, a valid EUID token exists in the EUID module.
+To check that the UID2 module has a valid UID2 token, call `pbjs.getUserIds().uid2`. If a value is returned, a valid UID2 token exists in the UID2 module.
 
 If there are problems with the integration, here are some steps you can take:
 
 - Check the browser console logs.
-- Use the browser developer tools to inspect the API calls to the EUID service.
+- Use the browser developer tools to inspect the API calls to the UID2 service.
 
 For additional help, refer to Prebid's documentation on [Troubleshooting Prebid.js](https://docs.prebid.org/troubleshooting/troubleshooting-guide.html) and [Debugging Prebid.js](https://docs.prebid.org/debugging/debugging.html).
 
@@ -302,30 +295,30 @@ An example of a tool for validating and debugging Prebid.js configuration is Pro
 
 ## Configuration Parameters for userSync
 
-The following parameters apply only to the EUID Prebid User ID Module integration.
+The following parameters apply only to the UID2 Prebid User ID Module integration.
 
 In this table, CR = client refresh mode, SO = server-only mode, and N/A = not applicable.
 
 | Param under userSync.userIds[] | Mode/Scope | Type | Description | Example |
 | --- | --- | --- | --- | --- |
-| name | CR: Required<br/>SO:&nbsp;Required | String | ID value for the EUID module. Always `"euid"`. | `"euid"` |
+| name | CR: Required<br/>SO:&nbsp;Required | String | ID value for the UID2 module. Always `"uid2"`. | `"uid2"` |
 | value | CR: N/A<br/>SO: Optional | Object | An object containing the value for the advertising token. | See [Configuration Parameter Examples: Value](#configuration-parameter-examples-value) |
-| params.euidToken | CR: Optional<br/>SO: N/A | Object | The initial EUID token. This should be the `body` element of the decrypted response from a call to the `/token/generate` or `/token/refresh` endpoint. | See [Sample Token Response Object](#sample-token-response-object) |
-| params.euidCookie | CR: Optional<br/>SO: N/A | String | The name of a cookie that holds the initial EUID token, set by the server. The cookie should contain JSON in the same format as the euidToken param. If `euidToken` is supplied, this parameter is ignored. | See [Sample Token Response Object](#sample-token-response-object) |
-| params.euidApiBase | CR: Optional<br/>SO: Optional | String | Overrides the default EUID API endpoint. For valid values, see [Environments](../getting-started/gs-environments.md). | `"https://prod.euid.eu"` (the default)|
+| params.uid2Token | CR: Optional<br/>SO: N/A | Object | The initial UID2 token. This should be the `body` element of the decrypted response from a call to the `/token/generate` or `/token/refresh` endpoint. | See [Sample Token](#sample-token) |
+| params.uid2Cookie | CR: Optional<br/>SO: N/A  | String | The name of a cookie that holds the initial UID2 token, set by the server. The cookie should contain JSON in the same format as the uid2Token param. If `uid2Token` is supplied, this parameter is ignored. | See [Sample Token](#sample-token) |
+| params.uid2ApiBase | CR: Optional<br/>SO: Optional | String | Overrides the default UID2 API endpoint. For details, and an example, see [Optional: Specifying the API Base URL to Reduce Latency](#optional-specifying-the-api-base-url-to-reduce-latency). | `"https://prod.uidapi.com"` (the default)|
 | params.storage | CR: Optional<br/>SO: Optional | String | Specify the module internal storage method: `cookie` or `localStorage`. We recommend that you do not provide this parameter. Instead, allow the module to use the default. | `"localStorage"` (the default) |
 
 ### Configuration Parameter Examples: Value
 
-The following code snippet shows an example of the `value` EUID configuration parameter.
+The following code snippet shows an example of the `value` UID2 configuration parameter.
 
 ```js
 pbjs.setConfig({
     userSync: {
         userIds: [{
-            name: 'euid'
+            name: 'uid2'
             value: {
-                'euid': {
+                'uid2': {
                     'id': '...advertising token...'
                 }
             }
@@ -334,7 +327,7 @@ pbjs.setConfig({
 });
 ```
 
-### Sample Token Response Object
+### Sample Token
 
 The following sample is fictitious, but shows what the token response object, returned from either the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint, looks like:
 
@@ -349,11 +342,24 @@ The following sample is fictitious, but shows what the token response object, re
 }
 ```
 
-<!-- Reduce Latency by Setting the API Base URL for the Production Environment not applicable for EUID -->
+## Optional: Specifying the API Base URL to Reduce Latency
 
-## Optional: Prebid.js Integration with Google Secure Signals
+By default, the UID2 module makes calls to a UID2 production environment server in the USA.
 
-if you're using Prebid.js, and you're planning to pass EUID tokens to Google using Google Secure Signals, there are a couple of additional configuration steps:
+For information about how to choose the best URL for your use case, and a full list of valid base URLs, see [Environments](../getting-started/gs-environments.md).
 
-- In your Google Ad Manager account, make sure that encrypted signals are properly shared with third-party bidders: see [Allow Secure Signals Sharing](integration-google-ss.md#allow-secure-signals-sharing).
-- Update your Prebid.js configuration: see [Optional: Enable Secure Signals in Prebid.js](integration-google-ss.md#optional-enable-secure-signals-in-prebidjs).
+To specify a UID2 server that is not the default, when you're configuring the UID2 module, set the optional `params.uid2ApiBase` parameter, as shown in the following example:
+
+```js
+pbjs.setConfig({ 
+  userSync: { 
+    userIds: [{ 
+      name: 'uid2', 
+      params: { 
+        uid2ApiBase: baseUrl, 
+        // ... 
+      } 
+    }] 
+  } 
+}); 
+```
