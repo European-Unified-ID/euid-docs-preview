@@ -199,7 +199,18 @@ const fullSidebar = [
           ],
         },
 
-        'guides/dsp-guide',
+        {
+          type: 'category',
+          label: 'DSP Integrations',
+          link: {
+            type: 'generated-index',
+          },
+          collapsed: true,
+          items: [
+            'guides/dsp-guide',
+            'guides/integration-dsp-no-sdk',
+          ],
+        },
 
         {
           type: 'category',
@@ -295,6 +306,7 @@ const fullSidebar = [
       items: [
         'ref-info/ref-operators-public-private',
         'ref-info/ref-server-side-token-generation',
+        'ref-info/ref-tokens',
         'ref-info/ref-integration-approaches',
         'summary-doc-v2',
       ],

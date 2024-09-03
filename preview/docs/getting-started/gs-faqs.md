@@ -6,6 +6,7 @@ sidebar_position: 20
 ---
 
 import Link from '@docusaurus/Link';
+import ExampleUid2InBidstream from '/docs/snippets/_example-uid2-in-bidstream.mdx';
 
 # Frequently Asked Questions
 
@@ -19,6 +20,10 @@ Here are some frequently asked questions regarding the UID2 framework.
    - [Can users opt out of targeted advertising tied to their UID2 identity?](#can-users-opt-out-of-targeted-advertising-tied-to-their-uid2-identity)
    - [When I send DII to UID2, does UID2 store the information?](#when-i-send-dii-to-uid2-does-uid2-store-the-information)
    - [Does UID2 allow the processing of HIPAA-regulated data?](#does-uid2-allow-the-processing-of-hipaa-regulated-data)
+
+:::note
+For FAQs relating to mobile publisher integrations, see [FAQs for Mobile Integrations](../guides/integration-mobile-overview.md#faqs-for-mobile-integrations).
+:::
 
 #### Will all integration partners in the EUID infrastructure (SSPs, third-party data providers, measurement providers) be automatically integrated with UID2?
 
@@ -111,25 +116,7 @@ The UID2 service encrypts UID2 tokens using random initialization vectors. The U
 
 There are many ways to approach UID2 implementation. Here is one example of a code snippet showing how a UID2 token is passed in the <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link>:
 
-```js
-{
-  "user":{
-    "ext":{
-      "eids":[
-        {
-          "source":"uidapi.com",
-          "uids":[
-            {
-              "id":"AgAAAHcy2ka1tSweERARV/wgwM+zM5wK98b9XItZGVgHaU23Eh0XOmAixO6VBcMd3k2ir/TGHLf7O7kQGLyeRPC5/VBSPmugOblMlzgy0B1ZfHQ7ccVurbyzgL1ZZOZ5cBvPDrvfR9MsKqPgWvrIKRkKVTYyUkG5YRAc++xRKfbL/ZSYxQ==",
-              "rtiPartner":"UID2"
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
-```
+<ExampleUid2InBidstream />
 
 ## FAQs for Advertisers and Data Providers
 

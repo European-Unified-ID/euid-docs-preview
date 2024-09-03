@@ -13,6 +13,7 @@ import Link from '@docusaurus/Link';
 import EnableLogging from '/docs/snippets/_mobile-docs-enable-logging.mdx';
 import GMAIMA_Plugins from '/docs/snippets/_mobile_docs_gmaima-plugin-gss.mdx';
 import PrebidMobileSDK from '/docs/snippets/_mobile_docs_prebid-mobile.mdx';
+import ExampleAdvertisingToken from '/docs/snippets/_example-advertising-token.mdx';
 
 
 # UID2 Client-Side Integration Guide for Mobile
@@ -31,6 +32,8 @@ UID2 provides mobile SDKs for [Android](../sdks/sdk-ref-android.md) and [iOS](..
 :::note
 This guide uses the group term **UID2 mobile SDKs** to include both the SDK for Android and the SDK for iOS.
 :::
+
+For FAQs relating to mobile publisher integrations, see [FAQs for Mobile Integrations](integration-mobile-overview.md#faqs-for-mobile-integrations).
 
 To integrate with UID2 client-side, you'll need to complete the following steps:
 
@@ -560,9 +563,7 @@ UID2Manager.shared.getAdvertisingToken()
 
 If successful, this method call returns the token&#8212;a non-null string object such as the following: 
 
-```js
-AgAAAQFt3aNLXKXEyWS8Tpezcymk1Acv3n+ClOHLdAgqR0kt0Y+pQWSOVaW0tsKZI4FOv9K/rZH9+c4lpm2DBpmFJqjdF6FAaAzva5vxDIX/67UOspsYtiwxH73zU7Fj8PhVf1JcpsxUHRHzuk3vHF+ODrM13A8NAVlO1p0Wkb+cccIIhQ==
-```
+<ExampleAdvertisingToken />
 
 You can use this token to pass downstream for sending in the RTB bidstream.
 
