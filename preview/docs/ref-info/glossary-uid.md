@@ -230,7 +230,7 @@ import Link from '@docusaurus/Link';
 
 <dt><MdxJumpAnchor id="gl-enclave"><a href="#gl-enclave">Enclave</a></MdxJumpAnchor></dt>
 <dd>An enclave is a secure subsection of a computing environment. The enclave has additional business logic and security measures applied to it, to prevent anyone from tampering with it.</dd>
-<dd>In the context of UID2, a <a href="#gl-private-operator">Private Operator</a> must run inside an enclave. For a summary of the enclave versions supported, see <a href="../guides/integration-options-private-operator#hosting-options-for-private-operators">Hosting Options for Private Operators</a> in *UID2 Overview for Private Operators*.</dd>
+<dd>In the context of UID2, a <a href="#gl-private-operator">Private Operator</a> must run inside an enclave. For a summary of the enclave versions supported, see <a href="../overviews/overview-operators-private#implementation-resources">Implementation Resources</a> in *UID2 Overview for Private Operators*.</dd>
 <dd>In an enclave, the operator image must be a very specific, predefined version, and additional constraints are applied to ensure security.</dd>
 
 <dt><MdxJumpAnchor id="gl-encryption-key"><a href="#gl-encryption-key">Encryption key</a></MdxJumpAnchor></dt>
@@ -306,6 +306,9 @@ import Link from '@docusaurus/Link';
 ### O
 
 <dl>
+
+<dt><MdxJumpAnchor id="gl-opaque"><a href="#gl-opaque">Opaque</a></MdxJumpAnchor></dt>
+<dd>When we say a UID2 token is an opaque string, we mean that the way that the token is computed, and its format, are not communicated to UID2 participants and cannot be relied upon to remain unchanged. No assumptions should be made about the format or length of the string, or any other aspect of it.</dd>
 
 <dt><MdxJumpAnchor id="gl-open-operator"><a href="#gl-open-operator">Open Operator</a></MdxJumpAnchor></dt>
 <dd>Open Operator is another term for a <a href="#gl-public-operator">Public Operator</a>.</dd>
