@@ -93,7 +93,7 @@ If you want to manage token refresh on the server side and not the client/mobile
 - Call the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint.
 - Use one of the Publisher Client classes, in one of the UID2 server-side SDKs. These classes simplify the request into a single method call. 
 
-  For instructions, see [SDK for Java, Publisher Server-Side Integration section](../sdks/sdk-ref-java.md#server-side-integration) or [SDK for Python, Publisher Server-Side Integration section](../sdks/sdk-ref-python.md#server-side-integration).
+  For instructions, see [SDK for Java, Usage for Publishers, Basic Usage Server-Side Integration section](../sdks/sdk-ref-java.md#basic-usage-server-side-integration) or [SDK for Python, Usage for Publishers, Server-Side Integration section](../sdks/sdk-ref-python.md#server-side-integration).
 
 Then, pass the newly refreshed `Identity` value to the mobile app by following the rest of this guide.
 
@@ -116,7 +116,7 @@ By default, the SDK is configured to work with the UID2 production environment: 
 ```js
 UID2Manager.init(
   context = this,
-  serverUrl = "https://operator-integ.uidapi.com"
+  UID2Manager.Environment.Custom("https://operator-integ.uidapi.com")
 )
 ```
 
@@ -125,7 +125,7 @@ UID2Manager.init(
 
 ```js
 // Must be set before UID2Manager.shared is accessed
-UID2Settings.shared.environment = .custom(
+UID2Settings.shared.uid2Environment = .custom(
   url: URL(string: "https://operator-integ.uidapi.com")!
 )
 ```
@@ -153,7 +153,12 @@ To specify a UID2 server that is not the default, you can change it in the `init
 ```js
 UID2Manager.init(
   context = this,
-  serverUrl = "https://global.prod.uidapi.com"
+  UID2Manager.Environment.Signapore
+)
+// or 
+UID2Manager.init(
+  context = this,
+  UID2Manager.Environment.Custom("https://global.prod.uidapi.com")
 )
 ```
 
@@ -161,9 +166,9 @@ UID2Manager.init(
 <TabItem value='ios' label='iOS'>
 
 ```js
-UID2Settings.shared.environment = .singapore
+UID2Settings.shared.uid2Environment = .singapore
 // or
-UID2Settings.shared.environment = .custom(
+UID2Settings.shared.uid2Environment = .custom(
   url: URL(string: "https://global.prod.uidapi.com")!
 )
 ```
@@ -301,9 +306,5 @@ UID2Manager.shared.automaticRefreshEnabled = false
 <GMAIMA_Plugins />
 
 ## Optional: UID2 Prebid Mobile SDK Integration
-
-:::important
-The UID2 Prebid Mobile SDK integration is for Android only, and requires version 1.4.0 of the SDK for Android.
-:::
 
 <PrebidMobileSDK />
