@@ -133,6 +133,8 @@ pbjs.setConfig({
 }); 
 ```
 
+It is possible that the user has opted out of EUID previously. In this case, the EUID module respects the user's optout and no EUID token is generated and collected by Prebid.js.
+
 ## Checking the Integration
 
 To check that the EUID module has successfully generated an EUID token, call `pbjs.getUserIds().euid`. If a value is returned, a valid EUID token exists in the EUID module.
@@ -154,3 +156,10 @@ An example of a tool for validating and debugging Prebid.js configuration is Pro
 - Documentation on prebid.org: [Professor Prebid User Guide](https://docs.prebid.org/tools/professor-prebid.html)
 
 <!-- Reduce Latency by Setting the API Base URL for the Production Environment not applicable for EUID -->
+
+## Optional: Prebid.js Integration with Google Secure Signals
+
+if you're using Prebid.js, and you're planning to pass UID2 tokens to Google using Google Secure Signals, there are a couple of additional configuration steps:
+
+- In your Google Ad Manager account, make sure that encrypted signals are properly shared with third-party bidders: see [Allow Secure Signals Sharing](integration-google-ss.md#allow-secure-signals-sharing).
+- Update your Prebid.js configuration: see [Optional: Enable Secure Signals in Prebid.js](integration-google-ss.md#optional-enable-secure-signals-in-prebidjs).
