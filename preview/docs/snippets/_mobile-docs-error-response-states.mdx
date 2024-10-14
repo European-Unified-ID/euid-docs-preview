@@ -13,7 +13,7 @@ The response states are the same for both Android and iOS.
 
 ### Response State of Expired
 
-A response state of `Expired` means that the EUID token has expired but the refresh token has not expired, therefore the EUID token can be refreshed.
+A response state of `Expired` means that the UID2 token has expired but the refresh token has not expired, therefore the UID2 token can be refreshed.
 
 **Automatic refresh**: If you have automatic refreshing enabled on the SDK (`automaticRefreshEnabled` property), which is the default setting, the SDK refreshes the token for you. However, there are some scenarios where you might observe this state.
 
@@ -25,9 +25,9 @@ For example, if the app is launched and the SDK is immediately queried, you migh
 
 ### Response State of RefreshExpired
 
-A response state of `RefreshExpired` means that the EUID token and the refresh token have both expired, therefore the EUID token cannot be refreshed.
+A response state of `RefreshExpired` means that the UID2 token and the refresh token have both expired, therefore the UID2 token cannot be refreshed.
 
-An example of how this could occur is if a user does not run your app for a long time, and the SDK therefore doesn't get an opportunity to refresh the EUID token before the refresh token expires.
+An example of how this could occur is if a user does not run your app for a long time, and the SDK therefore doesn't get an opportunity to refresh the UID2 token before the refresh token expires.
 
 In this scenario, you'd need to regenerate the identity.
 
@@ -37,7 +37,7 @@ A response state of `Invalid` means that the identity, whether loaded off disk o
 
 If the SDK detects this error, it clears any previous identity since it's considered unusable.
 
-In this scenario, you'd need to regenerate the identity. Ideally, also report the issue to your EUID contact.
+In this scenario, you'd need to regenerate the identity. Ideally, also report the issue to your UID2 contact.
 
 ### Response State of NoIdentity
 
