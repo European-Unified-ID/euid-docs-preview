@@ -10,14 +10,15 @@ sidebar_position: 04
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Link from '@docusaurus/Link';
+import ExampleAdvertisingToken from '/docs/snippets/_example-advertising-token.mdx';
 import EnableLogging from '/docs/snippets/_mobile-docs-enable-logging.mdx';
 import GMAIMA_Plugins from '/docs/snippets/_mobile_docs_gmaima-plugin-gss.mdx';
 import PrebidMobileSDK from '/docs/snippets/_mobile_docs_prebid-mobile.mdx';
-import ExampleAdvertisingToken from '/docs/snippets/_example-advertising-token.mdx';
+import ErrorResponseStates from '/docs/snippets/_mobile-docs-error-response-states.mdx';
 
 # EUID Client-Server Integration Guide for Mobile
 
-This guide is for mobile app publishers who want to integrate with EUID by generating EUID tokens server-side via a Public Operator or Private Operator and then passing the tokens and user identities into their mobile apps, which will in turn pass the tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use.  
+This guide is for mobile app publishers who want to integrate with EUID by generating EUID tokens server-side via a <Link href="../ref-info/glossary-uid#gl-public-operator">Public Operator</Link> or <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link> and then passing the tokens and user identities into their mobile apps, which will in turn pass the tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use.  
 
 This is called client-server integration because some integration steps are client-side and some are server-side.
 
@@ -303,3 +304,7 @@ EUIDManager.shared.automaticRefreshEnabled = false
 ## Optional: EUID Prebid Mobile SDK Integration
 
 <PrebidMobileSDK />
+
+## Error Response States
+
+<ErrorResponseStates />
