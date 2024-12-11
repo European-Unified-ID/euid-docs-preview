@@ -71,7 +71,7 @@ Generating the EUID token on the client side has the following advantages:
 - The code runs on the client side, on the consumer's web page, and no server-side coding is required.
 - There is a Prebid.js integration that handles all functions for you&#8212;token generation, token refresh, and passing the token into the bidstream. If you use Prebid.js 8.21.0 or later, this is generally the simplest and fastest implementation option.
 
-If you choose a client-side integration, you'll need to provide a list of your top-level domains, for security purposes, as part of account setup. For details, see [Client-Side Implementation for Publishers](../getting-started/gs-account-setup.md#client-side-web-integrations) on the Account Setup page.
+If you choose a client-side integration, you'll need to provide a list of your top-level domains, for security purposes, as part of account setup. For details, see [Client-Side Web Integrations](../getting-started/gs-account-setup.md#client-side-web-integrations) on the Account Setup page.
 
 The following table summarizes the options for publishers who want to generate the EUID token on the client side, via the web page, with corresponding documentation resources.
 
@@ -108,7 +108,7 @@ The following table shows the integration options that support refreshing the EU
 | Option | Documentation |
 | :--- | :--- |
 | Prebid.js client-side implementation (8.21.0 or later) | [EUID Client-Side Integration Guide for Prebid.js](integration-prebid-client-side.md) |
-| Prebid.js server-side implementation (7.53.0 or later) | [Client-Server Integration Guide for Prebid.js](integration-prebid-client-server.md) |
+| Prebid.js client-server implementation (7.53.0 or later) | [EUID Client-Server Integration Guide for Prebid.js](integration-prebid-client-server.md) |
 | SDK for JavaScript, client-side implementation | [Client-Side Integration Guide for JavaScript](integration-javascript-client-side.md) |
 | SDK for JavaScript, client-server implementation | [Client-Server Integration Guide for JavaScript](integration-javascript-client-server.md) |
 | SDK for Java | - [Publisher Integration Guide, Server-Side](integration-publisher-server-side.md)<br/>- [SDK for Java](../sdks/sdk-ref-java.md) |
@@ -117,14 +117,14 @@ The following table shows the integration options that support refreshing the EU
 
 ## Pass the Token Into the Bidstream
 
-Publishers use EUIDs by encrypting personal data into EUID tokens and then sending the EUID tokens into the bidstream.
+Publishers use EUIDs by encrypting personal data (email addresses or phone numbers) into EUID tokens and then sending the EUID tokens into the bidstream.
 
 The following table shows integration options that support passing EUID tokens into the bidstream.
 
 | Option | Documentation |
 | :--- | :--- |
 | Prebid.js client-side implementation (8.21.0 or later) | [EUID Client-Side Integration Guide for Prebid.js](integration-prebid-client-side.md) |
-| Prebid.js server-side implementation (7.53.0 or later) | [Client-Server Integration Guide for Prebid.js](integration-prebid-client-server.md) |
+| Prebid.js client-server implementation (7.53.0 or later) | [EUID Client-Server Integration Guide for Prebid.js](integration-prebid-client-server.md) |
 | Google Ad Manager Secure Signals | [Google Ad Manager Secure Signals Integration Guide](integration-google-ss.md) |
 
 :::note

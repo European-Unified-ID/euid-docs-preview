@@ -50,7 +50,7 @@ If you want to use Secure Signals with Prebid.js, you must complete both these a
      "sources":[
        {
          "source":[
-           "uidapi.com"
+           "euid.eu"
          ],
          "encrypt":false
        }
@@ -95,7 +95,7 @@ window.getEuidAdvertisingToken = async () => {
 
 For details, see [Publisher Integration Guide, Server-Side](integration-publisher-server-side.md).
 
-<!-- A sample application is also available for server-side integration. See [Sample Applications](#sample-applications). -->
+<!-- A sample implementation is also available for server-side integration. See [Sample Implementations](#sample-implementations). -->
 
 ### SDK for JavaScript Client-Side Integration
 
@@ -107,11 +107,23 @@ This script is hosted on CDN, and GPT automatically loads it with the secure sig
 
 For details, see [Client-Side Integration Guide for JavaScript](integration-javascript-client-side.md).
 
-A sample application is also available for integration using the SDK for JavaScript.  See [Sample application](https://euid.eu/examples/cstg-secure-signals-example/).
+A sample implementation is also available for integration using the SDK for JavaScript. See [Sample Implementation](#sample-implementation).
 
-## Troubleshooting Tips for EUID Integration with Google Secure Signals
+## Sample Implementation
 
-Here is some troubleshooting info that might help you in working with Google Secure Signals for your EUID integration:
+The following sample implementation is available to illustrate how to integrate with the Google Ad Manager secure signals feature:
+
+- Client-Server EUID SDK Integration Example:
+  - [Sample implementation](https://euid.eu/examples/cstg-secure-signals-example/)
+  - [Code repository](https://github.com/European-Unified-ID/EUID-docs/tree/main/static/examples/cstg-secure-signals-example)
+
+<!-- EUID Server-Side SDK Integration Example to come. gwh 12/9/24 -->
+
+Each sample implementation has its own instructions.
+
+## Troubleshooting
+
+Here is some troubleshooting information that might help you in working with Google Secure Signals for your EUID integration:
 
 - [I enabled Secure Signals within Google Ad Manager, but EUIDs are not being passed through Google](#i-enabled-secure-signals-within-google-ad-manager-but-euids-are-not-being-passed-through-google)
 

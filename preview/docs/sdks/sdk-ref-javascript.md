@@ -10,42 +10,43 @@ import TabItem from '@theme/TabItem';
 import Link from '@docusaurus/Link';
 import ExampleEuidCookie from '/docs/snippets/_example-euid-cookie.mdx';
 
-# SDK for JavaScript Reference Guide
-
 export const New = () => (
   <span className='pill'>NEW IN V3</span>
 );
 
-Use this SDK to facilitate the process of establishing client identity using EUID and retrieving advertising tokens. The following sections describe the high-level [workflow](#workflow-overview) for establishing EUID identity, provide the SDK [API reference](#api-reference), and explain the EUID [storage format](#euid-storage-format).
+# SDK for JavaScript Reference Guide
+
+Use this SDK to facilitate the process of generating or establishing client identity using EUID, retrieving advertising tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use, and automatically refreshing EUID tokens.
+
+The following sections describe the high-level [workflow](#workflow-overview) for establishing EUID identity, provide the SDK [API reference](#api-reference), and explain the EUID [storage format](#euid-storage-format).
 
 :::tip
 If you're using Prebid.js with the EUID Identity Module, or with another product that has EUID support, you probably don't need to use the SDK at all. The Prebid.js module manages everything. For details, see [EUID Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md).
 :::
 
-This page describes version 3 of the SDK for JavaScript. If you are maintaining an integration using an earlier version, do one of the following:
-- Upgrade your integration, using the [migration guide](#migration-guide) (recommended).
-- Refer to the documentation for [earlier versions of the SDK](./sdk-ref-javascript-v2.md).
+This page describes version 3 of the SDK. If you are using an earlier version, we recommend that you upgrade your integration, using the [migration guide](#migration-guide). If needed, documentation for [earlier versions of the SDK](./sdk-ref-javascript-v2.md) is also available.
 
-Related information:
-
-For integration steps for content publishers, see:
+For integration steps for content publishers, refer to either of the following:
   - [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md)
   - [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md)
-
-## Sample Implementation Website
-
-For example applications with associated documentation, see:
-  - The EUID Google Secure Signals with SDK v3 example:
-    - [Code and docs](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-secure-signals-integration/with_sdk_v3)
-    - Running site: [Client-Side EUID SDK Integration Example](https://euid.eu/examples/cstg-js-sdk-example/).
 
 ## Functionality
 
 This SDK simplifies development for publishers who want to build their own customized EUID integration. The following table shows the functions it supports.
 
-| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to a Raw EUID |
-| :--- | :--- | :--- | :--- | :--- |
-| &#8212; | &#8212; | &#9989; | &#9989; | &#8212; |
+| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to Raw EUIDs | Monitor Rotated Salt Buckets |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| &#8212; | &#8212; | &#9989; | &#9989; | &#8212; | &#8212; |
+
+
+## Sample Implementation
+
+For a sample implementation with associated documentation, see:
+  - The EUID Google Secure Signals with SDK v3 example:
+    - [Code and docs](https://github.com/European-Unified-ID/EUID-docs/tree/main/static/examples/cstg-js-sdk-example )
+    - Running site: [Client-Side EUID SDK Integration Example](https://euid.eu/examples/cstg-js-sdk-example/).
+
+<!-- EUID client-server JavaScript client-side implementation example corresponding to the UID2 example to come. gwh 12/9/24 -->
 
 ## API Permissions
 
@@ -69,18 +70,21 @@ The source for this SDK is in the following open-source GitHub repository:
 
 The SDK is published in these locations:
 
-<!-- - NPM: [https://www.npmjs.com/package/@uid2/uid2-sdk](https://www.npmjs.com/package/@uid2/uid2-sdk)
-  - This is the easiest way to include the SDK in your own build. Use this if you want to bundle the SDK along with your other JavaScript or TypeScript files.
-  - You can also use this for TypeScript type information and still load the script via the CDN. If you do this, ensure that the version of NPM package you have installed matches the version in the CDN url. LP_TODO: Looking at the NPM package, I don't believe it's ready for use - it just includes the source and doesn't seem to include a ready-to-deploy build. LP 12 Sep 2023 -->
-- CDN: `https://cdn.prod.uidapi.com/uid2-sdk-${VERSION_ID}.js`
-  <!-- - This is the easiest way to include the SDK in your site if you don't use a build pipeline to bundle your JavaScript. LP_TODO: This doesn't make sense until we add the NPM option above. -->
+- NPM: [https://www.npmjs.com/package/@uid2/uid2-sdk](https://www.npmjs.com/package/@uid2/uid2-sdk)
 
-  As of the latest update to this document, the most recent version is [3.4.5](https://cdn.prod.uidapi.com/uid2-sdk-3.4.5.js). You can also see [the list of available versions](https://cdn.prod.uidapi.com/).
-- CDN (Integration): `https://cdn.integ.uidapi.com/uid2-sdk-${VERSION_ID}.js`
+  This is the easiest way to include the SDK in your own build. Use this if you want to bundle the SDK along with your other JavaScript or TypeScript files.
+
+  You can also use this for TypeScript type information and still load the script via the CDN. If you do this, ensure that the version of the NPM package that you have installed matches the version in the CDN URL.
+
+  >NOTE: This SDK is valid for both UID2 and EUID. The SDK, and some of its technical components, are named UID2, but are equally applicable for EUID.
+- CDN: `https://cdn.prod.uidapi.com/uid2-sdk-${VERSION_ID}.js`
+
+  This is the easiest way to include the SDK in your site if you don't use a build pipeline to bundle your JavaScript.
+
+  As of the latest update to this document, the most recent version is [3.4.5](https://cdn.prod.euid.eu/euid-sdk-3.4.5.js). You can also see [the list of available versions](https://cdn.prod.euid.eu/).
+- CDN (Integration): `https://cdn.integ.euid.eu/euid-sdk-${VERSION_ID}.js`
 
   This integration URL contains un-minified code and is intended for testing purposes only. Do not use this URL for your production site.
-
-  As of the latest update to this document, the most recent version is [3.4.5](https://cdn.integ.uidapi.com/uid2-sdk-3.4.5.js). You can also see [the list of available versions](https://cdn.integ.uidapi.com/).
 
 ## Terminology
 
@@ -95,7 +99,7 @@ In this document, the following terms apply:
 On every page where you want to use EUID for targeted advertising, include the following SDK script:
 
 ```html
-<script src="https://cdn.prod.uidapi.com/uid2-sdk-3.4.5.js" type="text/javascript"></script> 
+<script src="https://cdn.prod.euid.eu/euid-sdk-3.4.5.js" type="text/javascript"></script> 
 ```
 
 ### Async or Defer Loading the SDK Script
@@ -110,7 +114,7 @@ If you are using `async` or `defer` script loading on your site, do the followin
    ```html
    <head>
      <!-- ... -->
-     <script async src="https://cdn.prod.uidapi.com/uid2-sdk-3.4.5.js" type="text/javascript"></script>
+     <script async src="https://cdn.prod.euid.eu/euid-sdk-3.4.5.js" type="text/javascript"></script>
      <!-- ... -->
    </head>
    ```
@@ -140,7 +144,7 @@ As part of the SDK [initialization](#initopts-object-void), a token auto-refresh
 Here's what you need to know about the token auto-refresh:
 
 - Only one token refresh call can be active at a time. 
-- If the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response is unsuccessful because the user has opted out, or because the refresh token has expired, this suspends the background auto-refresh process. To use EUID-based targeted advertising again, you must obtain the email from the consumer. In all other cases, auto-refresh attempts continue in the background.
+- If the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) response is unsuccessful because the user has opted out, or because the refresh token has expired, this suspends the background auto-refresh process. To use EUID-based targeted advertising again, you must obtain the email or phone number from the consumer. In all other cases, auto-refresh attempts continue in the background.
 - All [callback functions](#callback-function) provided using the [Array Push Pattern](#array-push-pattern) are invoked in the following cases:
 	- After each successful refresh attempt.
 	- When identity has become invalid&#8212;for example, because the user has opted out.<br/>NOTE: The callback is *not* invoked when identity is temporarily unavailable and the auto-refresh keeps failing. In this case, the SDK continues using the existing advertising token as long as it hasn't expired.
@@ -253,9 +257,7 @@ At any time after `init` has completed, you can call [`setIdentity`](#setidentit
 
 ## API Reference
 
-:::info
 All interactions with the SDK for JavaScript are done through the global `__euid` object, which is an instance of the `EUID` class. All of the following JavaScript functions are members of the `EUID` class:
-:::
 
 - [constructor()](#constructor)
 - [init()](#initopts-object-void)
@@ -351,11 +353,8 @@ There are two exceptions to this functionality:
 2. For every subsequent callback function passed, the function is added to the existing array of callbacks using the [Array Push Pattern](#array-push-pattern).
 
 :::note
-
-If `useCookie` is updated, the location of the identity changes.  For example, if the value is updated from `true` to `false`, the first party cookie is removed and the identity is added to local storage.
-
+If `useCookie` is updated, the location of the identity changes.  For example, if the value is updated from `true` to `false`, the first-party cookie is removed and the identity is added to local storage.
 :::
-
 
 ### Init Config
 
@@ -364,7 +363,6 @@ Calling `init()` stores an init config in a first-party cookie or local storage 
 ### Self Bootstrap
 
 When the constructor has completed and the SDK has been put on the window object, the code will check local storage and cookie storage for a stored [init config](#init-config).  If the config exists, `init()` is automatically called with the parameters from the config, and as a result, any functions that require `init()` can be used. 
-
 
 #### Errors
 
@@ -397,7 +395,6 @@ The `getAdvertisingToken()` function allows you to access the advertising token 
 
 This function returns `undefined` if any of the following conditions apply:
 
-- The [callback function](#callback-function) has not received an `InitCompleted` event, which means that the SDK initialization is not yet complete.
 - The SDK initialization is complete, but there is no valid identity to use.
 - The SDK initialization is complete, but the auto-refresh has cleared the identity&#8212;for example, because the user has opted out.
 

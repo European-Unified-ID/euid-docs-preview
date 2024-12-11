@@ -27,6 +27,7 @@ const sidebars = {
         'getting-started/gs-credentials',
         'getting-started/gs-permissions',
         'getting-started/gs-faqs',
+        'getting-started/gs-sharing',
       ],
     },
 
@@ -130,18 +131,22 @@ const sidebars = {
               collapsed: true,
               items: [
                 'guides/integration-google-ss',
+                'guides/mobile-plugin-gma-android',
                 'guides/mobile-plugin-gma-ios',
                 'guides/mobile-plugin-ima-android',
                 'guides/mobile-plugin-ima-ios',
               ],
             },
-
-        ],
-        },
-
-        {
-          type: 'category',
-          label: 'Advertiser/Data Provider Integrations',
+  
+  
+            'guides/integration-liveramp-tips',
+  
+          ],
+          },
+  
+          {
+            type: 'category',
+            label: 'Advertiser/Data Provider Integrations',
           link: {
             type: 'generated-index',
           },

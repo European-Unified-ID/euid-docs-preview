@@ -21,11 +21,13 @@ If you prefer to integrate with EUID via **only** client-side JavaScript changes
 
 For technical details about the SDK, see [SDK for JavaScript Reference Guide](../sdks/sdk-ref-javascript.md).
 
-## Sample Implementation Website
+<!-- ## Sample Implementation
 
-For an example application, see the UID2 Google Secure Signals with SDK v3 example:
+For a sample implementation, see the UID2 Google Secure Signals with SDK v3 example:
 - Code and docs: [UID2 SDK Secure Signals Integration Example](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-secure-signals-integration/with_sdk_v3)
-- Running site: [Client-Side EUID SDK Integration Example](https://euid.eu/examples/cstg-js-sdk-example/)
+- Running site: [Client-Side EUID SDK Integration Example](https://euid.eu/examples/cstg-js-sdk-example/) -->
+
+<!-- (To come: client-server EUID JavaScript client-side implementation example corresponding to the UID2 example) gwh 12/9/24 -->
 
 ## Introduction
 
@@ -33,7 +35,9 @@ This guide outlines the basic steps that you need to consider if you are buildin
 
 For a workflow diagram, see [Integration Steps](#integration-steps). See also [FAQs](#faqs).
 
-To facilitate the process of establishing client identity using EUID and retrieving advertising tokens, the web integration steps provided in this guide rely on the SDK for JavaScript. Here's an [example application](https://example-jssdk-integ.uidapi.com/) that illustrates the integration steps described in this guide and the usage of the SDK (currently only for email addresses). For the application documentation, see [SDK Integration Example](https://github.com/IABTechLab/uid2-examples/blob/main/publisher/standard/README.md).
+For details about the EUID opt-out workflow and how users can opt out, see [User Opt-Out](../getting-started/gs-opt-out.md).
+
+<!-- To facilitate the process of establishing client identity using EUID and retrieving advertising tokens, the web integration steps provided in this guide rely on the SDK for JavaScript. Here's an [example application](https://example-jssdk-integ.uidapi.com/) that illustrates the integration steps described in this guide and the usage of the SDK (currently only for email addresses). For the application documentation, see [SDK Integration Example](https://github.com/IABTechLab/uid2-examples/blob/main/publisher/standard/README.md). -->
 
 :::tip
 The first-party cookie and local storage implementation details might change in the future. To avoid potential issues, be sure to rely on the functionality documented in the [SDK for JavaScript API Reference](../sdks/sdk-ref-javascript.md#api-reference) for your identity management.
@@ -62,12 +66,12 @@ The following sections provide additional details for each step in the diagram:
 
 ### Establish Identity: Capture User Data
 
-After authentication in step 1-c, which allows the publisher to validate the user's email address, an EUID token must be generated on the server side. The following table details the token generation steps.
+After authentication in step 1-c, which allows the publisher to validate the user's email address or phone number, an EUID token must be generated on the server side. The following table details the token generation steps.
 
 | Step | Endpoint/SDK | Description |
 | :--- | :--- | :--- |
-| 1-d | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | Use the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint to generate an EUID token using the email address provided by the user. Make sure it is normalized. |
-| 1-e | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | The endpoint returns an EUID token generated from the user's hashed or unhashed email address. |
+| 1-d | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | Use the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint to generate an EUID token using the email address or phone number provided by the user. Make sure it is normalized. |
+| 1-e | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | The endpoint returns an EUID token generated from the user's email address, phone number, or the respective hash. |
 | 1-f | SDK for JavaScript | The SDK sends the returned EUID token from step 1-e to the SDK in the `identity` property of its [init() function](../sdks/sdk-ref-javascript.md#initopts-object-void). |
 | 1-g | SDK for JavaScript | Provide the SDK a callback function that will receive identity updates from the SDK and use them to initiate targeted advertising. |
 
@@ -197,7 +201,7 @@ For an example of what an EUID token might look like in the bidstream, when it's
 ```
 
 :::info
-You need to consider how you pass the returned advertising token to SSPs. With some other approaches to client-side EUID implementation, such as using `Prebid.js` (see [EUID Integration Overview for Prebid.js](integration-prebid.md)) or Google Ad Manager Secure Signals (see [Google Ad Manager Secure Signals Integration Guide](integration-google-ss.md)), the implementation includes functions that manage passing the returned advertising token. If you're using the SDK for JavaScript you'll need to manage this yourself.
+You need to consider how you pass the returned advertising token to SSPs. With some other approaches to client-side EUID implementation, such as using `Prebid.js` (see [EUID Integration Overview for Prebid](integration-prebid.md)) or Google Ad Manager Secure Signals (see [Google Ad Manager Secure Signals Integration Guide](integration-google-ss.md)), the implementation includes functions that manage passing the returned advertising token. If you're using the SDK for JavaScript you'll need to manage this yourself.
 :::
 
 :::tip

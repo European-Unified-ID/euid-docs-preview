@@ -9,11 +9,7 @@ import Link from '@docusaurus/Link';
 
 # SDK for Python Reference Guide
 
-You can use the SDK for Python on the server side to facilitate the following:
-
-- Generating EUID advertising tokens
-- Refreshing EUID advertising tokens
-- Decrypting EUID tokens to access the raw EUIDs
+You can use the SDK for Python on the server side to facilitate the process of generating or establishing client identity using EUID, retrieving advertising tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use, and automatically refreshing EUID tokens. If you have the applicable permissions, you can also decrypt EUID tokens to access the raw EUID, map personal data to raw EUIDs, and monitor rotated salt buckets.
 
 :::note
 This SDK is valid for UID2 and EUID. Some of the code naming and URLs are labelled as UID2. These apply equally to EUID.
@@ -23,7 +19,7 @@ This SDK is valid for UID2 and EUID. Some of the code naming and URLs are labell
 
 This SDK simplifies integration with EUID for any DSPs who are using Python for their server-side coding. The following table shows the functions it supports.
 
-| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to a Raw EUID | Monitor Rotated Salt Buckets |
+| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to Raw EUIDs | Monitor Rotated Salt Buckets |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | &#9989; | &#9989; | &#9989; | &#9989; | &#9989; | &#9989; |
 
@@ -44,6 +40,8 @@ The SDK supports Python 3.6 and above.
 This SDK is in the following open-source GitHub repository:
 
 - [SDK for Python](https://github.com/IABTechLab/uid2-client-python/blob/master/README.md)
+
+  >NOTE: This SDK is valid for both UID2 and EUID. The SDK, and some of its technical components, are named UID2, but are equally applicable for EUID.
 
 The package is published in this location:
 
@@ -122,7 +120,7 @@ Decryption response codes, and their meanings, are shown in the following table.
    client = Uid2PublisherClient(EUID_BASE_URL, EUID_API_KEY, EUID_SECRET_KEY)
    ```
 
-2. Call a function that takes the user's email address as input and generates a `TokenGenerateResponse` object<!-- . The following example uses an email address -->:
+2. Call a function that takes the user's email address or phone number as input and generates a `TokenGenerateResponse` object. The following example uses an email address:
 
    ```py
    token_generate_response = client.generate_token(TokenGenerateInput.from_email(emailAddress).do_not_generate_tokens_for_opted_out())
@@ -134,11 +132,11 @@ Decryption response codes, and their meanings, are shown in the following table.
    - Always apply `do_not_generate_tokens_for_opted_out()`. This applies a parameter similar to setting `optout_check=1` in the call to the POST&nbsp;/token/generate endpoint (see [Unencrypted JSON Body Parameters](../endpoints/post-token-generate.md#unencrypted-json-body-parameters)).
    :::
 
-   <!-- uid2_euid_diff re legal basis for admonition above (not in UID2) -->
+<!-- uid2_euid_diff re legal basis for admonition above (not in UID2) -->
 
 #### Client-Server Integration
 
-If you're using client-server integration (see [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md)), follow this step:
+If you're using client-server integration (see [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md)), follow this step:
 
 * Send this identity as a JSON string back to the client (to use in the [identity field](../sdks/sdk-ref-javascript.md#initopts-object-void)) using the following:
 
@@ -167,8 +165,11 @@ If you're using server-side integration (see [Publisher Integration Guide, Serve
 3. Periodically check if the user's EUID token should be refreshed. This can be done at fixed intervals using a timer, or can be done whenever the user accesses another page:
    1. Retrieve the identity JSON string from the user's session, and then call the following function that takes the identity information as input and generates an `IdentityTokens` object:
 
-      `identity = IdentityTokens.from_json_string(identityJsonString)`
-   2. Determine if the identity can be refreshed (that is, the refresh token hasn't expired):
+       ```py
+       identity = IdentityTokens.from_json_string(identityJsonString)
+       ```
+
+    2. Determine if the identity can be refreshed (that is, the refresh token hasn't expired):
 
        ```py
       if not identity or not identity.is_refreshable(): # we must no longer use this identity (for example, remove this identity from the user's session)
@@ -198,21 +199,21 @@ There are two operations that apply to Advertisers/Data Providers:
 
 ### Map Personal Data to Raw EUIDs
 
-To map email addresses or their hashes to their raw EUIDs and salt bucket IDs, follow these steps.
+To map email addresses, phone numbers, or their hashes to their raw EUIDs and salt bucket IDs, follow these steps.
 
 1. Create an instance of `IdentityMapClient` as an instance variable.
    ```py
    client = IdentityMapClient(base_url, api_key, client_secret)
    ```
 
-2. Call a function that takes email addresses as input and generates an `IdentityMapResponse` object<!-- . The following example uses email addresses -->:
+2. Call a function that takes email addresses or phone numbers as input and generates an `IdentityMapResponse` object. The following example uses email addresses:
    ```py
    identity_map_response = client.generate_identity_map(IdentityMapInput.from_emails(["email1@example.com", "email2@example.com"]))
    ```
 
-:::note
-The SDK hashes input values before sending them. This ensures that raw email addresses do not leave your server.
-:::
+   :::note
+   The SDK hashes input values before sending them. This ensures that raw email addresses and phone numbers do not leave your server.
+   :::
 
 3. Retrieve the mapped and unmapped results as follows:
    ```py

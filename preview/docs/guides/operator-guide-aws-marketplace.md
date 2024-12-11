@@ -12,7 +12,9 @@ import AttestFailure from '/docs/snippets/_private-operator-attest-failure.mdx';
 
 # EUID Private Operator for AWS Integration Guide
 
-The EUID Operator is the API server in the EUID ecosystem. For a <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link> service running in AWS Marketplace, the EUID Operator solution is enhanced with [AWS Nitro](https://aws.amazon.com/ec2/nitro/) Enclave technology. This is an additional security measure to help protect EUID information from unauthorized access.
+The EUID Operator is the API server in the EUID ecosystem. For details, see [The EUID Operator](../ref-info/ref-operators-public-private.md).
+
+For a <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link> service running in AWS Marketplace, the EUID Operator solution is enhanced with [AWS Nitro](https://aws.amazon.com/ec2/nitro/) Enclave technology. This is an additional security measure to help protect EUID information from unauthorized access.
 
 ## EUID Private Operator for AWS
 
@@ -23,7 +25,7 @@ The EUID Operator is the API server in the EUID ecosystem. For a <Link href="../
 By subscribing to the European Unified ID Operator on AWS Marketplace product, you gain access to the following:
 
 - [Amazon Machine Image (AMI)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) with the EUID Operator service installed and ready to bootstrap:<br/>
-    The AMI contains an [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/?amazon-linux-whats-new.sort-by=item.additionalFields.postDateTime&amazon-linux-whats-new.sort-order=desc) operating system with the EUID Operator service already set up. When an EC2 instance based on the AMI boots up, it automatically fetches the configuration from your AWS account and starts the EUID Operator server inside an enclave.
+    The AMI contains an [Amazon Linux 2023](https://aws.amazon.com/linux/amazon-linux-2023/) operating system with the EUID Operator service already set up. When an EC2 instance based on the AMI boots up, it automatically fetches the configuration from your AWS account and starts the EUID Operator server inside an enclave.
 - [CloudFormation](https://aws.amazon.com/cloudformation/) template:<br/>
     The template deploys the EUID Operator AMI.
 
@@ -118,7 +120,7 @@ The following table lists all resources that are created during the [deployment]
 
 Here's what you can customize during or after the [deployment](#deployment):
 
-- VPC: You can either set up a new VPC and subnets or use existing ones.
+- VPC: You must specify the existing VPC and related VPC Subnet IDs.
 - Root volume size (8G Minimum)
 - SSH key: This is the SSH key that you use to access the EUID Operator EC2 instances.
 - [Instance type](https://aws.amazon.com/ec2/instance-types/m5/): m5.2xlarge, m5.4xlarge, and so on. If there is no customization, the default value, m5.2xlarge, is recommended.
@@ -157,6 +159,17 @@ To deploy European Unified ID Operator on AWS Marketplace, complete the followin
 
 It takes several minutes for the stack to be created. When you see an Auto Scaling Group (ASG) created, you can select it and check the EC2 instances. By default, there is only one instance to start with.
 
+### Operator Version
+
+The latest ZIP file is linked in the Release Notes column in the following table.
+
+| Release | Version | Date | Release Notes | Version |
+| ------- | ------  | ------ | ------ | ------ |
+| Q1 2024 | 5.26.19 | February 13, 2024 | [v5.26.19-56899dc0d7](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.26.19-56899dc0d7) | 5.26.19-56899dc0d7 |
+| Q2 2024 | 5.37.12 | June 12, 2024 | [v5.37.12](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.37.12) | 5.37.12 |
+| Q3 2024 | 5.38.104 | September 12, 2024 | [v5.38.104](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.38.104) | 5.38.104 |
+| Q3 2024 Out-of-band | 5.41.0 | October 29, 2024 | [v5.41.0](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.41.0) | 5.41.0 |
+
 ### Stack Details
 
 The following images show the **Specify stack details** page in the Create stack wizard ([deployment](#deployment) step 5). The table that follows provides a parameter value reference.
@@ -178,6 +191,9 @@ The following table explains the parameter values that you need to provide in st
 |Instance root volume size |15 GB or more is recommended. |
 |Key Name for SSH |Your EC2 key pair for SSH access to the deployed EC2 instances. |
 |Trusted Network CIDR |The CIDR (Classless Inter-Domain Routing) value determines the IP address range that can access your operator service.<br/>To limit access to the EUID Operators so that they can only be accessed through an internal network or a load balancer, specify an internal IP range as the CIDR value. |
+|VPC |The existing VPC ID. |
+|VpcSubnet1 |The existing VPC AZ1 Subnet ID. |
+|VpcSubnet2 |The existing VPC AZ2 Subnet ID. |
 
 ### Stack Configuration Options
 
@@ -317,6 +333,7 @@ These are the default settings for the following reasons:
 - The command refers to `/var/lib/logrotate/logrotate.status` to check the log status and see if it has reached the rotation condition, so that it won't make extra rotations when `logrotate` is run every minute.
 
 ### Changing the Log Rotation Schedule
+
 To change the log rotation schedule, update the `etc/logrotate.d/operator-logrotate.conf` file.
 
 Follow the instructions in the logrotate documentation: see [logrotate(8) - Linux man](https://linux.die.net/man/8/logrotate) page.
@@ -332,8 +349,8 @@ The following table includes some additional commands that might help you manage
 | Action | Command |
 | :--- | :--- |
 | Provides a detailed explanation of what will be rotated. | `sudo logrotate -f /etc/logrotate.conf --debug` |
-| Runs one iteration of `logrotate` manually, without changing the scheduled interval. |  `sudo logrotate -f /etc/logrotate.conf --force` |
-| Reloads `syslog-ng`. |  `sudo /usr/sbin/syslog-ng-ctl reload` |
+| Runs one iteration of `logrotate` manually, without changing the scheduled interval. | `sudo logrotate -f /etc/logrotate.conf --force` |
+| Reloads `syslog-ng`. | `sudo /usr/sbin/syslog-ng-ctl reload` |
 
 ## Technical Support
 

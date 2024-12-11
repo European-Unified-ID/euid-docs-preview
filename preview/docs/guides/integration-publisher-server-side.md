@@ -19,6 +19,8 @@ The following options are available for publishers to integrate with EUID on the
 - SDK for Python (see [Usage for Publishers](../sdks/sdk-ref-python.md#usage-for-publishers) section).
 - Custom server code to generate and refresh the EUID token by calling the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) and [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoints.
 
+<!-- There is also a sample implementation that demonstrates the workflow. See [Sample Implementation](#sample-implementation). -->
+
 For a complete summary of publisher integration options, see [Publisher Integrations](summary-guides.md#publisher-integrations).
 
 :::tip
@@ -29,7 +31,7 @@ To facilitate the process of establishing client identity using EUID and retriev
 
 The guide outlines the [basic steps](#integration-steps) that you need to consider if you're building an integration without using a client-side or server-side SDK. For example, you need to decide how to do the following:
 
-- Implement opportunities to capture email: for example, promotional exchanges, sign-ups and subscriptions, or marketing form fills.
+- Implement opportunities to capture email or phone number: for example, promotional exchanges, sign-ups and subscriptions, or marketing form fills.
 - Manage EUID identity information and use it for targeted advertising
 - Refresh EUID tokens
 - Deal with missing identities
@@ -56,7 +58,7 @@ The following sections provide additional details for each step in the diagram:
 
 ### Establish Identity: Capture User Data
 
-After authentication in step 1-c, which allows the publisher to validate the user's email address, the publisher can send a request to generate an EUID token, on the server side. The following table details the token generation steps.
+After authentication in step 1-c, which allows the publisher to validate the user's email address or phone number, the publisher can send a request to generate an EUID token, on the server side. The following table details the token generation steps.
 
 :::tip
 Rather than calling this endpoint directly, you could use one of the SDKs to manage it for you. For a summary of options, see [SDKs: Summary](../sdks/summary-sdks.md).
@@ -64,8 +66,8 @@ Rather than calling this endpoint directly, you could use one of the SDKs to man
 
 | Step | Endpoint | Description |
 | :--- | :--- | :--- |
-| 1-d | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | Establish identity with EUID by using the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint to generate an EUID token using the normalized email address of the user. |
-| 1-e | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | Return an EUID token generated from the user's hashed or unhashed email address, plus associated values such as the refresh token. |
+| 1-d | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | Establish identity with EUID by using the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint to generate an EUID token using the normalized email address or phone number of the user. |
+| 1-e | [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) | Return an EUID token generated from the user's hashed or unhashed email address or phone number, plus associated values such as the refresh token. |
 | 1-f | N/A | Place the returned `advertising_token` and `refresh_token` in a store tied to a user. You might consider client-side storage, such as a first-party cookie, or server-side storage. |
 
 ### Bid Using an EUID Token
@@ -84,6 +86,8 @@ For an example of what an EUID token might look like in the bidstream, when it's
 
 Use the `POST /token/refresh` endpoint to make sure you always have a valid and up-to-date EUID token. The EUID token must be refreshed to sync with the EUID rotation. In addition, the token refresh process checks the user's opt-out status, and if the user has opted out, no new token is sent. This ends the token refresh chain, and you must not use that EUID token again.
 
+For details about the EUID opt-out workflow and how users can opt out, see [User Opt-Out](../getting-started/gs-opt-out.md).
+
 | Step | Endpoint | Description |
 | :--- | :--- | :--- |
 | 3-a |N/A | When a user returns to an asset and becomes active again, refresh the EUID token before sending it to the SSP. | 
@@ -95,6 +99,15 @@ Use the `POST /token/refresh` endpoint to make sure you always have a valid and 
 Refresh tokens starting from the `refresh_from` timestamp, which is part of the identity returned by the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoints.
 :::
 
+<!-- ## Sample Implementation
+
+A sample implementation is available for server-side integration. See:
+
+- Server-Side EUID Integration Example (sample implementation)
+- Server-Side EUID Integration Example (readme) -->
+
+<!-- EUID Server-Side SDK Integration Example to come. gwh 12/9/24 -->
+
 ### Clear Identity: User Logout
 
 If the user logs out, do not use the EUID token.
@@ -103,13 +116,6 @@ If the user logs out, do not use the EUID token.
 | :--- | :--- | :--- |
 | 4-a | N/A | The user logs out from a publisher asset. |
 | 4-b | N/A | Remove the EUID token you've stored for that user. No interaction with the EUID service is required. |
-
-
-
-
-
-
-
 
 ## FAQs
 

@@ -6,7 +6,7 @@ sidebar_position: 04
 ---
 
 import Link from '@docusaurus/Link';
-import ExampleTokenGenerateResponse from '/docs/snippets/_example-identity-generate-response.mdx';
+import IdentityGenerateResponse from '/docs/snippets/_example-identity-generate-response.mdx';
 
 # POST /token/refresh
 
@@ -28,7 +28,7 @@ Add the content of the `refresh_token` value, returned in the response from the 
 
 Here's what you need to know about this endpoint:
 
-- No encryption is required for token refresh requests.
+- No encryption is required for requests to the `POST /token/refresh` endpoint.
 - If the request is successful, with an HTTP status code of 200, a new EUID token or opt-out information is returned.
 - Successful responses, whether the response includes a new token or opt-out information, are encrypted. Error responses are not encrypted.
 - To decrypt responses, use the most recent `refresh_response_key` value for this token. The `refresh_response_key` value is returned in the response to the [POST&nbsp;/token/generate](post-token-generate.md) and `POST /token/refresh` operations. Each time a token is refreshed, a new `refresh_response_key` is returned. Be sure to use the most recent one to decrypt the current response.
@@ -41,7 +41,10 @@ Here's what you need to know about this endpoint:
 
 #### Testing Notes
 
-Using the `refresh-optout@example.com` email address in a [POST&nbsp;/token/generate](post-token-generate.md) request always generates an identity response with a `refresh_token` that results in a logout response when used with the `POST /token/refresh` endpoint.
+Using either of the following parameters in a [POST&nbsp;/token/generate](post-token-generate.md) request always generates an identity response with a `refresh_token` that results in a logout response when used with the `POST /token/refresh` endpoint:
+
+- The `refresh-optout@example.com` email address
+- The `+00000000002` phone number
 
 ### Request Example
 
@@ -65,7 +68,7 @@ This section includes the following sample responses:
 
 If all values are valid and the user has not opted out, the response is successful and a new EUID token is returned, with associated values. The following example shows a decrypted successful response with tokens:
 
-<ExampleTokenGenerateResponse />
+<IdentityGenerateResponse />
 
 #### Successful Response With Opt-Out
 

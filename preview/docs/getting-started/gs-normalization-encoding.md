@@ -13,17 +13,18 @@ This page provides information about normalizing and encoding <Link href="../ref
 
 ## Introduction
 
-When you're taking user information such as an email address, and following the steps to create a raw EUID and/or an EUID advertising token, it's very important that you follow all the required steps. Whether you normalize the information or not, whether you hash it or not, follow the steps exactly. By doing so, you can ensure that the EUID value you create can be securely and anonymously matched up with other instances of online behavior by the same user.
+When you're taking user information such as an email address, and following the steps to create a raw EUID and/or an EUID advertising token, it's very important that you follow all the required steps. Whether you normalize emails or not, and whether you hash emails and phone numbers or not, follow the steps exactly. By doing so, you can ensure that the EUID value you create can be securely and anonymously matched up with other instances of online behavior by the same user.
 
 :::important
 - Raw EUIDs, and their associated EUID tokens, are case sensitive. When working with EUID, it's important to pass all IDs and tokens without changing the case. Mismatched IDs can cause ID parsing or token decryption errors.
-- If you miss any of the required steps&#8212;for example, you hash without first normalizing&#8212;the result will not be the correct valid EUID value for the input data.<br/>For example, let's say a data provider wants to generate an EUID from `JANESaoirse@gmail.com`. This normalizes to `janesaoirse@gmail.com`, and the hashed and Base64-encoded value is `ku4mBX7Z3qJTXWyLFB1INzkyR2WZGW4ANSJUiW21iI8=`.<br/>The publisher, with the same email address, by mistake does not normalize. The hashed and Base64-encoded value for the un-normalized email, `JANESaoirse@gmail.com`, is `f8upG1hJazYKK8aEtAMq3j7loeAf5aA4lSq6qYOBR/w=`. These two different values result in two different EUIDs. The first, processed correctly, matches other instances generated from the same original data. The second, incorrectly processed, does not.<br/>In this scenario, because the EUID does not match other instances for the same user, the publisher misses the opportunity to benefit from targeted advertising.
+- If you miss any of the required steps&#8212;for example, you hash without first normalizing&#8212;the result will not be the correct valid EUID value for the input data.<br/>For example, let's say a data provider wants to generate an EUID from `JANESaoirse@gmail.com`. This normalizes to `janesaoirse@gmail.com`, and the hashed and Base64-encoded value is `ku4mBX7Z3qJTXWyLFB1INzkyR2WZGW4ANSJUiW21iI8=`.<br/>The publisher, with the same email address, by mistake does not normalize. The hashed and Base64-encoded value for the un-normalized email, `JANESaoirse@gmail.com`, is `VpLXEp5N1bj/V1WzjgZsC+FfuYdntAOywSVIO00FD/E=`. These two different values result in two different EUIDs. The first, processed correctly, matches other instances generated from the same original data. The second, incorrectly processed, does not.<br/>In this scenario, because the EUID does not match other instances for the same user, the publisher misses the opportunity to benefit from targeted advertising.
 :::
 
 ## Types of Personal Data
 
-EUID supports the following type of personal data:
+EUID supports the following types of personal data:
 - Email address
+- Phone number
 
 ## Email Address Normalization
 
@@ -54,12 +55,12 @@ For examples of various scenarios, see [Normalization Examples for Email](#norma
 
 ## Email Address Hash Encoding
 
-An email hash is a Base64-encoded SHA-256 hash of a normalized email address. The email address is first normalized, then hashed using the SHA-256 hashing algorithm, and then the resulting bytes of the hash value are encoded using Base64 encoding. Note that the Base64 encoding is applied to the bytes of the hash value, not the hex-encoded string representation.
+An email hash is a Base64-encoded <Link href="../ref-info/glossary-uid#gl-sha-256">SHA-256</Link> hash of a normalized email address. The email address is first normalized, then hashed using the SHA-256 hashing algorithm, and then the resulting bytes of the hash value are encoded using Base64 encoding. Note that the Base64 encoding is applied to the bytes of the hash value, not the hex-encoded string representation.
 
 | Type | Example | Comments and Usage |
 | :--- | :--- | :--- |
 | Normalized email address | `user@example.com` | Normalization is always the first step. |
-| SHA-256 hash of normalized email address | `b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514` | This 64-character string is a hex-encoded representation of the 32-byte SHA-256.|
+| SHA-256 hash of normalized email address | `b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514` | This 64-character string is a hex-encoded representation of the 32-byte SHA-256. |
 | Hex to Base64 SHA-256 encoding of normalized email address | `tMmiiTI7IaAcPpQPFQ65uMVCWH8av9jw4cwf/F5HVRQ=` | This 44-character string is a Base64-encoded representation of the 32-byte SHA-256.<br/>WARNING: The SHA-256 hash string in the example above is a hex-encoded representation of the hash value. You must Base64-encode the raw bytes of the hash or use a Base64 encoder that takes a hex-encoded value as input.<br/>Use this encoding for `email_hash` values sent in the request body. |
 
 :::important
@@ -67,6 +68,42 @@ When applying Base64 encoding, be sure to Base64-encode the raw bytes of the has
 :::
 
 For additional examples, see [Normalization Examples for Email](#normalization-examples-for-email).
+
+## Phone Number Normalization
+
+:::important
+You **must** normalize phone numbers before sending them in a request to the EUID Operator Service, regardless of whether you apply hashing and encoding.
+:::
+
+Here's what you need to know about phone number normalization rules:
+
+- The EUID Operator accepts phone numbers in the [E.164](https://en.wikipedia.org/wiki/E.164) format, which is the international phone number format that ensures global uniqueness. 
+- E.164 phone numbers can have a maximum of 15 digits.
+- Normalized E.164 phone numbers use the following syntax, with no spaces, hyphens, parentheses, or other special characters:<br/>
+  `[+] [country code] [subscriber number including area code]`
+ Examples:
+   - UK: `44 (234) 567-8901` is normalized to `+442345678901`.
+   - France: `33 1 23 45 67 89` is normalized to `+33123456789`.
+
+:::warning
+Make sure that the normalized phone number is UTF-8, not another encoding system such as UTF-16.
+:::
+
+## Phone Number Hash Encoding
+
+A phone number hash is a Base64-encoded SHA-256 hash of a normalized phone number. The phone number is first normalized, then hashed using the SHA-256 hashing algorithm, and then the resulting bytes of the hash value are encoded using Base64 encoding. Note that the Base64 encoding is applied to the bytes of the hash value, not the hex-encoded string representation. 
+
+The following table shows an example of a simple input phone number, and the result as each step is applied to arrive at a secure, opaque, URL-safe value.
+
+| Type | Example | Comments and Usage |
+| :--- | :--- | :--- |
+| Normalized phone number | `+12345678901` | Normalization is always the first step. |
+| SHA-256 hash of normalized phone number | `10e6f0b47054a83359477dcb35231db6de5c69fb1816e1a6b98e192de9e5b9ee` |This 64-character string is a hex-encoded representation of the 32-byte SHA-256. |
+| Hex to Base64 SHA-256 encoding of normalized and hashed phone number | `EObwtHBUqDNZR33LNSMdtt5cafsYFuGmuY4ZLenlue4=` | This 44-character string is a Base64-encoded representation of the 32-byte SHA-256.<br/>NOTE: The SHA-256 hash is a hexadecimal value. You must use a Base64 encoder that takes a hex value as input. Use this encoding for `phone_hash` values sent in the request body. |
+
+:::warning
+When applying Base64 encoding, be sure to use a function that takes a hex value as input. If you use a function that takes text as input, the result is a longer string which is invalid for the purposes of EUID.
+:::
 
 ## Normalization Examples for Email
 
@@ -83,6 +120,30 @@ Some of the examples show email addresses that include the plus sign (+), with d
 | `JaneSaoirse+Work@example.com` | `janesaoirse+work@example.com` | Hashed: `28aaee4815230cd3b4ebd88c515226550666e91ac019929e3adac3f66c288180`<br/>Base64-Encoded: `KKruSBUjDNO069iMUVImVQZm6RrAGZKeOtrD9mwogYA=` |
 | `JANE.SAOIRSE@gmail.com`<br/>`Jane.Saoirse@gmail.com`<br/>`JaneSaoirse+Work@gmail.com` | `janesaoirse@gmail.com` | Hashed: `92ee26057ed9dea2535d6c8b141d48373932476599196e00352254896db5888f`<br/>Base64-Encoded: `ku4mBX7Z3qJTXWyLFB1INzkyR2WZGW4ANSJUiW21iI8=` |
 
-<!-- ## Example Code
+## Example Code
 
-For an example of how to generate email hashes in JavaScript, see [Example Code: Hashing and Base-64 Encoding](../guides/integration-javascript-client-side#example-code-hashing-and-base-64-encoding). -->
+For an example of how to generate email and phone hashes in JavaScript, see [Example Code: Hashing and Base-64 Encoding](../guides/integration-javascript-client-side#example-code-hashing-and-base-64-encoding).
+
+## EUID Hashing Tool
+
+To check that you're correctly normalizing, hashing, and encoding, you can test with the [EUID hashing tool](https://euid.eu/examples/hashing-tool/).
+
+Choose Email or Phone Number, type or paste the value, and then click **Enter**.
+
+The tool does the following:
+- Email: Displays each of the following three values:
+  - Normalized value
+  - Hashed value
+  - Base64-encoded value
+
+- Phone: Displays each of the following two values:
+  - Hashed value
+  - Base64-encoded value
+
+  :::important
+  For phone numbers, you must first normalize the data.
+  :::
+
+If the input data doesn't have a valid email or phone number format, or if the phone number is not normalized, the tool gives an error.
+
+You can use this tool to verify that your internal processes are set up to correctly create normalized, hashed, and encoded values for EUID.

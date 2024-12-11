@@ -9,11 +9,7 @@ import Link from '@docusaurus/Link';
 
 # SDK for iOS Reference Guide
 
-You can use the SDK for iOS for the following:
-
-- Generating or establishing client identity using EUID.
-- Retrieving advertising tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use.
-- Automatically refreshing EUID tokens.
+You can use the SDK for iOS to facilitate the process of generating or establishing client identity using EUID, retrieving advertising tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use, and automatically refreshing EUID tokens.
 
 The following iOS-related plugins, and associated documentation, are also available:
 
@@ -29,9 +25,9 @@ Although this page refers to SDK for iOS, this SDK also supports tvOS. For the r
 
 This SDK simplifies integration with EUID for any publishers who want to support EUID for apps running on iOS devices. The following table shows the functions it supports.
 
-| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to Raw EUID |
-| :--- | :--- | :--- | :--- | :--- |
-| &#8212; | &#8212; | &#9989; | &#9989; | &#8212; |
+| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to Raw EUIDs | Monitor Rotated Salt Buckets |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| &#8212; | &#8212; | &#9989; | &#9989; | &#8212; | &#8212; |
 
 The SDK for iOS is designed to generate and/or manage EUID identity on behalf of iOS apps. It enables EUID identity to be persisted across app lifecycles by securely storing the identity on a device via platform-native encryption tools.
 
@@ -63,7 +59,7 @@ Minimum requirements for this SDK are as follows:
 - Xcode version: 15.0+
 - iOS minimum target version:
   - For full functionality: 13.0+
-  - For partial functionality: 12.0+. The app with the SDK integrated can be installed with all devices, but generating or retrieving UID2 tokens on the client side will not work with devices running iOS versions below 13.0.
+  - For partial functionality: 12.0+. The app with the SDK integrated can be installed with all devices, but generating or retrieving EUID tokens on the client side will not work with devices running iOS versions below 13.0.
 - tvOS minimum target version: 13.0+
 - Swift version: 5.0+
 
@@ -91,8 +87,8 @@ dependencies: [
 
 In the XCode user interface, under Package Dependencies, add the following entry for your apps:
 
-| Name | Location | Dependency Rule                         |
-| :--- | :--- |:----------------------------------------| 
+| Name | Location | Dependency Rule |
+| :--- | :--- | :--- |
 | uid2-ios-sdk | `git@github.com:IABTechLab/uid2-ios-sdk.git` | Up to next major version: 1.7.0 < 2.0.0 |
 
 ### Installing with CocoaPods
@@ -111,9 +107,9 @@ For iOS, the `EUIDManager` is initialized automatically the first time it is acc
 
 There are two ways to establish an initial EUID Identity:
 
-1. Generate the EUID identity using personal data&#8212;email (hashed or unhashed). For integration instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md).
+1. Generate the EUID identity using personal data&#8212;email (hashed or unhashed) or phone number (hashed or unhashed). For integration instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md).
 
-2. Create an EUID identity from your server's back end and then pass it to the EUID SDK. For integration instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md).
+2. Create an EUID identity from your server's back end and then pass it to the EUID SDK. For integration instructions, see [Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server.md).
 
 The EUID Mobile SDKs can perform refreshes of EUID identities, after an Identity is established. This is because the refresh functionality relies on the refresh tokens that are part of the EUID Identity.
 
@@ -122,7 +118,7 @@ The EUID Mobile SDKs can perform refreshes of EUID identities, after an Identity
 
 The following code samples provide examples of performing specific activities relating to managing EUID with the SDK for iOS.
 
-Generate an initial EUID Identity (for instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md)):
+Generate an initial EUID Identity (for instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk)):
 
 ```js
 EUIDManager.shared.generateIdentity(
@@ -132,7 +128,7 @@ EUIDManager.shared.generateIdentity(
     appName: String? = nil
 )
 ```
-Set the Initial EUID Identity (for instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md)):
+Set the Initial EUID Identity (for instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk)):
 
 ``` javascript
 EUIDManager.shared.setIdentity(_ identity: UID2Identity)
@@ -163,7 +159,7 @@ The following functions are available as part of the EUIDManager API:
 Generate an EUID Identity using <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link>. For details, see [Configure the EUID Mobile SDK](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk) in the *Client-Server Integration Guide for Mobile*.
 #### setIdentity()
 
-Sets an EUID Identity, created server-side, to be managed by the SDK. For details, see [Configure the EUID Mobile SDK](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk) in the *Client-Server Integration Guide for Mobile*.
+Sets an EUID Identity, created server-side, to be managed by the SDK. For details, see [Configure the EUID Mobile SDK](../guides/integration-mobile-client-server.md#configure-the-euid-mobile-sdk) in the *Client-Server Integration Guide for Mobile*.
 
 #### resetIdentity()
 

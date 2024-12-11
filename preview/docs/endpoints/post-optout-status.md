@@ -11,7 +11,7 @@ import Link from '@docusaurus/Link';
 
 Checks the opt-out status of <Link href="../ref-info/glossary-uid#gl-raw-euid">raw EUIDs</Link>. Given a list of raw EUIDs, this endpoint returns the raw EUIDs that have opted out, as well as the time that the opt-out took place. For more information, see [User Opt-Out](../getting-started/gs-opt-out.md).
 
-Used by: This endpoint is used by advertisers, data providers, and DSPs. More generally, this is for participants who have access to raw EUIDs but do not have access to the underlying email addresses and want to know opt-out status.
+Used by: This endpoint is used by advertisers, data providers, and DSPs. More generally, this is for participants who have access to raw EUIDs but do not have access to the underlying email addresses or phone numbers and want to know opt-out status.
 
 For details, refer to the following documentation, depending on your role:
 
@@ -28,6 +28,8 @@ The key guidelines for managing batches of requests to this endpoint are as foll
 ## Request Format
 
 `POST '{environment}/v2/optout/status'`
+
+For authentication details, see [Authentication and Authorization](../getting-started/gs-auth.md).
 
 :::important
 You must encrypt all requests using your secret. For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).

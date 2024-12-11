@@ -12,7 +12,7 @@ import Link from '@docusaurus/Link';
 
 This guide is for DSPs who transact on EUIDs in the <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link>.
 
-DSPs receive EUID tokens in bid requests, and decrypt the EUID tokens to arrive at raw EUIDs that they can use for bidding, using one of the server-side SDKs that support this function.
+DSPs receive EUID tokens in bid requests, and decrypt the [EUID tokens](../ref-info/glossary-uid.md#gl-euid-token) to arrive at [raw EUIDs](../ref-info/glossary-uid.md#gl-raw-euid) that they can use for bidding, using one of the server-side SDKs that support this function.
 
 For a summary of available server-side SDKs, see [SDKs: Summary](../sdks/summary-sdks.md).
 
@@ -24,7 +24,7 @@ If your back end is written in a language not covered by one of the available se
 
 The following describes the integration workflow for DSP to support EUID as part of RTB, which consists of two major steps:
 1. [Honor user opt-outs](#honor-user-opt-outs)
-2. [Decrypt EUID Tokens for RTB Use](#decrypt-euid-tokens-for-rtb-use)
+2. [Decrypt EUID tokens for RTB use](#decrypt-euid-tokens-for-rtb-use)
 
 ![DSP Flow](images/dsp-guide-flow-mermaid.png)
 
@@ -35,8 +35,10 @@ The following describes the integration workflow for DSP to support EUID as part
 This section includes the following information for DSPs, who must honor user opt-out of EUID:
 
 - [Opt-Out Webhook](#opt-out-webhook)
-- [POST&nbsp;/optout/status Endpoint](#post-optoutstatus-endpoint)
+- [POST /optout/status Endpoint](#post-optoutstatus-endpoint)
 - [Bidding Opt-Out Logic](#bidding-opt-out-logic)
+
+For details about the EUID opt-out workflow and how users can opt out, see [User Opt-Out](../getting-started/gs-opt-out.md).
 
 #### Opt-Out Webhook
 
@@ -46,8 +48,8 @@ The EUID service sends the following data within seconds of a user's opt-out, wh
 
 | Parameter | Description |
 | :--- | :--- |
-| `identity` | The EUID for the user who opted out. |
-| `timestamp` | The time when the user opted out. |
+| `identity` | The raw EUID for the user who opted out. |
+| `timestamp` | The time when the user opted out (for information only). |
 
 The DSP must respond to the opt-out data with a 200 response code.
 
@@ -81,6 +83,21 @@ The following table provides details for Step 2 of the workflow diagram shown in
 | :--- | :--- | :--- |
 | 2-a | Server-side SDK (see [SDKs: Summary](../sdks/summary-sdks.md)) | Leverage the provided SDK to decrypt incoming EUID tokens. The response contains the `EUID` and the EUID creation time. |
 | 2-b | | DSPs are required to honor opt-out protocol for EUIDs. For details on configuring user opt-outs and honoring them during bidding, see [Honor user opt-outs](#honor-user-opt-outs). |
+
+## Recommendations for Managing Latency
+
+:::note 
+This section refers to the example code in [Usage for DSPs](../sdks/sdk-ref-csharp-dotnet.md#usage-for-dsps) in the *SDK for C# / .NET Reference Guide*. The method names are similar for the [Java](../sdks/sdk-ref-java.md#usage-for-dsps), [Python](../sdks/sdk-ref-python#usage-for-dsps), and [C++](../sdks/sdk-ref-cplusplus.md#interface) SDKs.
+:::
+
+For a low latency/high throughput setup, follow these recommendations:
+
+- Have a local instance of the `BidstreamClient` class for each server. This can be in-process or out-of-process. In-process is the easiest.
+- Call the client `Refresh` method periodically in the background: for example, once per hour, with some randomization to avoid mass simultaneous method calls across all instances after all servers are restarted.
+- When a token needs to be decrypted, call the `DecryptTokenIntoRawUid` method. In-process is the fastest, but out-of-process is also acceptable if it's done correctly.
+  :::note
+  The token decryption method is thread-safe, so you can call it on multiple threads at the same time.
+  :::
 
 ## FAQs
 

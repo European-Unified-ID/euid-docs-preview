@@ -50,7 +50,7 @@ You'll need to complete the following steps:
 
 This guide provides instructions for using either of these EUID mobile SDKs:
 
-- SDK for Android (version 1.5.0 or later)
+- SDK for Android (version 1.6.0 or later)
 - SDK for iOS (version 1.7.0 or later)
 
 For instructions for installing the correct SDK/version into your mobile app, see [Add the EUID Mobile SDK to Your Mobile App](#add-the-euid-mobile-sdk-to-your-mobile-app).
@@ -69,7 +69,7 @@ This example uses the [SDK for Android](../sdks/sdk-ref-android.md) in the clien
 
 ![Mobile Client-Server Integration Example](images/integration-mobile-client-server-euid.png)
 
-<!-- (**GWH_ https://ttdcorp-my.sharepoint.com/:p:/r/personal/rita_aleksanyan_thetradedesk_com/_layouts/15/Doc.aspx?sourcedoc=%7BDF894943-3D6A-4A60-A1E2-176ACD0BBBCC%7D&file=Sample%20Data%20Flow.pptx&wdLOR=c8FEF9DB2-E2FD-4F07-B411-B094C4813ACE&fromShare=true&action=edit&mobileredirect=true**) -->
+<!-- (**GWH_ https://ttdcorp-my.sharepoint.com/:p:/r/personal/RA_FILLINNAME_thetradedesk_com/_layouts/15/Doc.aspx?sourcedoc=%7BDF894943-3D6A-4A60-A1E2-176ACD0BBBCC%7D&file=Sample%20Data%20Flow.pptx&wdLOR=c8FEF9DB2-E2FD-4F07-B411-B094C4813ACE&fromShare=true&action=edit&mobileredirect=true**) -->
 
 ## Implement Server-Side Token Generation
 
@@ -85,7 +85,7 @@ For security reasons, the API key and secret used in token generation must be ca
 
 ## Server-Side Token Refresh
 
-Token refresh is automatically enabled inside the EUID mobile SDKs; you don't need to manage it explicitly on the server side.
+<a href="../ref-info/glossary-uid#gl-token-refresh">Token refresh</a> is automatically enabled inside the EUID mobile SDKs; you don't need to manage it explicitly on the server side.
 
 You might decide to do server-side token refresh if you want to keep your changes in the mobile apps as simple as possible.
 

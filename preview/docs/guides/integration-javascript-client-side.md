@@ -11,11 +11,15 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Link from '@docusaurus/Link';
 
+export const New370 = () => (
+  <span className='pill'>New in version 3.7.0</span>
+);
+
 # Client-Side Integration Guide for JavaScript
 
 This guide is for publishers who want to integrate with EUID and generate <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> (advertising tokens) using only JavaScript client-side changes on their website with minimum effort.
 
-This guide does not apply to publishers who want to use a private operator, or who want to generate tokens server-side. Those publishers should follow the [Client-Server Integration Guide for JavaScript](integration-javascript-client-server.md).
+This guide does not apply to publishers who want to use a <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link>, or who want to generate tokens server-side. Those publishers should follow the [Client-Server Integration Guide for JavaScript](integration-javascript-client-server.md).
 
 EUID provides an SDK for JavaScript (see [SDK for JavaScript Reference Guide](../sdks/sdk-ref-javascript.md)) with the following features:
 
@@ -23,7 +27,7 @@ EUID provides an SDK for JavaScript (see [SDK for JavaScript Reference Guide](..
 - Automatic refreshing of EUID tokens
 - Automatic storage of EUID tokens in the browser
 
-You'll need to complete the following steps:
+To implement, you'll need to complete the following steps:
 
 1. [Complete EUID account setup](#complete-euid-account-setup)
 2. [Add SDK for JavaScript to your site](#add-sdk-for-javascript-to-your-site)
@@ -44,9 +48,9 @@ If you want to use a debug build of the SDK, use the following URL instead:
 
 - [https://cdn.integ.euid.eu/euid-sdk-3.4.5.js](https://cdn.integ.euid.eu/euid-sdk-3.4.5.js)
 
-## Sample Implementation Website
+## Sample Implementation
 
-For an example website, see this example:
+For a sample implementation, see this example:
 - Code: [Example Client-Side Integration for JavaScript](https://github.com/European-Unified-ID/EUID-docs/tree/main/static/examples/cstg-js-sdk-example)
 - Running site: [Client-Side Integration Example, EUID JavaScript SDK](https://euid.eu/examples/cstg-js-sdk-example/)
 
@@ -121,15 +125,17 @@ Tokens from the EUID integration environment are not valid for passing to the <L
 
 EUID provides the publisher with the following values required to use the client-side token generation feature:
 
-* A subscription ID
+* A Subscription ID
 * A public key
 
 You'll have one set of these values for your publisher integration environment, and a separate set for your production environment.
 
-To configure the SDK, call one of the following methods, with an object containing the **public key** and **subscription ID** that you received during account setup, as well as the user's hashed or unhashed personal data (email address):
+To configure the SDK, call one of the following methods, with an object containing the **public key** and **Subscription ID** that you received during account setup, as well as the user's hashed or unhashed <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> (email address or phone number):
 
 *  `__euid.setIdentityFromEmail`
 *  `__euid.setIdentityFromEmailHash`
+*  `__euid.setIdentityFromPhone` <New370 />
+*  `__euid.setIdentityFromPhoneHash` <New370 />
 
 The following sections include coding examples for each scenario.
 
@@ -144,16 +150,18 @@ You can pass the user's personal data to the EUID SDK either hashed or unhashed.
 
 The SDK encrypts the hashed personal data before sending it to the EUID service.
 
-You can configure the SDK using either of the two accepted personal data formats, for any specific user. The personal data format might vary per user, but you can only send one value per user.
+You can configure the SDK using any one of the four accepted personal data formats, for any specific user. The personal data format might vary per user, but you can only send one value per user.
 
 The following examples demonstrate the different ways that you can configure the EUID SDK and list the requirements for the personal data passed to the SDK:
 
-- Configure for Email Address
-- Configure for Hashed Email Address
+- Email, Unhashed
+- Email, Normalized and Hashed
+- Phone Number, Unhashed
+- Phone Number, Normalized and Hashed
 
 If the SDK is configured multiples times, it uses the most recent configuration values.
 
-For an example of how to generate an email hash in JavaScript, see [Example Code: Hashing and Base-64 Encoding](#example-code-hashing-and-base-64-encoding).
+For an example of how to generate email and phone hashes in JavaScript, see [Example Code: Hashing and Base-64 Encoding](#example-code-hashing-and-base-64-encoding).
 
 <Tabs>
 <TabItem value='example_email_unhashed' label='Email, Unhashed'>
@@ -182,7 +190,7 @@ The following example configures the EUID SDK with a hashed email address.
 
 ```js
 await __euid.setIdentityFromEmailHash(
-    'tMmiiTI7IaAcPpQPFQ65uMVCWH8av9jw4cwf/F5HVRQ=',
+    'lz3+Rj7IV4X1+Vr1ujkG7tstkxwk5pgkqJ6mXbpOgTs=',
     {
         subscriptionId: subscriptionId,
         serverPublicKey: publicKey,
@@ -195,11 +203,49 @@ In this scenario:
 - The EUID SDK encrypts the hash before sending it to the EUID service.
 
 </TabItem>
+<TabItem value='example_phone_unhashed' label='Phone Number, Unhashed'>
+
+The following example configures the EUID SDK with a phone number.
+
+```js
+await __euid.setIdentityFromPhone(
+    '+12345678901',
+    {
+        subscriptionId: subscriptionId,
+        serverPublicKey: publicKey,
+    }
+);
+```
+In this scenario:
+
+- **The publisher is responsible for normalizing the phone number**. For details, see [Phone Number Normalization](../getting-started/gs-normalization-encoding.md#phone-number-normalization).
+- The EUID SDK hashes the phone number before sending the encrypted hash to the EUID service.
+
+</TabItem>
+<TabItem value='example_phone_hash' label='Phone Number, Normalized and Hashed'>
+
+The following example configures the EUID SDK with a hashed phone number:
+
+```js
+await __euid.setIdentityFromPhoneHash(
+    'EObwtHBUqDNZR33LNSMdtt5cafsYFuGmuY4ZLenlue4=',
+    {
+        subscriptionId: subscriptionId,
+        serverPublicKey: publicKey,
+    }
+);
+```
+
+In this scenario:
+- **The publisher is responsible for normalizing, hashing, and Base64-encoding the phone number**. For details, see [Normalization and Encoding](../getting-started/gs-normalization-encoding.md).
+- The EUID SDK encrypts the hash before sending it to the EUID service.
+
+</TabItem>
 </Tabs>
 
 ## Token Storage and Refresh
 
-After calling one of the methods listed in [Configure the SDK for JavaScript](#configure-the-sdk-for-javascript) successfully, an identity is generated and stored in local storage, under the key `EUID-sdk-identity`. The SDK refreshes the EUID token periodically.
+After calling one of the methods listed in [Configure the SDK for JavaScript](#configure-the-sdk-for-javascript) successfully, an <Link href="../ref-info/glossary-uid#gl-identity">identity</Link> is generated and stored in local storage, under the key `EUID-sdk-identity`. The SDK refreshes the EUID token periodically.
 
 :::warning
 The format of the object stored in local storage could change without notice. We recommend that you do **not** read and update the object in local storage directly.
@@ -207,7 +253,7 @@ The format of the object stored in local storage could change without notice. We
 
 ## Example Integration Code and When to Pass Personal Data to the EUID SDK
 
-When this is the first page load with no identity, to start the token generation call you'll need to call one of the `setIdentity` methods with personal data. Once an identity is generated, the advertising token (EUID token) that you would send to the bidstream will be available by waiting for the `IdentityUpdated` event from the SDK. For an example, see how the value for `advertising_token_to_use` is set in the following code snippet.
+If you're a publisher and this is the first page load with no <Link href="../ref-info/glossary-uid#gl-identity">identity</Link>, to start the token generation call you'll need to call one of the `setIdentity` methods with personal data. Once an identity is generated, the advertising token (<Link href="../ref-info/glossary-uid#gl-euid-token">EUID token</Link>) that you would send to the bidstream will be available by waiting for the `IdentityUpdated` event from the SDK. For an example, see how the value for `advertising_token_to_use` is set in the following code snippet.
 
 In some cases, the user's personal data is not available on page load, and getting the personal data has some associated cost. For example, an API call might be required to fetch the personal data, or the user has to be prompted to provide it.
 
@@ -261,12 +307,12 @@ window.__euid.callbacks.push(async (eventType, payload) => {
         // }
         var advertising_token_to_use = payload.identity.advertising_token;
       } else {
-          if (__euid.isLoginRequired()) {
-              // Call one of the setIdentityFrom functions to generate a new EUID token.
-              // Add any retry logic around this call as required.
-              await __euid.setIdentityFromEmailHash(
-              emailHash,
-              clientSideConfig);
+         if (__euid.isLoginRequired()) {
+            // Call one of the setIdentityFrom functions to generate a new EUID token.
+            // Add any retry logic around this call as required.
+            await __euid.setIdentityFromEmailHash(
+                emailHash,
+                clientSideConfig);
           }  
           else {
               // there is a token generation API call in flight which triggers a IdentityUpdated event 
@@ -304,7 +350,7 @@ If there was a problem generating the token, find the request in the **Network**
 
 ## Example Code: Hashing and Base-64 Encoding
 
-The following code example demonstrates how to generate an email hash in JavaScript.
+The following code example demonstrates how to generate email and phone hashes in JavaScript.
 
 ```js
 async function hash(value) {

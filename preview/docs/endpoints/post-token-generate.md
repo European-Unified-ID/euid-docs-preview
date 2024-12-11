@@ -6,11 +6,11 @@ sidebar_position: 02
 ---
 
 import Link from '@docusaurus/Link';
-import ExampleTokenGenerateResponse from '/docs/snippets/_example-identity-generate-response.mdx';
+import IdentityGenerateResponse from '/docs/snippets/_example-identity-generate-response.mdx';
 
 # POST /token/generate
 
-Requests an EUID token generated from a user's <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> (email address). If the email address is valid, and the user has not opted out of EUID, this operation returns an EUID token and associated values.
+Requests an EUID token generated from a user's <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> (email address or phone number). If the personal data is valid, and the user has not opted out of EUID, this operation returns an EUID token and associated values.
 
 Used by: This endpoint is used mainly by publishers.
 
@@ -18,7 +18,7 @@ Used by: This endpoint is used mainly by publishers.
 Be sure to call this endpoint only when you have a legal basis to convert the user’s personal data to an EUID token for targeted advertising. The `optout_check` parameter, required with a value of `1`, checks whether the user has opted out.
 :::
 
-<!-- uid2_euid_diff re legal basis. For admonition -->
+<!-- uid2_euid_diff re legal basis for admonition above -->
 
 Rather than calling this endpoint directly, you could use one of the SDKs to manage it for you. For a summary of options, see [SDKs: Summary](../sdks/summary-sdks.md).
 
@@ -26,7 +26,9 @@ Rather than calling this endpoint directly, you could use one of the SDKs to man
 
 `POST '{environment}/v2/token/generate'`
 
-Here's what you need to know about this endpoint requests:
+For authentication details, see [Authentication and Authorization](../getting-started/gs-auth.md).
+
+Here's what you need to know about sending requests to this endpoint:
 - To ensure that the <Link href="../ref-info/glossary-uid#gl-api-key">API key</Link> used to access the service remains secret, EUID tokens must be generated only on the server side after authentication. 
 - You must encrypt all requests using your secret. For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
 
@@ -39,20 +41,22 @@ Here's what you need to know about this endpoint requests:
 ### Unencrypted JSON Body Parameters
 
 :::important
-You must include only **one** of the following two conditional parameters, plus the required `optout_check` parameter with a value of `1`, as key-value pairs in the JSON body of the request when encrypting it.
+You must include only **one** of the following four conditional parameters, plus the required `optout_check` parameter with a value of `1`, as key-value pairs in the JSON body of the request when encrypting it.
 :::
 
 | Body Parameter | Data Type | Attribute | Description | 
 | :--- | :--- | :--- | :--- |
 | `email` | string | Conditionally Required | The email address for which to generate tokens. | 
 | `email_hash` | string | Conditionally Required | The [Base64-encoded SHA-256](../getting-started/gs-normalization-encoding.md#email-address-hash-encoding) hash of a [normalized](../getting-started/gs-normalization-encoding.md#email-address-normalization) email address. |
+| `phone` | string | Conditionally Required | The [normalized](../getting-started/gs-normalization-encoding.md#phone-number-normalization) phone number for which to generate tokens. |
+| `phone_hash` | string | Conditionally Required | The [Base64-encoded SHA-256](../getting-started/gs-normalization-encoding.md#phone-number-hash-encoding) hash of a [normalized](../getting-started/gs-normalization-encoding.md#phone-number-normalization) phone number. |
 | `tcf_consent_string` | string | Optional | The [Transparency and Consent String](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework) from the end user whose identity is used to generate the token. |
 | `optout_check` | number | Required | Checks whether the user has opted out. Include this parameter with a value of `1`.|
 
 ### Request Examples
 
 :::important
-To ensure that the API key used to access the service remains secret, the `POST /token/generate` endpoint must be called from the server side, unlike the [POST&nbsp;/token/refresh](post-token-refresh.md), which does not require using an API key.
+To ensure that the API key used to access the service remains secret, the `POST /token/generate` endpoint must be called from the server side, unlike [POST&nbsp;/token/refresh](post-token-refresh.md) which does not require using an API key. If you want to generate tokens on the client side, see [Client-Side Integration Options](../guides/integration-options-publisher-web.md#client-side-integration-options) (for web-based implementations) or [EUID Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md).
 :::
 
 The following are unencrypted JSON request body examples for each parameter, one of which you should include in your token generation requests:
@@ -69,25 +73,26 @@ The following are unencrypted JSON request body examples for each parameter, one
     "optout_check": 1
 }
 ```
-
-Here's an encrypted token generation request format with placeholder values:
-
-```sh
-echo '[Unencrypted-JSON-Request-Body]' \
-  | encrypt_request.py [CLIENT_SECRET] \
-  | curl -X POST 'https://prod.euid.eu/v2/token/generate' -H 'Authorization: Bearer [CLIENT_API_KEY]' -d @- \
-  | decrypt_response.py [CLIENT_SECRET]
+```json
+{
+    "phone": "+12345678901",
+    "optout_check": 1
+}
+```
+```json
+{
+    "phone_hash": "wdN1alhrbw1Bmz49GzKGdPvGxLhCNn7n3teAOQ/FSK4=",
+    "optout_check": 1
+}
 ```
 
 Here's an encrypted token generation request example for an email hash:
 
 ```sh
-echo '{"email_hash": "tMmiiTI7IaAcPpQPFQ65uMVCWH8av9jw4cwf/F5HVRQ="}' \
-  | encrypt_request.py DELPabG/hsJsZk4Xm9Xr10Wb8qoKarg4ochUdY9e+Ow= \
-  | curl -X POST 'https://prod.euid.eu/v2/token/generate' -H 'Authorization: Bearer YourTokenBV3tua4BXNw+HVUFpxLlGy8nWN6mtgMlIk=' -d @- \
-  | decrypt_response.py DELPabG/hsJsZk4Xm9Xr10Wb8qoKarg4ochUdY9e+Ow=
+echo '{"email_hash": "tMmiiTI7IaAcPpQPFQ65uMVCWH8av9jw4cwf/F5HVRQ=","optout_check":1}' | python3 uid2_request.py https://prod.euid.eu/v2/token/generate [Your-Client-API-Key] [Your-Client-Secret] 
 ```
-For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md)
+
+For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
 
 ## Decrypted JSON Response Format 
 
@@ -102,9 +107,9 @@ This section includes the following sample responses:
 
 #### Successful Response
 
-A successful decrypted response returns the user's advertising and refresh tokens for the specified email address or email address hash. 
+A successful decrypted response returns the user's advertising and refresh tokens for the specified email address, phone number, or the respective hash.
 
-<ExampleTokenGenerateResponse />
+<IdentityGenerateResponse />
 
 #### Optout
 
@@ -142,8 +147,11 @@ If the `status` value is anything other than `success`, the `message` field prov
 
 ## Test Identities
 
-| Type  | Identity                     | Purpose                                                                                                                           | Next Endpoint                                  |
-|:------|:-----------------------------|:----------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------|
-| Email | `validate@example.com`       | Test that the `advertising_token` you've cached matches the `advertising_token` for the specified email address.                  | [POST&nbsp;/token/validate](post-token-validate.md) |
-| Email | `optout@example.com`         | Using this email for the request always generates an `optout` response.                                                           | [POST&nbsp;/token/generate](post-token-generate.md) |
-| Email | `refresh-optout@example.com` | Using this email for the request always generates an identity response with a `refresh_token` that results in an `optout` response. | [POST&nbsp;/token/refresh](post-token-refresh.md)   |
+| Type  | Identity                     | Purpose                                                                                                                                    | Next Endpoint                                       |
+|:------|:-----------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------|
+| Email | `validate@example.com`       | Test that the `advertising_token` you've cached matches the `advertising_token` for the specified email address.                           | [POST&nbsp;/token/validate](post-token-validate.md) |
+| Email | `optout@example.com`         | Using this email for the request always generates an `optout` response.                                                                    | [POST&nbsp;/token/generate](post-token-generate.md) |
+| Email | `refresh-optout@example.com` | Using this email for the request always generates an identity response with a `refresh_token` that results in an `optout` response.        | [POST&nbsp;/token/refresh](post-token-refresh.md)   |
+| Phone | `+12345678901`               | Test that the `advertising_token` you've cached matches the `advertising_token` for the specified phone number.                            | [POST&nbsp;/token/validate](post-token-validate.md) |
+| Phone | `+00000000002`               | Using this phone number for the request always generates an `optout` response.                                                             | [POST&nbsp;/token/generate](post-token-generate.md) |
+| Phone | `+00000000000`               | Using this phone number for the request always generates an identity response with a `refresh_token` that results in an `optout` response. | [POST&nbsp;/token/refresh](post-token-refresh.md)   |

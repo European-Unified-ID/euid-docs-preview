@@ -1,6 +1,6 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-import { themes } from 'prism-react-renderer';
+import { themes } from "prism-react-renderer";
 
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.dracula;
@@ -48,6 +48,7 @@ const config = {
         containerId: "GTM-K3NQMDX",
       },
     ],
+    require.resolve("docusaurus-plugin-image-zoom"),
   ],
 
   presets: [
@@ -66,6 +67,10 @@ const config = {
         blog: false,
         theme: {
           customCss: require.resolve("./src/css/custom.scss"),
+        },
+        sitemap: {
+          changefreq: "daily",
+          lastmod: "datetime",
         },
       }),
     ],
@@ -175,6 +180,10 @@ const config = {
           {
             items: [
               {
+                label: "Report a Vulnerability",
+                href: "https://www.thetradedesk.com/us/trust/report-a-vulnerability",
+              },
+              {
                 label: "Website Privacy Policy",
                 href: "https://www.thetradedesk.com/us/website-privacy-policy",
               },
@@ -204,6 +213,16 @@ const config = {
         //enabling due to possible indexing issue that needs to be corrected on the Algolia side
         //https://docusaurus.io/docs/search#algolia-no-search-results
         contextualSearch: false,
+      },
+      zoom: {
+        selector: ".markdown :not(em) > img",
+        config: {
+          // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
+          background: {
+            light: "rgb(255, 255, 255)",
+            dark: "rgb(50, 50, 50)",
+          },
+        },
       },
     }),
 };

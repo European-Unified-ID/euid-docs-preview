@@ -9,16 +9,13 @@ import Link from '@docusaurus/Link';
 
 # SDK for Android Reference Guide
 
-You can use the SDK for Android for the following:
+You can use the SDK for Android to facilitate the process of generating or establishing client identity using EUID, retrieving advertising tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use, and automatically refreshing EUID tokens.
 
-- Generating or establishing client identity using EUID.
-- Retrieving advertising tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use.
-- Automatically refreshing EUID tokens.
-
-The following Android-related plugin, and associated documentation, is also available.
+The following Android-related plugins, and associated documentation, are also available.
 
 | Purpose | Product/Documentation |
 | :--- | :--- |
+| To use the Google Mobile Ads (GMA) SDK to send <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> as [secure signals](https://support.google.com/admob/answer/11556288) in ad requests from Android apps | [EUID GMA Plugin for Android Integration Guide](../guides/mobile-plugin-gma-android.md) |
 | To use the Google Interactive Media Ads (IMA) SDK for Android to send <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> as [secure signals](https://support.google.com/admob/answer/11556288) in ad requests from Android apps | [EUID IMA Plugin for Android Integration Guide](../guides/mobile-plugin-ima-android.md) |
 
 For FAQs relating to mobile publisher integrations, see [FAQs for Mobile Integrations](../guides/integration-mobile-overview.md#faqs-for-mobile-integrations).
@@ -30,10 +27,10 @@ This SDK for Android can be used for non-mobile devices for Android platforms as
 ## Functionality
 
 This SDK simplifies integration with EUID for any publishers who want to support EUID for apps running on Android devices. The following table shows the functions it supports.
-EUID
-| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to Raw EUID |
-| :--- | :--- | :--- | :--- | :--- |
-| &#8212; | &#8212; | &#9989; | &#9989; | &#8212; |
+
+| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to Raw EUIDs | Monitor Rotated Salt Buckets |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| &#8212; | &#8212; | &#9989; | &#9989; | &#8212; | &#8212; |
 
 The SDK for Android is designed to generate and/or manage EUID identity on behalf of Android apps. It enables EUID identity to be persisted across app lifecycles by securely storing the identity on a device via platform-native encryption tools.
 
@@ -46,9 +43,9 @@ You'll be granted permission to use specific functions offered by the SDK, and g
 
 ## SDK Version
 
-<!-- As of 10 Sept 2024 -->
+<!-- As of 23 Oct 2024 -->
 
-This documentation is for the SDK for Android version 1.5.0 or later.
+This documentation is for the SDK for Android version 1.6.0 and later.
 
 For current and past release notes information, see [https://github.com/IABTechLab/uid2-android-sdk/releases](https://github.com/IABTechLab/uid2-android-sdk/releases).
 
@@ -69,7 +66,7 @@ To consume the binary package of this SDK in your app:
 - Minimum target Android version: 4.4+ / API 19+ (SDK) 5.0+
 
 
-To run the development app (see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md)) or to build binary from source code, the minimum requirements are as follows:
+To run the development app (see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md#client-side-integration-example)) or to build binary from source code, the minimum requirements are as follows:
 
 - Android Studio version: Check the Android Gradle Plugin (AGP) version required by the EUID SDK specified in the [code repository](https://github.com/IABTechLab/uid2-android-sdk/blob/main/gradle/libs.versions.toml) (see the stated `agp` version), and check [the Android Gradle Plugin release notes](https://developer.android.com/build/releases/gradle-plugin) for the corresponding Android Studio version required.
 - Minimum target Android version: 4.4+ / API 19+ (SDK) 5.0+ / API 21+ (Dev-App)
@@ -90,7 +87,7 @@ To install with Gradle, add the SDK as a dependency in the build.gradle
 file:
 
 ```js
-implementation 'com.uid2:uid2-android-sdk:1.5.0'
+implementation 'com.uid2:uid2-android-sdk:1.6.0'
 ```
 
 ### Installing with Maven 
@@ -101,7 +98,7 @@ To install with Maven, add the SDK as a dependency in the `pom.xml` file:
 <dependency> 
   <groupId>com.uid2</groupId> 
   <artifactId>uid2-android-sdk</artifactId> 
-  <version>1.5.0</version> 
+  <version>1.6.0</version> 
 </dependency> 
 ```
 
@@ -127,9 +124,9 @@ class MyApplication : Application() {
 
 There are two ways to establish an initial EUID Identity:
 
-1. Generate the EUID identity using personal data&#8212;email (hashed or unhashed). For integration instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md).
+1. Generate the EUID identity using personal data&#8212;email (hashed or unhashed) or phone number (hashed or unhashed). For integration instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md).
 
-2. Create an EUID identity server-side and then pass it into the EUID SDK. For integration instructions, see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md).
+2. Create an EUID identity server-side and then pass it into the EUID SDK. For integration instructions, see [Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server.md).
 
 The EUID Mobile SDKs can perform refreshes of EUID identities, after an Identity is established. This is because the refresh functionality relies on the refresh tokens that are part of the EUID Identity.
 
@@ -137,7 +134,8 @@ The EUID Mobile SDKs can perform refreshes of EUID identities, after an Identity
 
 The following code samples provide examples of performing specific activities relating to managing EUID with the SDK for Android.
 
-Generate an initial EUID Identity (see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md)):
+Generate an initial EUID Identity (see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk)):
+
 ``` javascript
 EUIDManager.getInstance().generateIdentity(
     identityRequest: IdentityRequest,
@@ -146,7 +144,7 @@ EUIDManager.getInstance().generateIdentity(
     onResult: (GenerateIdentityResult) -> Unit
 )
 ```
-Set the EUID Identity (see [Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md)):
+Set the EUID Identity (see [Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server.md#configure-the-euid-mobile-sdk)):
 
 ```js
 EUIDManager.getInstance().setIdentity(identity: UID2Identity)
@@ -178,7 +176,7 @@ Generate an EUID Identity using <Link href="../ref-info/glossary-uid#gl-personal
 
 #### setIdentity()
 
-Sets an EUID Identity, created server-side, to be managed by the SDK. For details, see [Configure the EUID Mobile SDK](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk) in the *Client-Server Integration Guide for Mobile*.
+Sets an EUID Identity, created server-side, to be managed by the SDK. For details, see [Configure the EUID Mobile SDK](../guides/integration-mobile-client-server.md#configure-the-euid-mobile-sdk) in the *Client-Server Integration Guide for Mobile*.
 
 #### resetIdentity()
 

@@ -11,6 +11,56 @@ import Link from '@docusaurus/Link';
 
 Check out the latest updates to our EUID documentation resources.
 
+### New: Zoom-In Tool for Images
+
+December 15, 2024
+
+The EUID docs site now includes a zoom-in tool for images.
+
+Just hover over the image and the tool appears as a magnifying glass... click to view a magnified version of the image.
+
+<!-- APIDOCS-2237 for both -->
+
+### New: EUID Hashing Tool
+
+November 26, 2024
+
+We've added a new EUID hashing tool so that you can check that you're normalizing and encoding correctly.
+
+For details, see [EUID Hashing Tool](../getting-started/gs-normalization-encoding#euid-hashing-tool) in the *Normalization and Encoding* documentation.
+
+<!-- APIDOCS-2772 -->
+
+### New: EUID Phone Number Support
+
+November 22, 2024
+
+EUID now supports phone numbers, as well as email addresses, as valid <Link href="glossary-uid#gl-personal-data">personal data</Link>.
+
+All the EUID documentation has been updated to reflect this support, including reference information, procedures, and code samples. 
+
+<!-- APIDOCS-2691 -->
+
+### New: LiveRamp Integration Tips
+
+November 14, 2024
+
+We've added a new reference page with tips for publishers who are using LiveRamp's Authenticated Traffic Solution (ATS) to generate EUID tokens to be passed in the bid request.
+
+For details, see [LiveRamp Integration Tips](../guides/integration-liveramp-tips.md).
+
+<!-- APIDOCS-2699 -->
+
+### New: GMA Android Doc
+
+October 24, 2024
+
+We've added the following new document to support EUID integration with GMA Android for mobile ads:
+
+- [EUID GMA Plugin for Android Integration Guide](../guides/mobile-plugin-gma-android)
+
+<!-- APIDOCS-2390 -->
+
 ### New: Mobile Docs
 
 September 16, 2024

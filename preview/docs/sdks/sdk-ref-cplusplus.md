@@ -7,9 +7,9 @@ sidebar_position: 10
 
 import Link from '@docusaurus/Link';
 
-# SDK for C++ (Server-Side) Reference Guide
+# SDK for C++ Reference Guide
 
-You can use the SDK for C++ (Server-Side) to facilitate decrypting of EUID tokens to access the raw EUID. 
+You can use the SDK for C++ on the server side to decrypt EUID tokens to access the raw EUID.
 
 ## Overview
 
@@ -19,9 +19,17 @@ The functions outlined here define the information that you'll need to configure
 
 This SDK simplifies integration with EUID for any DSPs who are using C++ for their server-side coding. The following table shows the functions it supports.
 
-| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token |
-| :--- | :--- | :--- | :--- |
-| &#9989; | &#9989; | &#8212; | &#8212; |
+| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to Raw EUIDs | Monitor Rotated Salt Buckets |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| &#9989; | &#9989; | &#8212; | &#8212; | &#8212; | &#8212; |
+
+## API Permissions
+
+To use this SDK, you'll need to complete the EUID account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page.
+
+You'll be granted permission to use specific functions offered by the SDK, and given credentials for that access. Bear in mind that there might be functions in the SDK that you don't have permission to use. For example, publishers get a specific API permission to generate and refresh tokens, but the SDK might support other activities that require a different API permission.
+
+For details, see [API Permissions](../getting-started/gs-permissions.md).
 
 ## Version
 
@@ -32,6 +40,8 @@ The SDK requires C++ version 11.
 This SDK is in the following open-source GitHub repository:
 
 - [SDK for C++](https://github.com/IABTechLab/uid2-client-cpp11/blob/master/README.md).
+
+  >NOTE: This SDK is valid for both UID2 and EUID. The SDK, and some of its technical components, are named UID2, but are equally applicable for EUID.
 
 Release tags are available in the following GitHub location, but you must build your own binaries:
 
@@ -87,7 +97,7 @@ Available information returned through the SDK is outlined in the following tabl
 | `InvalidPayload` | The incoming EUID advertising token is not a valid payload. |
 | `ExpiredToken` | The incoming EUID advertising token has expired. |
 | `KeysNotSynced` | The client has failed to synchronize keys from the EUID service. |
-| `VersionNotSupported` |  The client library does not support the version of the encrypted token. |
+| `VersionNotSupported` | The client library does not support the version of the encrypted token. |
 
 ## FAQs
 
