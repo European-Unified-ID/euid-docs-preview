@@ -7,7 +7,7 @@ export function useForcedDarkTheme() {
   React.useEffect(() => {
     const originalTheme = colorMode;
 
-    //@ts-expect-error - The second parameter exists, it's just not on the type :(
+    // The second parameter exists, it's just not on the type :(
     setColorMode("dark", { persist: false });
 
     return () => {

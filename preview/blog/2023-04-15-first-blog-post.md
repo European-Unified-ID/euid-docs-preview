@@ -7,5 +7,3 @@ sidebar_position: 09
 ---
 
 Release of the UID2 website!
-
-<!-- truncate -->

@@ -1,6 +1,6 @@
 ---
 title: POST /token/validate
-description: Validates an advertising token (for testing purposes). 
+description: Validate an advertising token (for testing purposes). 
 hide_table_of_contents: false
 sidebar_position: 03
 ---
@@ -8,36 +8,31 @@ sidebar_position: 03
 import Link from '@docusaurus/Link';
 
 # POST /token/validate
-
-Validates that an advertising token matches the specified hashed or unhashed email address or phone number. 
+Validate that an advertising token matches the specified hashed or unhashed email address or phone number. 
 
 Used by: This endpoint is used mainly by publishers.
 
-:::note
-This endpoint is intended primarily for testing and troubleshooting new integrations.
-:::
+>NOTE: This endpoint is intended primarily for testing and troubleshooting new integrations.
 
 ## Request Format 
 
 `POST '{environment}/v2/token/validate'`
 
-:::important
-You must encrypt all requests using your secret key. For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
-:::
+>IMPORTANT: You must encrypt all requests using your secret key. For details, and code examples in different programming languages, see [Encrypting Requests and Decrypting Responses](../getting-started/gs-encryption-decryption.md).
+
 
 ### Path Parameters
 
 | Path Parameter | Data Type | Attribute | Description |
 | :--- | :--- | :--- | :--- |
-| `{environment}` | string | Required | Integration environment: `https://operator-integ.uidapi.com`<br/>Production environment: The best choice depends on where your users are based. For information about how to choose the best URL for your use case, and a full list of valid base URLs, see [Environments](../getting-started/gs-environments.md). |
+| `{environment}` | string | Required | Testing environment: `https://operator-integ.uidapi.com`<br/>Production environment: `https://prod.uidapi.com`<br/>For a full list, including regional operators, see [Environments](../getting-started/gs-environments.md). |
 
-:::note
-The integration environment and the production environment require different <Link href="../ref-info/glossary-uid#gl-api-key">API keys</Link>.
-:::
+>NOTE: The integration environment and the production environment require different <Link href="../ref-info/glossary-uid#gl-api-key">API keys</Link>.
+
 
 ### Unencrypted JSON Body Parameters
 
-- Include only one of the following four valid options, as listed in the Body Parameter table: `email`, `email_hash`, `phone`, or `phone_hash`. For the parameter you choose to test with, use the exact value listed.
+- Include only one of the following four valid options, as listed in the Body Parameter table: `email`, `email_hash`, `phone`, or `phone_hash`. For the parameter you choose to test with, use the exact value listed. 
 - Include the required body parameters as key-value pairs in the JSON body of a request when encrypting it.
 
 | Body Parameter | Data Type | Attribute | Description |
@@ -52,9 +47,7 @@ The integration environment and the production environment require different <Li
 
 The following are unencrypted JSON request body examples for each parameter, which you need to include in your token validation requests:
 
-:::note
-The advertising tokens in these examples are fictitious, for illustrative purposes only. The values provided are not real values.
-:::
+>NOTE: The advertising tokens in these examples are fictitious, for illustrative purposes only. The values provided are not real values.
 
 ```json
 {
@@ -91,11 +84,9 @@ For details, and code examples in different programming languages, see [Encrypti
 
 ## Decrypted JSON Response Format
 
-:::note
-The response is encrypted only if the HTTP status code is 200. Otherwise, the response is not encrypted.
-:::
+>NOTE: The responses are encrypted only if the HTTP status code is 200. Otherwise, the response is not encrypted.
 
-A successful decrypted response returns a boolean value that indicates the validation status of the specified advertising token, as shown in the following example:
+A successful decrypted response returns a boolean value that indicates the validation status of the specified advertising token, as shown in the following example: 
 
 ```json
 {
@@ -124,7 +115,7 @@ If the `status` value is anything other than `success`, the `message` field prov
 
 ## Using POST /token/validate to Test
 
-You can use this endpoint to test whether the <Link href="../ref-info/glossary-uid#gl-dii">DII</Link> that you are sending through [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) is valid. Follow these steps.
+You can use this endpoint to test whether the <Link href="../ref-info/glossary-uid#gl-dii">DII</Link> you are sending through [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) is valid. Follow these steps.
 
 1. Depending on whether the DII is a hashed or unhashed email address or phone number, send a [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) request using one of the four valid options listed in the [Unencrypted JSON Body Parameters](#unencrypted-json-body-parameters) table&#8212;`email`, `email_hash`, `phone`, or `phone_hash`&#8212;with the corresponding value as listed in the table.
 

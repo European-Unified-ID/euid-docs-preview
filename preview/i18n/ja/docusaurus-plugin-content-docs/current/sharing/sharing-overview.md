@@ -1,6 +1,6 @@
 ---
 title: Overview of Sharing
-description: 他の参加者と UID2 を共有する方法について学ぶ。
+description: Learn about sharing UID2s with other participants.
 hide_table_of_contents: false
 sidebar_position: 01
 displayed_sidebar: docs
@@ -10,52 +10,55 @@ import Link from '@docusaurus/Link';
 
 # UID2 Sharing: Overview 
 
-UID2 では、Sharing とは、UID2 参加者間で [raw UID2](../ref-info/glossary-uid.md#gl-raw-uid2) または [UID2 Token](../ref-info/glossary-uid.md#gl-raw-uid2) を配布するプロセスです。
+In UID2, sharing is a process for distributing either [raw UID2s](../ref-info/glossary-uid.md#gl-raw-uid2) or [UID2 tokens](../ref-info/glossary-uid.md#gl-raw-uid2) between UID2 participants.
 
-raw UID2 または UID2 Token が他の参加者と共有される場合はすべて、Sharing の定義に該当します。raw UID2 を送信するすべての共有参加者は、標準セキュリティプラクティスで指定されているセキュリティ要件に従わなければなりません。詳細は [Security Requirements for UID2 Sharing](sharing-security.md) を参照してください。UID2 Token を共有するすべての参加者は、以下の手順に従うことを推奨します。
+All instances where a raw UID2 or UID2 token is shared with another participant fall under the definition of sharing. All sharing participants who send raw UID2s must follow the security requirements specified in the standard security practices. For details, see [Security Requirements for UID2 Sharing](sharing-security.md). We encourage all participants who are sharing UID2 tokens to follow these steps.
+
+<!-- In this file:
+- [Sharing Participants](#sharing-participants)
+- [Approved Sharing Scenarios](#approved-sharing-scenarios)
+- [UID2 Sharing Approaches](#uid2-sharing-approaches)
+  - [Sharing UID2 Tokens](#sharing-uid2-tokens)
+  - [Sharing Raw UID2s](#sharing-raw-uid2s) -->
 
 ## Sharing Participants
 
-UID2 では、Sharing Participant とは、ある UID2 参加者から別の UID2 参加者への raw UID2 または UID2 Token の配布に参加する企業のことです。
+In UID2, a sharing participant is a company that takes part in distributing raw UID2s or UID2 tokens from one UID2 participant to another, either as a sender or a receiver.
 
-共有参加者は、パブリッシャー、広告主、DSP、データプロバイダである場合もあれば、これらの役割を複数持つ場合もあります。
+A sharing participant can be a publisher, advertiser, DSP, or data provider, or might have more than one of these roles.
 
 ## Approved Sharing Scenarios
 
-いくつかの主な共有シナリオは次の表にまとめられています。
+There are several main sharing scenarios, summarized in the following table. 
 
-例については、[Sharing UID2s: Use Cases](sharing-use-cases.md) を参照してください。
+For examples, see [Sharing UID2s: Use Cases](sharing-use-cases.md).
 
 | Sharing Scenario | Sender | Receiver | Sharing Approach | Sharing Route | Link for Details
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| ビッドストリームでの共有 | Publisher | DSP | UID2 Token の共有 (tokenized sharing) | パブリッシャーが UID2 Token を生成し、<Link href="../ref-info/glossary-uid#gl-bidstream">ビッドストリーム</Link>に送信します。 | [Tokenized Sharing in the Bidstream](sharing-tokenized-from-data-bid-stream.md) |
-| ピクセルによる共有 | Any authorized [participant](../ref-info/glossary-uid.md#gl-sharing-participant) | Any authorized [participant](../ref-info/glossary-uid.md#gl-sharing-participant) | UID2 Token の共有 (tokenized sharing) | トラッキングピクセルやクリエイティブピクセルなど、あらゆるピクセルを介した共有。 | [Tokenized Sharing in Pixels](sharing-tokenized-from-data-pixel.md) |
-| 他の UID2 Sharing 参加者とビッドストリームまたはピクセル以外で共有 | Any authorized [participant](../ref-info/glossary-uid.md#gl-sharing-participant) | Any authorized [participant](../ref-info/glossary-uid.md#gl-sharing-participant) | raw UID2 の共有<br/>または<br/>UID2 Token の共有 (tokenized sharing) | APIやAmazon S3ドロップなど安全なチャネルによる共有。 | [Raw UID2 Sharing](sharing-raw.md)<br/>or<br/>[Tokenized Sharing from Raw UID2s](sharing-tokenized-from-raw.md) |
+| Sharing in the bid stream | Publisher | DSP | Sharing UID2 tokens (tokenized sharing) | Publisher generates UID2 token and sends it into the bid stream.  | [Tokenized Sharing in the Bid Stream](sharing-tokenized-from-data-bid-stream.md) |
+| Sharing via a pixel | Any authorized [participant](../ref-info/glossary-uid.md#gl-sharing-participant) | Any authorized [participant](../ref-info/glossary-uid.md#gl-sharing-participant) | Sharing UID2 tokens (tokenized sharing) | Sharing via any pixel, such as a tracking pixel or creative pixel. | [Tokenized Sharing in Pixels](sharing-tokenized-from-data-pixel.md) |
+| Sharing with another UID2 sharing participant, outside of the bid steam or pixels | Any authorized [participant](../ref-info/glossary-uid.md#gl-sharing-participant) | Any authorized [participant](../ref-info/glossary-uid.md#gl-sharing-participant) | Sharing raw UID2s<br/>or<br/>Sharing UID2 tokens (tokenized sharing) | Sharing by any secure channel, such as via API or Amazon S3 drop. | [Raw UID2 Sharing](sharing-raw.md)<br/>or<br/>[Tokenized Sharing from Raw UID2s](sharing-tokenized-from-raw.md) |
 
 ## UID2 Sharing Approaches
 
-Sharing 参加者が UID2 を他の許可された共有参加者と共有したい場合、2つの経路があります:
+If a sharing participant wants to share UID2s with another authorized sharing participant, there are two possible paths:
 
 - [Sharing UID2 Tokens](#sharing-uid2-tokens)
 - [Sharing Raw UID2s](#sharing-raw-uid2s)
 
 ### Sharing UID2 Tokens
 
-以下は、UID2 Token を共有 ([tokenized sharing](../ref-info/glossary-uid.md#gl-tokenized-sharing)) するための手順です:
+The following are the high-level steps for sharing UID2 tokens ([tokenized sharing](../ref-info/glossary-uid.md#gl-tokenized-sharing)):
 
-  1. 送信者は UID2 Portal で共有権限を設定します。
-
-     :::note
-     共有を使用するには、API key ([API Keys](../portal/api-keys.md) を参照してください) または client-side key pair ([Client-Side Integration](../portal/client-side-integration.md) を参照してください) が必要です。UID2 Portal では、共有権限を設定する前に、これらの値を設定してください。
-     :::
-  2. 送信者は以下のいずれかを行います:
+  1. The sender sets up sharing permissions in the UID2 Portal.
+  2. The sender does either of the following:
   
-     - DII から UID2 Token を生成します。
-     - raw UID2 を UID2 Token に暗号化します。
-  3. 受信者は、共有シナリオに適用される指示に従って、UID2 Token を raw UID2 に復号します ([Approved Sharing Scenarios](#approved-sharing-scenarios) を参照してください)。
+     - Generates UID2 tokens from DII.
+     - Encrypts raw UID2s into UID2 tokens.
+  3. The receiver decrypts the UID2 tokens into raw UID2s, following the instructions that apply to the sharing scenario (see [Approved Sharing Scenarios](#approved-sharing-scenarios)).
 
-UID2 Token を共有するためのオプションの詳細と説明へのリンクについては、[Tokenized Sharing Overview](sharing-tokenized-overview.md) を参照してください。
+For more information about the options for sharing UID2 tokens, and links to instructions, see [Tokenized Sharing Overview](sharing-tokenized-overview.md).
 
 ### Sharing Raw UID2s
 
-raw UID2 を共有するには、送り手と受け手の両方が、raw UID2 が漏洩しないことを保証するためのリソース、プロセス、設備を備え、[Security Requirements for UID2 Sharing](sharing-security.md) で定義されている標準的なセキュリティ慣行に従う [sharing participants](ref-info/glossary-uid.md#gl-sharing-participant) であることを期待します。
+To share raw UID2s, we expect that both the sender and receiver are [sharing participants](ref-info/glossary-uid.md#gl-sharing-participant) who have the resources, processes, and facilities in place to ensure that the raw UID2s are not compromised, and who will follow standard security practices as defined in [Security Requirements for UID2 Sharing](sharing-security.md).

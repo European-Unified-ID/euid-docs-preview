@@ -11,6 +11,17 @@ import Link from '@docusaurus/Link';
 
 In some cases, sharing participants might have raw UID2s and want to encrypt them before sending to another sharing participant. One example is for advertisers sharing UID2s in creative pixels.
 
+<!-- In this file:
+- [Audience](#audience)
+- [Overview](#overview)
+- [Account Setup in the UID2 Portal](#account-setup-in-the-uid2-portal)
+- [Tokenized Sharing Steps: Summary](#tokenized-sharing-steps-summary)
+- [Implementing Sharing Encryption/Decryption with an SDK](#implementing-sharing-encryptiondecryption-with-an-sdk)
+  - [Decryption Key Refresh Cadence for Sharing (SDK Only)](#decryption-key-refresh-cadence-for-sharing-sdk-only)
+  - [Decryption Key Refresh Example](#decryption-key-refresh-example)
+- [Implementing Sharing Encryption/Decryption Using Snowflake](#implementing-sharing-encryptiondecryption-using-snowflake)
+- [Information for Sharing Receivers](#information-for-sharing-receivers) -->
+
 ### Audience
 
 Tokenized sharing from raw UID2s could be applicable to any sharing participant, depending on the use case.
@@ -44,9 +55,7 @@ At a very high level, the following are the steps to set up and configure tokeni
 
 The workflow for tokenized sharing by generating UID2 tokens from raw UID2s consists of the following steps.
 
-:::note
-Both sender and receiver must have a UID2 Portal account. See [Request an Account](../portal/portal-getting-started.md#request-an-account).
-:::
+NOTE: Both sender and receiver must have a UID2 Portal account. See [Request an Account](../portal/portal-getting-started.md#request-an-account).
 
 1. Sender and receiver: Integrate with UID2 sharing, using a [UID2 SDK](sharing-tokenized-from-raw.md#implementing-sharing-encryptiondecryption-with-an-sdk) or [Snowflake](sharing-tokenized-from-raw.md#implementing-sharing-encryptiondecryption-using-snowflake).
 
@@ -77,10 +86,10 @@ The following steps are for all sharing participants who are using an SDK to enc
 
    | SDK/Integration Tool | Link to Sharing Section |
    | :--- | :--- | 
-   | C# / .NET | [SDK for C# / .NET: Usage for UID2 Sharers](../sdks/sdk-ref-csharp-dotnet.md#usage-for-uid2-sharers) |
-   | C++ | [SDK for C++: Usage for UID2 Sharers](../sdks/sdk-ref-cplusplus.md#usage-for-uid2-sharers) |
-   | Java | [SDK for Java: Usage for UID2 Sharers](../sdks/sdk-ref-java.md#usage-for-uid2-sharers) |
-   | Python | [SDK for Python: Usage for UID2 Sharers](../sdks/sdk-ref-python.md#usage-for-uid2-sharers) |
+   | C# / .NET | [UID2 SDK for C# / .NET: Usage for UID2 Sharers](../sdks/uid2-sdk-ref-csharp-dotnet.md#usage-for-uid2-sharers) |
+   | C++ | [UID2 SDK for C++: Usage for UID2 Sharers](../sdks/uid2-sdk-ref-cplusplus.md#usage-for-uid2-sharers) |
+   | Java | [UID2 SDK for Java: Usage for UID2 Sharers](../sdks/uid2-sdk-ref-java.md#usage-for-uid2-sharers) |
+   | Python | [UID2 SDK for Python: Usage for UID2 Sharers](../sdks/uid2-sdk-ref-python.md#usage-for-uid2-sharers) |
 
 2. Integrate the SDK into your code to implement each step, depending on whether your role is sender or receiver. To see code examples for the language you're using, follow the link in the table provided in Step 1.
    1. Both senders and receivers: define the UID2 client.
@@ -119,7 +128,7 @@ This example illustrates how the `uid2client.refresh()` function enables a new s
 
 The following steps are for Snowflake users who want to take part in UID2 sharing, either as senders or receivers.
 
-1. Review the examples in [Snowflake Integration Guide: Usage for UID2 Sharers](../guides/snowflake_integration.md#usage-for-uid2-sharers) to see what the sharing code might look like.
+1. Review the examples in  [Snowflake Integration Guide: Usage for UID2 Sharers](../guides/snowflake_integration.md#usage-for-uid2-sharers) to see what the sharing code might look like.
 
 2. Integrate Snowflake into your code, according to whether your role is sender or receiver. Use the code examples in the documentation referenced in the Snowflake Integration Guide, [UID2 Sharing Example](../guides/snowflake_integration.md#uid2-sharing-example):
 

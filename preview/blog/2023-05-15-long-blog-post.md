@@ -7,5 +7,3 @@ sidebar_position: 08
 ---
 
 Lots of stuff will have happened in May. But it hasn't happened yet...
-
-<!-- truncate -->

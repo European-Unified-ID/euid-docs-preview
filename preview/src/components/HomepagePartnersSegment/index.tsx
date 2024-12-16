@@ -23,7 +23,7 @@ import uploadAnimation from "./uploadIconData.json";
 type PartnerItem = {
   heading: string;
   Svg: React.ComponentType<React.ComponentProps<"svg">>;
-  animationData: Record<string, unknown>;
+  animationData: JSON;
   url: string;
   description: string;
 };

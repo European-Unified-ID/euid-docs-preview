@@ -8,15 +8,14 @@ sidebar_position: 11
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Link from '@docusaurus/Link';
-import IdentityGenerateResponse from '/docs/snippets/_example-identity-generate-response.mdx';
 
 # Encrypting Requests and Decrypting Responses
 
 :::note
-If you're a publisher and are implementing UID2 on the client side, encryption and decryption is managed automatically by your implementation, such as Prebid.js (see [UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md)) or the JavaScript SDK (see [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md)).
+If you're a publisher and are implementing UID2 on the client side, encryption and decryption is managed automatically by your implementation, such as Prebid.js (see [UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md)) or the JavaScript SDK (see [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md)).
 :::
 
-For almost all UID2 [endpoints](../endpoints/summary-endpoints.md), requests sent to the endpoint must be [encrypted](#encrypting-requests) and responses from the endpoint must be [decrypted](#decrypting-responses).
+For almost all UID2 [endpoints](../endpoints/summary-endpoints.md), requests sent to the endpoint must be [encrypted](#encrypting-requests) and responses from the endpoint must be [decrypted](#decrypting-responses). 
 
 The only exception is that requests to the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint do not need to be encrypted.
 
@@ -25,8 +24,8 @@ Here's what you need to know about encrypting UID2 API requests and decrypting r
 - To use the APIs, in addition to your client API key, you need your client secret.
 - You can write your own custom code or use one of the code examples provided: see [Encryption and Decryption Code Examples](#encryption-and-decryption-code-examples).
 - Request and response use AES/GCM/NoPadding encryption algorithm with 96-bit initialization vector and 128-bit authentication tag.
-- The raw, unencrypted JSON body of the request is wrapped in a binary [unencrypted request data envelope](#unencrypted-request-data-envelope) which then gets encrypted and formatted according to the [encrypted request envelope](#encrypted-request-envelope).
-- The response JSON body is wrapped in a binary [unencrypted response data envelope](#unencrypted-response-data-envelope) which is encrypted and formatted according to the [encrypted response envelope](#encrypted-response-envelope).
+- The raw, unencrypted JSON body of the request is wrapped in a binary [unencrypted request data envelope](#unencrypted-request-data-envelope) which then gets encrypted and formatted according to the [Encrypted Request Envelope](#encrypted-request-envelope).
+- The response JSON body is wrapped in a binary [Unencrypted Response Data Envelope](#unencrypted-response-data-envelope) which is encrypted and formatted according to the [Encrypted Response Envelope](#encrypted-response-envelope).
 
 ## Workflow
 
@@ -45,7 +44,7 @@ The high-level request-response workflow for the UID2 APIs includes the followin
 
 A code example for [encrypting requests and decrypting responses](#encryption-and-decryption-code-examples) can help with automating steps 2-10 and serves as a reference of how to implement these steps in your application.
 
-Documentation for the individual UID2 [endpoints](../endpoints/summary-endpoints.md) explains the respective JSON body format requirements and parameters, includes call examples, and shows decrypted responses. The following sections provide encryption and decryption code examples, field layout requirements, and request and response examples.
+Documentation for the individual UID2 [endpoints](../endpoints/summary-endpoints.md) explains the respective JSON body format requirements and parameters, includes call examples, and shows decrypted responses. The following sections provide encryption and decryption code examples, field layout requirements, and request and response examples. 
 
 ## Encrypting Requests
 
@@ -57,7 +56,7 @@ The following table describes the field layout for request encryption code.
 
 | Offset (Bytes) | Size (Bytes) | Description |
 | :--- | :--- | :--- |
-| 0 | 8 | The <a href="../ref-info/glossary-uid#gl-unix-time">Unix</a> timestamp (in milliseconds). Must be int64 big endian. |
+| 0 | 8 | The UNIX timestamp (in milliseconds). Must be int64 big endian. |
 | 8 | 8 | Nonce: Random 64 bits of data used to help protect against replay attacks. The corresponding [Unencrypted Response Data Envelope](#unencrypted-response-data-envelope) should contain the same nonce value for the response to be considered valid. |
 | 16 | N | Payload, which is a request JSON document serialized in UTF-8 encoding. |
 
@@ -96,7 +95,7 @@ The following table describes the field layout for response decryption code.
 
 | Offset (Bytes) | Size (Bytes) | Description |
 | :--- | :--- | :--- |
-| 0 | 8 | The Unix timestamp (in milliseconds). Must be int64 big endian. |
+| 0 | 8 | The UNIX timestamp (in milliseconds). Must be int64 big endian. |
 | 8 | 8 | Nonce. For the response to be considered valid, this should match the nonce in the [unencrypted request data envelope](#unencrypted-request-data-envelope). |
 | 16 | N | Payload, which is a response JSON document serialized in UTF-8 encoding. |
 
@@ -104,7 +103,20 @@ The following table describes the field layout for response decryption code.
 
 For example, a decrypted response to the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) request for an email address might look like this:
 
-<IdentityGenerateResponse />
+```json
+{
+    "body": {
+        "advertising_token": "AgAAAQFt3aNLXKXEyWS8Tpezcymk1Acv3n+ClOHLdAgqR0kt0Y+pQWSOVaW0tsKZI4FOv9K/rZH9+c4lpm2DBpmFJqjdF6FAaAzva5vxDIX/67UOspsYtiwxH73zU7Fj8PhVf1JcpsxUHRHzuk3vHF+ODrM13A8NAVlO1p0Wkb+cccIIhQ==",
+        "user_token": "AgAAAPpTqz7/Z+40Ue5G3XOM2RiyU6RS9Q5yj1n7Tlg7PN1K1LZWejvo8Er7A+Q8KxdXdj0OrKRf/XEGWsyUJscRNu1bg/MK+5AozvoJKUca8b10eQdYU86ZOHPH7pFnFhD5WHs=",
+        "refresh_token": "AAAAAQLMcnV+YE6/xoPDZBJvJtWyPyhF9QTV4242kFdT+DE/OfKsQ3IEkgCqD5jmP9HuR4O3PNSVnCnzYq2BiDDz8SLsKOo6wZsoMIn95jVWBaA6oLq7uUGY5/g9SUOfFmX5uDXUvO0w2UCKi+j9OQhlMfxTsyUQUzC1VQOx6ed/gZjqH/Sw6Kyk0XH7AlziqSyyXA438JHqyJphGVwsPl2LGCH1K2MPxkLmyzMZ2ghTzrr0IgIOXPsL4lXqSPkl/UJqnO3iqbihd66eLeYNmyd1Xblr3DwYnwWdAUXEufLoJbbxifGYc+fPF+8DpykpyL9neq3oquxQWpyHsftnwYaZT5EBZHQJqAttHUZ4yQ==",
+        "identity_expires": 1654623500142,
+        "refresh_expires": 1657214600142,
+        "refresh_from": 1654622900142,
+        "refresh_response_key": "wR5t6HKMfJ2r4J7fEGX9Gw=="
+    },
+    "status": "success"
+}
+```
 
 ## Encryption and Decryption Code Examples
 
@@ -112,6 +124,7 @@ This section includes encryption and decryption code examples in different progr
 
 For the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint, the code takes the values for `refresh_token` and `refresh_response_key` that were obtained from a prior call to [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) or [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md).
 
+## Encryption and Decryption Code Examples
 :::note
 For Windows, if you're using Windows Command Prompt instead of PowerShell, you must also remove the single quotes surrounding the JSON. For example, use `echo {"email": "test@example.com"}`.
 :::
@@ -198,18 +211,12 @@ If you are using Maven, you can use the following minimal `pom.xml`, and run `mv
   </build>
 </project>
 ```
-
 </TabItem>
 <TabItem value='cs' label='C#'>
 
 The following code example encrypts requests and decrypts responses using C#. The required parameters are shown at the top of the file, or by building and running `.\uid2_request`.
 
 This file requires .NET 7.0. You can use an earlier version if required, but it must be .NET Core 3.0 or later. To change the version, replace the [top-level statements](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/program-structure/top-level-statements) with a Main method and the [using declarations](https://learn.microsoft.com/en-us/cpp/cpp/using-declaration?view=msvc-170) with [using statements](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-8.0/using).
-
-</TabItem>
-<TabItem value='go' label='Go'>
-
-The following code example encrypts requests and decrypts responses using Go. The required parameters are shown at the bottom of the file, or by running `go run uid2_request.go`.
 
 </TabItem>
 </Tabs>
@@ -320,6 +327,7 @@ else:
 
 </TabItem>
 <TabItem value='java' label='Java'>
+
 
 ```java title="Uid2Request.java"
 package org.example;
@@ -580,248 +588,5 @@ else
     Console.WriteLine(JsonSerializer.Serialize(jDoc, new JsonSerializerOptions { WriteIndented = true }));
 }
 ```
-
 </TabItem>
-
-<TabItem value='go' label='Go'>
-
-
-```go title="uid2_request.go"
-package main
-
-import (
-	"bytes"
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/rand"
-	"encoding/base64"
-	"encoding/binary"
-	"encoding/json"
-	"fmt"
-	"io"
-	"log"
-	"net/http"
-	"os"
-	"strings"
-	"time"
-)
-
-const (
-	nonceLengthBytes = 8
-	gcmIVLengthBytes = 12
-)
-
-func main() {
-	subArgs := os.Args[1:]
-
-	if len(subArgs) != 3 && len(subArgs) != 4 {
-		printUsage()
-		os.Exit(1)
-	}
-
-	url := subArgs[0]
-
-	response, err := func() (map[string]interface{}, error) {
-		if subArgs[1] == "--refresh-token" {
-			return refresh(url, subArgs[2], subArgs[3])
-		} else {
-			return generate(url, subArgs[1], subArgs[2])
-		}
-	}()
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	prettyPrint(response)
-}
-
-func refresh(url string, refreshToken string, refreshResponseKey string) (map[string]interface{}, error) {
-	fmt.Printf("Request: Sending refresh_token to %s\n", url)
-
-	response, err := http.Post(url, "", strings.NewReader(refreshToken))
-	if err != nil {
-		return nil, err
-	}
-
-	return deserializeResponse(response, refreshResponseKey, true)
-}
-
-func generate(url string, apiKey string, secret string) (map[string]interface{}, error) {
-	payload, err := io.ReadAll(os.Stdin)
-	if err != nil {
-		return nil, err
-	}
-
-	key, err := base64.StdEncoding.DecodeString(secret)
-	if err != nil {
-		return nil, err
-	}
-
-	unencryptedEnvelope, err := makeUnencryptedEnvelope(payload)
-	if err != nil {
-		return nil, err
-	}
-
-	envelope, err := makeEncryptedEnvelope(unencryptedEnvelope, key)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", url, strings.NewReader(base64.StdEncoding.EncodeToString(envelope)))
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Authorization", "Bearer "+apiKey)
-
-	response, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	return deserializeResponse(response, secret, false)
-}
-
-func aesgcm(key []byte) (cipher.AEAD, error) {
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return nil, err
-	}
-
-	return cipher.NewGCM(block)
-}
-
-func decryptResponse(ciphertext string, key string) ([]byte, error) {
-	ciphertextBytes, err := base64.StdEncoding.DecodeString(ciphertext)
-	if err != nil {
-		return nil, err
-	}
-
-	keyBytes, err := base64.StdEncoding.DecodeString(key)
-	if err != nil {
-		return nil, err
-	}
-
-	aesgcm, err := aesgcm(keyBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	iv := ciphertextBytes[:gcmIVLengthBytes]
-	return aesgcm.Open(nil, iv, ciphertextBytes[gcmIVLengthBytes:], nil)
-}
-
-func deserialize(bytes []byte) (map[string]interface{}, error) {
-	var anyJson map[string]interface{}
-	err := json.Unmarshal(bytes, &anyJson)
-	return anyJson, err
-}
-
-func prettyPrint(obj map[string]interface{}) error {
-	bytes, err := json.MarshalIndent(obj, "", "  ")
-	if err != nil {
-		return err
-	}
-
-	fmt.Println(string(bytes))
-	return nil
-}
-
-func checkStatusCode(response *http.Response, body []byte) error {
-	if response.StatusCode != http.StatusOK {
-		return fmt.Errorf("Response: Error HTTP status code %d\n%s", response.StatusCode, body)
-	}
-
-	return nil
-}
-
-func makeUnencryptedEnvelope(payload []byte) ([]byte, error) {
-	timestamp := make([]byte, 8)
-	binary.BigEndian.PutUint64(timestamp, uint64(time.Now().UnixMilli()))
-
-	nonce := make([]byte, nonceLengthBytes)
-	_, err := rand.Read(nonce)
-	if err != nil {
-		return nil, err
-	}
-
-	var body bytes.Buffer
-	body.Write(timestamp)
-	body.Write(nonce)
-	body.Write(payload)
-	return body.Bytes(), nil
-}
-
-func encrypt(plaintext []byte, iv []byte, key []byte) ([]byte, error) {
-	aesgcm, err := aesgcm(key)
-	if err != nil {
-		return nil, err
-	}
-
-	return aesgcm.Seal(nil, iv, plaintext, nil), nil
-}
-
-func makeEncryptedEnvelope(payload []byte, key []byte) ([]byte, error) {
-	iv := make([]byte, gcmIVLengthBytes)
-	_, err := rand.Read(iv)
-	if err != nil {
-		return nil, err
-	}
-
-	ciphertext, err := encrypt(payload, iv, key)
-	if err != nil {
-		return nil, err
-	}
-
-	var envelope bytes.Buffer
-	envelope.WriteByte(1)
-	envelope.Write(iv)
-	envelope.Write(ciphertext)
-	return envelope.Bytes(), nil
-}
-
-func deserializeResponse(response *http.Response, key string, isRefresh bool) (map[string]interface{}, error) {
-	defer response.Body.Close()
-
-	body, err := io.ReadAll(response.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	err = checkStatusCode(response, body)
-	if err != nil {
-		return nil, err
-	}
-
-	plaintext, err := decryptResponse(string(body), key)
-	if err != nil {
-		return nil, err
-	}
-
-	offset := 16
-	if isRefresh {
-		offset = 0
-	}
-
-	return deserialize(plaintext[offset:])
-}
-
-func printUsage() {
-	fmt.Println(`Usage:
-   echo '<json>' | go run uid2_request.go <url> <api_key> <client_secret>
-
-Example:
-   echo '{"email": "test@example.com", "optout_check": 1}' | go run uid2_request.go https://prod.uidapi.com/v2/token/generate UID2-C-L-999-fCXrMM.fsR3mDqAXELtWWMS+xG1s7RdgRTMqdOH2qaAo= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=
-   
-
-Refresh Token Usage:
-   go run uid2_request.go <url> --refresh-token <refresh_token> <refresh_response_key>
-
-Refresh Token Usage example:
-   go run uid2_request.go https://prod.uidapi.com/v2/token/refresh --refresh-token AAAAAxxJ...(truncated, total 388 chars) v2ixfQv8eaYNBpDsk5ktJ1yT4445eT47iKC66YJfb1s=`)
-}
-```
-</TabItem>
-
 </Tabs>

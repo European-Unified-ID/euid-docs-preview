@@ -2,7 +2,7 @@
 title: Snowflake Integration
 sidebar_label: Snowflake
 pagination_label: Snowflake Integration
-description: Information about integrating with UID2 through the UID2 Share in Snowflake. 
+description: Information about integrating with Snowflake as part of your UID2 implementation, through the UID2 Share in Snowflake. 
 hide_table_of_contents: false
 sidebar_position: 04
 ---
@@ -11,7 +11,21 @@ import Link from '@docusaurus/Link';
 
 # Snowflake Integration Guide
 
-[Snowflake](https://www.snowflake.com/) is a cloud data warehousing solution, where you as a partner can store your data and integrate with the UID2 framework. Using Snowflake, UID2 enables you to securely share consumer identifier data without exposing sensitive <Link href="../ref-info/glossary-uid#gl-dii">directly identifying information (DII)</Link>. Even though you have the option to query the Operator Web Services directly for the consumer identifier data, the Snowflake UID2 integration offers a more seamless experience.
+<!-- This guide includes the following information:
+- [Functionality](#functionality)
+- [Workflow Diagram](#workflow-diagram)
+- [Access the UID2 Shares](#access-the-uid2-shares)
+- [Shared Objects](#shared-objects)
+  -  [Database and Schema Names](#database-and-schema-names)
+  -  [Map DII](#map-dii)
+  -  [Regenerated UID2s](#regenerate-uid2s) 
+- [Migration Guide](#migration-guide)  
+- [Usage for UID2 Sharers](#usage-for-uid2-sharers)
+   - [Encrypt Tokens](#encrypt-tokens)
+   - [Decrypt Tokens](#decrypt-tokens)
+   - [UID2 Sharing Example](#uid2-sharing-example) -->
+
+[Snowflake](https://www.snowflake.com/) is a cloud data warehousing solution, where you as a partner can store your data and integrate with the UID2 framework. Using Snowflake, UID2 enables you to securely share authorized consumer identifier data without exposing sensitive <Link href="../ref-info/glossary-uid#gl-dii">directly identifying information (DII)</Link>. Even though you have the option to query the Operator Web Services directly for the consumer identifier data, the Snowflake UID2 integration offers a more seamless experience.
 
 The following listings for UID2 are available on the Snowflake marketplace:
 - For advertisers: [Unified ID 2.0: Advertiser Identity Solution](https://app.snowflake.com/marketplace/listing/GZT0ZRYXTMV/unified-id-2-0-unified-id-2-0-advertiser-identity-solution?originTab=provider&providerName=Unified+ID+2.0)
@@ -21,25 +35,23 @@ The following listings for UID2 are available on the Snowflake marketplace:
 
 The following table summarizes the functionality available with the UID2 Snowflake integration.
 
-| Encrypt Raw UID2 to UID2 Token for Sharing | Decrypt UID2 Token to Raw UID2 | Generate UID2 Token from DII | Refresh UID2 Token | Map DII to Raw UID2s |
-| :--- | :--- | :--- | :--- | :--- |
-| &#9989; | &#9989; | &#8212;* | &#8212; | &#9989; |
+| Encrypt Raw UID2 to UID2 Token | Decrypt Raw UID2 from UID2 Token | Generate UID2 Token from DII | Refresh UID2 Token | Map DII to a raw UID2 |
+| :--- |  :--- | :--- | :--- | :--- |
+| Yes | Yes | No* | No | Yes |
 
-*You cannot use Snowflake to generate a UID2 token directly from DII. However, you can convert DII to a raw UID2, and then encrypt the raw UID2 into a UID2 token.
+*You cannot generate a UID2 token directly from DII. However, you can convert DII to a raw UID2, and then encrypt the raw UID2 into a UID2 token.
 
-:::note
-If you are a publisher who is sharing UID2 tokens in the <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link>, see [Tokenized Sharing in the Bidstream](../sharing/sharing-tokenized-from-data-bid-stream.md).
-:::
+>NOTE: If you are a publisher who is sharing UID2 tokens in the bid stream, see [Tokenized Sharing in the Bid Stream](../sharing/sharing-tokenized-from-data-bid-stream.md).
 
 ## Workflow Diagram
 
-The following diagram and table illustrate the different parts of the UID2 integration process in Snowflake, and the workflow.
+The following diagram illustrates how you engage with the UID2 integration process in Snowflake:
 
-![Snowflake Integration Architecture](images/uid2-snowflake-integration-architecture.png)
+![Snowflake Integration Architecture](images/uid2-snowflake-integration-architecture.svg)
 
 |Partner Snowflake Account|UID2 Snowflake Account|UID2 Core Opt-Out Cloud Setup|
 | :--- | :--- | :--- |
-|As a partner, you set up a Snowflake account to host your data and engage in UID2 integration by consuming functions and views through the UID2 Share. | UID2 integration, hosted in a Snowflake account, grants you access to authorized functions and views that draw data from private tables. You can’t access the private tables. The UID2 Share reveals only essential data needed for you to perform UID2-related tasks.<br/>**NOTE**: We store <Link href="../ref-info/glossary-uid#gl-salt">salts</Link> and encryption keys in the private tables. No <Link href="../ref-info/glossary-uid#gl-dii">DII</Link> is stored at any point. |ETL (Extract Transform Load) jobs constantly update the UID2 Core/Optout Snowflake storage with internal data that powers the UID2 Operator Web Services. The data used by the Operator Web Services is also available through the UID2 Share. |
+|As a partner, you set up a Snowflake account to host your data and engage in UID2 integration by consuming functions and views through the UID2 Share. | UID2 integration, hosted in a Snowflake account, grants you access to authorized functions and views that draw data from private tables. You can’t access the private tables. The UID2 Share reveals only essential data needed for you to perform UID2-related tasks. |ETL (Extract Transform Load) jobs constantly update the UID2 Core/Optout Snowflake storage with internal data that powers the UID2 Operator Web Services. The data used by the Operator Web Services is also available through the UID2 Share. |
 |When you use shared functions and views, you pay Snowflake for transactional computation costs.  |These private tables, secured in the UID2 Snowflake account, automatically synchronize with the UID2 Core/Optout Snowflake storage that holds internal data used to complete UID2-related tasks.  | |
 
 ## Access the UID2 Shares
@@ -50,9 +62,7 @@ There are two personalized listings offered in the Snowflake Data Marketplace fo
 - [Unified ID 2.0 Advertiser Identity Solution](https://app.snowflake.com/marketplace/listing/GZT0ZRYXTMV) for advertisers/brands
 - [Unified ID 2.0 Data Provider Identity Solution](https://app.snowflake.com/marketplace/listing/GZT0ZRYXTN0) for data providers
 
-:::important
-To be able to request data, you must use the `ACCOUNTADMIN` role or another role with the `CREATE DATABASE` and `IMPORT SHARE` privileges in your Snowflake account.
-:::
+>IMPORTANT: To be able to request data, you must use the `ACCOUNTADMIN` role or another role with the `CREATE DATABASE` and `IMPORT SHARE` privileges in your Snowflake account.
 
 To request access to a UID2 Share, complete the following steps:
 
@@ -78,9 +88,7 @@ The following functions are deprecated in favor of `FN_T_UID2_IDENTITY_MAP`. You
 - `FN_T_UID2_IDENTITY_MAP_EMAIL` (deprecated)
 - `FN_T_UID2_IDENTITY_MAP_EMAIL_HASH` (deprecated)
 
-:::note
-If you are using the deprecated functions, and need help migrating to the newer function, see [Migration Guide](#migration-guide).
-:::
+>NOTE: If you are using the deprecated functions, and need help migrating to the newer function, see [Migration Guide](#migration-guide).
 
 To identify the UID2s that you must regenerate, use the `UID2_SALT_BUCKETS` view from the UID2 Share. For details, see [Regenerate UID2s](#regenerate-uid2s).
 
@@ -154,9 +162,7 @@ Mapping request examples in this section:
 - [Single Hashed Phone Number](#mapping-request-example---single-hashed-phone-number)
 - [Multiple Hashed Phone Numbers](#mapping-request-example---multiple-hashed-phone-numbers)
 
-:::note
-The input and output data in these examples is fictitious, for illustrative purposes only. The values provided are not real values.
-:::
+>NOTE: The input and output data in these examples is fictitious, for illustrative purposes only. The values provided are not real values.
 
 #### Mapping Request Example - Single Unhashed Email
 
@@ -521,17 +527,13 @@ For details about the values and their explanations, see [Values for the UNMAPPE
 
 ## Usage for UID2 Sharers
 
-A UID2 <Link href="../ref-info/glossary-uid#gl-sharing-participant">sharing participant</Link> is a company that takes part in sharing, either as a sender or a receiver, to share UID2s with another participant.
+A UID2 sharer is any participant that wants to share UID2s with another participant. Advertisers and data providers can share UID2s with other authorized UID2 sharing participants via Snowflake. For details, see [UID2 Sharing: Overview](../sharing/sharing-overview).
 
-Advertisers and data providers can share UID2s with other authorized UID2 sharing participants via Snowflake (<Link href="../ref-info/glossary-uid#gl-tokenized-sharing">tokenized sharing</Link>). They can encrypt [raw UID2s](../ref-info/glossary-uid#gl-raw-uid2) into <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 tokens</Link> and then send them to another participant for sharing in pixels (see [Tokenized Sharing in Pixels](../sharing/sharing-tokenized-from-data-pixel.md)). If you are not sending data in pixels within Snowflake, you can take part in UID2 sharing as long as you follow the requirements laid out in [Security Requirements for UID2 Sharing](../sharing/sharing-security.md).
+A Sharing participant must encrypt [raw UID2s](../ref-info/glossary-uid#gl-raw-uid2) into [UID2 tokens](../ref-info/glossary-uid#gl-uid2-token) before sending them to another participant.
 
-:::caution
-The UID2 token generated during this process is for sharing only&#8212;you cannot use it in the bidstream. There is a different workflow for generating tokens for the bidstream: see [Tokenized Sharing in the Bidstream](../sharing/sharing-tokenized-from-data-bid-stream.md).
-:::
+>IMPORTANT: The UID2 token generated during this process is for sharing only&#8212;you cannot use it in the bid stream. There is a different workflow for generating tokens for the bid stream: see [Tokenized Sharing in the Bid Stream](../sharing/sharing-tokenized-from-data-bid-stream.md).
 
-If you are not sending data in pixels or in the bidstream within Snowflake, you can also take part in raw UID2 sharing as long as you follow the requirements laid out in [Security Requirements for UID2 Sharing](../sharing/sharing-security.md).
-
-The following activities support tokenized sharing:
+The following scenarios support UID2 sharing:
 
 - [Encrypt Tokens](#encrypt-tokens)
 - [Decrypt Tokens](#decrypt-tokens)
@@ -563,7 +565,7 @@ The following table shows possible values for the `ENCRYPTION_STATUS` column.
 | `MISSING_OR_INVALID_RAW_UID2` | The raw UID2 is `NULL`. |
 | `INVALID_RAW_UID2` | The raw UID2 is invalid. |
 | `MISMATCHING_IDENTITY_SCOPE` | The raw UID2 belongs to an incorrect identity scope; for example, EUID is passed in where UID2 is expected. |
-| `NOT_AUTHORIZED_FOR_MASTER_KEY` | The caller does not have access to the required <a href="../ref-info/glossary-uid#gl-encryption-key">encryption keys</a>. Contact the UID2 administrator. |
+| `NOT_AUTHORIZED_FOR_MASTER_KEY` | The caller does not have access to the required encryption keys. Contact the UID2 administrator. |
 | `NOT_AUTHORIZED_FOR_SITE_KEY` | The caller does not have access to the required encryption keys. Contact the UID2 administrator. |
 
 #### Encrypt Token Request Example - Single Raw UID2
@@ -640,9 +642,7 @@ A successful query returns the following information for the specified UID2 toke
 | `SITE_ID` | INT | The value is one of the following:<ul><li>Decryption successful: The identifier of the UID2 participant that encrypted the token.</li><li>Decryption not successful: `NULL`.</li></ul> |
 | `DECRYPTION_STATUS` | TEXT | The value is one of the following:<ul><li>Decryption successful: `NULL`.</li><li>Decryption not successful:  The reason why the UID2 token was not decrypted; for example, `EXPIRED_TOKEN`.<br/>For details, see [Values for the DECRYPTION_STATUS Column](#values-for-the-decryption_status-column).</li></ul> |
 
-:::note
-In most circumstances where UID2 token cannot be successfully decrypted, the function will not return any rows at all.
-:::
+>NOTE: In most circumstances where UID2 token cannot be successfully decrypted, the function will not return any rows at all.
 
 #### Values for the DECRYPTION_STATUS Column
 
@@ -732,10 +732,8 @@ The following instructions provide an example of how sharing works for a sender 
  3. Create a secure share and grant it access to the `AUDIENCE_WITH_UID2_TOKENS` table.
  4. Grant the receiver access to the secure share.
 
-:::warning
-To help prevent UID2 tokens from expiring during sharing, send the newly encrypted UID2 tokens to the receiver as soon as possible.
-:::
-
+>**WARNING**: To help prevent UID2 tokens from expiring during sharing, send the newly encrypted UID2 tokens to the receiver as soon as possible.
+>
 #### Receiver Instructions
 
  1. Create a database from the secure share that the sender provided access to.
@@ -749,6 +747,4 @@ To help prevent UID2 tokens from expiring during sharing, send the newly encrypt
         on a.ID=b.ID;
     ```
 
-:::warning
-To help prevent UID2 tokens from expiring, decrypt the UID2 tokens as soon as they become available from the sender.
-:::
+>**WARNING**: To help prevent UID2 tokens from expiring, decrypt the UID2 tokens as soon as they become available from the sender.

@@ -1,10 +1,9 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 import ConfigLocalized from "./docusaurus.config.localized.json";
-import { themes } from 'prism-react-renderer';
 
-const lightCodeTheme = themes.github;
-const darkCodeTheme = themes.dracula;
+const lightCodeTheme = require("prism-react-renderer").themes.github;
+const darkCodeTheme = require("prism-react-renderer").themes.dracula;
 
 function dropdownItemHtml(label, desc) {
   return `<div class="dropdown__heading">
@@ -307,4 +306,4 @@ const config = {
     }),
 };
 
-export default config;
+module.exports = config;

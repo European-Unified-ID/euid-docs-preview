@@ -14,11 +14,20 @@ UID2 data shared in pixels must be in the form of UID2 tokens generated in one o
 - By encrypting [directly identifying information (DII)](../ref-info/glossary-uid.md#gl-dii) (an email address or phone number) directly into a UID2 token.
 - By encrypting a raw UID2 into a UID2 token.
 
-[Tokenized sharing](../ref-info/glossary-uid.md#gl-tokenized-sharing) is an option for any sharing route, but the main implementation outside of the <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> is tokenized sharing in pixels. 
+[Tokenized sharing](../ref-info/glossary-uid.md#gl-tokenized-sharing) is an option for any sharing route, but the main implementation outside of the bid stream is tokenized sharing in pixels. 
 
 :::caution
 Data in pixels can be accessed by unauthorized parties, so it is never acceptable to share raw UID2s in pixels. If you're sharing in pixels, tokenized sharing is required.
 :::
+
+<!-- In this file:
+
+- [Audience](#audience)
+- [Sharing UID2 Tokens in Pixels](#sharing-uid2-tokens-in-pixels)
+- [Account Setup in the UID2 Portal](#account-setup-in-the-uid2-portal)
+- [Workflow: Tokenized Sharing in Tracking Pixels](#workflow-tokenized-sharing-in-tracking-pixels)
+- [Workflow: Tokenized Sharing in Creative Pixels](#workflow-tokenized-sharing-in-creative-pixels)
+- [Information for Sharing Receivers](#information-for-sharing-receivers) -->
 
 ### Audience
 
@@ -29,9 +38,13 @@ Tokenized sharing in pixels is applicable to the following audiences:
 
 ## Sharing UID2 Tokens in Pixels
 
+:::tip
+We recommend generating the UID2 token directly from DII. You can do this in several ways; our recommendation is to generate the UID2 token client-side. For instructions, see [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md).
+:::
+
 Different participants might use pixels in different ways. The following table shows two common use cases for pixels in the advertising technology ecosystem.
 
-| | Tracking Pixel | Creative Pixel |
+| |  Tracking Pixel | Creative Pixel |
 | :--- | :--- | :--- |
 | What it measures | Conversion/retargeting (user does something) | Impression (user sees an ad) |
 | Where | Advertiser or publisher site | Publisher site via DSP |
@@ -53,10 +66,6 @@ For details, see [UID2 Portal: Overview](../portal/portal-overview.md) and follo
 
 ## Workflow: Tokenized Sharing in Tracking Pixels
 
-:::tip
-If you're generating a token for a tracking pixel, we recommend generating the UID2 token directly from DII, not from a raw UID2. You can do this in several ways; our recommendation is to generate the UID2 token client-side. For instructions, see [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md).
-:::
-
 If you're using tracking pixels that fire when someone completes an action such as purchasing a product on a website, it's most likely that you'll start with DII and then convert it to a UID2 token, for tokenized sharing.
 
 The UID2 sender specifies which receivers can decrypt their UID2 tokens, by configuring permissions in the UID2 Portal (see [Sharing Permissions](../portal/sharing-permissions.md)). When a sender grants permission to a receiver for UID2 sharing, the sender's cryptographic keys are shared with the receiver via a UID2 SDK or Snowflake. As part of sharing, the UID2 SDKs and APIs take care of the encryption and decryption.
@@ -69,7 +78,7 @@ For example, let's say that an advertiser (sender) wants to share UID2 tokens wi
 
    2. Directly generates UID2 tokens from the [DII](../ref-info/glossary-uid.md#gl-dii) provided by the user using the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint or one of the SDKs that support generating a UID2 token from DII.
    
-      For a summary of options, see [SDK Functionality](../sdks/summary-sdks.md#sdk-functionality). We recommend using the [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md).
+      For a summary of options, see [SDK Functionality](../sdks/summary-sdks.md#sdk-functionality). We recommend using the [Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md).
    
    3. Sends the UID2 tokens securely to the DSP.
 
@@ -82,8 +91,6 @@ Both the UID2 sender and receiver must create a UID2 Portal account (see [Accoun
 If you're using creative pixels, the DSP takes the raw UID2 and encrypts it into a UID2 token. The token is added into the creative pixel that is fired on impression.
 
 All the implementation steps are the same as for [tokenized sharing from raw UID2](sharing-tokenized-from-raw.md).
-
-For examples of how you could implement tokenized sharing in pixels using Snowflake, see [Snowflake Integration Guide: Usage for UID2 Sharers](../guides/snowflake_integration.md#usage-for-uid2-sharers).
 
 ## Information for Sharing Receivers
 
