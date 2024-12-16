@@ -8,11 +8,12 @@ sidebar_position: 11
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Link from '@docusaurus/Link';
+import IdentityGenerateResponse from '/docs/snippets/_example-identity-generate-response.mdx';
 
 # Encrypting Requests and Decrypting Responses
 
 :::note
-パブリッシャーで、クライアント側にUID2を実装している場合、暗号化と復号化は、Prebid.js ([UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md) を参照してください) や JavaScript SDK ([Client-Side Integration Guide for JavaScript](../guides/publisher-client-side.md) を参照してください) などの実装によって自動的に管理されます。
+パブリッシャーで、クライアント側にUID2を実装している場合、暗号化と復号化は、Prebid.js ([UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md) を参照してください) や JavaScript SDK ([Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md) を参照してください) などの実装によって自動的に管理されます。
 :::
 
 ほとんどすべての UID2 [endpoints](../endpoints/summary-endpoints.md) では、エンドポイントに送られるリクエストは [encrypted](#encrypting-requests) され、エンドポイントからのレスポンスは [decrypted](#decrypting-responses) する必要があります。
@@ -24,12 +25,12 @@ UID2 API リクエストの暗号化と各レスポンスの復号化につい�
 - API を使用するには、クライアントの API Key に加えて、クライアントシークレットが必要です。
 - 独自のコードを書くことも、提供されているコード例の一つを使うこともできます: [Encryption and Decryption Code Examples](#encryption-and-decryption-code-examples) を参照してください。
 - リクエストとレスポンスには、96 ビットの初期化ベクトルと 128 ビットの認証タグを持つ AES/GCM/NoPadding 暗号化アルゴリズムが使用されます。
-- リクエストの暗号化されていない JSON ボディは、バイナリの [暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) にラップされ、その後 [暗号化リクエストエンベローブ](#encrypted-request-envelope) にしたがって暗号化とフォーマットが行われます。
-- レスポンス JSON ボディはバイナリの [復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope) にラップされ、[暗号化レスポンスエンベローブ](#encrypted-response-envelope) にしたがって暗号化・整形されます。
+- リクエストの暗号化されていない JSON ボディは、バイナリの [暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) にラップされ、その後 [暗号化リクエストエンベローブ](#encrypted-request-envelope) に従って暗号化とフォーマットが行われます。
+- レスポンス JSON ボディはバイナリの [復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope) にラップされ、[暗号化レスポンスエンベローブ](#encrypted-response-envelope) に従って暗号化・整形されます。
 
 ## Workflow
 
-UID2 API のリクエスト・レスポンスワークフローは、以下のステップです:
+UID2 API のリクエストレスポンスワークフローは、以下のステップです:
 
 1. 入力パラメータを含むリクエストボディを JSON 形式で用意します。
 2. リクエスト JSON を[暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) でラップします。
@@ -52,11 +53,11 @@ UID2 API のリクエスト・レスポンスワークフローは、以下の�
 
 ### Unencrypted Request Data Envelope
 
-以下の表に、リクエスト暗号化コードのフィールドレイアウトを示します。
+次の表に、リクエスト暗号化コードのフィールドレイアウトを示します。
 
 | Offset (Bytes) | Size (Bytes) | Description |
 | :--- | :--- | :--- |
-| 0 | 8 | UNIX タイムスタンプ (ミリ秒単位) です。int64 のビッグエンディアンでなければなりません。 |
+| 0 | 8 | Unix タイムスタンプ (ミリ秒単位) です。int64 のビッグエンディアンでなければなりません。 |
 | 8 | 8 | Nonce: リプレイ攻撃から保護するために使用されるランダムな 64 ビットのデータです。対応する [復号化済みレスポンスデータエンベローブ](#unencrypted-response-data-envelope) には、レスポンスが有効とみなされるために同じ nonce 値が含まれていなければなりません。 |
 | 16 | N | UTF-8 エンコーディングでシリアライズされたリクエスト JSON ドキュメントをペイロードとします。 |
 
@@ -95,28 +96,15 @@ UID2 API のリクエスト・レスポンスワークフローは、以下の�
 
 | Offset (Bytes) | Size (Bytes) | Description |
 | :--- | :--- | :--- |
-| 0 | 8 | UNIX タイムスタンプ (ミリ秒単位) です。int64 のビッグエンディアンでなければなりません。 |
+| 0 | 8 | Unix タイムスタンプ (ミリ秒単位) です。int64 のビッグエンディアンでなければなりません。 |
 | 8 | 8 | Nonce: レスポンスが有効であるとみなされるためには、これは [暗号化前リクエストデータエンベローブ](#unencrypted-request-data-envelope) の nonce と一致する必要があります。 |
 | 16  | N | UTF-8 エンコーディングでシリアライズされたレスポンス JSON ドキュメントをペイロードとします。 |
 
 ### Response Example
 
-例えば、先行例 のメールアドレスに対する [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) リクエストに対する復号されたレスポンスは、次のようになることが考えられます:
+例えば、先行例 のメールアドレスに対する [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) リクエストに対する復号されたレスポンスは、次のようになります:
 
-```json
-{
-  "body": {
-    "advertising_token": "AgAAAQFt3aNLXKXEyWS8Tpezcymk1Acv3n+ClOHLdAgqR0kt0Y+pQWSOVaW0tsKZI4FOv9K/rZH9+c4lpm2DBpmFJqjdF6FAaAzva5vxDIX/67UOspsYtiwxH73zU7Fj8PhVf1JcpsxUHRHzuk3vHF+ODrM13A8NAVlO1p0Wkb+cccIIhQ==",
-    "user_token": "AgAAAPpTqz7/Z+40Ue5G3XOM2RiyU6RS9Q5yj1n7Tlg7PN1K1LZWejvo8Er7A+Q8KxdXdj0OrKRf/XEGWsyUJscRNu1bg/MK+5AozvoJKUca8b10eQdYU86ZOHPH7pFnFhD5WHs=",
-    "refresh_token": "AAAAAQLMcnV+YE6/xoPDZBJvJtWyPyhF9QTV4242kFdT+DE/OfKsQ3IEkgCqD5jmP9HuR4O3PNSVnCnzYq2BiDDz8SLsKOo6wZsoMIn95jVWBaA6oLq7uUGY5/g9SUOfFmX5uDXUvO0w2UCKi+j9OQhlMfxTsyUQUzC1VQOx6ed/gZjqH/Sw6Kyk0XH7AlziqSyyXA438JHqyJphGVwsPl2LGCH1K2MPxkLmyzMZ2ghTzrr0IgIOXPsL4lXqSPkl/UJqnO3iqbihd66eLeYNmyd1Xblr3DwYnwWdAUXEufLoJbbxifGYc+fPF+8DpykpyL9neq3oquxQWpyHsftnwYaZT5EBZHQJqAttHUZ4yQ==",
-    "identity_expires": 1654623500142,
-    "refresh_expires": 1657214600142,
-    "refresh_from": 1654622900142,
-    "refresh_response_key": "wR5t6HKMfJ2r4J7fEGX9Gw=="
-  },
-  "status": "success"
-}
-```
+<IdentityGenerateResponse />
 
 ## Encryption and Decryption Code Examples
 
@@ -124,9 +112,8 @@ UID2 API のリクエスト・レスポンスワークフローは、以下の�
 
 [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) エンドポイントでは、[POST&nbsp;/token/generate](../endpoints/post-token-generate.md) または [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) へのコールで事前に取得した `refresh_token` と `refresh_response_key` の値を使用します。
 
-## Encryption and Decryption Code Examples
 :::note
-Windows の場合、PowerShell の代わりに Windows コマンドプロンプトを使用している場合は、JSON を囲むシングルクォートも削除する必要があります。例えば、`echo {"email": "test@example.com"}` とします。
+Windows の場合、PowerShell の代わりに Windows コマンドプロンプトを使用している場合は、JSON を囲むシングルクォートも削除する必要があります。例えば、`echo {"email": "test@example.com", "optout_check": 1}` とします。
 :::
 
 ### Prerequisites and Notes
@@ -168,7 +155,7 @@ Maven を使用している場合は、以下の最小限の `pom.xml` を使用
   <groupId>org.example</groupId>
   <artifactId>Uid2Request</artifactId>
   <version>1.0</version>
-
+  
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
@@ -207,16 +194,23 @@ Maven を使用している場合は、以下の最小限の `pom.xml` を使用
         </configuration>
       </plugin>
     </plugins>
-     <finalName>${artifactId}</finalName>
+    <finalName>${artifactId}</finalName>
   </build>
 </project>
 ```
+
 </TabItem>
 <TabItem value='cs' label='C#'>
 
 以下のコードサンプルは、C# を使用してリクエストを暗号化し、レスポンスを復号化します。必要なパラメータはファイルの先頭に記載されています。また、`.\uid2_request` をビルドして実行することでも確認できます。
 
 このファイルには.NET 7.0が必要です。必要であれば、それ以前のバージョンを使用することもできますが、.NET Core 3.0以降でなければなりません。バージョンを変更するには、[top-level statements](https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/program-structure/top-level-statements) を Main メソッドに、[using 宣言](https://learn.microsoft.com/ja-jp/cpp/cpp/using-declaration?view=msvc-170) を [using ステートメント](https://learn.microsoft.com/ja-jp/dotnet/csharp/language-reference/proposals/csharp-8.0/using) に置き換えてください。
+
+</TabItem>
+<TabItem value='go' label='Go'>
+
+以下のコード例では、Go を使用してリクエストを暗号化し、レスポンスを復号化します。必要なパラメータはファイルの一番下に記載されています。または、`go run uid2_request.go` を実行して確認できます。
+
 </TabItem>
 </Tabs>
 
@@ -233,8 +227,8 @@ Usage:
    echo '<json>' | python3 uid2_request.py <url> <api_key> <client_secret>
 
 Example:
-   echo '{"email": "test@example.com"}' | python3 uid2_request.py https://prod.uidapi.com/v2/token/generate PRODGwJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=
-
+   echo '{"email": "test@example.com", "optout_check": 1}' | python3 uid2_request.py https://prod.uidapi.com/v2/token/generate PRODGwJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=
+   
 
 Refresh Token Usage:
    python3 uid2_request.py <url> --refresh-token <refresh_token> <refresh_response_key>
@@ -297,7 +291,7 @@ else:
    envelope += bytearray(tag)
 
    base64Envelope = base64.b64encode(bytes(envelope)).decode()
-   
+
    http_response = requests.post(url, base64Envelope, headers={"Authorization": "Bearer " + api_key})
    
 # Decryption 
@@ -310,7 +304,7 @@ else:
    iv = resp_bytes[:12]
    data = resp_bytes[12:len(resp_bytes) - 16]
    tag = resp_bytes[len(resp_bytes) - 16:]
-   
+
    cipher = AES.new(secret, AES.MODE_GCM, nonce=iv)
    decrypted = cipher.decrypt_and_verify(data, tag)
 
@@ -323,6 +317,7 @@ else:
    print(json.dumps(json_resp, indent=4))
 
 ```
+
 </TabItem>
 <TabItem value='java' label='Java'>
 
@@ -358,13 +353,13 @@ public class Uid2Request {
       System.out.println(
               "Usage:" + "\n   "
       +             "java -jar Uid2Request-jar-with-dependencies.jar <url> <api_key> <client_secret>" + "\n\n"
-
+      
       +       "Example:" + "\n   "  
-      +             "echo '{\"email\": \"test@example.com\"}' |  java -jar Uid2Request-jar-with-dependencies.jar https://prod.uidapi.com/v2/token/generate PRODGwJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=" + "\n\n\n"
-
+      +             "echo '{\"email\": \"test@example.com\",\"optout_check\": 1}' |  java -jar Uid2Request-jar-with-dependencies.jar https://prod.uidapi.com/v2/token/generate PRODGwJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=" + "\n\n\n"
+      
       +       "Refresh Token Usage:" + "\n   "
       +             "java -jar Uid2Request-jar-with-dependencies.jar <url> --refresh-token <refresh_token> <refresh_response_key>"  + "\n\n"
-
+                      
       +       "Refresh Token Example:" + "\n   " 
       +             "java -jar Uid2Request-jar-with-dependencies.jar https://prod.uidapi.com/v2/token/refresh --refresh-token AAAAAxxJ...(truncated, total 388 chars) v2ixfQv8eaYNBpDsk5ktJ1yT4445eT47iKC66YJfb1s="  + "\n"
       );
@@ -451,6 +446,7 @@ public class Uid2Request {
   }
 }
 ```
+
 </TabItem>
 <TabItem value='cs' label='C#'>
 
@@ -469,8 +465,8 @@ Usage:
    echo '<json>' | .\uid2_request <url> <api_key> <client_secret>
 
 Example:
-   echo '{"email": "test@example.com"}' | .\uid2_request https://prod.uidapi.com/v2/token/generate UID2-C-L-999-fCXrMM.fsR3mDqAXELtWWMS+xG1s7RdgRTMqdOH2qaAo= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=
-
+   echo '{"email": "test@example.com", "optout_check": 1}' | .\uid2_request https://prod.uidapi.com/v2/token/generate UID2-C-L-999-fCXrMM.fsR3mDqAXELtWWMS+xG1s7RdgRTMqdOH2qaAo= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=
+   
 
 Refresh Token Usage:
    .\uid2_request <url> --refresh-token <refresh_token> <refresh_response_key>
@@ -578,10 +574,251 @@ else
     var json = Encoding.UTF8.GetString(unencryptedResponseDataEnvelope, offset, unencryptedResponseDataEnvelope.Length - offset);
 
     Console.WriteLine("Response JSON:");
-
+    
     using var jDoc = JsonDocument.Parse(json);
     Console.WriteLine(JsonSerializer.Serialize(jDoc, new JsonSerializerOptions { WriteIndented = true }));
 }
 ```
+
 </TabItem>
+<TabItem value='go' label='Go'>
+
+```go title="uid2_request.go"
+package main
+
+import (
+	"bytes"
+	"crypto/aes"
+	"crypto/cipher"
+	"crypto/rand"
+	"encoding/base64"
+	"encoding/binary"
+	"encoding/json"
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"os"
+	"strings"
+	"time"
+)
+
+const (
+	nonceLengthBytes = 8
+	gcmIVLengthBytes = 12
+)
+
+func main() {
+	subArgs := os.Args[1:]
+
+	if len(subArgs) != 3 && len(subArgs) != 4 {
+		printUsage()
+		os.Exit(1)
+	}
+
+	url := subArgs[0]
+
+	response, err := func() (map[string]interface{}, error) {
+		if subArgs[1] == "--refresh-token" {
+			return refresh(url, subArgs[2], subArgs[3])
+		} else {
+			return generate(url, subArgs[1], subArgs[2])
+		}
+	}()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	prettyPrint(response)
+}
+
+func refresh(url string, refreshToken string, refreshResponseKey string) (map[string]interface{}, error) {
+	fmt.Printf("Request: Sending refresh_token to %s\n", url)
+
+	response, err := http.Post(url, "", strings.NewReader(refreshToken))
+	if err != nil {
+		return nil, err
+	}
+
+	return deserializeResponse(response, refreshResponseKey, true)
+}
+
+func generate(url string, apiKey string, secret string) (map[string]interface{}, error) {
+	payload, err := io.ReadAll(os.Stdin)
+	if err != nil {
+		return nil, err
+	}
+
+	key, err := base64.StdEncoding.DecodeString(secret)
+	if err != nil {
+		return nil, err
+	}
+
+	unencryptedEnvelope, err := makeUnencryptedEnvelope(payload)
+	if err != nil {
+		return nil, err
+	}
+
+	envelope, err := makeEncryptedEnvelope(unencryptedEnvelope, key)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", url, strings.NewReader(base64.StdEncoding.EncodeToString(envelope)))
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Authorization", "Bearer "+apiKey)
+
+	response, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	return deserializeResponse(response, secret, false)
+}
+
+func aesgcm(key []byte) (cipher.AEAD, error) {
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		return nil, err
+	}
+
+	return cipher.NewGCM(block)
+}
+
+func decryptResponse(ciphertext string, key string) ([]byte, error) {
+	ciphertextBytes, err := base64.StdEncoding.DecodeString(ciphertext)
+	if err != nil {
+		return nil, err
+	}
+
+	keyBytes, err := base64.StdEncoding.DecodeString(key)
+	if err != nil {
+		return nil, err
+	}
+
+	aesgcm, err := aesgcm(keyBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	iv := ciphertextBytes[:gcmIVLengthBytes]
+	return aesgcm.Open(nil, iv, ciphertextBytes[gcmIVLengthBytes:], nil)
+}
+
+func deserialize(bytes []byte) (map[string]interface{}, error) {
+	var anyJson map[string]interface{}
+	err := json.Unmarshal(bytes, &anyJson)
+	return anyJson, err
+}
+
+func prettyPrint(obj map[string]interface{}) error {
+	bytes, err := json.MarshalIndent(obj, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(string(bytes))
+	return nil
+}
+
+func checkStatusCode(response *http.Response, body []byte) error {
+	if response.StatusCode != http.StatusOK {
+		return fmt.Errorf("Response: Error HTTP status code %d\n%s", response.StatusCode, body)
+	}
+
+	return nil
+}
+
+func makeUnencryptedEnvelope(payload []byte) ([]byte, error) {
+	timestamp := make([]byte, 8)
+	binary.BigEndian.PutUint64(timestamp, uint64(time.Now().UnixMilli()))
+
+	nonce := make([]byte, nonceLengthBytes)
+	_, err := rand.Read(nonce)
+	if err != nil {
+		return nil, err
+	}
+
+	var body bytes.Buffer
+	body.Write(timestamp)
+	body.Write(nonce)
+	body.Write(payload)
+	return body.Bytes(), nil
+}
+
+func encrypt(plaintext []byte, iv []byte, key []byte) ([]byte, error) {
+	aesgcm, err := aesgcm(key)
+	if err != nil {
+		return nil, err
+	}
+
+	return aesgcm.Seal(nil, iv, plaintext, nil), nil
+}
+
+func makeEncryptedEnvelope(payload []byte, key []byte) ([]byte, error) {
+	iv := make([]byte, gcmIVLengthBytes)
+	_, err := rand.Read(iv)
+	if err != nil {
+		return nil, err
+	}
+
+	ciphertext, err := encrypt(payload, iv, key)
+	if err != nil {
+		return nil, err
+	}
+
+	var envelope bytes.Buffer
+	envelope.WriteByte(1)
+	envelope.Write(iv)
+	envelope.Write(ciphertext)
+	return envelope.Bytes(), nil
+}
+
+func deserializeResponse(response *http.Response, key string, isRefresh bool) (map[string]interface{}, error) {
+	defer response.Body.Close()
+
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	err = checkStatusCode(response, body)
+	if err != nil {
+		return nil, err
+	}
+
+	plaintext, err := decryptResponse(string(body), key)
+	if err != nil {
+		return nil, err
+	}
+
+	offset := 16
+	if isRefresh {
+		offset = 0
+	}
+
+	return deserialize(plaintext[offset:])
+}
+
+func printUsage() {
+	fmt.Println(`Usage:
+   echo '<json>' | go run uid2_request.go <url> <api_key> <client_secret>
+
+Example:
+   echo '{"email": "test@example.com", "optout_check": 1}' | go run uid2_request.go https://prod.uidapi.com/v2/token/generate UID2-C-L-999-fCXrMM.fsR3mDqAXELtWWMS+xG1s7RdgRTMqdOH2qaAo= wJ0hP19QU4hmpB64Y3fV2dAed8t/mupw3sjN5jNRFzg=
+   
+
+Refresh Token Usage:
+   go run uid2_request.go <url> --refresh-token <refresh_token> <refresh_response_key>
+
+Refresh Token Usage example:
+   go run uid2_request.go https://prod.uidapi.com/v2/token/refresh --refresh-token AAAAAxxJ...(truncated, total 388 chars) v2ixfQv8eaYNBpDsk5ktJ1yT4445eT47iKC66YJfb1s=`)
+}
+```
+</TabItem>
+
 </Tabs>

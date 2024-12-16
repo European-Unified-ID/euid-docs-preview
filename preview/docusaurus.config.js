@@ -1,9 +1,10 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 import ConfigLocalized from "./docusaurus.config.localized.json";
+import { themes } from 'prism-react-renderer';
 
-const lightCodeTheme = require("prism-react-renderer").themes.github;
-const darkCodeTheme = require("prism-react-renderer").themes.dracula;
+const lightCodeTheme = themes.github;
+const darkCodeTheme = themes.dracula;
 
 function dropdownItemHtml(label, desc) {
   return `<div class="dropdown__heading">
@@ -90,6 +91,7 @@ const config = {
         containerId: "GTM-K3NQMDX",
       },
     ],
+    require.resolve("docusaurus-plugin-image-zoom")
   ],
 
   presets: [
@@ -272,6 +274,10 @@ const config = {
           {
             items: [
               {
+                label: "Report a Vulnerability",
+                href: "https://www.thetradedesk.com/us/trust/report-a-vulnerability",
+              },
+              {
                 label: "Website Privacy Policy",
                 href: "https://www.thetradedesk.com/us/website-privacy-policy",
               },
@@ -303,7 +309,17 @@ const config = {
         // apiKey: "58f35480017be37aca9f762323a0b4d1", //staging
         // indexName: "UID2", //staging
       },
+      zoom: {
+        selector: '.markdown :not(em) > img',
+        config: {
+          // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
+          background: {
+            light: 'rgb(255, 255, 255)',
+            dark: 'rgb(50, 50, 50)'
+          }
+        }
+      }
     }),
-};
+  };
 
-module.exports = config;
+export default config;

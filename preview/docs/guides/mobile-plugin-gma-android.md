@@ -9,7 +9,7 @@ import Link from '@docusaurus/Link';
 
 # UID2 GMA Plugin for Android Integration Guide
 
-The UID2 Google Mobile Ads (GMA) Plugin for Android enables publishers that use the [Google Mobile Ads (GMA) SDK](https://developers.google.com/ad-manager/mobile-ads-sdk) to send [UID2 tokens](../ref-info/glossary-uid.md#gl-uid2-token) as [secure signals](https://support.google.com/admob/answer/11556288) in ad requests from Android apps. This is done automatically, with no direct coding needed from the app developer.
+The UID2 Google Mobile Ads (GMA) Plugin for Android enables publishers that use the [Google Mobile Ads (GMA) SDK](https://developers.google.com/ad-manager/mobile-ads-sdk) to send <Link href="../ref-info/glossary-uid#gl-uid2-token">UID2 tokens</Link> as [secure signals](https://support.google.com/admob/answer/11556288) in ad requests from Android apps. This is done automatically, with no direct coding needed from the app developer.
 
 ## Functionality
 
@@ -17,9 +17,9 @@ This plugin simplifies integration with Google Mobile Ads (GMA) for any publishe
 
 ## Version
 
-<!-- As of 2023-07-15 -->
+<!-- As of 2024-10-23 -->
 
-This documentation is for the UID2 GMA Plugin for Android version 0.5.0 and later.
+This documentation is for the UID2 GMA Plugin for Android version 1.6.0 and later.
 
 ## GitHub Repository
 
@@ -34,16 +34,17 @@ To run this plugin, install the following:
 1. Google Mobile Ads SDK v22.0.0 or later:
    - [SDK](https://developers.google.com/admob/android/sdk)
    - [Release notes](https://developers.google.com/admob/android/rel-notes)
-1. UID2 SDK for Android v0.5.0:
+1. SDK for Android v1.6.0 or later:
    - [SDK](https://central.sonatype.com/artifact/com.uid2/uid2-android-sdk)
-   - [UID2 SDK for Android Reference Guide](../sdks/uid2-sdk-ref-android.md)
-1. [UID2 Android GMA Plugin v0.5.0](https://central.sonatype.com/artifact/com.uid2/uid2-android-sdk-gma/)
+   - [SDK for Android Reference Guide](../sdks/sdk-ref-android.md)
+1. [UID2 Android GMA Plugin v1.6.0](https://central.sonatype.com/artifact/com.uid2/uid2-android-sdk-gma/)
+1. If you are using R8 or Proguard, add the applicable option specified in [Notes for Using R8 or ProGuard](#notes-for-using-r8-or-proguard)
 
 ## Installation
 
-Prerequisite: Install the Google Mobile Ads SDK and the UID2 Android SDK.
+Prerequisite: Install the Google Mobile Ads SDK and the SDK for Android.
 
-Install the UID2 Android GMA Plugin v0.5.0 to an existing app with the UID2 Android SDK and Google GMA SDK installed. There are two installation options:
+Install the UID2 Android GMA Plugin v1.6.0 to an existing app with the SDK for Android and Google GMA SDK installed. There are two installation options:
 
 - [Gradle](#gradle)
 - [Maven](#maven)
@@ -52,8 +53,8 @@ Install the UID2 Android GMA Plugin v0.5.0 to an existing app with the UID2 Andr
 
 To install with Gradle, add the SDK as a dependency in the `build.gradle` file:
 
-``` javascript
-implementation 'com.uid2:uid2-android-sdk-gma:0.5.0'
+```js
+implementation 'com.uid2:uid2-android-sdk-gma:1.6.0'
 ```
 
 ### Maven 
@@ -64,6 +65,12 @@ To install with Maven, add the SDK as a dependency in the `pom.xml` file:
 <dependency>
   <groupId>com.uid2</groupId>
   <artifactId>uid2-android-sdk-gma</artifactId>
-  <version>0.5.0</version>
+  <version>1.6.0</version>
 </dependency>
 ```
+
+## Notes for Using R8 or ProGuard
+
+If you are using R8, the shrinking and obfuscation rules are included automatically.
+
+If you are using ProGuard, you must manually add the option specified in [uid2-gma.pro](https://github.com/IABTechLab/uid2-android-sdk/blob/main/securesignals-gma/uid2-gma.pro).
