@@ -10,11 +10,11 @@ sidebar_position: 04
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Link from '@docusaurus/Link';
-import GMAIMA_Plugins from '/docs/snippets/_mobile_docs_gmaima-plugin-gss.mdx';
-import ExampleAdvertisingToken from '/docs/snippets/_example-advertising-token.mdx';
-import EnableLogging from '/docs/snippets/_mobile-docs-enable-logging.mdx';
-import PrebidMobileSDK from '/docs/snippets/_mobile_docs_prebid-mobile.mdx';
-import ErrorResponseStates from '/docs/snippets/_mobile-docs-error-response-states.mdx';
+import GMAIMA_Plugins from '../snippets/_mobile_docs_gmaima-plugin-gss.mdx';
+import ExampleAdvertisingToken from '../snippets/_example-advertising-token.mdx';
+import EnableLogging from '../snippets/_mobile-docs-enable-logging.mdx';
+import PrebidMobileSDK from '../snippets/_mobile_docs_prebid-mobile.mdx';
+import ErrorResponseStates from '../snippets/_mobile-docs-error-response-states.mdx';
 
 # UID2 Client-Side Integration Guide for Mobile
 
@@ -716,7 +716,7 @@ If the response status indicates that the DII has been opted out of UID2, you mi
 
 <GMAIMA_Plugins />
 
-## Optional: UID2 Prebid Mobile SDK Integration
+## Optional: UID2 Integration with Prebid Mobile SDK
 
 :::important
 UID2 Prebid Mobile SDK インテグレーションは、UID2 SDK for Android version 1.6.0 または UID2 SDK for iOS version 1.7.0 が必要です。

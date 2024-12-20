@@ -6,7 +6,7 @@ sidebar_position: 20
 ---
 
 import Link from '@docusaurus/Link';
-import ExampleTokenInBidstream from '/docs/snippets/_example-token-in-bidstream.mdx';
+import ExampleTokenInBidstream from '../snippets/_example-token-in-bidstream.mdx';
 
 # Frequently Asked Questions
 
@@ -139,7 +139,9 @@ SDKを使うかどうかで手順は少し異なります。
    - `refresh-optout@example.com` のハッシュを `email_hash` 値として指定します。
    - `phone` の値として `+00000000002` を指定します。
    - `phone_hash` 値として `+00000000002` のハッシュを指定します。
+ 
 2. 返された `refresh_token` を次のステップで使用するために保存します。
+
 3. [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) リクエストを `refresh_token` (Step 2 で保存) を `token` 値として送信します。<br/>ボディのレスポンスは空でなければならず、`refresh-optout@example.com` のメールアドレスと `+00000000002` の電話番号は常にログアウトしたユーザになるので、`status` の値は `optout` でなければなりません。
 
 #### What is the uniqueness and rotation policy for UID2 tokens?
@@ -162,7 +164,7 @@ UID2 フレームワークを使用する広告主やデータプロバイダー
 - [更新されたメールアドレスは、以前関連付けられていたバケットと同じバケットに割り当てられますか？](#do-refreshed-emails-get-assigned-to-the-same-bucket-with-which-they-were-previously-associated)
 - [インクリメンタルアップデートの場合、UID2 はどのくらいの頻度で更新するべきですか？](#how-often-should-uid2s-be-refreshed-for-incremental-updates)
 - [マッピング用の DII の SHA-256 はどのように生成すればよいですか？](#how-should-i-generate-the-sha-256-of-dii-for-mapping)
-- [大量のメールアドレスや電話番号やそれらのハッシュマッピングを保存すべきか？](#should-i-store-mapping-of-email-addresses-phone-numbers-or-corresponding-hashes-to-raw-uid2s-in-my-own-datasets)
+- [メールアドレス、電話番号、または対応するハッシュと raw UID2 のマッピングを、自身のデータセットに保存すべきでしょうか？](#should-i-store-mapping-of-email-addresses-phone-numbers-or-corresponding-hashes-to-raw-uid2s-in-my-own-datasets)
 - [ユーザーのオプトアウトはどのように処理すればよいですか？](#how-should-i-handle-user-opt-outs)
 - [同じ DII は常に同じ生UID2になりますか？](#does-the-same-dii-always-result-in-the-same-raw-uid2)
 - [2 つの Operator が同じ DII を処理した場合、結果は同じになりますか？](#if-two-operators-process-the-same-dii-are-the-results-the-same)
@@ -198,7 +200,7 @@ UID2 生成リクエストで提供されるメタデータには、UID2 の生�
 システムは[メールアドレス正規化ルール](../getting-started/gs-normalization-encoding#email-address-normalization)に従って、salt せずにハッシュ化する必要があります。
 
 #### Should I store mapping of email addresses, phone numbers, or corresponding hashes to raw UID2s in my own datasets?
-大量のメールアドレスや電話番号やそれらのハッシュマッピングを保存すべきか？
+メールアドレス、電話番号、または対応するハッシュと raw UID2 のマッピングを、自身のデータセットに保存すべきでしょうか？
 
 はい。何百万ものメールアドレスや電話番号をマッピングする必要がある場合、マッピングを保存しないことで処理時間が大幅に増加する可能性があります。しかし、実際に更新が必要なマッピングだけを再計算すると、毎日更新する必要があるのは UID2 の約 365 分の 1 なので、総処理時間が短縮されます。
 

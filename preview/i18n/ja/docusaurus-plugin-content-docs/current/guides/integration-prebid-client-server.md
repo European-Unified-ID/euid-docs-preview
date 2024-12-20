@@ -8,8 +8,8 @@ sidebar_position: 04
 ---
 
 import Link from '@docusaurus/Link';
-import AddPrebidjsToYourSite from '/docs/snippets/_prebid-add-prebidjs-to-your-site.mdx';
-import StoreUID2TokenInBrowser from '/docs/snippets/_prebid-storing-uid2-token-in-browser.mdx';
+import AddPrebidjsToYourSite from '../snippets/_prebid-add-prebidjs-to-your-site.mdx';
+import StoreUID2TokenInBrowser from '../snippets/_prebid-storing-uid2-token-in-browser.mdx';
 
 # UID2 Client-Server Integration Guide for Prebid.js
 
@@ -25,6 +25,8 @@ Prebid.js を使って UID2 とインテグレーションするには、以下�
 ## Prebid.js Version
 
 この実装には、Prebid.js version 7.53.0 以降が必要です。バージョン情報については、[https://github.com/prebid/Prebid.js/releases](https://github.com/prebid/Prebid.js/releases) を参照してください。
+
+<!-- Diff in Prebid.js supported version for UID2/EUID is fine: verif SS 11/19/24 -->
 
 ## UID2 Prebid Module Page
 

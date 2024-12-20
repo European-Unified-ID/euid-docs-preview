@@ -8,13 +8,15 @@ sidebar_position: 18
 ---
 
 import Link from '@docusaurus/Link';
-import ReleaseMatrix from '/docs/snippets/_private-operator-release-matrix.mdx';
+import ReleaseMatrix from '../snippets/_private-operator-release-matrix.mdx';
 
 # UID2 Private Operator for Azure Integration Guide
 
 UID2 Operator は、UID2 エコシステムにおける API サーバーです。このガイドでは、Microsoft Azure の機密コンピューティングオプションである [Confidential Containers](https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-containers) のインスタンスで <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link> として UID2 Operator Service を設定する方法について説明します。Confidential Containers のインスタンスは、データの整合性、データの機密性、コードの整合性などの固有の機能を提供するハードウェアで保護された Trusted Execution Environment (TEE) で実行されます。
 
 UID2 Operator Confidential Containers インスタンスの Docker コンテナが起動すると、UID2 Core Service は Operator Service と Operator Service が実行されているエンクレーブ環境の信頼性を検証ための認証プロセスを完了します。
+
+認証が成功すると、UID2 Core Service は UID2 Operator を安全な UID2 Operator Confidential Containers インスタンスにブートストラップするためのソルトやキーなどのシード情報を提供します。
 
 認証が成功すると、UID2 Core Service は UID2 Operator を安全な UID2 Operator Confidential Containers インスタンスにブートストラップするためのソルトやキーなどのシード情報を提供します。
 
@@ -288,7 +290,7 @@ Microsoft Azure で UID2 Private Operator をホストする Virtual Private Clo
 
    HTTP 200 と `OK` という応答本文が表示された場合、正常な状態です。
 
-import AttestFailure from '/docs/snippets/_private-operator-attest-failure.mdx';
+import AttestFailure from '../snippets/_private-operator-attest-failure.mdx';
 
 <AttestFailure />
 

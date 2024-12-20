@@ -306,7 +306,11 @@ UID2Manager.shared.automaticRefreshEnabled = false
 
 <GMAIMA_Plugins />
 
-## Optional: UID2 Prebid Mobile SDK Integration
+## Optional: UID2 Integration with Prebid Mobile SDK
+
+:::important
+The UID2 integration with Prebid Mobile SDK requires version 1.6.0 of the UID2 SDK for Android, or version 1.7.0 of the UID2 SDK for iOS.
+:::
 
 <PrebidMobileSDK />
 

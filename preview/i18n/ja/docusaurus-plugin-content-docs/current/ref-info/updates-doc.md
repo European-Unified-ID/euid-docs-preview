@@ -11,6 +11,17 @@ import Link from '@docusaurus/Link';
 
 UID2 ドキュメンテーションリソースの最新アップデートを確認してください。
 
+### New: LiveRamp Integration Tips
+
+November 14, 2024
+
+We've added a new reference page with tips for publishers who are using LiveRamp's Authenticated Traffic Solution (ATS) to generate UID2 tokens to be passed in the bid request.
+LiveRamp の Authenticated Traffic Solution (ATS) を使用して UID2 Token を生成し、ビッドリクエストで渡すパブリッシャー向けの新しいリファレンスページを追加しました。
+
+詳細は、[LiveRamp Integration Tips](../guides/integration-liveramp-tips.md) を参照してください。
+
+<!-- APIDOCS-2699 -->
+
 ### New: Tokens Page
 
 September 10, 2024
@@ -71,14 +82,14 @@ Server-Side で UID2 Token を生成するパブリッシャー向けの情報�
 
 <!-- APIDOCS-2255 -->
 
-### New: Prebid Mobile SDK Integration (Android)
+### New: UID2 Integration with Prebid Mobile SDK (Android)
 
 July 2, 2024
 
 2 つのモバイルインテグレーションガイドに、Prebid を使用したモバイルインテグレーションの新しいセクションを追加しました。現在は Android のみです。
 
-- [UID2 Client-Side Integration Guide for Mobile: Prebid Integration](../guides/integration-mobile-client-side#optional-uid2-prebid-mobile-sdk-integration)
-- [UID2 Client-Server Integration Guide for Mobile: Prebid Integration](../guides/integration-mobile-client-server#optional-uid2-prebid-mobile-sdk-integration)
+- [UID2 Client-Side Integration Guide for Mobile: Prebid Integration](../guides/integration-mobile-client-side#optional-uid2-integration-with-prebid-mobile-sdk)
+- [UID2 Client-Server Integration Guide for Mobile: Prebid Integration](../guides/integration-mobile-client-server#optional-uid2-integration-with-prebid-mobile-sdk)
 
 <!-- APIDOCS-2269 -->
 
@@ -313,7 +324,7 @@ UID2 Client-Side Integration Guide for Prebid.js は、既存の URL にまっ�
 - [UID2 Client-Server Integration Guide for Prebid.js](../guides/integration-prebid-client-server.md)
 :::
 
-### New: Opt-Out
+### New: Opt-Out Page
 
 October 31, 2023
 

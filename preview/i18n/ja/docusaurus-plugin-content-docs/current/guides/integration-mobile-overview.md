@@ -63,6 +63,8 @@ UID2 mobile SDK を使用してモバイルアプリを UID2 とインテグレ�
 
 UID2 mobile SDK を使用して UID2 とインテグレーションするためのオプションは、次の表にまとめられています。最適な <Link href="../ref-info/glossary-uid#gl-integration-approaches">Integration approach</Link> を選択してください。
 
+詳細は、[Integration Approaches](../ref-info/ref-integration-approaches.md) を参照してください。
+
 | Scenario | Option | Integration Guide |
 | :--- | :--- | :--- |
 | モバイルアプリ内のクライアントサイドで DII (メールアドレスまたは電話番号) にアクセスでき、変更をアプリ内にのみ保持したい場合。 | Client-Side インテグレーション | [UID2 Client-Side Integration Guide for Mobile](integration-mobile-client-side.md) |
@@ -89,7 +91,7 @@ UID2 Token をビッドストリームに送信する方法はいくつかあり
 | Google GMAを使用して、動画、バナー、インタースティシャル、ネイティブ広告を iOS アプリに統合したい | 以下の順番で:<ol><li>[UID2 GMA Plugin for iOS Integration Guide](../guides/mobile-plugin-gma-ios.md)</li><li>以下のいずれか:<ul><li>Client-side: [Optional: UID2 GMA/IMA Plugin for GAM Secure Signals integration](../guides/integration-mobile-client-side.md#optional-uid2-gmaima-plugin-for-gam-secure-signals-integration)</li><li>Client-server: [Optional: UID2 GMA/IMA Plugin for GAM Secure Signals integration](../guides/integration-mobile-client-server.md#optional-uid2-gmaima-plugin-for-gam-secure-signals-integration)</li></ul></li></ol> |
 | Google IMA を使用して、Android アプリにマルチメディア広告を統合したい | 以下の順番で:<ol><li>[UID2 IMA Plugin for Android Integration Guide](../guides/mobile-plugin-ima-android.md)</li><li>以下のいずれか:<ul><li>Client-side: [Optional: UID2 GMA/IMA Plugin for GAM Secure Signals integration](../guides/integration-mobile-client-side.md#optional-uid2-gmaima-plugin-for-gam-secure-signals-integration)</li><li>Client-server: [Optional: UID2 GMA/IMA Plugin for GAM Secure Signals integration](../guides/integration-mobile-client-server.md#optional-uid2-gmaima-plugin-for-gam-secure-signals-integration)</li></ul></li></ol> |
 | Google IMA を使用して、iOS アプリにマルチメディア広告を統合したい | 以下の順番で:<ol><li>[UID2 IMA Plugin for iOS Integration Guide](../guides/mobile-plugin-ima-ios.md)</li><li>以下のいずれか:<ul><li>Client-side: [Optional: UID2 GMA/IMA Plugin for GAM Secure Signals integration](../guides/integration-mobile-client-side.md#optional-uid2-gmaima-plugin-for-gam-secure-signals-integration)</li><li>Client-server: [Optional: UID2 GMA/IMA Plugin for GAM Secure Signals integration](../guides/integration-mobile-client-server.md#optional-uid2-gmaima-plugin-for-gam-secure-signals-integration)</li></ul></li></ol> |
-| Prebid Mobile SDKとPrebid Serverを使用して、AndroidまたはiOSアプリから広告リクエストを送信したい | 以下のいずれか:<ul><li>Client-side: [Optional: UID2 Prebid Mobile SDK Integration](../guides/integration-mobile-client-side.md#optional-uid2-prebid-mobile-sdk-integration)</li><li>Client-server: [Optional: UID2 Prebid Mobile SDK Integration](../guides/integration-mobile-client-server.md#optional-uid2-prebid-mobile-sdk-integration)</li></ul> |
+| Prebid Mobile SDKとPrebid Serverを使用して、AndroidまたはiOSアプリから広告リクエストを送信したい | 以下のいずれか:<ul><li>Client-side: [Optional: UID2 Integration with Prebid Mobile SDK](../guides/integration-mobile-client-side.md#optional-uid2-integration-with-prebid-mobile-sdk)</li><li>Client-server: [Optional: UID2 Integration with Prebid Mobile SDK](../guides/integration-mobile-client-server.md#optional-uid2-integration-with-prebid-mobile-sdk)</li></ul> |
 
 ### Functionality Summary
 
@@ -98,7 +100,7 @@ UID2 Token をビッドストリームに送信する方法はいくつかあり
 すべてのオプションは、Client-Side または Server-Side インテグレーションをサポートしています。
 
 | Implementation Option | Generate Token from DII | Refresh Token | Android/iOS? | Send Token to Bidstream |
-| :--- | :--- |  :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- |
 | UID2 SDK for Android | &#9989; | &#9989; | Android | &ast; |
 | UID2 SDK for iOS | &#9989;| &#9989; | iOS | &ast; |
 | GMA Plugin for Android<br/>(Requires UID2 SDK for Android) | &#8212; | &#8212; | Android | &#9989;&ast;&ast; |
@@ -143,6 +145,7 @@ Podspec は、CocoaPods 内のファイル名で、アプリにインテグレ�
 :::
 
 ## Troubleshooting Tips for Mobile Integrations
+
 UID2 モバイルインテグレーションのトラブルシューティングに役立つ追加情報です:
 
 - [Android SDK が本番環境に接続できない](#android-sdk-cannot-connect-in-production-environment)
