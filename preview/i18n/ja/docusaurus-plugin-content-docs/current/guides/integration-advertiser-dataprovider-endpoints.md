@@ -1,5 +1,5 @@
 ---
-title: Advertiser/Data Provider Integration to HTTP Endpoints
+title: Advertiser/Data Provider Integration Directly to HTTP Endpoints
 sidebar_label: HTTP Endpoints
 description: Integration for organizations that collect user data and push it to other participants, coding to HTTP endpoints rather than an SDK or Snowflake.
 hide_table_of_contents: false
@@ -9,13 +9,25 @@ displayed_sidebar: sidebarAdvertisers
 
 import Link from '@docusaurus/Link';
 
-# Advertiser/Data Provider Integration to HTTP Endpoints
+# Advertiser/Data Provider Integration Directly to HTTP Endpoints
 
-This guide covers integration steps for advertisers and data providers to integrate with UID2 by writing code to call UID2 HTTP endpoints, rather than using another implementation options such as an SDK, Snowflake, or AWS Entity Resolution.
+This guide covers integration steps for advertisers and data providers to integration by writing code to call UID2 HTTP endpoints, rather than using another implementation options such as an SDK, Snowflake, or AWS Entity Resolution.
 
 :::tip
 For a summary of all integration options and steps for advertisers and data providers, see [Advertiser/Data Provider Integration Overview](integration-advertiser-dataprovider-overview.md).
 :::
+
+### High-Level Steps
+
+At a high level, the steps for advertisers and data providers integrating with UID2 are as follows:
+
+1. Generate a raw UID2 from <Link href="../ref-info/glossary-uid#gl-dii">directly identifying information (DII)</Link>, or receive UID2s from another UID2 participant such as a data provider acting on your behalf.
+
+1. Use the UID2s you received in Step 1. For example, you might do one or more of the following:
+   - Do some manipulation: for example, combine UID2s you generated from DII and UID2s received from another participant such as an advertiser or data provider.
+   - Add new UID2s into an existing audience.
+
+1. Use the raw UID2s for some purpose such as measurement.
 
 ## Integration Diagram
 
@@ -23,42 +35,14 @@ The following diagram outlines the steps that data collectors must complete to m
 
 DII refers to a user's normalized email address or phone number, or the normalized and SHA-256-hashed email address or phone number.
 
-![Advertiser Flow](images/advertiser-flow-endpoints-mermaid.png)
+![Advertiser Flow](images/advertiser-flow-mermaid.png)
 
-<!-- diagram source: resource/advertiser-flow-endpoints-mermaid.md.bak -->
+<!-- diagram source: resource/advertiser-flow-mermaid.md.bak -->
 
-
-## Detailed Steps
-
-The steps for advertisers and data providers integrating with UID2 by calling the HTTP endpoints are given in the following sections:
-
-1. Generate a raw UID2 from <Link href="../ref-info/glossary-uid#gl-dii">directly identifying information (DII)</Link>, or receive UID2s from another UID2 participant such as a data provider acting on your behalf.
-
-    **Instructions**: see [Retrieve a raw UID2 for DII](#generate-a-raw-uid2-for-dii).
-
-2. Use the UID2s you received in Step 1. For example, you might do one or more of the following:
-   - Do some manipulation: for example, combine UID2s you generated from DII and UID2s received from another participant such as an advertiser or data provider.
-   - Add new UID2s into an existing audience.
-
-    **Instructions**: This step is is out of band and entirely up to you.
-
-3. Use the raw UID2s for some purpose such as:
-   - Send stored raw UID2s to DSPs to create audiences and conversions.
-   - Use the raw UID2s for measurement.
-
-    **Instructions**: see [Send stored raw UID2s to DSPs to create audiences or conversions](#send-stored-raw-uid2s-to-dsps-to-create-audiences-or-conversions).
-
-4.	Store the raw UID2 and the salt bucket ID returned from the identity mapping service.
-
-    **Instructions**: This step is is out of band and entirely up to you.
-
-5.	Monitor for salt bucket rotations related to your stored raw UID2s.
-
-    **Instructions**: See [Monitor for salt bucket rotations related to your stored raw UID2s](integration-advertiser-dataprovider-overview.md#monitor-for-salt-bucket-rotations-related-to-your-stored-raw-uid2s).
-
-6.	Periodically, monitor for opt-out status, to be sure that you don't continue using UID2s for users that have recently opted out.
-
-    **Instructions**: See [Monitor for Opt-Out Status](#monitor-for-opt-out-status).
+Refer to the following sections for details about the different parts of the diagram:
+1. [Retrieve a raw UID2 for DII](#generate-a-raw-uid2-for-dii)
+2. [Send stored raw UID2s to DSPs to create audiences or conversions](#send-stored-raw-uid2s-to-dsps-to-create-audiences-or-conversions)
+3. [Monitor for salt bucket rotations related to your stored raw UID2s](#monitor-for-salt-bucket-rotations-related-to-your-stored-raw-uid2s)
 
 ### Generate a raw UID2 for DII
 
@@ -82,10 +66,10 @@ To help ensure that your integration has the current raw UID2s, check salt bucke
 
 | Step | Endpoint | Description |
 | --- | --- | --- |
-| 5-a | [POST&nbsp;/identity/buckets](../endpoints/post-identity-buckets.md) | Send a request to the bucket status endpoint for all salt buckets that have changed since a specific timestamp. |
-| 5-b | [POST&nbsp;/identity/buckets](../endpoints/post-identity-buckets.md) | UID2 service: The bucket status endpoint returns a list of `bucket_id` and `last_updated` timestamps. |
-| 5-c | [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) | Compare the returned `bucket_id` to the salt buckets of raw UID2s that you've cached.<br/>If you find that the salt bucket was updated for one or more raw UID2s, re-send the DII to the identity mapping service for a new raw UID2. |
-| 5-d | [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) | Store the new values returned for `advertising_id` and `bucket_id`. |
+| 3-a | [POST&nbsp;/identity/buckets](../endpoints/post-identity-buckets.md) | Send a request to the bucket status endpoint for all salt buckets that have changed since a specific timestamp. |
+| 3-b | [POST&nbsp;/identity/buckets](../endpoints/post-identity-buckets.md) | UID2 service: The bucket status endpoint returns a list of `bucket_id` and `last_updated` timestamps. |
+| 3-c | [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) | Compare the returned `bucket_id` to the salt buckets of raw UID2s that you've cached.<br/>If you find that the salt bucket was updated for one or more raw UID2s, re-send the DII to the identity mapping service for a new raw UID2. |
+| 3-d | [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) | Store the new values returned for `advertising_id` and `bucket_id`. |
 
 ## Use an Incremental Process to Continuously Update Raw UID2s
 
