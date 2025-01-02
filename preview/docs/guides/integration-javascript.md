@@ -8,7 +8,6 @@ sidebar_position: 04
 ---
 
 import Link from '@docusaurus/Link';
-import IntegratingWithSSO from '/docs/snippets/_integrating-with-sso.mdx';
 
 # UID2 Integration Overview for JavaScript
 
@@ -70,7 +69,3 @@ For detailed instructions, refer to one of the following integration guides:
 
 - [Client-Side Integration Guide for JavaScript](integration-javascript-client-side.md)
 - [Client-Server Integration Guide for JavaScript](integration-javascript-client-server.md)
-
-## Integrating with SSO
-
-<IntegratingWithSSO />
