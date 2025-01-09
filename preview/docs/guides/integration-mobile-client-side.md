@@ -6,10 +6,10 @@ description: Setting up a mobile integration with token generate and refresh bot
 hide_table_of_contents: false
 sidebar_position: 04
 ---
-
+import Link from '@docusaurus/Link';
+import IntegratingWithSSO from '/docs/snippets/_integrating-with-sso.mdx';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import Link from '@docusaurus/Link';
 import ExampleAdvertisingToken from '/docs/snippets/_example-advertising-token.mdx';
 import EnableLogging from '/docs/snippets/_mobile-docs-enable-logging.mdx';
 import GMAIMA_Plugins from '/docs/snippets/_mobile_docs_gmaima-plugin-gss.mdx';
@@ -189,6 +189,10 @@ see UID2SDKDevelopmentApp/UID2SDKDevelopmentApp/Info.plist
 </Tabs>
 
 If necessary, you can also change the default Subscription ID and public key to values assigned to you, and connect to the EUID Production environment. For details, see [Optional: Specifying the API Base URL to Reduce Latency](#optional-specifying-the-api-base-url-to-reduce-latency).
+
+## Integrating with Single Sign-On (SSO)
+
+<IntegratingWithSSO />
 
 ## Complete the EUID Account Setup
 
@@ -588,7 +592,7 @@ Some possible reasons for this, and some things you could do to troubleshoot, ar
     - **iOS**: `EUIDManager.shared.identityStatus`
 
     It's possible that the personal data has been opted out of EUID: for details, see [When to Pass Personal Data into the SDK](#when-to-pass-personal-data-into-the-sdk).
-- You could enable logging to get more information: see [Enable Logging](#enable-logging).
+- You could enable logging (set `isLoggingEnabled` to `true`) to get more information: see [Enable Logging](#enable-logging).
 - The advertising token inside the EUID identity has expired, and the refresh token has also expired, so the SDK cannot refresh the token.
 
 If there is no identity, you'll need to call the `generateIdentity` method again: see [Configure the EUID Mobile SDK](#configure-the-euid-mobile-sdk).
