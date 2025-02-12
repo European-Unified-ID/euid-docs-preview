@@ -8,6 +8,7 @@ sidebar_position: 04
 ---
 
 import Link from '@docusaurus/Link';
+import IntegratingWithSSO from '/docs/snippets/_integrating-with-sso.mdx';
 
 # UID2 Integration Overview for JavaScript
 
@@ -25,6 +26,10 @@ UID2 provides an SDK for JavaScript that supports the following:
 
 For additional flexibility, UID2 also provides alternative methods for some of the features and complementary products, such as a Prebid integration.
 
+## Integrating with Single Sign-On (SSO)
+
+<IntegratingWithSSO />
+
 ## Client-Side or Client-Server Integration
 
 The options for integrating with UID2 using the SDK for JavaScript are summarized in the following table. Choose the option that's best for you.
@@ -33,6 +38,14 @@ The options for integrating with UID2 using the SDK for JavaScript are summarize
 | :--- | :--- | :--- |
 | You have access to DII on the client side and want to do front-end development only. | Client-side integration | [Client-Side Integration Guide for JavaScript](integration-javascript-client-side.md) |
 | You have access to DII on the server side and can do server-side development, or you are using a <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link>. | Server-side integration | [Client-Server Integration Guide for JavaScript](integration-javascript-client-server.md) |
+
+## Complete UID2 Account Setup and Configure Account
+
+To integrate with UID2, you'll need to have a UID2 account. If you haven't yet created an account, first follow the steps described on the [Account Setup](../getting-started/gs-account-setup.md) page.
+
+When initial account setup is complete, you'll receive instructions and a link to access the [UID2 Portal](../portal/portal-overview.md), where you can create your [credentials](../getting-started/gs-credentials.md) for the production environment and configure additional values, if needed. For details, see [Getting Started with the UID2 Portal](../portal/portal-getting-started.md).
+
+The steps you'll take in the UID2 Portal are different depending on whether your implementation will be client-side, client-server, or server-side. Specific instructions are in each implementation guide.
 
 ## Generating the UID2 Token
 

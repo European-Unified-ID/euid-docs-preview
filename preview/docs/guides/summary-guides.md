@@ -33,7 +33,7 @@ Publisher integrations fall into the following main categories:
 
 ### Web Integrations
 
-The following resources are available for publisher web integrations.
+The following documentation resources are available for publisher web integrations.
 
 :::tip
 For a detailed summary of web integration options, see [Web Integration Overview](integration-options-publisher-web.md).
@@ -52,7 +52,7 @@ For a detailed summary of web integration options, see [Web Integration Overview
 
 ### Mobile Integrations
 
-The following resources are available for publishers integrating with Android or iOS devices.
+The following documentation resources are available for publishers integrating with Android or iOS devices.
 
 | Integration Guide | Content Description |
 | :--- | :--- |
@@ -62,7 +62,7 @@ The following resources are available for publishers integrating with Android or
 
 ### CTV Integrations
 
-The following resources are available for publisher integrations supporting CTV.
+The following documentation resources are available for publisher integrations supporting CTV.
 
 | Integration Guide | Content Description |
 | :--- | :--- |
@@ -93,18 +93,19 @@ The following resources are available for publishers integrating with Google Ad 
 
 ## Advertiser/Data Provider Integrations
 
-The following resources are available for advertisers and data providers integrating with UID2.
+The following documentation resources are available for advertisers and data providers integrating with UID2.
 
 | Integration Guide | Content Description |
 | :--- | :--- |
-| [Advertiser/Data Provider](advertiser-dataprovider-guide.md) | This integration guide for advertisers and data providers covers integration workflows for mapping identity for audience-building and targeting. |
-| [Client-Side Integration Guide for JavaScript](integration-javascript-client-side.md) | A guide for advertisers and data providers who want to use this SDK for adding a UID2 token to their tracking pixels.<!-- UID2_only: Not applicable for EUID --> |
-| [Snowflake Integration Guide](snowflake_integration.md) | Instructions for generating UID2s from emails within Snowflake. |
+| [Advertiser/Data Provider Overview](integration-advertiser-dataprovider-overview.md) | This guide provides an overview of integration options for organizations that collect user data and push it to other UID2 participants. |
+| [Snowflake Integration Guide](integration-snowflake.md) | Instructions for generating UID2s from emails within Snowflake. |
 | [AWS Entity Resolution Integration Guide](integration-aws-entity-resolution.md) | Instructions for integrating with the UID2 framework using AWS Entity Resolution. |
+| [Advertiser/Data Provider Integration to HTTP Endpoints](integration-advertiser-dataprovider-endpoints.md) | This guide covers integration steps for advertisers and data providers to integrate with UID2 by writing code to call UID2 HTTP endpoints, rather than using another implementation option such as an SDK, Snowflake, or AWS Entity Resolution. |
+| [Client-Side Integration Guide for JavaScript](integration-javascript-client-side.md) | A guide for advertisers and data providers who want to use this SDK for adding a UID2 token to their tracking pixels.<!-- UID2_only: Not applicable for EUID --> |
 
 ## DSP Integrations
 
-The following resources are available for DSPs integrating with UID2.
+The following documentation resources are available for DSPs integrating with UID2.
 
 | Integration Guide | Content Description |
 | :--- | :--- |

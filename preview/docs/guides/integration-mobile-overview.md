@@ -9,6 +9,7 @@ displayed_sidebar: sidebarPublishers
 ---
 
 import Link from '@docusaurus/Link';
+import IntegratingWithSSO from '/docs/snippets/_integrating-with-sso.mdx';
 
 # UID2 Mobile Integration Overview for Android and iOS
 
@@ -27,6 +28,10 @@ UID2 provides SDKs for Android/iOS that support the following:
 - Storing the UID2 token
 
 For additional flexibility, UID2 also provides alternative methods for some of the features and complementary products, such as UID2 Google GMA/IMA Plugins. Available options are described in the individual guides: see [Integration Overview: High-Level Steps](#integration-overview-high-level-steps).
+
+## Integrating with Single Sign-On (SSO)
+
+<IntegratingWithSSO />
 
 ## Integration Overview: High-Level Steps
 
@@ -59,6 +64,14 @@ To determine the best integration path for your mobile scenario, consider these 
 
 1. How do you want to use the UID2 tokens? See [Sending the Token to the Bidstream](#sending-the-token-to-the-bidstream).
 
+## Complete UID2 Account Setup and Configure Account
+
+To integrate with UID2, you'll need to have a UID2 account. If you haven't yet created an account, first follow the steps described on the [Account Setup](../getting-started/gs-account-setup.md) page.
+
+When initial account setup is complete, you'll receive instructions and a link to access the [UID2 Portal](../portal/portal-overview.md), where you can create your [credentials](../getting-started/gs-credentials.md) for the production environment and configure additional values, if needed. For details, see [Getting Started with the UID2 Portal](../portal/portal-getting-started.md).
+
+The steps you'll take in the UID2 Portal are different depending on whether your implementation will be client-side, client-server, or server-side. Specific instructions are in each implementation guide. For a summary, see [Client-Side or Client-Server Integration?](#client-side-or-client-server-integration)
+
 ### Client-Side or Client-Server Integration?
 
 The options for integrating with UID2 using the UID2 mobile SDKs are summarized in the following table. Choose the <Link href="../ref-info/glossary-uid#gl-integration-approaches">integration approach</Link> that's best for you.
@@ -74,10 +87,27 @@ For details, see [Integration Approaches](../ref-info/ref-integration-approaches
 
 The following table summarizes the mobile integration options for managing the UID2 token, including generating, storing, and refreshing the token, with links to the documentation for each option.
 
-| UID2 Mobile Implementation Option | SDK Doc | Implementation Guide |
-| :--- | :---| :---|
-| UID2 Android SDK | [SDK for Android Reference Guide](../sdks/sdk-ref-android.md) | One of the following:<ul><li>[UID2 Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md)</li><li>[UID2 Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server.md)</li></ul> |
-| UID2 iOS SDK | [SDK for iOS Reference Guide](../sdks/sdk-ref-ios.md) | One of the following:<ul><li>[UID2 Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md)</li><li>[UID2 Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server.md)</li></ul> |
+<table>
+  <thead>
+    <tr>
+      <th>UID2 Mobile Implementation Option</th>
+      <th>SDK Doc</th>
+      <th>Implementation Guide</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UID2 Android SDK</td>
+      <td>[SDK for Android Reference Guide](../sdks/sdk-ref-android.md)</td>
+      <td>One of the following:<ul><li>[UID2 Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md)</li><li>[UID2 Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server.md)</li></ul></td>
+    </tr>
+    <tr>
+      <td>UID2 iOS SDK</td>
+      <td>[SDK for iOS Reference Guide](../sdks/sdk-ref-ios.md)</td>
+      <td>One of the following:<ul><li>[UID2 Client-Side Integration Guide for Mobile](../guides/integration-mobile-client-side.md)</li><li>[UID2 Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server.md)</li></ul></td>
+    </tr>
+  </tbody>
+</table>
 
 ### Sending the Token to the Bidstream
 

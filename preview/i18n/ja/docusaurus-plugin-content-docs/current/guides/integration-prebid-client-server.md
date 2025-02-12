@@ -1,8 +1,8 @@
 ---
 title: UID2 Client-Server Integration Guide for Prebid.js
-sidebar_label: Server-Side Integration for Prebid.js
-pagination_label: UID2 Server-Side Integration for Prebid.js
-description: Server-Side の Prebid.js インテグレーションの設定に関する情報。
+sidebar_label: Client-Server Integration for Prebid.js
+pagination_label: UID2 Client-Server Integration for Prebid.js
+description: Client-Server の Prebid.js インテグレーションの設定に関する情報。
 hide_table_of_contents: false
 sidebar_position: 04
 ---
@@ -36,17 +36,17 @@ Prebid と UID2 のインテグレーション方法に関する情報は、以�
 
 <!-- ## Integration Example
 
-GWH note 12/14/23: We have client-side and server-side examples for JS SDK but only server-side for Prebid. -->
+GWH note 12/14/23 updated 2/7/25: we have a client-side example for Prebid.js but no client-server example. -->
 
 ## Integration Overview: High-Level Steps
 
 以下のステップを完了する必要があります:
 
-1. [Complete UID2 account setup](#complete-uid2-account-setup).
-2. [Add Prebid.js to your site](#add-prebidjs-to-your-site).
-3. [Configure the UID2 module](#configure-the-uid2-module).
+1. [Complete UID2 account setup and configure account](#complete-uid2-account-setup-and-configure-account)
+2. [Add Prebid.js to your site](#add-prebidjs-to-your-site)
+3. [Configure the UID2 module](#configure-the-uid2-module)
 
-## Complete UID2 Account Setup
+## Complete UID2 Account Setup and Configure Account
 
 [Account Setup](../getting-started/gs-account-setup.md) ページに記載されている手順に従って、UID2 アカウントのセットアップを完了します。
 

@@ -67,6 +67,7 @@ Here are some frequently asked questions for publishers using the UID2 framework
 - [How can I test the refresh token workflow?](#how-can-i-test-the-refresh-token-workflow)
 - [What is the uniqueness and rotation policy for UID2 tokens?](#what-is-the-uniqueness-and-rotation-policy-for-uid2-tokens)
 - [What does a UID2 token look like in the bidstream?](#what-does-a-uid2-token-look-like-in-the-bidstream)
+- [Can I integrate UID2 with Single Sign-On (SSO)?](#can-i-integrate-uid2-with-single-sign-on-sso)
 
 #### How can I test that the DII sent and the returned token match up?
 
@@ -147,6 +148,12 @@ There are many ways to approach UID2 implementation. Here is one example of a co
 
 <ExampleTokenInBidstream />
 
+#### Can I integrate UID2 with Single Sign-On (SSO)?
+
+Yes. With popular <a href="../ref-info/glossary-uid#gl-sso">SSO</a> integration options such as Sign in with Google, Facebook Login, Sign in with Apple, or OpenPass, you can retrieve the email address and use it to generate a UID2.
+
+For details, see [Publisher Integration with SSO Providers](/docs/ref-info/ref-integration-sso-providers.md).
+
 ## FAQs for Advertisers and Data Providers
 
 Here are some frequently asked questions for advertisers and data providers using the UID2 framework.
@@ -170,7 +177,7 @@ We do not make any promises about when the rotation takes place. To stay as up-t
 
 #### Do refreshed emails get assigned to the same bucket with which they were previously associated?
 
-Not necessarily. After you remap emails associated with a particular bucket ID, the emails might be assigned to a different bucket ID. To check the bucket ID, [call the mapping function](../guides/advertiser-dataprovider-guide.md#1-retrieve-a-raw-uid2-for-dii-using-the-identity-map-endpoint) and save the returned UID2 and bucket ID again.
+Not necessarily. After you remap emails associated with a particular bucket ID, the emails might be assigned to a different bucket ID. To check the bucket ID, see [Generate Raw UID2s from DII](../guides/integration-advertiser-dataprovider-overview.md#1-generate-raw-uid2s-from-dii) and save the returned raw UID2 and bucket ID again.
 
 :::info
 When mapping and remapping emails, do not make any assumptions about the number of buckets, their rotation dates, or the specific bucket that an email gets assigned to.
@@ -208,7 +215,7 @@ In general yes, the process of generating a raw UID2 from DII is the same, and r
 
 However, there is a variable factor, which is the <Link href="../ref-info/glossary-uid#gl-salt">salt</Link> value that's used in generating the raw UID2. The salt values are rotated roughly once per year (for details, see [How often should UID2s be refreshed for incremental updates?](#how-often-should-uid2s-be-refreshed-for-incremental-updates)). If the salt value changes between one request and another, those two requests result in two different raw UID2, even when the DII is the same.
 
-For more information, see [Monitor for salt bucket rotations related to your stored raw UID2s](../guides/advertiser-dataprovider-guide.md#3-monitor-for-salt-bucket-rotations-related-to-your-stored-raw-uid2s) in the *Advertiser/Data Provider Integration Guide*.
+For more information, see [Monitor for Salt Bucket Rotations for Your Stored Raw UID2s](../guides/integration-advertiser-dataprovider-overview.md#5-monitor-for-salt-bucket-rotations-for-your-stored-raw-uid2s) in the *Advertiser/Data Provider Integration Guide*.
 
 #### If two operators process the same DII, are the results the same?
 

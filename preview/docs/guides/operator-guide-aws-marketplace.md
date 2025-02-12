@@ -108,10 +108,10 @@ The following table lists all resources that are created during the [deployment]
 
 | Name | Type | Description |
 |:------|:------|:-------------|
-| `KMSKey` | `AWS::KMS::Key` | The key for secret encryption (for configuration strings). |
+| `KMSKey` | `AWS::KMS::Key` | Custom KMS key used for encrypting the secrets in AWS Secrets Manager. | 
 | `SSMKeyAlias` | `AWS::KMS::Alias` | An alias that provides an easy way to access the [KMS](https://aws.amazon.com/kms/) key. |
-| `TokenSecret` | `AWS::SecretsManager::Secret` | An encrypted configuration that includes the operator key. |
-| `WorkerRole` | `AWS::IAM::Role` | The IAM role that your UID2 Operators run as. Roles provide access to configuration keys. |
+| `TokenSecret` | `AWS::SecretsManager::Secret` | A Secrets Manager secret to store the operator key. |
+| `WorkerRole` | `AWS::IAM::Role` | The IAM role that your UID2 Operators run as. The role provides access to AWS Secrets Manager to retrieve operator keys. |
 | `WorkerInstanceProfile` | `AWS::IAM::InstanceProfile` | The instance profile with Worker Role to attach to Operator EC2 instances. |
 | `SecurityGroup` | `AWS::EC2::SecurityGroup` | A security group policy that provides rules for operator instances. See also [Security Group Policy](#security-group-policy).|
 | `LaunchTemplate` | `AWS::EC2::LaunchTemplate` | A launch template with all configurations in place. You can spawn new UID2 Operator instances from it. |
@@ -136,7 +136,7 @@ To avoid passing certificates associated with your domain into the enclave, inbo
 | ----------- | --------- | -------- | ------ |
 | 80 | Inbound | HTTP | Serves all UID2 APIs, including the healthcheck endpoint `/ops/healthcheck`.<br/>When everything is up and running, the endpoint returns HTTP 200 with a response body of `OK`. For details, see [Checking UID2 Operator Status](#checking-uid2-operator-status). |
 | 9080 | Inbound | HTTP | Serves Prometheus metrics (`/metrics`). |
-| 443 | Outbound | HTTPS | Calls the UID2 Core Service; updates opt-out data and key store. |
+| 443 | Outbound | HTTPS | Calls the UID2 Core Service, AWS S3, to download files for opt-out data and key store. |
 
 ### VPC Chart
 
@@ -216,7 +216,7 @@ To create a load balancer and a target operator auto-scaling group, complete the
 2. Click **Create Load Balancer**.
 3. On the Load balancer types page, in the **Application Load Balancer** section, click **Create**.
 4. Enter the UID2 **Load balancer name**. Depending on whether or not you need to access UID2 APIs from public internet, choose the **Internet-facing** or **Internal** scheme.
-5. Select the **VPC** for your targets and at least two subnets used in your CloudFormation stack.
+5. Select the **VPC** you used while creating the CloudFormation stack, and at least two subnets.
 6. Under **Security groups**, click **Create new security group** and do the following:
     1. Enter `UID2SGALB` as its **Security group name**, as well as a relevant **Description**.
     2. Under **Inbound rules**, click **Add rule**, then select the **HTTPS** Type and an appropriate **Source** according to your requirements.
@@ -332,7 +332,7 @@ These are the default settings for the following reasons:
 
 ### Changing the Log Rotation Schedule
 
-To change the log rotation schedule, update the `etc/logrotate.d/operator-logrotate.conf` file.
+To change the log rotation schedule, update the `etc/logrotate.d/operator-logrotate.conf` file. 
 
 Follow the instructions in the logrotate documentation: see [logrotate(8) - Linux man](https://linux.die.net/man/8/logrotate) page.
 
@@ -349,23 +349,6 @@ The following table includes some additional commands that might help you manage
 | Provides a detailed explanation of what will be rotated. | `sudo logrotate -f /etc/logrotate.conf --debug` |
 | Runs one iteration of `logrotate` manually, without changing the scheduled interval. | `sudo logrotate -f /etc/logrotate.conf --force` |
 | Reloads `syslog-ng`. | `sudo /usr/sbin/syslog-ng-ctl reload` |
-
-## UID2 Operator Error Codes
-
-The following table lists errors that might occur during a Private Operator's startup sequence.
-
-:::note
-Error codes for Private Operator startup issues apply only to versions released in Q2 2024 and later.
-:::
-
-| Error Code | Issue | Steps to Resolve |
-| :--- | :--- | :--- |
-| E01 | MissingInstanceProfile |  Attach an IAM instance profile to the EC2 instance with the required permissions. The UID2 Operator needs these permissions to access configurations from AWS Secrets Manager. |
-| E02 | ConfigNotFound | Make sure that the secret referenced by the Private Operator exists in AWS Secrets Manager in the same region as the operator, and that the IAM instance profile has permission to access the secret. If needed, you can check the logs for the specific secret name and region. |
-| E03 | MissingConfig | Required attributes are missing in the configuration. Refer to the logs for details and update the missing attributes in Secrets Manager. |
-| E04 | InvalidConfigValue | A configuration value is invalid. Verify that the configuration values in the AWS Secrets Manager align with the required format and environment. Note `debug = true` is allowed only in the `integ` environment. Check the logs for more details. |
-| E05 | InvalidOperatorKey | Ensure the operator key is correct for the environment and matches the one provided to you. |
-| E06 | UID2ServicesUnreachable | Allow UID2 core and opt-out service IP addresses in the egress firewall. For IP addresses and DNS details, refer to the logs.  |
 
 ## Technical Support
 

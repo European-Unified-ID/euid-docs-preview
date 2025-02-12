@@ -121,24 +121,28 @@ Refresh Token のワークフローをテストするにはどうすればよい
 
 `refresh-optout@example.com` のメールアドレスまたは `+00000000002` の電話番号を使用して、トークンリフレッシュのワークフローをテストすることができます。どちらかのパラメータ値をリクエストに使用すると、常に `refresh_token` を含む identity レスポンスが生成され、ログアウトレスポンスが返されます。
 
+:::tip
+メールアドレスの正規化、ハッシュ化、Base64　エンコードされたハッシュ値、または、電話番号のハッシュ化、Base64 エンコードされたハッシュ値を取得するには、ハッシングツールを使用できます。詳細は、[UID2 Hashing Tool](gs-normalization-encoding.md#uid2-hashing-tool) を参照してください。
+:::
+
 SDKを使うかどうかで手順は少し異なります。
 
 ##### With SDK:
 
 1. DII がメールアドレスか電話番号かに応じて、以下の値のいずれかを使用して [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) リクエストを送信します:
-   - `email` の値として `refresh-optout@example.com` を指定します。
-   - ``refresh-optout@example.com` のハッシュを `email_hash` 値として指定します。
-   - `phone` の値として `+00000000002` を指定します。
-   - `phone_hash` 値として `+00000000002` のハッシュを指定します。
+   - `email` の値: `refresh-optout@example.com`.
+   - `email_hash` の値: `refresh-optout@example.com` をハッシュ化し Base64 エンコードした値は `NaNI8RU0bL1Jpp1jJLC5aJO/lchc6gGhgXQIAwJ7cV4=` です。
+   - `phone` の値: `+00000000002`.
+   - `phone_hash` `+00000000002` をハッシュ化し Base64 エンコードした値は `0VoxsIuk88qt7TnZaTC//C9Vur3pR1zBMIr1cJe7xjE=` です。
 2. SDK の [background auto-refresh](../sdks/sdk-ref-javascript.md#background-token-auto-refresh) が Advertising Token のリフレッシュを試み(これには数時間かかることがあります)、リフレッシュの試みが `OPTOUT` ステータスで失敗するのを観察するまで待ちます。この時点で SDK はファーストパーティクッキーもクリアします。
 
 ##### Without SDK:
 
 1. DII がメールアドレスか電話番号かに応じて、以下の値のいずれかを使用して [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) リクエストを送信します:
-   - `email` の値として `refresh-optout@example.com` を指定します。
-   - `refresh-optout@example.com` のハッシュを `email_hash` 値として指定します。
-   - `phone` の値として `+00000000002` を指定します。
-   - `phone_hash` 値として `+00000000002` のハッシュを指定します。
+   - `email` の値: `refresh-optout@example.com`.
+   - `email_hash` の値: `refresh-optout@example.com` をハッシュ化し Base64 エンコードした値は `NaNI8RU0bL1Jpp1jJLC5aJO/lchc6gGhgXQIAwJ7cV4=` です。
+   - `phone` の値: `+00000000002`.
+   - `phone_hash` `+00000000002` をハッシュ化し Base64 エンコードした値は `0VoxsIuk88qt7TnZaTC//C9Vur3pR1zBMIr1cJe7xjE=` です。
  
 2. 返された `refresh_token` を次のステップで使用するために保存します。
 
@@ -181,7 +185,7 @@ UID2 生成リクエストで提供されるメタデータには、UID2 の生�
 #### Do refreshed emails get assigned to the same bucket with which they were previously associated?
 更新されたメールアドレスは、以前関連付けられていたバケットと同じバケットに割り当てられますか？
 
-必ずしもそうとは限りません。特定のバケット ID に関連付けられたメールアドレスを再マッピングした後、そのメールが異なるバケット ID に割り当てられる可能性があります。バケット ID を確認するには、[マッピング関数を呼び出す](../guides/advertiser-dataprovider-guide.md#1-retrieve-a-raw-uid2-for-dii-using-the-identity-map-endpoint) そして返された UID2 とバケット ID を再び保存してください。
+必ずしもそうとは限りません。特定のバケット ID に関連付けられたメールアドレスを再マッピングした後、そのメールが異なるバケット ID に割り当てられる可能性があります。バケット ID を確認するには、[マッピング関数を呼び出す](../guides/integration-advertiser-dataprovider-overview.md#1-generate-raw-uid2s-from-dii) そして返された UID2 とバケット ID を再び保存してください。
 
 :::info
 メールアドレスのマッピングや再マッピングを行う際には、バケットの数やローテーションする日、メールアドレスが割り当てられる特定のバケットについて、いかなる仮定も行わないようにしてください。
@@ -224,7 +228,7 @@ UID2 生成リクエストで提供されるメタデータには、UID2 の生�
 
 ただし、raw UID2 の生成に使用される [ソルト](../ref-info/glossary-uid.md#gl-salt) 値という可変要素があります。ソルト値は定期的にローテーションされます(詳細は [How often should UID2s be refreshed for incremental updates?](#how-often-should-uid2s-be-refreshed-for-incremental-updates)) を参照してください)。あるリクエストと別のリクエストの間でソルト値が変化する場合、DII が同じであっても、これら 2 つのリクエストは 2 つの異なる raw UID2 になります。
 
-詳細については、*Advertiser/Data Provider Integration Guide*の [Monitor for salt bucket rotations related to your stored raw UID2s](../guides/advertiser-dataprovider-guide.md#3-monitor-for-salt-bucket-rotations-related-to-your-stored-raw-uid2s) を参照してください。
+詳細については、*Advertiser/Data Provider Integration Guide*の [Monitor for salt bucket rotations related to your stored raw UID2s](../guides/integration-advertiser-dataprovider-overview.md#5-monitor-for-salt-bucket-rotations-for-your-stored-raw-uid2s) を参照してください。
 
 #### If two operators process the same DII, are the results the same?
 2 つの Operator が同じ DII を処理した場合、結果は同じになりますか？

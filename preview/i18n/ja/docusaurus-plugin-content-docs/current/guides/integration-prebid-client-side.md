@@ -36,12 +36,11 @@ UID2 Prebid.js Client-Side インテグレーション例は、以下のリン�
 
 以下のステップを完了する必要があります:
 
-1. [Complete UID2 account setup](#complete-uid2-account-setup).
+1. [Complete UID2 account setup and configure account](#complete-uid2-account-setup-and-configure-account)
 2. [Add Prebid.js to your site](#add-prebidjs-to-your-site).
 3. [Configure the UID2 module](#configure-the-uid2-module).
 
-
-### Complete UID2 Account Setup
+### Complete UID2 Account Setup and Configure Account
 
 [Account Setup](../getting-started/gs-account-setup.md) ページに記載されている手順に従って、UID2 アカウントのセットアップを完了します。Client-Side 実装のアカウント設定プロセスの一環として、Prebid.js で使用するサイトのドメイン名のリストを提供する必要があります。
 
@@ -155,7 +154,7 @@ UID2 module が正常に UID2 Token を生成したかどうかを確認する�
 インテグレーションに問題がある場合、以下のような手順があります:
 
 - ブラウザのコンソールログを確認してください。
-- **Subscription ID** と **Public Key** の値を確認してください:
+- **Subscription ID** (**subscriptionId** の値) と **Public Key** (**serverPublicKey** の値) を確認してください:
   - UID2 チームから受け取った値と同一であることを確認してください。
   - 使用している環境の値が正しいことを確認してください。[environment](../getting-started/gs-environments.md) ごとに **Subscription IDID** と **Public Key** の値が異なります。
 - アカウントのセットアップ中に、サイトのドメイン名を UID2 チームに提供したことを確認してください。必要に応じて、UID2 の担当者に確認してください。

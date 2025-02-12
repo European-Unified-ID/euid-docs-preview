@@ -52,7 +52,7 @@ UID2 Identify Module、または UID2 サポートのある他の製品と Prebi
 サンプルアプリケーションと関連するドキュメントは以下を参照してください:
   - The UID2 Google Secure Signals with SDK v3 example:
     - [Code and docs](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/google-secure-signals-integration/with_sdk_v3)
-    - Running site: [Client-Side UID2 SDK Integration Example](https://secure-signals-jssdk-integ.uidapi.com/)
+    - Running site: [Client-Side UID2 SDK Integration Example](https://secure-signals-client-server-integ.uidapi.com/)
   - The example of JavaScript client-side integration: [Code](https://github.com/IABTechLab/uid2-web-integrations/tree/main/examples/cstg) and running site ([Client-Side Integration Example, UID2 JavaScript SDK](https://cstg-integ.uidapi.com/)).
 
 ## API Permissions
@@ -271,7 +271,7 @@ SDK for JavaScript とのすべてのインストラクションは、グロー�
 - [isLoginRequired()](#isloginrequired-boolean)
 - [isIdentityAvailable()](#isidentityavailable-boolean) <New3100 />
 - [disconnect()](#disconnect-void)
-- [abort()](#abort-void)
+- [abort()](#abort-void) <Deprecated3100 />
 - [callbacks](#callbacks) <New />
 - [setIdentity()](#setidentityidentity-identity-void) <New />
 - [getIdentity()](#getidentity-identity--null) <New />
@@ -474,7 +474,7 @@ SDK が正しいクッキーにアクセスするために `cookieDomain` また
 
 <Deprecated3100 />
 
-この機能は非推奨であり、2025 年 6 月に完全に削除されます。代わりに、`abort()` と同じ機能を持つ [disconnect()](#disconnect-void) を使用してください。また、より徹底的な切断ロジックも含まれています。
+この機能は非推奨であり、まもなくサポートが終了します。代わりに、`abort()` と同じ機能を持つ [disconnect()](#disconnect-void) を使用してください。また、より徹底的な切断ロジックも含まれています。
   
 バックグラウンドタイマーやリクエストを終了します。UID2 オブジェクトは未指定の状態になり、もはや使用できません。
 

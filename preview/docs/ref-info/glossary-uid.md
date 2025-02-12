@@ -51,6 +51,9 @@ import Link from '@docusaurus/Link';
 **F**
 <a href="#gl-first-level-hash">First-level hash</a> 
 
+**G**
+<a href="#gl-gdpr">GDPR</a>
+
 **H**
 <a href="#gl-hash">Hash</a> 
 
@@ -68,6 +71,8 @@ import Link from '@docusaurus/Link';
 <a href="#gl-normalize">Normalize</a> 
 
 **O**
+<a href="#gl-oidc">OpenID Connect (OIDC)</a> | 
+<a href="#gl-opaque">Opaque</a> | 
 <a href="#gl-open-operator">Open Operator</a> | 
 <a href="#gl-operator">Operator</a> | 
 <a href="#gl-operator-key">Operator key</a> | 
@@ -237,6 +242,11 @@ import Link from '@docusaurus/Link';
 <dt><MdxJumpAnchor id="gl-encryption-key"><a href="#gl-encryption-key">Encryption key</a></MdxJumpAnchor></dt>
 <dd>Each <a href="#gl-uid2-token">UID2 token</a> is encrypted using an encryption key that's unique to the publisher that requested the token. The key identifies the publisher and is required for decrypting the token. This helps ensure that UID2 tokens cannot be decrypted by unauthorized individuals.</dd>
 
+<dt><MdxJumpAnchor id="gl-environment"><a href="#gl-environment">Environment</a></MdxJumpAnchor></dt>
+<dd>UID2 offers two environments: an integration environment for testing, and a production environment.</dd>
+<dd>If you're using both, you'll need to get a separate set of credentials for each environment.</dd>
+<dd>For details, see [Environments](../getting-started/gs-environments.md).</dd>
+
 <dt><MdxJumpAnchor id="gl-euid-framework"><a href="#gl-euid-framework">EUID framework</a></MdxJumpAnchor></dt>
 <dd>The European Unified ID (EUID) framework enables deterministic identity for advertising opportunities on the open internet for many participants across the advertising ecosystem. It enables publisher websites, mobile apps, and Connected TV (CTV) apps to monetize through programmatic workflows. Built as an open-source, standalone solution with its own unique namespace, the framework offers privacy controls designed to help participants meet local market requirements.</dd>
 <dd>EUID operates in the European region, including many European countries, such as France, Italy, and Spain, some non-European countries, such as Iceland, and some other regions, such as the Azores, Martinique, and the United Kingdom. It was designed with EU privacy law compliance in mind.</dd>
@@ -251,6 +261,15 @@ import Link from '@docusaurus/Link';
 
 <dt><MdxJumpAnchor id="gl-first-level-hash"><a href="#gl-first-level-hash">First-level hash</a></MdxJumpAnchor></dt>
 <dd>In the context of UID2, the first-level hash is the anonymized, opaque, secure value from which the <a href="#gl-raw-uid2">raw UID2</a>, <a href="#gl-uid2-token">UID2 token</a>, and <a href="#gl-refresh-token">refresh token</a> are generated. Several cryptographic functions, including salting and hashing, are applied to the initial value, whether an email or a phone number, to create the first-level hash.</dd>
+
+</dl>
+
+### G
+
+<dl>
+
+<dt><MdxJumpAnchor id="gl-gdpr"><a href="#gl-gdpr">GDPR</a></MdxJumpAnchor></dt>
+<dd>The GDPR, or General Data Protection Regulation, is a European privacy and security law that regulates how organizations target or collect data related to residents of the European Union.</dd>
 
 </dl>
 
@@ -307,6 +326,10 @@ import Link from '@docusaurus/Link';
 ### O
 
 <dl>
+
+<dt><MdxJumpAnchor id="gl-oidc"><a href="#gl-oidc">OpenID Connect (OIDC)</a> </MdxJumpAnchor></dt>
+<dd>OpenID Connect (OIDC) is an identity layer on top of the OAuth 2.0 protocol that allows the client to verify the identity of an end-user based on authentication by an authorization server.</dd>
+<dd>For details, see [OpenID Connect Basic Client Implementer's Guide 1.0 - draft 40](https://openid.net/specs/openid-connect-basic-1_0.html) (specification).</dd>
 
 <dt><MdxJumpAnchor id="gl-opaque"><a href="#gl-opaque">Opaque</a></MdxJumpAnchor></dt>
 <dd>When we say a UID2 token is an opaque string, we mean that the way that the token is computed, and its format, are not communicated to UID2 participants and cannot be relied upon to remain unchanged. No assumptions should be made about the format or length of the string, or any other aspect of it.</dd>
@@ -383,11 +406,11 @@ import Link from '@docusaurus/Link';
 <dl>
 
 <dt><MdxJumpAnchor id="gl-salt"><a href="#gl-salt">Salt</a></MdxJumpAnchor></dt>
-<dd>A string of characters that is used in the process of transforming an email address or phone number into a secure, opaque value that cannot by itself be traced back to the original value.</dd>
+<dd>A string of characters that is used in the process of transforming an email address or phone number into a secure, opaque value that cannot by itself be traced back to the original value (raw UID2 or UID2 token).</dd>
 <dd>The UID2 service uses salt as part of the process, along with hashing and encryption, to secure the original value. Salt is added to the input value before hashing.</dd>
 
 <dt><MdxJumpAnchor id="gl-salt-bucket"><a href="#gl-salt-bucket">Salt bucket</a></MdxJumpAnchor></dt>
-<dd>A salt bucket is used to manage secret <a href="#gl-salt">salt</a> values over time. Each bucket contains a single current salt value, which remains active for approximately one year before being rotated to a new value. Buckets can be updated independently of one another.</dd>
+<dd>A salt bucket is used to manage secret <a href="#gl-salt">salt</a> values, used to generate raw UID2s or UID2 tokens, over time. Each bucket contains a single current salt value, which remains active for approximately one year before being rotated to a new value. Buckets can be updated independently of one another.</dd>
 <dd>There are just over one million salt buckets, and each email address or phone number is assigned to a specific bucket in a deterministic manner. However, this assignment is not permanent; it might change when the bucket's current secret salt is rotated to a new value.</dd>
 
 <dt><MdxJumpAnchor id="gl-salt-bucket-id"><a href="#gl-salt-bucket-id">Salt bucket ID</a></MdxJumpAnchor></dt>
@@ -426,6 +449,9 @@ import Link from '@docusaurus/Link';
 
 <dt><MdxJumpAnchor id="gl-sso"><a href="#gl-sso">Single sign-on (SSO)</a></MdxJumpAnchor></dt>
 <dd>SSO is an acronym for Single sign-on. SSO allows a user to log in with the same credentials (usually, but not always, ID and password) to one of several software systems, such as apps or websites. SSO allows the user to log in once to multiple applications or sites using one set of credentials. With SSO, websites/apps do not have to maintain their own authentication systems.</dd>
+
+<dt><MdxJumpAnchor id="gl-sso-abbrev"><a href="#gl-sso-abbrev">SSO</a></MdxJumpAnchor></dt>
+<dd>See <a href="#gl-sso">Single sign-on (SSO)</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-subscription-id"><a href="#gl-subscription-id">Subscription ID</a></MdxJumpAnchor></dt>
 <dd>For client-side publisher integrations, the Subscription ID is one of the two values issued to publishers to uniquely identify the account. For details, see <a href="../getting-started/gs-credentials#subscription-id-and-public-key">Subscription ID and Public Key</a>.</dd>

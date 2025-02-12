@@ -11,6 +11,56 @@ import Link from '@docusaurus/Link';
 
 Check out the latest updates to our UID2 documentation resources.
 
+### Updated: Snowflake Integration Guide
+
+February 12, 2025
+
+We've significantly updated the UID2 Snowflake integration, and updated the documentation to match.
+
+For details, see [Snowflake Integration Guide](../guides/integration-snowflake.md).
+
+<!-- APIDOCS-2918 -->
+
+### Updated: Instructions for Using the UID2 Portal
+
+February 10, 2025
+
+We've updated the instructions in the UID2 integration guides, SDK docs, and endpoint docs to include information about account setup in the UID2 Portal.
+
+For details, see any implementation guide: for example, [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md#complete-uid2-account-setup-and-configure-account) or [SDK for Android Reference Guide](../sdks/sdk-ref-android.md#api-permissions). 
+
+These changes also clarify the different procedures for getting credentials depending on the environment: see expanded information on the [Credentials](../getting-started/gs-credentials.md) and [Environments](../getting-started/gs-environments.md) pages.
+
+<!-- APIDOCS-2828 -->
+
+### New: Expanded and Restructured Advertiser/Data Provider Doc
+
+January 10, 2025
+
+We've significantly expanded and restructured the Advertiser/Data Provider documentation. We now have one significantly updated overview doc, and separate docs for the three main integration options that come into play: Snowflake, AWS Entity Resolution, and HTTP endpoints.
+
+For details, including a summary of all integration options for advertisers and data providers, see [Advertiser/Data Provider Integration Overview](../guides/integration-advertiser-dataprovider-overview.md).
+
+<!-- APIDOCS-1662 -->
+
+### New: Publisher SSO Integration Page
+
+January 8, 2025
+
+We've added a new reference page for publishers who integrate with one or more SSO providers to offer SSO login, and want to retrieve the logged-in user's email address from the SSO provider to generate UID2 tokens.
+
+For details, see [Publisher Integration with SSO Providers](ref-integration-sso-providers.md).
+
+<!-- APIDOCS-2486 -->
+
+<!-- ### Removed:  v1 to v2 upgrade doc
+
+January 3, 2025
+
+We've removed the legacy v1 to v2 upgrade doc, which is no longer needed. -->
+
+<!-- APIDOCS-2859 -->
+
 ### New: Zoom-In Tool for Images
 
 December 15, 2024
@@ -454,7 +504,7 @@ We published the following new and updated documents to support use of the new U
   - [SDK for Java: Usage for UID2 Sharers](../sdks/sdk-ref-java.md#usage-for-uid2-sharers)
   - [SDK for Python: Usage for UID2 Sharers](../sdks/sdk-ref-python.md#usage-for-uid2-sharers)
 
-- Updates to the Snowflake feature to support UID2 sharing. See [Snowflake Integration Guide: Usage for UID2 Sharers](../guides/snowflake_integration.md#usage-for-uid2-sharers).
+- Updates to the Snowflake feature to support UID2 sharing. See [Snowflake Integration Guide: Usage for UID2 Sharers](../guides/integration-snowflake.md#usage-for-uid2-sharers).
 
 ### New: Android SDK Guide
 
