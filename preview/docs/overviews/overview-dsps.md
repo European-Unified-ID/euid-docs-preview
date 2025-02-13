@@ -6,6 +6,12 @@ sidebar_position: 06
 use_banner: true
 banner_title: EUID Overview for DSPs
 banner_description: Enable data strategies with a more durable identifier.
+banner_icon: 'dsps'
+banner_text_color: 'white'
+banner_text_color_dark: 'black'
+banner_background_color: '#0459FC'
+banner_background_color_dark: '#1CD2DE'
+displayed_sidebar: sidebarDSPs
 ---
 
 import Link from '@docusaurus/Link';

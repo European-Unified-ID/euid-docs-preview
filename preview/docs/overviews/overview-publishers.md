@@ -6,6 +6,12 @@ sidebar_position: 02
 use_banner: true
 banner_title: EUID Overview for Publishers
 banner_description: Maintain audience targeting in the ever-changing advertising industry for better impression monetization and more relevance.
+banner_icon: 'publishers'
+banner_text_color: 'white'
+banner_text_color_dark: 'black'
+banner_background_color: '#035959'
+banner_background_color_dark: '#DCDEE1'
+displayed_sidebar: sidebarPublishers
 ---
 
 import Link from '@docusaurus/Link';
@@ -30,7 +36,7 @@ The following steps provide a high-level outline of the workflow intended for or
 
 1. A user visits a publisher website, mobile app, or CTV app.
 
-1. The publisher provides transparency around its data practices and asks the user to provide an email address or phone number, by login or other means, and consent to the use of their email address or phone number for EUID.
+1. The publisher provides transparency around its data practices and asks the user to provide an email address or phone number, by login, [SSO login](#integrating-with-single-sign-on-sso), or other means, and consent to the use of their email address or phone number for EUID.
 <!-- uid2_only_ep_20240312: The publisher provides transparency around its data practices and asks the user to provide an email address or phone number, by login or other means. -->
 <!-- euid_only_ep_20240312: The publisher provides transparency around its data practices and asks the user to provide email address or phone number, by login or other means, and consent to the use of their email address or phone number for EUID. -->
 

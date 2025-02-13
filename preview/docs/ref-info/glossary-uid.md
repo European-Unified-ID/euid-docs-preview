@@ -5,8 +5,8 @@ hide_table_of_contents: false
 sidebar_position: 10
 ---
 
-import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 import Link from '@docusaurus/Link';
+import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 
 # EUID Glossary
 <p>This page defines some key terms used in the EUID documentation.</p>
@@ -48,6 +48,9 @@ import Link from '@docusaurus/Link';
 
 **F**
 <a href="#gl-first-level-hash">First-level hash</a> | 
+
+**G**
+<a href="#gl-gdpr">GDPR</a>
 
 **H**
 <a href="#gl-hash">Hash</a> | 
@@ -241,6 +244,15 @@ import Link from '@docusaurus/Link';
 
 </dl>
 
+### G
+
+<dl>
+
+<dt><MdxJumpAnchor id="gl-gdpr"><a href="#gl-gdpr">GDPR</a></MdxJumpAnchor></dt>
+<dd>The GDPR, or General Data Protection Regulation, is a European privacy and security law that regulates how organizations target or collect data related to residents of the European Union.</dd>
+
+</dl>
+
 ### H
 
 <dl>
@@ -379,11 +391,11 @@ import Link from '@docusaurus/Link';
 <dl>
 
 <dt><MdxJumpAnchor id="gl-salt"><a href="#gl-salt">Salt</a></MdxJumpAnchor></dt>
-<dd>A string of characters that is used in the process of transforming an email address or phone number into a secure, opaque value that cannot by itself be traced back to the original value.</dd>
+<dd>A string of characters that is used in the process of transforming an email address or phone number into a secure, opaque value that cannot by itself be traced back to the original value (raw EUID or EUID token).</dd>
 <dd>The EUID service uses salt as part of the process, along with hashing and encryption, to secure the original value. Salt is added to the input value before hashing.</dd>
 
 <dt><MdxJumpAnchor id="gl-salt-bucket"><a href="#gl-salt-bucket">Salt bucket</a></MdxJumpAnchor></dt>
-<dd>A salt bucket is used to manage secret <a href="#gl-salt">salt</a> values over time. Each bucket contains a single current salt value, which remains active for approximately one year before being rotated to a new value. Buckets can be updated independently of one another.</dd>
+<dd>A salt bucket is used to manage secret <a href="#gl-salt">salt</a> values, used to generate raw EUIDs or EUID tokens, over time. Each bucket contains a single current salt value, which remains active for approximately one year before being rotated to a new value. Buckets can be updated independently of one another.</dd>
 <dd>There are just over one million salt buckets, and each email address or phone number is assigned to a specific bucket in a deterministic manner. However, this assignment is not permanent; it might change when the bucket's current secret salt is rotated to a new value.</dd>
 
 <dt><MdxJumpAnchor id="gl-salt-bucket-id"><a href="#gl-salt-bucket-id">Salt bucket ID</a></MdxJumpAnchor></dt>

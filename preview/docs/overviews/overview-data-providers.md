@@ -6,6 +6,12 @@ sidebar_position: 08
 use_banner: true
 banner_title: EUID Overview for Data Providers
 banner_description: An identity solution for the future.
+banner_icon: 'dataProviders'
+banner_text_color: 'white'
+banner_text_color_dark: 'black'
+banner_background_color: '#10692E'
+banner_background_color_dark: '#E9F896'
+displayed_sidebar: sidebarDataProviders
 ---
 
 import Link from '@docusaurus/Link';
@@ -69,7 +75,9 @@ The following documentation resources are available for advertisers and data pro
 
 | Integration Type| Documentation | Content Description |
 | :--- | :--- | :--- |
-| Integration steps for organizations that collect user data and push it to other EUID participants | [Advertiser/Data Provider Integration Guide](../guides/advertiser-dataprovider-guide.md) | This guide covers integration workflows for mapping identity for audience-building and targeting. |
+| Overview of integration options for organizations that collect user data and push it to other EUID participants | [Advertiser/Data Provider Integration Overview](../guides/integration-advertiser-dataprovider-overview.md) | This guide covers integration workflows for mapping identity for audience building and targeting. |
+| Snowflake | [Snowflake Integration Guide](../guides/integration-snowflake.md) | This guide provides instructions for generating EUIDs from emails within Snowflake. |
+| Integration steps for organizations that collect user data and push it to other EUID participants, using EUID HTTP endpoints only | [Advertiser/Data Provider Integration to HTTP Endpoints](../guides/integration-advertiser-dataprovider-endpoints.md) | This guide covers integration steps for advertisers and data providers to integrate with EUID by writing code to call EUID HTTP endpoints, rather than using another implementation option such as an SDK or Snowflake. |
 
 ## FAQs for Data Providers
 

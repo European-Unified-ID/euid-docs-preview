@@ -6,6 +6,12 @@ sidebar_position: 04
 use_banner: true
 banner_title: EUID Overview for Advertisers
 banner_description: Upgrade campaign activation with European Unified ID.
+banner_icon: 'advertisers'
+banner_text_color: 'white'
+banner_text_color_dark: 'black'
+banner_background_color: '#7085D4'
+banner_background_color_dark: '#B7C2EA'
+displayed_sidebar: sidebarAdvertisers
 ---
 
 import Link from '@docusaurus/Link';
@@ -64,7 +70,9 @@ The following documentation resources are available for advertisers and data pro
 
 | Integration Type| Documentation | Content Description |
 | :--- | :--- | :--- |
-| Integration steps for organizations that collect user data and push it to other EUID participants | [Advertiser/Data Provider Integration Guide](../guides/advertiser-dataprovider-guide.md) | This guide covers integration workflows for mapping identity for audience-building and targeting. |
+| Overview of integration options for organizations that collect user data and push it to other EUID participants | [Advertiser/Data Provider Integration Overview](../guides/integration-advertiser-dataprovider-overview.md) | This guide covers integration workflows for mapping identity for audience building and targeting. |
+| Snowflake | [Snowflake Integration Guide](../guides/integration-snowflake.md) | This guide provides instructions for generating EUIDs from emails within Snowflake. |
+| Integration steps for organizations that collect user data and push it to other EUID participants, using EUID HTTP endpoints only | [Advertiser/Data Provider Integration to HTTP Endpoints](../guides/integration-advertiser-dataprovider-endpoints.md) | This guide covers integration steps for advertisers and data providers to integrate with EUID by writing code to call EUID HTTP endpoints, rather than using another implementation option such as an SDK or Snowflake. |
 
 ## FAQs for Advertisers
 

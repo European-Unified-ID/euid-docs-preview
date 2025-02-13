@@ -3,6 +3,7 @@ title: Web Integration Overview
 description: Overview of the publisher options for EUID web integration.
 hide_table_of_contents: false
 sidebar_position: 02
+displayed_sidebar: sidebarPublishers
 ---
 
 import Link from '@docusaurus/Link';
@@ -130,4 +131,3 @@ The following table shows integration options that support passing EUID tokens i
 :::note
 As long as you generate the token and keep it refreshed, you can also use other options for passing the EUID token into the bidstream.
 :::
-

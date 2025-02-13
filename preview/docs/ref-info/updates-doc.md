@@ -11,9 +11,33 @@ import Link from '@docusaurus/Link';
 
 Check out the latest updates to our EUID documentation resources.
 
+### New: Snowflake Integration Guide
+
+February 4, 2025
+
+EUID now supports Snowflake, the cloud data warehousing solution.
+
+Using Snowflake, EUID enables advertisers and data providers to securely share consumer identifier data without exposing sensitive personal data.
+
+For details, see [Snowflake Integration Guide](../guides/integration-snowflake.md).
+
+<!-- APIDOCS-2747. 1/31 is doc date, 2/4 is marketplace listing -->
+
+<!-- APIDOCS-2893  custom styling. -->
+
+### New: Expanded and Restructured Advertiser/Data Provider Doc
+
+January 30, 2025
+
+We've significantly expanded and restructured the Advertiser/Data Provider documentation. We now have one significantly updated overview doc, and separate docs for each main integration option.
+
+For details, including a summary of all integration options for advertisers and data providers, see [Advertiser/Data Provider Integration Overview](../guides/integration-advertiser-dataprovider-overview.md).
+
+<!-- APIDOCS-2873 -->
+
 ### New: Publisher SSO Integration Page
 
-January 9, 2025
+January 10, 2025
 
 We've added a new reference page for publishers who integrate with one or more SSO providers to offer SSO login, and want to retrieve the logged-in user's email address from the SSO provider to generate EUID tokens.
 
@@ -145,16 +169,6 @@ A new guide for publishers that provides information about the SDK for iOS, an S
 For details, see [SDK for iOS Reference Guide](../sdks/sdk-ref-ios.md).
 
 <!-- APIDOCS-2526 -->
-
-<!-- ### New: EUID Token Reference Page
-
-August 23, 2024
-
-We've added a new reference page with general information about EUID tokens, including refresh tokens.
-
-For details, see EUID Tokens and Refresh Tokens. -->
-
-<!-- APIDOCS-2519 -->
 
 ### New: Server-Side Token Generation Page
 
