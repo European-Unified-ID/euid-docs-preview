@@ -205,7 +205,11 @@ import Link from '@docusaurus/Link';
 
 <dt><MdxJumpAnchor id="gl-core-service"><a href="#gl-core-service">Core Service</a></MdxJumpAnchor></dt>
 <dd>The UID2 Core Service is a centralized service that manages access to secret <a href="#gl-salt">salts</a>, encryption keys, and other relevant data in the UID2 ecosystem.</dd>
+<<<<<<< HEAD
 <dd>For an overview of all the UID2 services, see <a href="../overviews/participants-overview.md#uid2-component-services">UID2 Component Services</a>.</dd>
+=======
+<dd>For an overview of all the UID2 services, see <a href="../intro#components">Components</a>.</dd>
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 </dl>
 

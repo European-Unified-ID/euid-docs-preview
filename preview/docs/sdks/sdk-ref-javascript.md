@@ -10,6 +10,21 @@ import TabItem from '@theme/TabItem';
 import Link from '@docusaurus/Link';
 import ExampleUid2Cookie from '../snippets/_example-uid2-cookie.mdx';
 import ExampleJavaScriptInit from '../snippets/_example-javascript-init.mdx';
+<<<<<<< HEAD
+=======
+
+export const New = () => (
+  <span className='pill'>NEW IN V3</span>
+);
+
+export const New3100 = () => (
+  <span className='pill'>New in version 3.10.0</span>
+);
+
+export const Deprecated3100 = () => (
+  <span className='pill'>Deprecated in version 3.10.0</span>
+);
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 # SDK for JavaScript Reference Guide
 
@@ -21,6 +36,7 @@ The following sections describe the high-level [workflow](#workflow-overview) fo
 If you're using Prebid.js with the UID2 Identity Module, or with another product that has UID2 support, you probably don't need to use the SDK at all. The Prebid.js module manages everything. For details, see [UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md).
 :::
 
+<<<<<<< HEAD
 For integration steps for publishers, refer to one of the following:
   - [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md)
   - [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md)
@@ -42,6 +58,14 @@ Version 4 includes the following key changes from version 3:
   - The `abort()` function was deprecated in v3 and is not part of v4. Instead, use [disconnect()](#disconnect-void) which has the same functionality as `abort()`, but also includes more thorough disconnection logic.
   - The `hasIdentity()` function has been removed. This function was never documented, and was used only by other functions, but since it's a public function it could be in use. If your implementation includes this function, use [isIdentityAvailable](#isidentityavailable-boolean) instead.
 
+=======
+This page describes version 3 of the SDK. If you are using an earlier version, we recommend that you upgrade your integration, using the [migration guide](#migration-guide). If needed, documentation for [earlier versions of the SDK](./sdk-ref-javascript-v2.md) is also available.
+
+For integration steps for content publishers, refer to either of the following:
+  - [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md)
+  - [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md)
+
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 ## Functionality
 
 This SDK simplifies development for publishers who want to build their own customized UID2 integration. The following table shows the functions it supports.
@@ -263,12 +287,13 @@ All interactions with the SDK for JavaScript are done through the global `__uid2
 - [getAdvertisingToken()](#getadvertisingtoken-string)
 - [getAdvertisingTokenAsync()](#getadvertisingtokenasync-promise)
 - [isLoginRequired()](#isloginrequired-boolean)
-- [isIdentityAvailable()](#isidentityavailable-boolean)
+- [isIdentityAvailable()](#isidentityavailable-boolean) <New3100 />
 - [disconnect()](#disconnect-void)
-- [callbacks](#callbacks)
-- [setIdentity()](#setidentityidentity-identity-void)
-- [getIdentity()](#getidentity-identity--null)
-- [isInitComplete()](#isinitcomplete-boolean)
+- [abort()](#abort-void) <Deprecated3100 />
+- [callbacks](#callbacks) <New />
+- [setIdentity()](#setidentityidentity-identity-void) <New />
+- [getIdentity()](#getidentity-identity--null) <New />
+- [isInitComplete()](#isinitcomplete-boolean) <New />
 
 ### constructor()
 
@@ -321,6 +346,10 @@ The `opts` object supports the following properties.
 | `cookieDomain` | string | Optional | The domain name string to apply to the UID2 cookie (see [UID2 Storage Format](#uid2-storage-format)).<br/>For example, if the `baseUrl` is `https://my.operator.com`, the `cookieDomain` value might be `operator.com`. | `undefined` |
 | `cookiePath` | string | Optional | The path string to apply to the UID2 cookie (see [UID2 Storage Format](#uid2-storage-format)). | `/` |
 | `useCookie` | `boolean` | Optional | Set this to `true` to tell the SDK to store the identity in cookie storage instead of local storage. You can still provide an identity using a first-party cookie if this value is false or not provided. | 
+<<<<<<< HEAD
+=======
+| `callback` | `function(object): void` | Deprecated | The function that the SDK should invoke after validating the passed identity. Do not use this for new integrations. | N/A |
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 #### Multiple Init Calls
 
@@ -426,6 +455,8 @@ Specifies whether a UID2 [POST&nbsp;/token/generate](../endpoints/post-token-gen
 
 ### isIdentityAvailable(): boolean
 
+<New3100 />
+
 Determines whether an identity is available: for example, if there is an unexpired identity in local storage or in a cookie, or if an identity has already been requested.
 
 If false, a UID2 [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) call is required. 
@@ -459,6 +490,16 @@ After this function is executed, the [getAdvertisingToken()](#getadvertisingtoke
 :::warning
 If you need to provide a `cookieDomain` or `cookiePath` for the SDK to access the correct cookie, and `init` has not been completed, the SDK cannot clear the cookie. In this case, no error is raised.
 :::
+
+### abort(): void
+
+<Deprecated3100 />
+
+This function is deprecated and support will be removed soon. Instead, use [disconnect()](#disconnect-void) which has the same functionality as `abort()`, but also includes more thorough disconnection logic. 
+	
+Terminates any background timers or requests. The UID2 object remains in an unspecified state and cannot be used anymore. 
+
+This function is intended for use in advanced scenarios where you might want to replace the existing UID2 object with a new instance.
 
 ### callbacks
 
@@ -519,7 +560,7 @@ The contents of the `private` object are explicitly unspecified and are left for
 
 ## Migration Guide
 
-This section includes all the information you need to upgrade from an earlier version of the SDK for JavaScript to the current version, v4. It includes:
+This section includes all the information you need to upgrade from an earlier version of the SDK for JavaScript to the current version, v3. It includes:
 
 - [Benefits of Migrating](#benefits-of-migrating)
 - [Required Changes](#required-changes)
@@ -549,7 +590,12 @@ In version 3:
   - If you rely on setting a first-party cookie to provide a new identity, you do not gain any benefit from this change.
   - If you only provide the identity by passing it to `init`, the SDK no longer writes to the cookie.
 
+<<<<<<< HEAD
 Some of the functionality from version 2 and earlier was deprecated in version 3, and we recommended that anyone upgrading to version 3 should future proof their integration by making some code updates. This functionality was removed in version 4. If your integration references any of the items listed in [Changes in Version 4](#changes-in-version-4), and is not updated, you **must** make those updates as part of upgrading to version 4.
+=======
+Some of the functionality from versions 1.x and 2.x has been deprecated, and you should make changes to future-proof your integration.
+- The legacy callback system has been deprecated and will eventually be removed.
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 The legacy callback system was deprecated in version 3, and will be removed in a future version.
 

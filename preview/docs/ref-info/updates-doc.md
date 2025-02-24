@@ -11,6 +11,7 @@ import Link from '@docusaurus/Link';
 
 Check out the latest updates to our UID2 documentation resources.
 
+<<<<<<< HEAD
 ## Q1 2025
 
 The following documents were released in this quarter.
@@ -46,6 +47,9 @@ For details, see [How the UID2 Token Is Created](../ref-info/ref-how-uid-is-crea
 <!-- APIDOCS-2855 -->
 
 ### Snowflake Integration Guide
+=======
+### Updated: Snowflake Integration Guide
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 February 12, 2025
 
@@ -55,7 +59,11 @@ For details, see [Snowflake Integration Guide](../guides/integration-snowflake.m
 
 <!-- APIDOCS-2918 -->
 
+<<<<<<< HEAD
 ### Instructions for Using the UID2 Portal
+=======
+### Updated: Instructions for Using the UID2 Portal
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 February 10, 2025
 

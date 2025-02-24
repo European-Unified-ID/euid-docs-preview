@@ -11,11 +11,15 @@ import Link from '@docusaurus/Link';
 
 UID2 ドキュメンテーションリソースの最新アップデートを確認してください。
 
+<<<<<<< HEAD
 ## Q1 2025
 
 <!-- The following documents were released in this quarter. -->
 
 ### Instructions for Using the UID2 Portal
+=======
+### Updated: Instructions for Using the UID2 Portal
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 February 10, 2025
 
@@ -27,7 +31,11 @@ UID2 インテグレーションガイド、SDK ドキュメント、エンド�
 
 <!-- APIDOCS-2828 -->
 
+<<<<<<< HEAD
 ### Advertiser/Data Provider Doc
+=======
+### New: Expanded and Restructured Advertiser/Data Provider Doc
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 January 10, 2025
 
@@ -37,7 +45,11 @@ January 10, 2025
 
 <!-- APIDOCS-1662 -->
 
+<<<<<<< HEAD
 ### Publisher SSO Integration Page
+=======
+### New: Publisher SSO Integration Page
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 January 8, 2025
 
@@ -55,11 +67,15 @@ We've removed the legacy v1 to v2 upgrade doc, which is no longer needed. -->
 
 <!-- APIDOCS-2859 -->
 
+<<<<<<< HEAD
 ## Q4 2024
 
 <!-- The following documents were released in the fourth quarter of 2024. -->
 
 ### Zoom-In Tool for Images
+=======
+### New: Zoom-In Tool for Images
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
 
 December 15, 2024
 

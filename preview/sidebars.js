@@ -20,6 +20,7 @@ function removeItems(sidebar, ...remove) {
 
 const fullSidebar = [
 
+<<<<<<< HEAD
   {
     type: 'category',
     label: 'Overview',
@@ -32,13 +33,20 @@ const fullSidebar = [
       'ref-info/uid-infrastructure',
     ],
   },
+=======
+    'intro',
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
  
     {
       type: 'category',
       label: 'UID2 Participants',
       link: {
+<<<<<<< HEAD
         type: 'doc',
         id: 'overviews/participants-overview',
+=======
+        type: 'generated-index',
+>>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
       },
       collapsed: true,
       items: [
@@ -279,20 +287,7 @@ const fullSidebar = [
       },
       collapsed: true,
       items: [
-
-        {
-          type: 'category',
-          label: 'SDK for JavaScript',
-          link: {
-            type: 'doc',
-            id: 'sdks/sdk-ref-javascript',
-          },
-          collapsed: true,
-          items: [
-            'sdks/sdk-ref-javascript-v3',
-          ],
-        },
-
+        'sdks/sdk-ref-javascript',
         'sdks/sdk-ref-java',
         'sdks/sdk-ref-python',
         'sdks/sdk-ref-csharp-dotnet',
