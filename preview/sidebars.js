@@ -19,13 +19,16 @@ function removeItems(sidebar, ...remove) {
 }
 
 const fullSidebar = [
+
+    'intro',
+ 
     {
       type: 'category',
-      label: 'UID2 Overview',
+      label: 'UID2 Participants',
       link: {
-        type: 'doc',
-        id: 'intro',
+        type: 'generated-index',
       },
+      collapsed: true,
       items: [
         'overviews/overview-publishers',
         'overviews/overview-advertisers',
@@ -33,6 +36,7 @@ const fullSidebar = [
         'overviews/overview-data-providers',
       ],
     },
+  
 
     {
       type: 'category',
@@ -192,16 +196,28 @@ const fullSidebar = [
   collapsed: true,
 
   items: [
-  {
-    type: 'category',
-    label: 'Integration Overview',
-    link: {
-      type: 'doc',
-      id: 'guides/integration-advertiser-dataprovider-overview',
-    },
-    collapsed: true,
-    items: [
-      'guides/integration-snowflake',
+    {
+      type: 'category',
+      label: 'Integration Overview',
+      link: {
+        type: 'doc',
+        id: 'guides/integration-advertiser-dataprovider-overview',
+      },
+      collapsed: true,
+      items: [
+        {
+          type: 'category',
+          label: 'Snowflake',
+          link: {
+            type: 'doc',
+            id: 'guides/integration-snowflake',
+          },
+          collapsed: true,
+          items: [
+            'guides/integration-snowflake-previous',
+          ],
+        },
+
       'guides/integration-aws-entity-resolution',
       'guides/integration-advertiser-dataprovider-endpoints',
     ],
@@ -251,20 +267,7 @@ const fullSidebar = [
       },
       collapsed: true,
       items: [
-
-        {
-          type: 'category',
-          label: 'SDK for JavaScript',
-          link: {
-            type: 'doc',
-            id: 'sdks/sdk-ref-javascript',
-          },
-          collapsed: true,
-          items: [
-            'sdks/sdk-ref-javascript-v3',
-          ],
-        },
-
+        'sdks/sdk-ref-javascript',
         'sdks/sdk-ref-java',
         'sdks/sdk-ref-python',
         'sdks/sdk-ref-csharp-dotnet',
@@ -338,6 +341,7 @@ const fullSidebar = [
         'ref-info/ref-operators-public-private',
         'ref-info/ref-integration-approaches',
         'ref-info/ref-tokens',
+        'ref-info/ref-how-uid-is-created',
         'ref-info/ref-server-side-token-generation',
         'ref-info/ref-integration-sso-providers',
       ],
@@ -358,6 +362,7 @@ const sidebars = {
     'Advertiser/Data Provider Integrations',
     'guides/integration-advertiser-dataprovider-overview',
     'guides/integration-snowflake',
+    'guides/integration-snowflake-previous',
     'guides/integration-aws-entity-resolution',
     'guides/advertiser-dataprovider-endpoints',
     'DSP Integrations',
@@ -441,6 +446,7 @@ const sidebars = {
     'Advertiser/Data Provider Integrations',
     'guides/integration-advertiser-dataprovider-overview',
     'guides/integration-snowflake',
+    'guides/integration-snowflake-previous',
     'guides/integration-aws-entity-resolution',
     'guides/advertiser-dataprovider-endpoints',
     'sharing/sharing-bid-stream'
