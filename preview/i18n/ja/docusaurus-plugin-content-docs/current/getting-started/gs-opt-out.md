@@ -9,7 +9,11 @@ import Link from '@docusaurus/Link';
 
 # User Opt-Out
 
+<<<<<<< HEAD
 さまざまなパブリッシャーや広告主が UID2 を使用しています。しかし、UID2 全体としては、すべての UID2 [参加者](../overviews/participants-overview.md#uid2-external-participants) が受け入れるべき、具体的なオプトアウトプロセスがあります。
+=======
+さまざまなパブリッシャーや広告主が UID2 を使用しています。しかし、UID2 全体としては、すべての UID2 [参加者](overviews/participants-overview.md#uid2-external-participants) が受け入れるべき、具体的なオプトアウトプロセスがあります。
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 ## How Users Can Opt Out of UID2
 

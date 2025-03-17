@@ -63,7 +63,11 @@ To get started, follow these steps:
 1. Request access to UID2 by filling out the form on the [Request Access](/request-access) page.
 
    Someone will contact you to discuss your needs and advise on appropriate next steps.
+<<<<<<< HEAD
 1. Decide on your [participant](participants-overview.md#uid2-external-participants) role or roles.
+=======
+1. Decide on your [participant](../overviews/participants-overview.md#uid2-external-participants) role or roles.
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 1. Decide which implementation option you want to use.
 1. Receive your credentials (see [UID2 Credentials](../getting-started/gs-credentials.md)) and follow the instructions in the implementation guide for the option you chose.
 

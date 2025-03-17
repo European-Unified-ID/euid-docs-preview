@@ -21,6 +21,9 @@ function removeItems(sidebar, ...remove) {
 const fullSidebar = [
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
   {
     type: 'category',
     label: 'Overview',
@@ -33,20 +36,28 @@ const fullSidebar = [
       'ref-info/uid-infrastructure',
     ],
   },
+<<<<<<< HEAD
 =======
     'intro',
 >>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
  
     {
       type: 'category',
       label: 'UID2 Participants',
       link: {
 <<<<<<< HEAD
+<<<<<<< HEAD
         type: 'doc',
         id: 'overviews/participants-overview',
 =======
         type: 'generated-index',
 >>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
+=======
+        type: 'doc',
+        id: 'overviews/participants-overview',
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
       },
       collapsed: true,
       items: [
@@ -288,7 +299,20 @@ const fullSidebar = [
       },
       collapsed: true,
       items: [
-        'sdks/sdk-ref-javascript',
+
+        {
+          type: 'category',
+          label: 'SDK for JavaScript',
+          link: {
+            type: 'doc',
+            id: 'sdks/sdk-ref-javascript',
+          },
+          collapsed: true,
+          items: [
+            'sdks/sdk-ref-javascript-v3',
+          ],
+        },
+
         'sdks/sdk-ref-java',
         'sdks/sdk-ref-python',
         'sdks/sdk-ref-csharp-dotnet',

@@ -10,10 +10,14 @@ import Link from '@docusaurus/Link';
 # UID2 Credentials
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 UID2 の <a href="../overviews/participants-overview#uid2-external-participants">参加者</a>は、UID2 にどのように参加しているかによって、少なくとも 1 つの固有の認証情報のセットが必要です。必要な認証情報のセットは、次の表に示すように、UID2 にどのように参加しているかによって異なります。
 =======
 UID2 の <a href="../intro#participants">参加者</a>は、UID2 にどのように参加しているかによって、少なくとも 1 つの固有の認証情報のセットが必要です。必要な認証情報のセットは、次の表に示すように、UID2 にどのように参加しているかによって異なります。
 >>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
+=======
+UID2 の <a href="../overviews/participants-overview#uid2-external-participants">参加者</a>は、UID2 にどのように参加しているかによって、少なくとも 1 つの固有の認証情報のセットが必要です。必要な認証情報のセットは、次の表に示すように、UID2 にどのように参加しているかによって異なります。
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 | Audience | Credentials | Integration |
 | :--- | :--- | :--- |

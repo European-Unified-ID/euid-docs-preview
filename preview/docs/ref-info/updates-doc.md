@@ -15,14 +15,18 @@ import CustomTagsContainer from "@site/src/components/CustomTags/CustomTagsConta
 
 Check out the latest updates to our UID2 documentation resources.
 
+<<<<<<< HEAD
 :::tip
 Use the Tags toolbar to view a subset of documentation updates.
 :::
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ## Q1 2025
 
 The following documents were released in this quarter.
 
+<<<<<<< HEAD
 <CustomTagsContainer tags="All, Guides, Private Operator">
 
 ### Private Operator for AKS Integration Guide
@@ -54,6 +58,9 @@ For details, see [UID2 Server-Side Integration Guide for Mobile](../guides/integ
 <CustomTagsContainer tags="All, Portal, Sharing">
 
 ### Portal, Sharing Permissions Page
+=======
+### UID2 Portal, Sharing Permissions Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 March 11, 2025
 
@@ -63,10 +70,13 @@ For details, see [Sharing Permissions](../portal/sharing-permissions.md).
 
 <!-- APIDOCS-2795 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### JavaScript SDK Version 4
 
 March 7, 2025
@@ -77,10 +87,13 @@ For details, see [SDK for JavaScript Reference Guide](../sdks/sdk-ref-javascript
 
 <!-- APIDOCS-2923 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### How the UID2 Token Is Created
 
 March 7, 2025
@@ -91,6 +104,7 @@ For details, see [How the UID2 Token Is Created](../ref-info/ref-how-uid-is-crea
 
 <!-- APIDOCS-2855 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
@@ -99,6 +113,9 @@ For details, see [How the UID2 Token Is Created](../ref-info/ref-how-uid-is-crea
 =======
 ### Updated: Snowflake Integration Guide
 >>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
+=======
+### Snowflake Integration Guide
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 February 12, 2025
 
@@ -108,6 +125,7 @@ For details, see [Snowflake Integration Guide](../guides/integration-snowflake.m
 
 <!-- APIDOCS-2918 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal, Reference">
@@ -116,6 +134,9 @@ For details, see [Snowflake Integration Guide](../guides/integration-snowflake.m
 =======
 ### Updated: Instructions for Using the UID2 Portal
 >>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
+=======
+### Instructions for Using the UID2 Portal
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 February 10, 2025
 
@@ -127,10 +148,13 @@ These changes also clarify the different procedures for getting credentials depe
 
 <!-- APIDOCS-2828 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Advertiser/Data Provider Doc
 
 January 10, 2025
@@ -141,10 +165,13 @@ For details, including a summary of all integration options for advertisers and 
 
 <!-- APIDOCS-1662 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Publisher SSO Integration Page
 
 January 8, 2025
@@ -169,8 +196,11 @@ We've removed the legacy v1 to v2 upgrade doc, which is no longer needed. -->
 
 The following documents were released in the fourth quarter of 2024.
 
+<<<<<<< HEAD
 <CustomTagsContainer tags="All, Infrastructure">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Zoom-In Tool for Images
 
 December 15, 2024
@@ -181,11 +211,15 @@ Just hover over the image and the tool appears as a magnifying glass, then click
 
 <!-- APIDOCS-2237 for both -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal">
 
 ### Portal Audit Trail Page
+=======
+### UID2 Portal Audit Trail Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 November 15, 2024
 
@@ -195,10 +229,13 @@ The **Audit Trail** page in the UID2 Portal allows users who have the Admin role
 
 <!-- APIDOCSS-2700 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### LiveRamp Integration Tips
 
 November 14, 2024
@@ -209,14 +246,20 @@ For details, see [LiveRamp Integration Tips](../guides/integration-liveramp-tips
 
 <!-- APIDOCS-2699 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ## Q3 2024
 
 The following documents were released in the third quarter of 2024.
 
+<<<<<<< HEAD
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Tokens Page
 
 September 10, 2024
@@ -227,11 +270,15 @@ For details, see [UID2 Tokens and Refresh Tokens](../ref-info/ref-tokens.md).
 
 <!-- APIDOCS-2533 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Private Operator">
 
 ### Private Operator Integration Overview
+=======
+### Private Operator Integrations Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 August 28, 2024
 
@@ -241,10 +288,13 @@ For details, see [UID2 Private Operator Integration Overview](../guides/integrat
 
 <!-- APIDOCS-2164 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### DSP Direct Integration Instructions
 
 August 22, 2024
@@ -255,8 +305,11 @@ For details, see [DSP Direct Integration Instructions](../guides/integration-dsp
 
 <!-- APIDOCS-2394 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 <!-- ### UID2 Token Reference Page
 
 August 22, 2024
@@ -267,8 +320,11 @@ For details, see [UID2 Tokens and Refresh Tokens]. -->
 
 <!-- APIDOCS-1958 removed 8/26/22 -->
 
+<<<<<<< HEAD
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Integration Approaches Page
 
 July 23, 2024
@@ -279,10 +335,13 @@ For details, see [Integration Approaches](ref-integration-approaches.md).
 
 <!-- APIDOCS-2132 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Server-Side Token Generation Page
 
 July 3, 2024
@@ -293,11 +352,15 @@ For details, see [Server-Side Token Generation](ref-server-side-token-generation
 
 <!-- APIDOCS-2255 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, Prebid.js">
 
 ### Integration with Prebid Mobile SDK (Android)
+=======
+### UID2 Integration with Prebid Mobile SDK (Android)
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 July 2, 2024
 
@@ -308,14 +371,20 @@ We've added a section to the two mobile integration guides with instructions for
 
 <!-- APIDOCS-2269 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ## Q2 2024
 
 The following documents were released in the second quarter of 2024.
 
+<<<<<<< HEAD
 <CustomTagsContainer tags="All, CTV, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### CTV Integration Guide
 
 June 21, 2024
@@ -326,10 +395,13 @@ For details, see [CTV Integration Guide](../guides/integration-ctv-guide.md).
 
 <!-- APIDOCS-2264 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Opt-Out">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Opt-Out API
 
 May 24, 2024
@@ -342,10 +414,13 @@ For details, see [POST&nbsp;/optout/status](../endpoints/post-optout-status.md).
 
 <!-- APIDOCS-1739 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Client-Side and Server-Side Guides for Mobile
 
 May 17, 2024
@@ -358,11 +433,15 @@ We've added the following integration guides to support publishers who want to i
 
 <!-- APIDOCS-1903-->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal">
 
 ### Portal Client-Side Integration Page
+=======
+### UID2 Portal Client-Side Integration Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 May 6, 2024
 
@@ -372,11 +451,15 @@ The **Client-Side Integration** page in the UID2 Portal allows you to set up and
 
 <!-- APIDOCS-2120 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal">
 
 ### Portal API Keys Page
+=======
+### UID2 Portal API Keys Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 April 25, 2024
 
@@ -402,14 +485,20 @@ For details, see [UID2 Sharing: Overview](../sharing/sharing-overview.md).
 
 <!-- APIDOCS-2134 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ## Q1 2024
 
 The following documents were released in the first quarter of 2024.
 
+<<<<<<< HEAD
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### UID2 Hashing Tool
 
 March 4, 2024
@@ -420,11 +509,15 @@ For details, see [UID2 Hashing Tool](../getting-started/gs-normalization-encodin
 
 <!-- APIDOCS-1974 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
 ### Java SDK Support, Advertiser/Data Provider
+=======
+### Java SDK Support for Advertiser/Data Provider
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 February 28, 2024
 
@@ -434,10 +527,13 @@ For details, see the updated documentation in the *SDK for Java Reference Guide*
 
 <!-- UID2-2759 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Infrastructure">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Audience-Specific Sidebars
 
 February 9, 2024
@@ -452,11 +548,15 @@ To view the custom sidebars, go to [https://unifiedid.com](https://unifiedid.com
 
 <!-- APIDOCS-1681 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
 ### Integration Overview for JavaScript
+=======
+### UID2 Integration Overview for JavaScript
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 January 26, 2024
 
@@ -470,10 +570,13 @@ For details, see:
 
 <!-- APIDOCS-1924 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### SDK for Java, Publisher Sections
 
 January 22, 2024
@@ -484,10 +587,13 @@ For details, see [Usage for Publishers](../sdks/sdk-ref-java.md#usage-for-publis
 
 <!-- APIDOCS-1705 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Normalization and Encoding Examples
 
 January 19, 2024
@@ -498,10 +604,13 @@ For details, see [Normalization and Encoding](../getting-started/gs-normalizatio
 
 <!-- APIDOCS-1183, APIDOCS-1880 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Web Integration Overview for Publishers
 
 January 16, 2024
@@ -512,10 +621,13 @@ For details, see [Publisher Web Integration Overview](../guides/integration-opti
 
 <!-- APIDOCS-1846 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Private Operator, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### UID2 Operator Page
 
 January 3, 2024
@@ -526,6 +638,7 @@ For details, see [The UID2 Operator](../ref-info/ref-operators-public-private.md
 
 <!-- APIDOCS-1720 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 ## Q4 2023
@@ -535,6 +648,13 @@ The following documents were released in the fourth quarter of 2023.
 <CustomTagsContainer tags="All, Guides, Prebid.js">
 
 ### Integration Overview for Prebid
+=======
+## Q4 2023
+
+The following documents were released in the fourth quarter of 2023.
+
+### UID2 Integration Overview for Prebid
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 December 20, 2023
 
@@ -548,10 +668,13 @@ For details, see:
 - [UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md)
 - [UID2 Client-Server Integration Guide for Prebid.js](../guides/integration-prebid-client-server.md)
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Encrypt/Decrypt Examples, Java and C#
 
 December 14, 2023
@@ -560,11 +683,15 @@ We've added instructions and code examples for encrypting UID2 requests and decr
 
 For details, see [Encryption and Decryption Code Examples](../getting-started/gs-encryption-decryption.md#encryption-and-decryption-code-examples).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Private Operator">
 
 ### Private Operator for Azure Integration Guide
+=======
+### UID2 Private Operator for Azure Integration Guide
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 November 30, 2023
 
@@ -572,10 +699,13 @@ A UID2 <a href="../overviews/participants-overview">participant</a> who wants to
 
 For details, see [UID2 Private Operator for Azure Integration Guide](../guides/operator-guide-azure-enclave.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### API Permissions
 
 November 22, 2023
@@ -584,10 +714,13 @@ We've added an article in the Getting Started section of the UID2 website that p
 
 For details, see [API Permissions](../getting-started/gs-permissions.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### UID2 Credentials Page
 
 November 21, 2023
@@ -596,10 +729,13 @@ We've replaced the previous **API Keys** page with a page that includes informat
 
 For details, see [UID2 Credentials](../getting-started/gs-credentials.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Client-Side Integration Guide for JS
 
 November 21, 2023
@@ -614,11 +750,15 @@ The content that was in the previous *SDK for JavaScript Integration Guide*  is 
 This document was updated in January 2024 to [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md), and the JavaScript Standard Integration Guide is now the [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md).
 :::
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Prebid.js">
 
 ### Client-Side Integration Guide for Prebid.js
+=======
+### UID2 Client-Side Integration Guide for Prebid.js
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 November 2, 2023
 
@@ -633,10 +773,13 @@ These documents were further updated in later revisions. Updated links are as fo
 - [UID2 Client-Server Integration Guide for Prebid.js](../guides/integration-prebid-client-server.md)
 :::
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Opt-Out, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Opt-Out Page
 
 October 31, 2023
@@ -645,10 +788,13 @@ This reference topic provides an overview of user opt-out.
 
 For details, see [User Opt-Out](../getting-started/gs-opt-out.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### AWS Entity Resolution Integration Guide
 
 October 19, 2023
@@ -659,10 +805,13 @@ This service allows you to map DII (email addresses or phone numbers) to raw UID
 
 For details, see [AWS Entity Resolution Integration Guide](../guides/integration-aws-entity-resolution.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### SDK for JavaScript Version 3 
 
 October 10, 2023
@@ -673,14 +822,20 @@ For details, see:
 -  [SDK for JavaScript Reference Guide](../sdks/sdk-ref-javascript.md)
 -  [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md)
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ## Q3 2023
 
 The following documents were released in the third quarter of 2023.
 
+<<<<<<< HEAD
 <CustomTagsContainer tags="All, Guides, Private Operator">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Private Operator Guide for Google Confidential Space 
 
 September 30, 2023
@@ -691,10 +846,13 @@ For details, see [UID2 Private Operator for GCP Integration Guide](../guides/ope
 
 <!-- APIDOCS-1655 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Normalization and Encoding Rules
 
 September 7, 2023
@@ -706,10 +864,13 @@ For details, see:
 - [Email Address Hash Encoding](../getting-started/gs-normalization-encoding#email-address-hash-encoding)
 - [Phone Number Hash Encoding](../getting-started/gs-normalization-encoding#phone-number-hash-encoding)
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### IMA Mobile Plugin for Android
 
 August 8, 2023
@@ -718,10 +879,13 @@ A guide for publishers that provides information about the UID2 Interactive Medi
 
 For details, see [UID2 IMA Plugin for Android Integration Guide](../guides/mobile-plugin-ima-android.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### IMA Mobile Plugin for iOS
 
 August 8, 2023
@@ -730,10 +894,13 @@ A guide for publishers that provides information about the UID2 Interactive Medi
 
 For details, see [UID2 IMA Plugin for iOS Integration Guide](../guides/mobile-plugin-ima-ios.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### GMA Mobile Plugin for Android
 
 August 4, 2023
@@ -742,10 +909,13 @@ A guide for publishers that provides information about the UID2 Google Mobile Ad
 
 For details, see [UID2 GMA Plugin for Android Integration Guide](../guides/mobile-plugin-gma-android.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### GMA Mobile Plugin for iOS
 
 August 4, 2023
@@ -754,10 +924,13 @@ A guide for publishers that provides information about the UID2 Google Mobile Ad
 
 For details, see [UID2 GMA Plugin for iOS Integration Guide](../guides/mobile-plugin-gma-ios.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Infrastructure">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### UID2 Website in Japanese
 
 August 3, 2023
@@ -766,11 +939,15 @@ The entire UID2 website is now available in Japanese as well as English.
 
 For details, use the language drop-down at the top of any site page, or go straight to the [Unified ID 2.0 page in Japanese](https://unifiedid.com/ja/docs/intro).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal">
 
 ### Portal Documentation
+=======
+### UID2 Portal Documentation
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 August 3, 2023
 
@@ -778,10 +955,13 @@ We published several documentation pages to help users navigating the UID2 Porta
 
 For details, see [UID2 Portal: Overview](../portal/portal-overview.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Sharing, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Documentation for UID2 Sharing
 
 August 3, 2023
@@ -798,10 +978,13 @@ We published the following new and updated documents to support use of the UID2 
 
 - Updates to the Snowflake feature to support UID2 sharing. See [Snowflake Integration Guide: Usage for UID2 Sharers](../guides/integration-snowflake.md#usage-for-uid2-sharers).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Android SDK Guide
 
 August 3, 2023
@@ -810,10 +993,13 @@ A guide for publishers that provides information about the SDK for Android, an S
 
 For details, see [SDK for Android Reference Guide](../sdks/sdk-ref-android.md).
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### iOS SDK Guide
 
 August 3, 2023

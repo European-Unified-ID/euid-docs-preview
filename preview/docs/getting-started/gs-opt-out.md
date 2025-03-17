@@ -9,7 +9,11 @@ import Link from '@docusaurus/Link';
 
 # User Opt-Out
 
+<<<<<<< HEAD
 Many different publishers and advertisers use UID2. Different publishers might have different opt-out processes for their individual sites; however, UID2 as a whole has very specific opt-out processes that all UID2 [participants](../overviews/participants-overview.md#uid2-external-participants) are expected to honor.
+=======
+Many different publishers and advertisers use UID2. Different publishers might have different opt-out processes for their individual sites; however, UID2 as a whole has very specific opt-out processes that all UID2 [participants](overviews/participants-overview.md#uid2-external-participants) are expected to honor.
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 ## How Users Can Opt Out of UID2
 

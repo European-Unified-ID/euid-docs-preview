@@ -15,6 +15,7 @@ import CustomTagsContainer from "@site/src/components/CustomTags/CustomTagsConta
 
 UID2 ドキュメンテーションリソースの最新アップデートを確認してください。
 
+<<<<<<< HEAD
 :::tip
 Use the Tags toolbar to view a subset of documentation updates.
 :::
@@ -113,6 +114,13 @@ UID2 Snowflake インテグレーションを大幅に更新し、ドキュメ�
 =======
 ### Updated: Instructions for Using the UID2 Portal
 >>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
+=======
+## Q1 2025
+
+<!-- The following documents were released in this quarter. -->
+
+### Instructions for Using the UID2 Portal
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 February 10, 2025
 
@@ -124,6 +132,7 @@ UID2 インテグレーションガイド、SDK ドキュメント、エンド�
 
 <!-- APIDOCS-2828 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
@@ -132,6 +141,9 @@ UID2 インテグレーションガイド、SDK ドキュメント、エンド�
 =======
 ### New: Expanded and Restructured Advertiser/Data Provider Doc
 >>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
+=======
+### Advertiser/Data Provider Doc
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 January 10, 2025
 
@@ -141,6 +153,7 @@ January 10, 2025
 
 <!-- APIDOCS-1662 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
@@ -149,6 +162,9 @@ January 10, 2025
 =======
 ### New: Publisher SSO Integration Page
 >>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
+=======
+### Publisher SSO Integration Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 January 8, 2025
 
@@ -169,6 +185,7 @@ We've removed the legacy v1 to v2 upgrade doc, which is no longer needed. -->
 <!-- APIDOCS-2859 -->
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Q4 2024
 
 以下のドキュメントは2024年第4四半期にリリースされました。
@@ -179,6 +196,13 @@ We've removed the legacy v1 to v2 upgrade doc, which is no longer needed. -->
 =======
 ### New: Zoom-In Tool for Images
 >>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
+=======
+## Q4 2024
+
+<!-- The following documents were released in the fourth quarter of 2024. -->
+
+### Zoom-In Tool for Images
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 December 15, 2024
 
@@ -188,11 +212,15 @@ UID2 ドキュメントサイトに、画像のズームインツールが追加
 
 <!-- APIDOCS-2237 for both -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal">
 
 ### Portal Audit Trail Page
+=======
+### UID2 Portal Audit Trail Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 November 15, 2024
 
@@ -202,10 +230,13 @@ UID2 Portal の **Audit Trail** ページでは、Admin 権限 ([User Roles](../
 
 <!-- APIDOCSS-2700 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### LiveRamp Integration Tips
 
 November 14, 2024
@@ -216,6 +247,7 @@ LiveRamp の Authenticated Traffic Solution (ATS) を使用して UID2 Token を
 
 <!-- APIDOCS-2699 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 ## Q3 2024
@@ -223,6 +255,11 @@ LiveRamp の Authenticated Traffic Solution (ATS) を使用して UID2 Token を
 以下のドキュメントは2024年第3四半期にリリースされました。
 
 <CustomTagsContainer tags="All, Reference">
+=======
+## Q3 2024
+
+<!-- The following documents were released in the third quarter of 2024. -->
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 ### Tokens Page
 
@@ -234,11 +271,15 @@ September 10, 2024
 
 <!-- APIDOCS-2533 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Private Operator">
 
 ### Private Operator Integration Overview
+=======
+### Private Operator Integrations Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 August 28, 2024
 
@@ -248,10 +289,13 @@ Private Operator のインテグレーションに関する新しいページを
 
 <!-- APIDOCS-2164 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### DSP Direct Integration Instructions
 
 August 22, 2024
@@ -262,8 +306,11 @@ UID2 SDK を使用していない DSP 向けの新しいガイドを追加しま
 
 <!-- APIDOCS-2394 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 <!-- ### UID2 Token Reference Page
 
 August 22, 2024
@@ -274,8 +321,11 @@ For details, see [UID2 Tokens and Refresh Tokens]. -->
 
 <!-- APIDOCS-1958 removed 8/26/22 -->
 
+<<<<<<< HEAD
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Integration Approaches Page
 
 July 23, 2024
@@ -286,10 +336,13 @@ Client-Side、Client-Server、Server-Side の異なるインテグレーショ�
 
 <!-- APIDOCS-2132 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Server-Side Token Generation Page
 
 July 3, 2024
@@ -300,11 +353,15 @@ Server-Side で UID2 Token を生成するパブリッシャー向けの情報�
 
 <!-- APIDOCS-2255 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, Prebid.js">
 
 ### Integration with Prebid Mobile SDK (Android)
+=======
+### UID2 Integration with Prebid Mobile SDK (Android)
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 July 2, 2024
 
@@ -315,6 +372,7 @@ July 2, 2024
 
 <!-- APIDOCS-2269 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 ## Q2 2024
@@ -322,6 +380,11 @@ July 2, 2024
 以下のドキュメントは2024年第2四半期にリリースされました。
 
 <CustomTagsContainer tags="All, CTV, Guides">
+=======
+## Q2 2024
+
+<!-- The following documents were released in the second quarter of 2024. -->
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 ### CTV Integration Guide
 
@@ -333,10 +396,13 @@ UID2 とのインテグレーションを希望する CTV パブリッシャー�
 
 <!-- APIDOCS-2264 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Opt-Out">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Opt-Out API
 
 May 24, 2024
@@ -349,10 +415,13 @@ raw UID2 のリストが与えられた場合、このエンドポイントは�
 
 <!-- APIDOCS-1739 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Client-Side and Server-Side Guides for Mobile
 
 May 17, 2024
@@ -365,11 +434,15 @@ Android または iOS モバイルアプリのパブリッシャーが UID2 を�
 
 <!-- APIDOCS-1903-->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal">
 
 ### Portal Client-Side Integration Page
+=======
+### UID2 Portal Client-Side Integration Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 May 6, 2024
 
@@ -379,11 +452,15 @@ UID2 Portal の Client-Side Integration ページでは、ドメインなど、�
 
 <!-- APIDOCS-2120 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal">
 
 ### Portal API Keys Page
+=======
+### UID2 Portal API Keys Page
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 April 25, 2024
 
@@ -409,6 +486,7 @@ April 22, 2024
 
 <!-- APIDOCS-2134 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 ## Q1 2024
@@ -416,6 +494,11 @@ April 22, 2024
 以下のドキュメントは2024年第1四半期にリリースされました。
 
 <CustomTagsContainer tags="All, Reference">
+=======
+## Q1 2024
+
+<!-- The following documents were released in the first quarter of 2024 -->
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 ### UID2 Hashing Tool
 
@@ -427,11 +510,15 @@ March 4, 2024
 
 <!-- APIDOCS-1974 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
 ### Java SDK Support, Advertiser/Data Provider
+=======
+### Java SDK Support for Advertiser/Data Provider
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 February 28, 2024
 
@@ -441,10 +528,13 @@ Java SDKは、[POST&nbsp;/identity/map](../endpoints/post-identity-map.md) エ�
 
 <!-- UID2-2759 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Infrastructure">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Audience-Specific Sidebars
 
 February 9, 2024
@@ -459,11 +549,15 @@ UID2 home page の "ドキュメント" リンクをクリックするだけで�
 
 <!-- APIDOCS-1681 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
 ### Integration Overview for JavaScript
+=======
+### UID2 Integration Overview for JS
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 January 26, 2024
 
@@ -477,10 +571,13 @@ January 26, 2024
 
 <!-- APIDOCS-1924 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### SDK for Java, Publisher Sections
 
 22 January 2024
@@ -491,10 +588,13 @@ SDK for Java のドキュメントに、SDK を実装するパブリッシャー
 
 <!-- APIDOCS-1705 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Normalization and Encoding Examples
 
 January 19, 2024
@@ -505,10 +605,13 @@ January 19, 2024
 
 <!-- APIDOCS-1183, APIDOCS-1880 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Web Integration Overview for Publishers
 
 January 16, 2024
@@ -519,10 +622,13 @@ UID2 とインテグレーションするパブリッシャーが利用できる
 
 <!-- APIDOCS-1846 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Private Operator, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### UID2 Operator Page
 
 January 3, 2024
@@ -533,6 +639,7 @@ UID2 Operator が何をするのか、Public Operator と Private Operator の�
 
 <!-- APIDOCS-1720 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 ## Q4 2023
@@ -542,6 +649,13 @@ UID2 Operator が何をするのか、Public Operator と Private Operator の�
 <CustomTagsContainer tags="All, Guides, Prebid.js">
 
 ### Integration Overview for Prebid
+=======
+## Q4 2023
+
+<!-- The following documents were released in the fourth quarter of 2023. -->
+
+### UID2 Integration Overview for Prebid
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 December 20, 2023
 
@@ -555,10 +669,13 @@ December 20, 2023
 - [UID2 Client-Side Integration Guide for Prebid.js](../guides/integration-prebid-client-side.md)
 - [UID2 Client-Server Integration Guide for Prebid.js](../guides/integration-prebid-client-server.md)
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Encrypt/Decrypt Examples, Java and C#
 
 December 14, 2023
@@ -567,11 +684,15 @@ UID2 リクエストの暗号化とレスポンスの復号化について、追
 
 詳細は [Encryption and Decryption Code Examples](../getting-started/gs-encryption-decryption.md#encryption-and-decryption-code-examples) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Private Operator">
 
 ### Private Operator for Azure Integration Guide
+=======
+### UID2 Private Operator for Azure Integration Guide
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 November 30, 2023
 
@@ -579,10 +700,13 @@ November 30, 2023
 
 詳細は [UID2 Private Operator for Azure Integration Guide](../guides/operator-guide-azure-enclave.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### API Permissions
 
 November 22, 2023
@@ -591,10 +715,13 @@ UID2 ウェブサイトの Getting Started セクションに新しい記事が�
 
 詳細は [API Permissions](../getting-started/gs-permissions.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### UID2 Credentials Page
 
 November 21, 2023
@@ -603,10 +730,13 @@ November 21, 2023
 
 詳細は [UID2 Credentials](../getting-started/gs-credentials.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Client-Side Integration Guide for JS
 
 November 21, 2023
@@ -621,11 +751,15 @@ Client-Side Integration Guide for JavaScript は、既存の URL の全く新し
 このドキュメントは2024年1月に [Client-Side Integration Guide for JavaScript](../guides/integration-javascript-client-side.md) に更新され、JavaScript Standard Integration Guide は[Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md) になりました。
 :::
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Prebid.js">
 
 ### Client-Side Integration Guide for Prebid.js
+=======
+### UID2 Client-Side Integration Guide for Prebid.js
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 November 2, 2023
 
@@ -640,10 +774,13 @@ UID2 Client-Side Integration Guide for Prebid.js は、既存の URL にまっ�
 - [UID2 Client-Server Integration Guide for Prebid.js](../guides/integration-prebid-client-server.md)
 :::
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Opt-Out, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Opt-Out Page
 
 October 31, 2023
@@ -652,10 +789,13 @@ October 31, 2023
 
 詳細は [User Opt-Out](../getting-started/gs-opt-out.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### AWS Entity Resolution Integration Guide
 
 October 19, 2023
@@ -666,10 +806,13 @@ October 19, 2023
 
 詳細は [AWS Entity Resolution Integration Guide](../guides/integration-aws-entity-resolution.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### SDK for JavaScript Version 3 
 
 October 10, 2023
@@ -680,6 +823,7 @@ SDK for JavaScript Version 3 の機能強化に伴い、ドキュメントが大
 -  [SDK for JavaScript Reference Guide](../sdks/sdk-ref-javascript.md)
 -  [Client-Server Integration Guide for JavaScript](../guides/integration-javascript-client-server.md)
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 ## Q3 2023
@@ -687,6 +831,11 @@ SDK for JavaScript Version 3 の機能強化に伴い、ドキュメントが大
 以下のドキュメントは2023年第3四半期にリリースされました。
 
 <CustomTagsContainer tags="All, Guides, Private Operator">
+=======
+## Q3 2023
+
+<!-- The following documents were released in the third quarter of 2023. -->
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 ### Private Operator Guide for Google Confidential Space 
 
@@ -698,10 +847,13 @@ September 30, 2023
 
 <!-- APIDOCS-1655 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Reference">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Normalization and Encoding Rules
 
 September 7, 2023
@@ -713,10 +865,13 @@ September 7, 2023
 - [Email Address Hash Encoding](../getting-started/gs-normalization-encoding#email-address-hash-encoding)
 - [Phone Number Hash Encoding](../getting-started/gs-normalization-encoding#phone-number-hash-encoding)
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### IMA Mobile Plugin for Android
 
 August 8, 2023
@@ -725,10 +880,13 @@ Android 向け UID2 Interactive Media Ads(IMA)Plugin に関する情報を提供
 
 詳細は [UID2 IMA Plugin for Android Integration Guide](../guides/mobile-plugin-ima-android.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### IMA Mobile Plugin for iOS
 
 August 8, 2023
@@ -737,10 +895,13 @@ iOS 向け UID2 Interactive Media Ads(IMA)Plugin に関する情報を提供す�
 
 詳細は [UID2 IMA Plugin for iOS Integration Guide](../guides/mobile-plugin-ima-ios.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### GMA Mobile Plugin for Android
 
 August 4, 2023
@@ -749,10 +910,13 @@ Android 向け UID2 Google Mobile Ads(GMA)Plugin に関する情報を提供す�
 
 詳細は [UID2 GMA Plugin for Android Integration Guide](../guides/mobile-plugin-gma-android.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### GMA Mobile Plugin for iOS
 
 August 4, 2023
@@ -761,10 +925,13 @@ iOS 向け UID2 Google Mobile Ads(GMA)Plugin に関する情報を提供する�
 
 詳細は [UID2 GMA Plugin for iOS Integration Guide](../guides/mobile-plugin-gma-ios.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Infrastructure">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### UID2 Website in Japanese
 
 August 3, 2023
@@ -773,11 +940,15 @@ UID2 のウェブサイト全体が、英語だけでなく日本語でも利用
 
 詳細は、各サイトのページ上部にある言語ドロップダウンを使うか、直接 [Unified ID 2.0 in Japanese](https://unifiedid.com/ja/docs/intro) にアクセスしてください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal">
 
 ### Portal Documentation
+=======
+### UID2 Portal Documentation
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
 3 August 2023
 
@@ -785,10 +956,13 @@ UID2 アカウントを管理できる新しい UID2 Portal ユーザーイン�
 
 詳細は [UID2 Portal: Overview](../portal/portal-overview.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Sharing, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Documentation for UID2 Sharing
 
 August 3, 2023
@@ -805,10 +979,13 @@ August 3, 2023
 
 - UID2 Sharing をサポートするための Snowflake 機能の更新。[Snowflake Integration Guide: Usage for UID2 Sharers](../guides/integration-snowflake.md#usage-for-uid2-sharers) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### Android SDK Guide
 
 August 3, 2023
@@ -817,10 +994,13 @@ August 3, 2023
 
 詳細は [SDK for Android Reference Guide](../sdks/sdk-ref-android.md) を参照してください。
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile, SDKs">
 
+=======
+>>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 ### iOS SDK Guide
 
 August 3, 2023
