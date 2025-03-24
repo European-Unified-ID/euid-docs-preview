@@ -27,9 +27,13 @@ Use the Tags toolbar to view a subset of documentation updates.
 The following documents were released in this quarter.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <CustomTagsContainer tags="All, Guides, Private Operator">
 
 ### Private Operator for AKS Integration Guide
+=======
+### UID2 Private Operator for AKS Integration Guide
+>>>>>>> 6cd49ff (Update from https://github.com/IABTechLab/uid2docs/commit/470efa727aa7532fad7cf4018b4debf05568c0f8)
 
 March 19, 2025
 
@@ -39,10 +43,13 @@ For details, see [UID2 Private Operator for AKS Integration Guide](../guides/ope
 
 <!-- APIDOCS-3030 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Mobile">
 
+=======
+>>>>>>> 6cd49ff (Update from https://github.com/IABTechLab/uid2docs/commit/470efa727aa7532fad7cf4018b4debf05568c0f8)
 ### Server-Side Integration Guide for Mobile
 
 March 18, 2025
@@ -53,12 +60,15 @@ For details, see [UID2 Server-Side Integration Guide for Mobile](../guides/integ
 
 <!-- APIDOCS-2931 -->
 
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Portal, Sharing">
 
 ### Portal, Sharing Permissions Page
 =======
+=======
+>>>>>>> 6cd49ff (Update from https://github.com/IABTechLab/uid2docs/commit/470efa727aa7532fad7cf4018b4debf05568c0f8)
 ### UID2 Portal, Sharing Permissions Page
 >>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
 
