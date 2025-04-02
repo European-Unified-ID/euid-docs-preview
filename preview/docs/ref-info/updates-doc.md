@@ -281,6 +281,7 @@ For details, see [UID2 Tokens and Refresh Tokens](../ref-info/ref-tokens.md).
 <!-- APIDOCS-2533 -->
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 </CustomTagsContainer>
 
 <CustomTagsContainer tags="All, Guides, Private Operator">
@@ -289,6 +290,9 @@ For details, see [UID2 Tokens and Refresh Tokens](../ref-info/ref-tokens.md).
 =======
 ### Private Operator Integrations Page
 >>>>>>> f0169e5 (Update from https://github.com/IABTechLab/uid2docs/commit/4802b49827c38003a5f8af9d95d8352f1ea3d8c1)
+=======
+### Private Operator Integration Overview
+>>>>>>> 5dc5b91 (Update from https://github.com/IABTechLab/uid2docs/commit/46b1e8dd7eb2d1559a94e47836f8a107fd2b866b)
 
 August 28, 2024
 
