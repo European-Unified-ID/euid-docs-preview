@@ -108,8 +108,9 @@ const fullSidebar = [
           type: 'category',
           label: 'Publisher Integrations',
           link: {
-            type: 'generated-index',
-          },
+          type: 'doc',
+          id: 'guides/integration-options-publisher-all',
+        },
           collapsed: true,
 
           items: [
@@ -398,6 +399,7 @@ const sidebars = {
     'overviews/overview-data-providers',
     'Publisher Integrations',
     'Web',
+    'guides/integration-options-publisher-all',
     'guides/integration-options-publisher-web',
     'Prebid',
     'guides/integration-prebid',
@@ -437,6 +439,7 @@ const sidebars = {
     'overviews/overview-data-providers',
     'Publisher Integrations',
     'Web',
+    'guides/integration-options-publisher-all',
     'guides/integration-options-publisher-web',
     'Prebid',
     'guides/integration-prebid',
@@ -478,6 +481,7 @@ const sidebars = {
     'overviews/overview-dsps',
     'Publisher Integrations',
     'Web',
+    'guides/integration-options-publisher-all',
     'guides/integration-options-publisher-web',
     'Prebid',
     'guides/integration-prebid',
