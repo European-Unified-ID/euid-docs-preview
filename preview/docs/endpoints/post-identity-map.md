@@ -1,6 +1,6 @@
 ---
 title: POST /identity/map
-description: Maps DII to raw UID2s and salt bucket IDs.
+description: Maps DII to raw UID2s.
 hide_table_of_contents: false
 sidebar_position: 08
 ---
@@ -9,11 +9,19 @@ import Link from '@docusaurus/Link';
 
 # POST /identity/map
 
-Maps multiple email addresses, phone numbers, or their respective hashes to their raw UID2s and <Link href="../ref-info/glossary-uid#gl-salt-bucket-id">salt bucket IDs</Link>. You can also use this endpoint to check for updates to opt-out information.
+[**TO BE UPDATED. VERSION SECTION ADDED BUT THE REST NEEDS UPDATING**]
+
+Maps multiple email addresses, phone numbers, or their respective hashes to their raw UID2s. You can also use this endpoint to check for updates to opt-out information.
 
 Used by: This endpoint is used mainly by advertisers and data providers. For details, see [Advertiser/Data Provider Integration Overview](../guides/integration-advertiser-dataprovider-overview.md).
 
 For details about the UID2 opt-out workflow and how users can opt out, see [User Opt-Out](../getting-started/gs-opt-out.md).
+
+## Version
+
+This documentation is for the latest version of this endpoint. If you're using an earlier version, we recommend that you upgrade your integration. No specific migration steps are needed.
+
+If needed, documentation is also available for the previous version, v2: see [POST /identity/map (v2)](post-identity-map-v2.md).
 
 ## Batch Size and Request Parallelization Requirements
 
@@ -108,7 +116,7 @@ For details, and code examples in different programming languages, see [Encrypti
 The response is encrypted only if the HTTP status code is 200. Otherwise, the response is not encrypted.
 :::
 
-A successful decrypted response returns the raw UID2s and salt bucket IDs for the specified email addresses, phone numbers, or their respective hashes.
+A successful decrypted response returns the raw UID2s for the specified email addresses, phone numbers, or their respective hashes.
 
 ```json
 {
@@ -184,7 +192,7 @@ The response body includes the properties shown in the following table.
 | :--- | :--- | :--- |
 | `identifier` | string | The email address, phone number, or respective hash specified in the request body. |
 | `advertising_id` | string | The corresponding advertising ID (raw UID2). |
-| `bucket_id` | string | The ID of the salt bucket used to generate the raw UID2. |
+| `TODO` | string | TODO: NEW VALUES |
 
 ### Response Status Codes
 
