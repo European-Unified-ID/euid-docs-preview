@@ -9,9 +9,7 @@ import Link from '@docusaurus/Link';
 
 # POST /identity/map
 
-[**TO BE UPDATED. VERSION SECTION ADDED BUT THE REST NEEDS UPDATING**]
-
-Maps multiple email addresses, phone numbers, or their respective hashes to their raw UID2s. You can also use this endpoint to check for updates to opt-out information.
+Maps multiple email addresses, phone numbers, or their respective hashes to their raw UID2s. You can also use this endpoint to check for updates to opt-out information, check when an advertising ID can be refreshed, or view the previous advertising ID if the current one is less than 90 days old.
 
 Used by: This endpoint is used mainly by advertisers and data providers. For details, see [Advertiser/Data Provider Integration Overview](../guides/integration-advertiser-dataprovider-overview.md).
 
@@ -55,15 +53,22 @@ The integration environment and the production environment require different <Li
 ### Unencrypted JSON Body Parameters
 
 :::important
-You must include only **one** of the following four conditional parameters as a key-value pair in the JSON body of the request when encrypting it.
+You can include one or more of the following four parameters as key-value pairs in the JSON body of the request when encrypting it.
 :::
 
-| Body Parameter | Data Type | Attribute | Description |
-| :--- | :--- | :--- | :--- |
-| `email` | string array | Conditionally Required | The list of email addresses to be mapped. |
-| `email_hash` | string array | Conditionally Required | The list of [Base64-encoded SHA-256](../getting-started/gs-normalization-encoding.md#email-address-hash-encoding) hashes of [normalized](../getting-started/gs-normalization-encoding.md#email-address-normalization) email addresses to be mapped. |
-| `phone` | string array | Conditionally Required | The list of [normalized](../getting-started/gs-normalization-encoding.md#phone-number-normalization) phone numbers to be mapped. |
-| `phone_hash` | string array | Conditionally Required | The list of [Base64-encoded SHA-256](../getting-started/gs-normalization-encoding.md#phone-number-hash-encoding) hashes of [normalized](../getting-started/gs-normalization-encoding.md#phone-number-normalization) phone numbers to be mapped. |
+| Body Parameter | Data Type            | Attribute              | Description |
+|:---------------|:---------------------|:-----------------------| :--- |
+| `email`        | array of DII objects | Conditionally Required | The list of email addresses to be mapped. |
+| `email_hash`   | array of DII objects | Conditionally Required | The list of [Base64-encoded SHA-256](../getting-started/gs-normalization-encoding.md#email-address-hash-encoding) hashes of [normalized](../getting-started/gs-normalization-encoding.md#email-address-normalization) email addresses to be mapped. |
+| `phone`        | array of DII objects | Conditionally Required | The list of [normalized](../getting-started/gs-normalization-encoding.md#phone-number-normalization) phone numbers to be mapped. |
+| `phone_hash`   | array of DII objects | Conditionally Required | The list of [Base64-encoded SHA-256](../getting-started/gs-normalization-encoding.md#phone-number-hash-encoding) hashes of [normalized](../getting-started/gs-normalization-encoding.md#phone-number-normalization) phone numbers to be mapped. |
+
+
+Each email address, email hash, phone, or phone hash is input as a DII object.
+
+| Parameter | Data Type | Attribute | Description                                         |
+|:----------|:----------|:----------|:----------------------------------------------------|
+| `i`       | string    | Required  | The email address, email hash, phone, or phone hash.|
 
 ### Request Examples
 
@@ -116,7 +121,9 @@ For details, and code examples in different programming languages, see [Encrypti
 The response is encrypted only if the HTTP status code is 200. Otherwise, the response is not encrypted.
 :::
 
-A successful decrypted response returns the raw UID2s for the specified email addresses, phone numbers, or their respective hashes.
+A successful decrypted response returns the raw UID2s for the specified email addresses, phone numbers, or their respective hashes. The sequence in the response matches the sequence in the request.
+
+Identifiers that cannot be mapped to an advertising ID are mapped to an error object with the reason for unsuccessful mapping. An unsuccessful mapping occurs if the identifier is considered invalid or if the identifier has opted out from the UID2 ecosystem. In these cases, the response status is still "success".
 
 ```json
 {
@@ -186,13 +193,27 @@ If some identifiers have opted out from the UID2 ecosystem, the opted-out identi
 
 ### Response Body Properties
 
-The response body includes the properties shown in the following table.
+| Body Parameter | Data Type                   | Attribute              | Description                                                                                     |
+|:---------------|:----------------------------|:-----------------------|:------------------------------------------------------------------------------------------------|
+| `email`        | array of mapped DII objects | Conditionally Required | The list of mapped DII objects corresponding to the list of emails in the request.              |
+| `email_hash`   | array of mapped DII objects | Conditionally Required | The list of mapped DII objects corresponding to the list of email hashes in the request.        |
+| `phone`        | array of mapped DII objects | Conditionally Required | The list of mapped DII objects corresponding to the list of phone numbers in the request.       |
+| `phone_hash`   | array of mapped DII objects | Conditionally Required | The list of mapped DII objects corresponding to the list of phone number hashes in the request. |
 
-| Property | Data Type | Description |
-| :--- | :--- | :--- |
-| `identifier` | string | The email address, phone number, or respective hash specified in the request body. |
-| `advertising_id` | string | The corresponding advertising ID (raw UID2). |
-| `TODO` | string | TODO: NEW VALUES |
+
+For successfully mapped DII, the mapped object includes the properties shown in the following table.
+
+| Property | Data Type  | Description                                                                                                                           |
+|:---------|:-----------|:--------------------------------------------------------------------------------------------------------------------------------------|
+| `u`      | string     | The advertising ID (raw UID2) of the DII provided in the request.                                                                     |
+| `p`      | string     | The previous advertising ID if the current ID has been refreshed in the last 90 days. `Null` if the current ID is older than 90 days. |
+| `r`      | number     | The Unix timestamp (in milliseconds) that indicates when the advertising ID can be refreshed.                                         |
+
+For unsuccessfully mapped DII, the mapped object includes the properties shown in the following table.
+
+| Property | Data Type | Description                                                       |
+|:---------|:----------|:------------------------------------------------------------------|
+| `e`      | string    | The reason for being unable to map the DII to an advertising ID.  |
 
 ### Response Status Codes
 
