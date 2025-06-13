@@ -27,9 +27,7 @@ export default function CustomTagsContainer({
   return (
     <div
       className={
-        filter === "All" || tagList.includes(filter)
-          ? styles["custom-tags-container-visible"]
-          : ""
+        tagList.includes(filter) ? styles["custom-tags-container-visible"] : ""
       }
     >
       {children}
