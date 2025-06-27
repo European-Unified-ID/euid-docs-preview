@@ -16,7 +16,7 @@ The following sections provide information about supported versions and, where a
 
 <UpgradePolicy />
 
-## Private Operator Versions
+## Prviate Operator Versions
 
 The following tables show the Private Operator versions that are currently supported, including:
 - [Private Operator for AWS](#private-operator-for-aws)

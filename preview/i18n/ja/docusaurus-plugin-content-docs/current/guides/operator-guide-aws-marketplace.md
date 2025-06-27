@@ -8,7 +8,7 @@ sidebar_position: 17
 ---
 
 import Link from '@docusaurus/Link';
-import ReleaseMatrix from '../snippets/_private-operator-release-matrix.mdx';
+import UpgradePolicy from '../snippets/_private-operator-upgrade-policy.mdx';
 import AttestFailure from '../snippets/_private-operator-attest-failure.mdx';
 
 # UID2 Private Operator for AWS Integration Guide
@@ -124,7 +124,7 @@ AWS で 1 つまたは複数の UID2 Operator をサブスクライブしてデ�
 - VPC: 既存の VPC と関連する VPC サブネット ID を指定する必要があります。
 - ルートボリュームサイズ (8G Minimum)
 - SSH キー: UID2 Operator の EC2 インスタンスにアクセスする際に使用する SSH キーです。
-- [Instance type](https://aws.amazon.com/ec2/instance-types/m5/): m5.2xlarge、m5.4xlarge、といった具合です。カスタマイズがない場合は、デフォルト値の m5.2xlarge を推奨します。
+- [Instance type](https://aws.amazon.com/ec2/instance-types/): m5.2xlarge、m5.4xlarge、といった具合です。カスタマイズがない場合は、デフォルト値の m5.2xlarge を推奨します。
 
 ### Security Group Policy
 
@@ -162,11 +162,21 @@ UID2 Operator を AWS Marketplace にデプロイするには、以下の手順�
 
 スタックの作成には数分かかります。Auto Scaling Group (ASG) が作成されたら、選択して EC2 インスタンスを確認できます。デフォルトでは、最初は 1 つのインスタンスのみが起動します。
 
+### Private Operator Upgrade Policy
+
+<UpgradePolicy />
+
 ### Operator Version
 
 最新の ZIP ファイルは、次の表の Release Notes 欄にリンクされています。
 
-<ReleaseMatrix />
+| Version Name | Version&nbsp;#/Release&nbsp;Notes | AWS Version |  Date |
+| ------- | ------ | ------ | ------ | 
+| Q2 2025 | TBD | TBD | TBD |
+
+:::note
+For information about supported versions and deprecation dates, see [Private Operator Versions](../ref-info/deprecation-schedule.md#private-operator-versions).
+:::
 
 ### Stack Details
 
