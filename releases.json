@@ -1,5 +1,5 @@
 {
     "aws" : {
-        "us-east-1": ["ami-0122117bc7465013a", "ami-00840b1c8cf216d60", "ami-00840b1c8cf216d70"]
+        "us-east-1": ["ami-00840b1c8cf216d60","ami-0122117bc7465013a", "ami-00840b1c8cf216d60", "ami-00840b1c8cf216d70"]
     }
 }
