@@ -14,7 +14,7 @@ pagination_label: UID2 Server-Side Integration Guide for Mobile
 description: Setting up a mobile integration with token generate and refresh both on the server side.
 hide_table_of_contents: false
 sidebar_position: 04
->>>>>>> 6cd49ff (Update from https://github.com/IABTechLab/uid2docs/commit/470efa727aa7532fad7cf4018b4debf05568c0f8)
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';

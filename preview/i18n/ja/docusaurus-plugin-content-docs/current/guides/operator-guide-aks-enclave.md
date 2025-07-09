@@ -5,10 +5,11 @@ pagination_label: UID2 Private Operator for AKS Integration Guide
 description: Integration information for Private Operator in AKS.
 hide_table_of_contents: false
 sidebar_position: 18
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import ReleaseMatrix from '../snippets/_private-operator-release-matrix.mdx';
+import UpgradePolicy from '../snippets/_private-operator-upgrade-policy.mdx';
 
 # UID2 Private Operator for AKS Integration Guide
 
@@ -23,6 +24,22 @@ When the attestation is successful, the UID2 Core Service provides seed informat
 :::caution
 UID2 Private Operator for AKS is not supported in these areas: Europe, China.
 :::
+
+<!-- ## Operator Version
+
+The latest ZIP file is linked in the AKS Download column in the following table.
+
+| AKS Version Name | Version&nbsp;#/Release&nbsp;Notes | AKS Download | Date | Deprecation Date |
+| ------- | ------ | ------ | ------ | ------ |
+| Q2 2025 | xxx | xxx | xxx | xxx |
+
+:::note
+For information about supported versions and deprecation dates, see [Private Operator Versions](../ref-info/deprecation-schedule.md#private-operator-versions).
+::: -->
+
+## Private Operator Upgrade Policy
+
+<UpgradePolicy />
 
 ## Prerequisites
 
@@ -103,12 +120,6 @@ To get set up with the installation files, follow these steps:
 1. Unzip the ZIP file to extract the following files, needed for the deployment:
 
    - `operator.yaml` -->
-
-<!-- ### Operator Version
-
-The latest ZIP file is linked in the AKS Download column in the following table.
-
-<ReleaseMatrix />  -->
 
 ### Prepare Environment Variables
 

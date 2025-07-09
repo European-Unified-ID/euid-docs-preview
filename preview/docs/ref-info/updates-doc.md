@@ -3,6 +3,7 @@ title: Documentation Updates
 description: A summary of significant UID2 documentation updates.
 hide_table_of_contents: false
 sidebar_position: 06
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
@@ -19,22 +20,6 @@ Check out the latest updates to our UID2 documentation resources.
 :::tip
 Use the Tags toolbar to view a subset of documentation updates.
 :::
-
-## Q3 2025
-
-The following documents were released in this quarter.
-
-<CustomTagsContainer tags="Guides, SDKs">
-
-### Identity Map V3
-
-July 11, 2025
-
-We've released a new version of the Identity Map API (V3) that provides significant improvements for advertisers and data providers. This update includes documentation for the [API endpoint](../endpoints/post-identity-map.md), the [Java SDK](../sdks/sdk-ref-java.md#usage-for-advertisersdata-providers) and the [integration guide](../guides/integration-advertiser-dataprovider-overview.md).
-
-<!-- UID2-5558, UID2-5560, UID2-5559 -->
-
-</CustomTagsContainer>
 
 ## Q1 2025
 
@@ -542,7 +527,7 @@ For details, see [UID2 Hashing Tool](../getting-started/gs-normalization-encodin
 
 February 28, 2024
 
-The Java SDK now supports Advertisers and Data Providers wanting to use the [POST&nbsp;/identity/map (v2)](../endpoints/post-identity-map-v2.md) endpoint.
+The Java SDK now supports Advertisers and Data Providers wanting to use the [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) endpoint.
 
 For details, see the updated documentation in the *SDK for Java Reference Guide*: [Usage for Advertisers and Data Providers](../sdks/sdk-ref-java.md#usage-for-advertisersdata-providers).
 
