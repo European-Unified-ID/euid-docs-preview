@@ -126,11 +126,6 @@ export const partnersData: PartnersDataType = [
     type: ["Publishers", "DSP", "Data"],
   },
   {
-    name: "Arkadia Digital Media",
-    logo: "arkadia-logo.png",
-    type: ["Publishers"],
-  },
-  {
     name: "ARN",
     logo: "PartnerLogo_ARN_256x256.png",
     type: ["Publishers"],
@@ -360,11 +355,6 @@ export const partnersData: PartnersDataType = [
     logo: "GetOne.png",
     type: ["Data"],
   },
-  {
-    name: "GMA Network",
-    logo: "gma-logo.png",
-    type: ["Publishers"],
-  },
   // {
   //   name: "Gum Gum",
   //   logo: "PartnerLogo_gumgum_580x250.png",
@@ -421,11 +411,6 @@ export const partnersData: PartnersDataType = [
     type: ["Publishers", "Data"],
   },
   {
-    name: "IDN",
-    logo: "idn-logo.png",
-    type: ["Publishers"],
-  },
-  {
     name: "iHeart",
     logo: "iheart-media-logo.png",
     type: ["Publishers"],
@@ -467,7 +452,6 @@ export const partnersData: PartnersDataType = [
     featured: true,
     order: 9,
   },
-
   {
     name: "Lifesight",
     logo: "Lifesight-Logo-580x250.png",
@@ -476,8 +460,8 @@ export const partnersData: PartnersDataType = [
     order: 10,
   },
   {
-    name: "Lihuhu Games",
-    logo: "lihuhu-logo.png",
+    name: "Life & Style",
+    logo: "LifeStyle_logo-580x250.png",
     type: ["Publishers"],
   },
   {
@@ -552,11 +536,6 @@ export const partnersData: PartnersDataType = [
     type: ["Publishers"],
   },
   {
-    name: "Media Prima",
-    logo: "media-prima-logo.png",
-    type: ["Publishers"],
-  },
-  {
     name: "Media Tradecraft",
     logo: "MediaTradecraft_Logo-580x250.png",
     type: ["Publishers"],
@@ -570,11 +549,6 @@ export const partnersData: PartnersDataType = [
     name: "Media Wallah",
     logo: "Mediawallah_logo-580x250.png",
     type: ["Data"],
-  },
-  {
-    name: "Media.net",
-    logo: "medianet-logo.png",
-    type: ["DSP"],
   },
   {
     name: "Meitu",
@@ -898,11 +872,6 @@ export const partnersData: PartnersDataType = [
     type: ["CDP"],
   },
   {
-    name: "Tempo",
-    logo: "tempo-logo.png",
-    type: ["Publishers"],
-  },
-  {
     name: "Thairath",
     logo: "Thairath_Online_Logo2023.png",
     type: ["Publishers"],
@@ -963,7 +932,7 @@ export const partnersData: PartnersDataType = [
     type: ["Data"],
   },
   {
-    name: "TrueID",
+    name: "True Digital",
     logo: "LogoTrueID Corporate.png",
     type: ["Publishers"],
   },
@@ -1013,11 +982,6 @@ export const partnersData: PartnersDataType = [
     type: ["DSP"],
   },
   {
-    name: "Vidio",
-    logo: "vidio-logo.png",
-    type: ["Publishers"],
-  },
-  {
     name: "VNExpress",
     logo: "VNExpress.png",
     type: ["Publishers"],
@@ -1025,6 +989,11 @@ export const partnersData: PartnersDataType = [
   {
     name: "Warner Bros. Discovery",
     logo: "wb-logo.png",
+    type: ["Publishers"],
+  },
+  {
+    name: "WBD",
+    logo: "WBD_logo.webp",
     type: ["Publishers"],
   },
   {
