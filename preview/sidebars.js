@@ -20,22 +20,36 @@ function removeItems(sidebar, ...remove) {
 
 const fullSidebar = [
 
-  'intro',
-
   {
     type: 'category',
-    label: 'EUID Participants',
+    label: 'Overview',
     link: {
-      type: 'generated-index',
+      type: 'doc',
+      id: 'intro',
     },
-    collapsed: true,
+    collapsed: false,
     items: [
-      'overviews/overview-publishers',
-      'overviews/overview-advertisers',
-      'overviews/overview-dsps',
-      'overviews/overview-data-providers',
+      'ref-info/uid-identifier-types',
+      'ref-info/uid-components',
+      'ref-info/uid-workflows',
     ],
   },
+ 
+    {
+      type: 'category',
+      label: 'EUID Participants',
+      link: {
+        type: 'doc',
+        id: 'overviews/participants-overview',
+      },
+      collapsed: true,
+      items: [
+        'overviews/overview-publishers',
+        'overviews/overview-advertisers',
+        'overviews/overview-dsps',
+        'overviews/overview-data-providers',
+      ],
+    },
 
 
   {
@@ -68,7 +82,8 @@ const fullSidebar = [
           type: 'category',
           label: 'Publisher Integrations',
           link: {
-            type: 'generated-index',
+            type: 'doc',
+            id: 'guides/integration-options-publisher-all',
           },
           collapsed: true,
 
@@ -125,6 +140,7 @@ const fullSidebar = [
             items: [
               'guides/integration-mobile-client-side',
               'guides/integration-mobile-client-server',
+              'guides/integration-mobile-server-side',
             ],
           },
 
@@ -231,7 +247,19 @@ const fullSidebar = [
       },
       collapsed: true,
       items: [
-        'sdks/sdk-ref-javascript',
+
+        {
+          type: 'category',
+          label: 'SDK for JavaScript',
+          link: {
+            type: 'doc',
+            id: 'sdks/sdk-ref-javascript',
+          },
+          collapsed: true,
+          items: [
+            'sdks/sdk-ref-javascript-v3',
+          ],
+        },
         'sdks/sdk-ref-java',
         'sdks/sdk-ref-python',
         'sdks/sdk-ref-csharp-dotnet',
@@ -248,13 +276,24 @@ const fullSidebar = [
         type: 'doc',
         id: 'endpoints/summary-endpoints',
       },
-      collapsed: true,
+      collapsed: false,
       items: [
         'endpoints/post-token-generate',
         'endpoints/post-token-validate',
         'endpoints/post-token-refresh',
         'endpoints/post-identity-buckets',
-        'endpoints/post-identity-map',
+        {
+          type: 'category',
+          label: 'POST /identity/map',
+          link: {
+            type: 'doc',
+            id: 'endpoints/post-identity-map',
+          },
+          collapsed: true,
+          items: [
+            'endpoints/post-identity-map-v2',
+          ],
+        },
         'endpoints/post-optout-status',
       ],
     },
@@ -276,9 +315,25 @@ const fullSidebar = [
         'ref-info/ref-operators-public-private',
         'ref-info/ref-integration-approaches',
         'ref-info/ref-tokens',
+        'ref-info/ref-how-uid-is-created',
         'ref-info/ref-server-side-token-generation',
         'ref-info/ref-integration-sso-providers',
+        'ref-info/deprecation-schedule',
         'ref-info/ref-areas-of-coverage',
+      ],
+    },
+
+
+    {
+      type: 'category',
+      label: 'Legal',
+      link: {
+        type: 'generated-index',
+      },
+      collapsed: true,
+      items: [
+        'legal/euid-participant-explainer-publishers',
+        'legal/euid-participant-explainer-advertisers',
         'ref-info/ref-consent-samples',
       ],
     },

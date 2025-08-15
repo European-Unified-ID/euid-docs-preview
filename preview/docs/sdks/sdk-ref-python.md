@@ -3,17 +3,15 @@ title: SDK for Python
 description: Reference information about the Python server-side SDK.
 hide_table_of_contents: false
 sidebar_position: 06
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
+import SDKsSameUID2EUID from '../snippets/_euid-sdk-same-for-all.mdx';
 
 # SDK for Python Reference Guide
 
 You can use the SDK for Python on the server side to facilitate the process of generating or establishing client identity using EUID, retrieving advertising tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use, and automatically refreshing EUID tokens. If you have the applicable permissions, you can also decrypt EUID tokens to access the raw EUID, map personal data to raw EUIDs, and monitor rotated salt buckets.
-
-:::note
-This SDK is valid for UID2 and EUID. Some of the code naming and URLs are labelled as UID2. These apply equally to EUID.
-:::
 
 ## Functionality
 
@@ -41,11 +39,11 @@ This SDK is in the following open-source GitHub repository:
 
 - [SDK for Python](https://github.com/IABTechLab/uid2-client-python/blob/master/README.md)
 
-  >NOTE: This SDK is valid for both UID2 and EUID. The SDK, and some of its technical components, are named UID2, but are equally applicable for EUID.
-
 The package is published in this location:
 
 - [https://pypi.org/project/uid2-client/](https://pypi.org/project/uid2-client/)
+
+<SDKsSameUID2EUID/>
 
 ## Installation
 
@@ -280,9 +278,8 @@ client.refresh()
 ```
 
 3. Decrypt a token into a raw EUID. Pass the token, and then do one of the following:
-* If the bid request originated from a publisher's website, pass the domain name. The domain name must be all lower case, without spaces and without subdomain. For example, for `Subdomain.DOMAIN.com`, pass `domain.com` instead.
-<!-- * If the bid request originated from a mobile app, pass the <Link href="../ref-info/glossary-uid#gl-app-name">app name</Link>. -->
-* Otherwise, pass `null`.
+   * If the bid request originated from a publisher's website, pass the domain name. The domain name must be all lower case, without spaces and without subdomain. For example, for `Subdomain.DOMAIN.com`, pass `domain.com` instead. <!--    * If the bid request originated from a mobile app, pass the <Link href="../ref-info/glossary-uid#gl-app-name">app name</Link>. -->
+   * Otherwise, pass `null`.
 
 ```py
 decrypted = client.decrypt_token_into_raw_uid(uid_token, domainOrAppName)
@@ -294,7 +291,3 @@ else:
 ```
 
 For a full example, see the `sample_bidstream_client.py` in [examples/sample_bidstream_client.py](https://github.com/IABTechLab/uid2-client-python/blob/main/examples/sample_bidstream_client.py).
-
-## FAQs
-
-For a list of frequently asked questions for DSPs, see [FAQs for DSPs](../getting-started/gs-faqs.md#faqs-for-dsps).

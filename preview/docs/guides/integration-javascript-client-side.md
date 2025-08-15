@@ -5,6 +5,7 @@ pagination_label: Client-Side Integration Guide for JavaScript
 description: Information about using the SDK for JavaScript in your client-side integration.
 hide_table_of_contents: false
 sidebar_position: 04
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
@@ -41,13 +42,13 @@ Support for client-side token generation is available in version 3.4.5 and above
 
 The URL for the SDK is:
 
-- [https://cdn.prod.euid.eu/euid-sdk-3.4.5.js](https://cdn.prod.euid.eu/euid-sdk-3.4.5.js)
+- [https://cdn.prod.euid.eu/euid-sdk-4.0.1.js](https://cdn.prod.euid.eu/euid-sdk-4.0.1.js)
 
 In the following code examples, the placeholder `{{ EUID_JS_SDK_URL }}` refers to this URL.
 
 If you want to use a debug build of the SDK, use the following URL instead:
 
-- [https://cdn.integ.euid.eu/euid-sdk-3.4.5.js](https://cdn.integ.euid.eu/euid-sdk-3.4.5.js)
+- [https://cdn.integ.euid.eu/euid-sdk-4.0.1.js](https://cdn.integ.euid.eu/euid-sdk-4.0.1.js)
 
 ## Sample Implementation
 

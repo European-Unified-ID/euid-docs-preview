@@ -3,6 +3,7 @@ title: Account Setup
 description: Information about setting up an EUID account.
 hide_table_of_contents: false
 sidebar_position: 02
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
@@ -54,6 +55,10 @@ If you'll be requesting EUID tokens from the client side in [mobile apps](../gui
 ## Credentials
 
 When you've signed a contract for participating in EUID, we'll give you [EUID credentials](gs-credentials.md) and additional information for getting up and running with EUID.
+
+:::note
+If you want to use the integration environment as well as the production environment, you'll need a separate set of credentials for each environment. For details about the different environments, see [Environments](gs-environments.md).
+:::
 
 ## API Version
 

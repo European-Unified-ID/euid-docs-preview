@@ -5,14 +5,16 @@ pagination_label: CTV Integration Guide
 description: Summary of options for EUID mobile integration.
 hide_table_of_contents: false
 sidebar_position: 04
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
 import IntegratingWithSSO from '../snippets/_integrating-with-sso.mdx';
+import PrivateOperatorOption from '../snippets/_private-operator-option.mdx'
 
 # CTV Integration Guide
 
-If you're a CTV publisher, there are several ways that you can integrate with EUID to generate and refresh identity tokens to be passed into the RTB bidstream in the context of your CTV apps.
+If you're a Connected TV (CTV) publisher, there are several ways that you can integrate with EUID to generate and refresh identity tokens to be passed into the RTB bidstream in the context of your CTV apps.
 
 ## Key Integration Steps
 At a high level, to integrate with EUID, you'll implement these three key steps: 
@@ -27,13 +29,19 @@ To determine how you'll implement these steps, choose from the [CTV Integration 
 
 <IntegratingWithSSO />
 
+## Private Operator Option
+
+<PrivateOperatorOption/>
+
 ## CTV Integration Options
 
-You can decide on the integration option that's best for you based on where you want to generate and refresh the EUID token. There are three options, as follows:
+You can decide on the integration option that's best for you based on where you want to generate and refresh the EUID token. There are three options, as shown in the following table.
 
-- [Client-Side Integration](#client-side-integration-for-ctv-apps) (the token is generated and refreshed on the client side)
-- [Server-Side Integration](#server-side-integration-for-ctv-apps) (the token is generated and refreshed on the server side)
-- [Client-Server Integration](#client-server-integration-for-ctv-apps) (the token is generated on the server side and refreshed on the client side)
+| Option | Details |
+| :--- | :--- |
+| [Client-Side Integration](#client-side-integration-for-ctv-apps) | The token is generated and refreshed on the client side. |
+| [Server-Side Integration](#server-side-integration-for-ctv-apps) | The token is generated and refreshed on the server side. |
+| [Client-Server Integration](#client-server-integration-for-ctv-apps) | The token is generated on the server side and refreshed on the client side. |
 
 ## Client-Side Integration for CTV Apps
 
@@ -86,3 +94,23 @@ The following table shows supported operating systems, with links to applicable 
 | :--- | :--- | :--- |
 | [Apple tvOS](https://developer.apple.com/tvos/) | [EUID Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server.md) | [SDK for iOS Reference Guide](../sdks/sdk-ref-ios.md) |
 | [Android TV](https://www.android.com/tv/) | [EUID Client-Server Integration Guide for Mobile](../guides/integration-mobile-client-server.md) | [SDK for Android Reference Guide](../sdks/sdk-ref-android.md) |
+
+## Best Practices
+
+The following points are best practices for CTV integrations:
+
+- **Rotate tokens in advance**
+
+  CTV ad activity is tied to traffic spikes during ad breaks; generating or refreshing EUID tokens during these times is not ideal. We recommend that you generate or refresh tokens before these busy times.
+
+  If the token was refreshed before its expiration date, you can use either the new or the old token for a while, until the old token expires. The TTL (time to live) timestamp is part of the response body returned by the EUID Operator when the token is generated or refreshed.
+
+- **Rotate tokens only when needed**
+
+  The EUID token is tied to a user's HEM or phone, not to the viewing session or app session. As long as you have a valid EUID token for the user, there is no need to generate a new token for each new viewing session or app session. For example, if the user leaves your app and then opens the app again, there is no need to generate a new EUID token if the existing one is still fresh.
+
+- **Use the same token for multiple ad slots within a pod**
+
+  As long as the EUID token is valid throughout the pod duration, you can use it for any ad slot within the pod.
+
+Ideally, if you follow these guidelines, there is no need to generate a new EUID token during an ad break.

@@ -3,6 +3,7 @@ title: EUID Tokens and Refresh Tokens
 description: Information for publishers about EUID tokens and refresh tokens.
 hide_table_of_contents: false
 sidebar_position: 06
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
@@ -27,6 +28,8 @@ Here are some key points about EUID tokens:
 - If the token has expired, or as an alternative to refreshing an existing token, you can generate a new EUID token from the original hashed or unhashed email address or phone number.
 - Publishers send EUID tokens in the bidstream.
 - Refreshing an EUID token does not invalidate/expire the original or previous EUID token. You can still use the earlier token until it expires.
+
+For more information, see [How the EUID Token Is Created](ref-how-uid-is-created.md).
 
 ## Refresh Tokens: Key Information
 

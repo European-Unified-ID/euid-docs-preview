@@ -3,13 +3,14 @@ title: User Opt-Out
 description: Information about user opt-out.
 hide_table_of_contents: false
 sidebar_position: 02
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
 
 # User Opt-Out
 
-Many different publishers and advertisers use EUID. Different publishers might have different opt-out processes for their individual sites; however, EUID as a whole has very specific opt-out processes that all EUID [participants](../ref-info/glossary-uid.md#gl-participant) are expected to honor.
+Many different publishers and advertisers use EUID. Different publishers might have different opt-out processes for their individual sites; however, EUID as a whole has very specific opt-out processes that all EUID [participants](../overviews/participants-overview.md#euid-external-participants) are expected to honor.
 
 ## How Users Can Opt Out of EUID
 

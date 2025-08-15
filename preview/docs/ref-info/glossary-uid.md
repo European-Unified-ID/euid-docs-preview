@@ -3,6 +3,7 @@ title: EUID Glossary
 description: Definitions for some EUID terms.
 hide_table_of_contents: false
 sidebar_position: 10
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
@@ -88,6 +89,7 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 
 **R**
 <a href="#gl-raw-euid">Raw EUID</a> | 
+<a href="#gl-refresh-timestamp">Refresh timestamp</a> |
 <a href="#gl-refresh-token">Refresh token</a> | 
 
 **S**
@@ -122,7 +124,7 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 <dd>Advertising token is another term for a <a href="#gl-euid-token">EUID token</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-api-key"><a href="#gl-api-key">API key</a></MdxJumpAnchor></dt>
-<dd>Each EUID <a href="../intro#participants">participant</a> using a server-side implementation has an API key (client key) and also a secret value associated with the key, called the <a href="#gl-client-secret">client secret</a> (API secret). The client secret is known only to the participant and the EUID service.</dd>
+<dd>Each EUID <a href="../overviews/participants-overview">participant</a> using a server-side implementation has an API key (client key) and also a secret value associated with the key, called the <a href="#gl-client-secret">client secret</a> (API secret). The client secret is known only to the participant and the EUID service.</dd>
 <dd>For details, see <a href="../getting-started/gs-credentials">EUID Credentials</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-api-secret"><a href="#gl-api-secret">API secret</a></MdxJumpAnchor></dt>
@@ -161,7 +163,7 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 <dd>For details, see <a href="../getting-started/gs-credentials#subscription-id-and-public-key">Subscription ID and Public Key</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-client-secret"><a href="#gl-client-secret">Client secret</a></MdxJumpAnchor></dt>
-<dd>Each EUID <a href="../intro#participants">participant</a> using a server-side implementation has an API key (client key) and also a secret value associated with the key, called the client secret (API secret). The client secret is known only to the participant and the EUID service.</dd>
+<dd>Each EUID <a href="../overviews/participants-overview">participant</a> using a server-side implementation has an API key (client key) and also a secret value associated with the key, called the client secret (API secret). The client secret is known only to the participant and the EUID service.</dd>
 <dd>For details, see <a href="../getting-started/gs-credentials">EUID Credentials</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-client-server"><a href="#gl-client-server">Client-server integration</a></MdxJumpAnchor></dt>
@@ -179,8 +181,8 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 <dd>Closed Operator is another term for a <a href="#gl-private-operator">Private Operator</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-core-service"><a href="#gl-core-service">Core Service</a></MdxJumpAnchor></dt>
-<dd>The EUID Core Service is a centralized service that manages access to <a href="#gl-salt">salts</a>, encryption keys, and other relevant data in the EUID ecosystem.</dd>
-<dd>For an overview of all the EUID services, see <a href="../intro#components">Components</a>.</dd>
+<dd>The EUID Core Service is a centralized service that manages access to secret <a href="#gl-salt">salts</a>, encryption keys, and other relevant data in the EUID ecosystem.</dd>
+<dd>For an overview of all the EUID services, see <a href="uid-components">Components</a>.</dd>
 
 </dl>
 
@@ -190,7 +192,7 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 
 <dt><MdxJumpAnchor id="gl-data-provider"><a href="#gl-data-provider">Data provider</a></MdxJumpAnchor></dt>
 <dd>In the context of EUID, a data provider is any entity that provides data and measurement services relating to advertising, such as a data partner, measurement partner, or offline measurement provider.</dd>
-<dd>For details, see <a href="../intro#participants">participant</a> (Data Providers).</dd>
+<dd>For details, see <a href="../overviews/participants-overview">participant</a> (Data Providers).</dd>
 
 <dt><MdxJumpAnchor id="gl-demand-side-platform"><a href="#gl-demand-side-platform">Demand-side platform</a></MdxJumpAnchor></dt>
 <dd>A demand-side platform (DSP) provides services to companies that want to buy digital advertising, such as advertisers, brands, and media agencies.</dd>
@@ -203,20 +205,20 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 
 <dt><MdxJumpAnchor id="gl-enclave"><a href="#gl-enclave">Enclave</a></MdxJumpAnchor></dt>
 <dd>An enclave is a secure subsection of a computing environment. The enclave has additional business logic and security measures applied to it, to prevent anyone from tampering with it.</dd>
-<dd>In the context of EUID, a <a href="#gl-private-operator">Private Operator</a> must run inside an enclave. For a summary of the enclave versions supported, see <a href="../guides/integration-options-private-operator#hosting-options-for-private-operators">Hosting Options for Private Operators</a> in *EUID Private Operator Integration Overview*.</dd>
+<dd>In the context of EUID, a <a href="#gl-private-operator">Private Operator</a> must run inside an enclave. For a summary of the enclave versions supported, see <a href="../guides/integration-options-private-operator#hosting-options-for-private-operators">Hosting Options for Private Operators</a>.</dd>
 <dd>In an enclave, the operator image must be a very specific, predefined version, and additional constraints are applied to ensure security.</dd>
 
 <dt><MdxJumpAnchor id="gl-encryption-key"><a href="#gl-encryption-key">Encryption key</a></MdxJumpAnchor></dt>
 <dd>Each <a href="#gl-euid-token">EUID token</a> is encrypted using an encryption key that's unique to the publisher that requested the token. The key identifies the publisher and is required for decrypting the token. This helps ensure that EUID tokens cannot be decrypted by unauthorized individuals.</dd>
 
 <dt><MdxJumpAnchor id="gl-euid-framework"><a href="#gl-euid-framework">EUID framework</a></MdxJumpAnchor></dt>
-<dd>The European Unified ID (EUID) framework enables deterministic identity for advertising opportunities on the open internet for many <a href="../intro#participants">participants</a> across the advertising ecosystem. It enables publisher websites, mobile apps, and Connected TV (CTV) apps to monetize through programmatic workflows. Built on the [UID2 framework](https://unifiedid.com/docs/intro), EUID offers privacy controls designed to help participants meet market requirements.</dd>
+<dd>The European Unified ID (EUID) framework enables deterministic identity for advertising opportunities on the open internet for many <a href="../overviews/participants-overview">participants</a> across the advertising ecosystem. It enables publisher websites, mobile apps, and Connected TV (CTV) apps to monetize through programmatic workflows. Built on the [UID2 framework](https://unifiedid.com/docs/intro), EUID offers privacy controls designed to help participants meet market requirements.</dd>
 <dd>EUID operates in the European region, including many European countries, such as France, Italy, and Spain, some non-European countries, such as Iceland, and some other regions, such as the Azores, Martinique, and the United Kingdom. It was designed with EU privacy law compliance in mind.</dd>
 <dd>There are many similarities between UID2 and EUID, but they are completely separate, and their tokens are not interchangeable.</dd>
 
 <dt><MdxJumpAnchor id="gl-euid-identifier"><a href="#gl-euid-identifier">EUID identifier</a></MdxJumpAnchor></dt>
 <dd>There are two European Unified ID (EUID) identifier types: <a href="#gl-raw-euid">raw EUIDs</a> and <a href="#gl-euid-token">EUID tokens</a> (also known as advertising tokens).</dd>
-<dd>For details, see <a href="../intro#euid-identifier-types">EUID Identifier Types</a>.</dd>
+<dd>For details, see <a href="uid-identifier-types">EUID Identifier Types</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-euid-service"><a href="#gl-euid-service">EUID service</a></MdxJumpAnchor></dt>
 <dd>The European Unified ID (EUID) service is a set of components, API endpoints, and other types of solutions that collectively implement the <a href="#gl-euid-framework">EUID framework</a> and provide clients with access to the relevant EUID functionality.</dd>
@@ -228,7 +230,7 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 <dd>The token value is opaque: No assumptions should be made about the format or about the length of the string.</dd>
 <dd>The token has a limited life, but can be refreshed in the background using the <a href="#gl-refresh-token">refresh token</a>.</dd>
 <dd>Publishers send EUID tokens in the bidstream.</dd>
-<dd>For details, see <a href="../intro#euid-identifier-types">EUID Identifier Types</a> and <a href="ref-tokens#euid-tokens-key-information">EUID Tokens: Key Information</a>.</dd>
+<dd>For details, see <a href="uid-identifier-types">EUID Identifier Types</a>, <a href="ref-tokens#euid-tokens-key-information">EUID Tokens: Key Information</a>, and <a href="ref-how-uid-is-created">How the EUID Token Is Created</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-euid"><a href="#gl-euid">European Unified ID</a></MdxJumpAnchor></dt>
 <dd>The term EUID can be used to mean the <a href="#gl-euid-framework">EUID framework</a>, the <a href="#gl-euid-service">EUID service</a>, a <a href="#gl-raw-euid">raw EUID</a>, or a <a href="#gl-euid-token">EUID token</a> (advertising token).</dd>
@@ -320,9 +322,9 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 
 <dt><MdxJumpAnchor id="gl-operator"><a href="#gl-operator">Operator</a></MdxJumpAnchor></dt>
 <dd>An Operator is an organization or entity that runs the EUID <a href="#gl-operator-service">Operator Service</a>. The EUID Operator is the API server in the EUID ecosystem.</dd>
-<dd>Operators perform multiple functions, such as receiving <a href="#gl-encryption-key">encryption keys</a> and <a href="#gl-salt">salts</a> from the EUID Core Service, salting and hashing <a href="#gl-personal-data">personal data</a> to return raw EUIDs, and encrypting raw EUIDs to generate EUID tokens.</dd>
+<dd>Operators perform multiple functions, such as receiving <a href="#gl-encryption-key">encryption keys</a> and secret <a href="#gl-salt">salts</a> from the EUID Core Service, salting and hashing <a href="#gl-personal-data">personal data</a> to return raw EUIDs, and encrypting raw EUIDs to generate EUID tokens.</dd>
 <dd>A participant can also choose to become a <a href="#gl-private-operator">Private Operator</a> to access EUID APIs and to generate raw EUIDs and EUID tokens from within a private infrastructure.</dd>
-<dd>For details, see <a href="../intro#participants">participants</a> and <a href="../ref-info/ref-operators-public-private">The EUID Operator</a>.</dd>
+<dd>For details, see <a href="../overviews/participants-overview">participants</a> and <a href="../ref-info/ref-operators-public-private">The EUID Operator</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-operator-key"><a href="#gl-operator-key">Operator key</a></MdxJumpAnchor></dt>
 <dd>Each EUID Private Operator has an operator key that allows the Private Operator Service to connect to the Core Service and Opt-Out Service and call some endpoints on it.</dd>
@@ -330,7 +332,7 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 
 <dt><MdxJumpAnchor id="gl-operator-service"><a href="#gl-operator-service">Operator Service</a></MdxJumpAnchor></dt>
 <dd>A service that enables all functions of the <a href="#gl-operator">Operator</a>.</dd>
-<dd>For an overview of all the EUID services, see <a href="../intro#components">Components</a>.</dd>
+<dd>For an overview of all the EUID services, see <a href="uid-components">Components</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-opt-out"><a href="#gl-opt-out">Opt-out</a></MdxJumpAnchor></dt>
 <dd>An end user who participates in the EUID ecosystem can opt out at any time by going to the <a href="https://www.transparentadvertising.eu/">Transparency and Control Portal</a>.</dd>
@@ -338,7 +340,7 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 
 <dt><MdxJumpAnchor id="gl-opt-out-service"><a href="#gl-opt-out-service">Opt-Out Service</a></MdxJumpAnchor></dt>
 <dd>The Opt-Out Service is a global EUID service that manages and stores user opt-out requests.</dd>
-<dd>For an overview of all the EUID services, see <a href="../intro#components">Components</a>.</dd>
+<dd>For an overview of all the EUID services, see <a href="uid-components">Components</a>.</dd>
 
 </dl>
 
@@ -348,7 +350,7 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 
 <dt><MdxJumpAnchor id="gl-participant"><a href="#gl-participant">Participant</a></MdxJumpAnchor></dt>
 <dd>An entity that fulfils a key role in EUID. Participants include the following: Core Administrator, Operator, DSP, data provider, advertiser, publisher, consumer.</dd>
-<dd>For details, see <a href="../intro#participants">participants</a>.</dd>
+<dd>For details, see <a href="../overviews/participants-overview">participants</a>.</dd>
 
 <dt><MdxJumpAnchor id="gl-personal-data"><a href="#gl-personal-data">Personal data</a></MdxJumpAnchor></dt>
 <dd>In general, personal data is information that relates to an identified or identifiable individual, including name, email address, or phone number.</dd>
@@ -377,7 +379,11 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 
 <dt><MdxJumpAnchor id="gl-raw-euid"><a href="#gl-raw-euid">Raw EUID</a></MdxJumpAnchor></dt>
 <dd>An unencrypted alphanumeric identifier created through the EUID APIs or SDKs with the user's <a href="#gl-personal-data">personal data</a> (email address or phone number) as input. The raw EUID is encrypted to create an <a href="#gl-euid-token">EUID token</a>. The raw EUID is a unique value; no two raw EUIDs are the same. Raw EUIDs, and their associated EUID tokens, are case sensitive.</dd>
-<dd>For details, see <a href="../intro#euid-identifier-types">EUID Identifier Types</a>.</dd>
+<dd>For details, see <a href="uid-identifier-types">EUID Identifier Types</a>.</dd>
+
+<dt><MdxJumpAnchor id="gl-refresh-timestamp"><a href="#gl-refresh-timestamp">Refresh timestamp</a></MdxJumpAnchor></dt>
+<dd>In the context of mapping <a href="#gl-personal-data">personal data</a> to raw EUIDs, a refresh timestamp is a Unix timestamp (in seconds) returned in the <code>r</code> field of the <a href="../endpoints/post-identity-map">POST&nbsp;/identity/map</a> endpoint response. The raw EUID is guaranteed to be valid until this timestamp. It is refreshed at some point after this time.</dd>
+<dd>Use the refresh timestamp to determine when to regenerate raw EUIDs for your stored data. We recommend checking for refresh opportunities daily by comparing the current time with the stored refresh timestamps.</dd>
 
 <dt><MdxJumpAnchor id="gl-refresh-token"><a href="#gl-refresh-token">Refresh token</a></MdxJumpAnchor></dt>
 <dd>A refresh token is an opaque string that is issued along with the <a href="#gl-euid-token">EUID token</a>. It is used to refresh the EUID token, which has a limited life.</dd>
@@ -391,16 +397,18 @@ import MdxJumpAnchor from '@site/src/components/MdxJumpAnchor';
 <dl>
 
 <dt><MdxJumpAnchor id="gl-salt"><a href="#gl-salt">Salt</a></MdxJumpAnchor></dt>
-<dd>A string of characters that is used in the process of transforming an email address or phone number into a secure, opaque value that cannot by itself be traced back to the original value (raw EUID or EUID token).</dd>
+<dd>A string of characters that is used in the process of transforming an email address or phone number into a secure, opaque value that cannot by itself be traced back to the original value (raw EUID or EUID token). Salt values are kept secret.</dd>
 <dd>The EUID service uses salt as part of the process, along with hashing and encryption, to secure the original value. Salt is added to the input value before hashing.</dd>
 
 <dt><MdxJumpAnchor id="gl-salt-bucket"><a href="#gl-salt-bucket">Salt bucket</a></MdxJumpAnchor></dt>
 <dd>A salt bucket is used to manage secret <a href="#gl-salt">salt</a> values, used to generate raw EUIDs or EUID tokens, over time. Each bucket contains a single current salt value, which remains active for approximately one year before being rotated to a new value. Buckets can be updated independently of one another.</dd>
-<dd>There are just over one million salt buckets, and each email address or phone number is assigned to a specific bucket in a deterministic manner. However, this assignment is not permanent; it might change when the bucket's current secret salt is rotated to a new value.</dd>
+<dd>There are just over one million salt buckets, and each email address or phone number is assigned to a specific bucket in a deterministic manner. However, this assignment is not permanent; it might change when the bucket's current salt is rotated to a new value.</dd>
+<dd>In versions of the [POST /identity/map](../endpoints/post-identity-map.md) endpoint earlier than version 3, such as [POST /identity/map (v2)](../endpoints/post-identity-map-v2.md), the endpoint returns <a href="#gl-salt-bucket-id">salt bucket IDs</a>. In v3 and later, salt bucket information is not needed.</dd>
 
 <dt><MdxJumpAnchor id="gl-salt-bucket-id"><a href="#gl-salt-bucket-id">Salt bucket ID</a></MdxJumpAnchor></dt>
 <dd>A salt bucket ID is a unique string of characters that identifies a specific <a href="#gl-salt-bucket">salt bucket</a>. The salt bucket ID can be used to check which salt buckets have recently had their salt values updated, indicating which emails or phone numbers need their raw EUID values regenerated.</dd>
-<dd>For an example of a salt bucket ID, see the response to the `POST /identity/buckets` endpoint: <a href="../endpoints/post-identity-buckets#decrypted-json-response-format">Decrypted JSON Response Format</a>.</dd>
+<dd>In versions of the [POST /identity/map](../endpoints/post-identity-map.md) endpoint earlier than version 3, such as [POST /identity/map (v2)](../endpoints/post-identity-map-v2.md), the endpoint returns salt bucket IDs. In v3 and later, salt bucket information is not needed.</dd>
+<dd>For an example of a salt bucket ID, see the response to the `POST /v2/identity/buckets` endpoint: <a href="../endpoints/post-identity-buckets#decrypted-json-response-format">Decrypted JSON Response Format</a>. If you're using `POST /v3/identity/map`, you don't need to use `POST /v2/identity/buckets` at all.</dd>
 
 <dt><MdxJumpAnchor id="gl-salted-hash"><a href="#gl-salted-hash">Salted hash</a></MdxJumpAnchor></dt>
 <dd>When a <a href="#gl-salt">salt</a> value is added to the input string before applying the <a href="#gl-hash">hash</a> function, the result is a salted hash. When the input value is salted before hashing, an attacker who has the hash cannot determine the input value by trying many possible inputs to arrive at the same output.</dd>

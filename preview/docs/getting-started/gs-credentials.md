@@ -3,13 +3,14 @@ title: EUID Credentials
 description: Learn about the credentials you'll need and how to get them.
 hide_table_of_contents: false
 sidebar_position: 03
+displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
 
 # EUID Credentials
 
-Each EUID <a href="../intro#participants">participant</a> gets a set of unique credentials. The set of credentials you get is determined by how you are participating in EUID, as shown in the following table.
+Each EUID <a href="../overviews/participants-overview">participant</a> gets a set of unique credentials. The set of credentials you get is determined by how you are participating in EUID, as shown in the following table.
 
 | Audience | Credentials | Integration |
 | :--- | :--- | :--- |
@@ -18,6 +19,10 @@ Each EUID <a href="../intro#participants">participant</a> gets a set of unique c
 | Participants using a server-side implementation | Both of the following:<ul><li><Link href="../ref-info/glossary-uid#gl-api-key">API key</Link>, also called a client key</li><li><Link href="../ref-info/glossary-uid#gl-client-secret">Client secret</Link>, a value known only to the participant and the EUID service</li></ul> | Integrations using one of these: <ul><li>[Publisher Integration Guide, Server-Side](../guides/integration-publisher-server-side.md)</li><li>[Advertiser/Data Provider Integration Overview](../guides/integration-advertiser-dataprovider-overview.md)</li></ul> |
 
 If you're using the integration environment as well as the production environment, you'll get a separate set of credentials for each environment.
+
+## Getting Your Credentials
+
+To get your credentials, ask your EUID contact.
 
 ## Subscription ID and Public Key
 
@@ -61,6 +66,10 @@ Security of keys and client secrets is very important. Follow these guidelines:
 - Establish a process for replacing the key and secret with new values if the existing ones are compromised.
 
 It's best to refresh your API key and client secret on a regular cadence&#8212;for example, yearly&#8212;to help reduce the risk of your credentials being compromised.
+
+## Separate Credentials for Each Environment
+
+If you want to use the integration environment as well as the production environment, you'll need a separate set of credentials for each environment. For details about the different environments, see [Environments](gs-environments.md).
 
 ## Refreshing Credentials
 
