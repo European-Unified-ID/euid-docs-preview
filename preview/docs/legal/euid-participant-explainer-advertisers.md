@@ -18,7 +18,7 @@ EUID starts from the premise that the creation and use of a EUID to serve target
 
 [**GWH__TL04 I think we shoudl say "an EUID" rather than "a EUID" -- multiple instances in both docs.**]
 
-The rule owner of the EUID ecosystem – currently The Trade Desk– is also a controller for the creation of a EUID and its subsequent return to the applicable publisher or Advertiser. This is because the rule owner plays an important role in the decision to facilitate the creation of consistent EUID identifiers and create the EUID ecosystem.
+The rule owner of the EUID ecosystem – currently The Trade Desk – is also a controller for the creation of a EUID and its subsequent return to the applicable publisher or Advertiser. This is because the rule owner plays an important role in the decision to facilitate the creation of consistent EUID identifiers and create the EUID ecosystem.
 
 The GDPR explains that where there are two or more controllers, they are joint controllers where they jointly determine the purposes and means of processing. In the EUID ecosystem, the rule owner is a joint controller with each Advertiser that submits an identifier for conversion into a EUID. The rule owner’s responsibility as a controller is limited and does not extend to the subsequent use of a EUID by the Advertiser for advertising purposes.
 
@@ -47,7 +47,7 @@ Joint controllers must set out clearly how they are each responsible for data pr
 
 [**GWH__TL05 my styling doesn't support having procedure steps numbered 2.1 etc. I made it into a table. Hope this works for you. It's the closest I could get without Engineering help which would take longer.**]
 
-## 3. Notice andthe s 
+## 3. Notice and EUID 
 
 The EUID POC Agreement asks each Advertiser to provide certain minimum information about EUID to individuals, including information about the role of the joint controllers, and to provide a link to The Trade Desk’s EUID privacy notice. Advertisers seeking to rely on consent, may find this easier to supply alongside their consent language. Otherwise, we recommend that this is included within your privacy notice.
 
