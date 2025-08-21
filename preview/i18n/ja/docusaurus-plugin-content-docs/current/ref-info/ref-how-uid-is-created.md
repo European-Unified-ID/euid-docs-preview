@@ -62,25 +62,13 @@ It's very important that the publisher steps are performed in the correct sequen
 - 順序を間違えると、その結果の値は、同じ個人のオンラインアクティビティから生成された他の UID2 identifiers と関連付けられることができません。そのため、そのトークンはターゲティング広告に適していません。
 >>>>>>> 6cd49ff (Update from https://github.com/IABTechLab/uid2docs/commit/470efa727aa7532fad7cf4018b4debf05568c0f8)
 
-概要については、[Steps to Create a UID2 Token](#steps-to-create-a-uid2-token) を参照してください。図形式の例については、[Creating a UID2 Token&#8212;Example](#creating-a-uid2-tokenexample) を参照してください。
+概要は、[Steps to Create a UID2 Token](#steps-to-create-a-uid2-token) を参照してください。図形式の例は、[Creating a UID2 Token&#8212;Example](#creating-a-uid2-tokenexample) を参照してください。
 
 ## Steps to Create a UID2 Token
 
 以下の表は、DII から UID2 Token を作成する手順、順序、および各ステップを実行する担当者を示しています。
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-For an example with sample values, see [Creating a UID2 Token&#8212;Example](#creating-a-uid2-tokenexample).
-=======
-For an example showing each step performed on a sample value, see [Creating a UID2 Token&#8212;Example](#creating-a-uid2-tokenexample).
->>>>>>> 1ede9aa (Update from https://github.com/IABTechLab/uid2docs/commit/c9d902a1e3bc9f0705fcab32da506c452118cb6e)
-=======
-For an example with sample values, see [Creating a UID2 Token&#8212;Example](#creating-a-uid2-tokenexample).
->>>>>>> 281496d (Update from https://github.com/IABTechLab/uid2docs/commit/f1209edd0d5f4b71419663f4fab419e7f2645c3b)
-=======
-サンプル値を使用した例については、[Creating a UID2 Token&#8212;Example](#creating-a-uid2-tokenexample) を参照してください。
->>>>>>> 6cd49ff (Update from https://github.com/IABTechLab/uid2docs/commit/470efa727aa7532fad7cf4018b4debf05568c0f8)
+サンプル値を使用した例は、[Creating a UID2 Token&#8212;Example](#creating-a-uid2-tokenexample) を参照してください。
 
 <table width="100%">
   <thead>
