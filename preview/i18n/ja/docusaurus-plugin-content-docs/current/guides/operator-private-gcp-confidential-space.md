@@ -9,7 +9,8 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import UpgradePolicy from '../snippets/_private-operator-upgrade-policy.mdx';
+import SnptUpgradePolicy from '../snippets/_snpt-private-operator-upgrade-policy.mdx';
+import SnptAttestFailure from '../snippets/_snpt-private-operator-attest-failure.mdx';
 
 # UID2 Private Operator for GCP Integration Guide
 
@@ -41,7 +42,7 @@ For information about supported versions and deprecation dates, see [Private Ope
 
 ## Private Operator Upgrade Policy
 
-<UpgradePolicy />
+<SnptUpgradePolicy />
 
 ## Setup Overview
 
@@ -87,6 +88,7 @@ UID2 Operator Service は、任意の GCP アカウントとプロジェクト�
 1. エグレスルールを有効にします。VPC インフラストラクチャが既知のエンドポイントへのイグレスのみを許可する場合、オペレーターが認証に必要な証明書を取得できるようにエグレスルールを有効にする必要があります。これを有効にするには、Google のこのドキュメントに従ってください: [VPC Service Controls](https://cloud.google.com/vpc-service-controls/docs/supported-products#table_confidential_space)。
 
 ### UID2 Operator Account Setup
+
 UID2 の連絡先に、あなたの組織を UID2 Operator として登録するよう依頼してください。誰に依頼すればよいかわからない場合は、[Contact Info](../getting-started/gs-account-setup.md#contact-info) を参照してください。
 
 :::tip
@@ -505,9 +507,9 @@ $ gcloud compute instances create {INSTANCE_NAME} \
 
    HTTP 200 とレスポンスボディが `OK` の場合、健全な状態です。
 
-import AttestFailure from '../snippets/_private-operator-attest-failure.mdx';
+### Private Operator Attestation Failure
 
-<AttestFailure />
+<SnptAttestFailure />
 
 ## Upgrading
 

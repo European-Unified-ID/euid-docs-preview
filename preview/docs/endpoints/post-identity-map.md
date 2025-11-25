@@ -7,7 +7,7 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import POSTIdentityMapImprovements from '../snippets/_post-identity-map-improvements-v3.mdx';
+import SnptPOSTIdentityMapImprovements from '../snippets/_snpt-post-identity-map-improvements-v3.mdx';
 
 # POST /identity/map
 
@@ -207,7 +207,7 @@ The following sections provide general information and guidance for migrating to
 
 ### Version 3 Improvements
 
-<POSTIdentityMapImprovements />
+<SnptPOSTIdentityMapImprovements />
 
 ### Key Differences Between v2 and v3
 
@@ -290,11 +290,11 @@ remap_identities(to_remap)
 ```
 
 ### Additional Resources
-- [SDK for Java](../sdks/sdk-ref-java.md) for Java implementations (see Usage for Advertisers/Data Providers section)
-
-<!-- For SDK-specific migration guidance, see:
-- [SDK for Python](../sdks/sdk-ref-python.md) for Python implementations -->
-
-<!-- GWH 7/7 Commenting out the above until the SDK docs are available. -->
 
 For general information about identity mapping, see [Advertiser/Data Provider Integration Overview](../guides/integration-advertiser-dataprovider-overview.md).
+
+For migration guidance for specific SDKs, see:
+- SDK for Python Reference Guide, [Usage for Advertisers/Data Providers](../sdks/sdk-ref-python.md#usage-for-advertisersdata-providers) section
+- SDK for Java Reference Guide, [Usage for Advertisers/Data Providers](../sdks/sdk-ref-java.md#usage-for-advertisersdata-providers) section
+
+For Snowflake information, see [Snowflake Integration Guide](../guides/integration-snowflake.md).

@@ -7,7 +7,7 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import POSTIdentityMapImprovements from '../snippets/_post-identity-map-improvements-v3.mdx';
+import SnptPOSTIdentityMapImprovements from '../snippets/_snpt-post-identity-map-improvements-v3.mdx';
 
 # SDK for Java Reference Guide
 
@@ -309,6 +309,10 @@ If you're using server-side integration (see [Publisher Integration Guide, Serve
 
 ## Usage for Advertisers/Data Providers
 
+The following instructions provide an example of how to map DII to raw UID2s using the latest version of the `POST /identity/map` endpoint.
+
+For the earlier version, see [Previous SDK Version (using POST /identity/map v2)](#previous-sdk-version-using-post-identitymap-v2). For migration steps to the latest version, see [Migration From Version Using v2 Identity Map](#migration-from-version-using-v2-identity-map).
+
 1. Create an IdentityMapV3Client as an instance variable:
    ```java
    final private IdentityMapV3Client identityMapV3Client = new IdentityMapV3Client(UID2_BASE_URL, UID2_API_KEY, UID2_SECRET_KEY);
@@ -397,7 +401,7 @@ The following sections provide general information and guidance for migrating to
 
 ### Version 3 Improvements
 
-<POSTIdentityMapImprovements />
+<SnptPOSTIdentityMapImprovements />
 
 ### Required Changes
 

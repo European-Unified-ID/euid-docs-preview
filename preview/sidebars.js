@@ -11,7 +11,7 @@ function removeItems(sidebar, ...remove) {
       if (!remove.includes(item.label)) {
         const {items, ...rest} = item;
         const keepItems = removeItems(items, ...remove);
-        if (keepItems?.length > 0) result.push({...rest, items: keepItems});
+        if (keepItems?.length > 0 || rest.link) result.push({...rest, items: keepItems});
       }
     }
   }
@@ -253,7 +253,8 @@ const fullSidebar = [
           ],
         },
 
-      'guides/integration-aws-entity-resolution',
+      'guides/integration-databricks',
+        'guides/integration-aws-entity-resolution',
       'guides/integration-advertiser-dataprovider-endpoints',
     ],
   },
@@ -400,6 +401,7 @@ const fullSidebar = [
         'getting-started/gs-opt-out',
         'ref-info/ref-operators-public-private',
         'ref-info/ref-integration-approaches',
+        'ref-info/integration-sample-sites',
         'ref-info/ref-tokens',
         'ref-info/ref-how-uid-is-created',
         'ref-info/ref-server-side-token-generation',
@@ -424,6 +426,7 @@ const sidebars = {
     'guides/integration-advertiser-dataprovider-overview',
     'guides/integration-snowflake',
     'guides/integration-snowflake-previous',
+    'guides/integration-databricks',
     'guides/integration-aws-entity-resolution',
     'guides/advertiser-dataprovider-endpoints',
     'DSP Integrations',
@@ -510,7 +513,8 @@ const sidebars = {
     'Advertiser/Data Provider Integrations',
     'guides/integration-advertiser-dataprovider-overview',
     'guides/integration-snowflake',
-    'guides/integration-snowflake-integration-snowflake-previous',
+    'guides/integration-snowflake-previous',
+    'guides/integration-databricks',
     'guides/integration-aws-entity-resolution',
     'guides/advertiser-dataprovider-endpoints',
     'sharing/sharing-bid-stream'
