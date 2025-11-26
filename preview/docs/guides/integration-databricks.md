@@ -16,15 +16,9 @@ This guide is for advertisers and data providers who want to convert their user 
 
 ## Integration Overview
 
-[Databricks Clean Rooms](https://docs.databricks.com/aws/en/clean-rooms/) is a Databricks feature that provides a secure and privacy-protecting environment for working on sensitive data. Using Databricks Clean Rooms, UID2 enables you to securely share consumer identifier data without exposing sensitive <Link href="../ref-info/glossary-uid#gl-dii">directly identifying information (DII)</Link>.
+This solution enables you to securely share consumer identifier data without exposing sensitive <Link href="../ref-info/glossary-uid#gl-dii">directly identifying information (DII)</Link>, by processing your data in an instance of the [Databricks Clean Rooms](https://docs.databricks.com/aws/en/clean-rooms/) feature. This feature provides a secure and privacy-protecting environment for working on sensitive data.
 
-In the context of UID2, you set up the Databricks Clean Rooms environment and place your data there. You set up a trust relationship with the UID2 Operator and allow the Operator to convert your data to raw UID2s.
-
-With UID2 supported in the clean room, advertisers and data partners can securely process their first-party data within Databricks.
-
-[**GWH__EE01 is it only first-party data, or just data? If they're just sending phone numbers and emails, I don't see what the difference is... it's just data?**]
-
-[**GWH__EE02 Please provide any additional content you want in the overview. Thx.**]
+When you've set up the Databricks Clean Rooms environment, you establish a trust relationship with the UID2 Operator and allow the Operator to convert your data, which you share in the clean room, to raw UID2s. 
 
 <!-- 
 ## Databricks Partner Network Listing
@@ -163,9 +157,11 @@ The following table shows possible values for the `UNMAPPED` column in the outpu
 
 If you'd like to test the Databricks Clean Rooms implementation before signing a UID2 POC, you can ask your UID2 contact for access in the integ (integration) environment. This environment is for testing only, and has no production data.
 
-In the request, be sure to include your sharing identifier, and use the sharing identifier for the UID2 integration environment. For details, see [UID2 Sharing Identifiers](#uid2-sharing-identifiers).
+In the request, include the following:
+- Your own sharing identifier.
+- The sharing identifier for the UID2 integration environment. For details, see [UID2 Sharing Identifiers](#uid2-sharing-identifiers).
 
-While you're waiting to hear back, you could create the clean room, invite UID2, and put your assets into the clean room. For details, see [Integration Steps](#integration-steps).
+While you're waiting to hear back, you can create the clean room, invite UID2, and put your assets into the clean room. For details, see [Integration Steps](#integration-steps).
 
 When your access is ready, your UID2 contact notifies you.
 
@@ -178,7 +174,7 @@ This section includes the following reference information:
 
 ### UID2 Sharing Identifiers
 
-UID2 sharing identifiers can change. Be sure to check this page for the latest sharing identifiers.
+UID2 sharing identifiers can change. Check this page regularly for the latest sharing identifiers.
 
 | Environment | UID2 Sharing Identifier |
 | :--- | :--- |
