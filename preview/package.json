@@ -25,9 +25,10 @@
     "@docusaurus/theme-common": "^3.9.2",
     "@mdx-js/react": "^3.1.0",
     "@types/lodash": "^4.17.17",
+    "baseline-browser-mapping": "^2.9.19",
     "clsx": "^2.1.1",
     "docusaurus-plugin-image-zoom": "^2.0.0",
-    "docusaurus-plugin-sass": "^0.2.5",
+    "docusaurus-plugin-sass": "^0.2.6",
     "lottie-react": "^2.4.1",
     "prism-react-renderer": "^2.4.1",
     "react": "^18.3.1",
@@ -50,9 +51,16 @@
   "overrides": {
     "image-size@1": "^1.2.1",
     "body-parser@1": "^1.20.3",
-    "path-to-regexp@0": "^0.1.12",
+    "immutable": "^4.3.8",
+    "minimatch": "^10.2.3",
+    "path-to-regexp@0": "0.1.13",
     "path-to-regexp@1": "^1.9.0",
-    "path-to-regexp@2": "^8.0.0"
+    "path-to-regexp@2": "^8.0.0",
+    "serialize-javascript": "^7.0.3",
+    "svgo": "^3.3.3",
+    "node-forge": "^1.4.0",
+    "picomatch": "^2.3.2",
+    "lodash": ">=4.18.0"
   },
   "browserslist": {
     "production": [

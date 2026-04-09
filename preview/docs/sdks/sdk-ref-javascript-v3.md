@@ -9,8 +9,8 @@ displayed_sidebar: docs
 import Link from '@docusaurus/Link';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import SDKsSameUID2EUID from '../snippets/_euid-sdk-same-for-all.mdx';
-import ExampleEuidCookie from '../snippets/_example-euid-cookie.mdx';
+import SnptSDKsSameUID2EUID from '../snippets/_snpt-euid-sdk-same-for-all.mdx';
+import SnptExampleEuidCookie from '../snippets/_snpt-example-euid-cookie.mdx';
 
 export const New = () => (
   <span className='pill'>NEW IN V3</span>
@@ -52,16 +52,6 @@ This SDK simplifies development for publishers who want to build their own custo
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | &#8212; | &#8212; | &#9989; | &#9989; | &#8212; | &#8212; |
 
-
-## Sample Implementation
-
-For a sample implementation with associated documentation, see:
-  - The EUID Google Secure Signals with SDK v3 example:
-    - [Code and docs](https://github.com/European-Unified-ID/EUID-docs/tree/main/static/examples/cstg-js-sdk-example )
-    - Running site: [Client-Side EUID SDK Integration Example](https://euid.eu/examples/cstg-js-sdk-example/).
-
-<!-- EUID client-server JavaScript client-side implementation example corresponding to the UID2 example to come. gwh 12/9/24 -->
-
 ## API Permissions
 
 To use this SDK, you'll need to complete the EUID account setup by following the steps described in the [Account Setup](../getting-started/gs-account-setup.md) page.
@@ -80,7 +70,7 @@ The source for this SDK is in the following open-source GitHub repository:
 
 - [https://github.com/iabtechlab/uid2-web-integrations](https://github.com/iabtechlab/uid2-web-integrations)
 
-<SDKsSameUID2EUID/>
+<SnptSDKsSameUID2EUID />
 
 ## SDK Distribution
 
@@ -562,7 +552,7 @@ The content of the EUID local storage or cookie is a URI-encoded string represen
 
 The following is an example of the EUID cookie structure:
 
-<ExampleEuidCookie />
+<SnptExampleEuidCookie />
 
 :::warning
 The contents of the `private` object are explicitly unspecified and are left for the SDK to interpret. Do not make any assumptions about the structure, semantics, or compatibility of this object. Any updates to the cookie must retain its structure.

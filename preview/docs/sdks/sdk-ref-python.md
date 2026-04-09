@@ -7,7 +7,7 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import SDKsSameUID2EUID from '../snippets/_euid-sdk-same-for-all.mdx';
+import SnptSDKsSameUID2EUID from '../snippets/_snpt-euid-sdk-same-for-all.mdx';
 
 # SDK for Python Reference Guide
 
@@ -33,7 +33,11 @@ For details, see [API Permissions](../getting-started/gs-permissions.md).
 
 ## Version
 
-The SDK supports Python 3.6 and above.
+The minimum supported Python version depends on the [SDK for Python](https://pypi.org/project/uid2-client/) version:
+
+- **v2.8.0+**: Python 3.10 or higher
+- **v2.6.0**: Python 3.8 or higher  
+- **v2.5.0 and below**: Python 3.6 or higher
 
 ## GitHub Repository/Package
 
@@ -45,7 +49,11 @@ The package is published in this location:
 
 - [https://pypi.org/project/uid2-client/](https://pypi.org/project/uid2-client/)
 
-<SDKsSameUID2EUID/>
+<SnptSDKsSameUID2EUID />
+
+## Release Notes
+
+For detailed information about changes, bug fixes, and new features in each release, refer to the [release notes on GitHub](https://github.com/IABTechLab/uid2-client-python/releases).
 
 ## Installation
 
@@ -123,13 +131,11 @@ Decryption response codes, and their meanings, are shown in the following table.
 2. Call a function that takes the user's email address or phone number as input and generates a `TokenGenerateResponse` object. The following example uses an email address:
 
    ```py
-   token_generate_response = client.generate_token(TokenGenerateInput.from_email("user@example.com").do_not_generate_tokens_for_opted_out())
+   token_generate_response = client.generate_token(TokenGenerateInput.from_email("user@example.com"))
    ```
 
    :::important
    - Be sure to call this function only when you have a legal basis to convert the user’s <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> to EUID tokens for targeted advertising.
-
-   - Always apply `do_not_generate_tokens_for_opted_out()`. This applies a parameter similar to setting `optout_check=1` in the call to the POST&nbsp;/token/generate endpoint (see [Unencrypted JSON Body Parameters](../endpoints/post-token-generate.md#unencrypted-json-body-parameters)).
    :::
 
 <!-- uid2_euid_diff re legal basis for admonition above (not in UID2) -->
@@ -220,6 +226,10 @@ To map personal data to raw EUIDs, follow these steps:
           .with_hashed_phone("pre_hashed_phone")
       ```
 
+   :::note
+   The SDK automatically handles email normalization and hashing, ensuring that raw email addresses and phone numbers do not leave your server.
+   :::
+
 3. Call a function that takes the `input` and generates an `IdentityMapV3Response` object:
    ```py
    identity_map_response = identity_map_v3_client.generate_identity_map(input)
@@ -243,9 +253,9 @@ To map personal data to raw EUIDs, follow these steps:
        reason = unmapped_identity.reason # OPTOUT, INVALID_IDENTIFIER, or UNKNOWN
    ```
 
-:::note
-The SDK automatically handles email normalization and hashing, ensuring that raw email addresses and phone numbers do not leave your server.
-:::
+   :::note
+   The raw EUID does not change before the refresh timestamp. After the refresh timestamp, remapping the personal data returns a new refresh timestamp, but the raw EUID might or might not change. It is possible for the raw EUID to remain unchanged for multiple refresh intervals.
+   :::
 
 #### Usage Example
 

@@ -7,8 +7,8 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import SDKsSameUID2EUID from '../snippets/_euid-sdk-same-for-all.mdx';
-import POSTIdentityMapImprovements from '../snippets/_post-identity-map-improvements-v3.mdx';
+import SnptSDKsSameUID2EUID from '../snippets/_snpt-euid-sdk-same-for-all.mdx';
+import SnptPOSTIdentityMapImprovements from '../snippets/_snpt-post-identity-map-improvements-v3.mdx';
 
 # SDK for Java Reference Guide
 
@@ -48,7 +48,7 @@ The binary is published on the Maven repository:
 
 - [https://central.sonatype.com/artifact/com.uid2/uid2-client](https://central.sonatype.com/artifact/com.uid2/uid2-client)
 
-<SDKsSameUID2EUID/>
+<SnptSDKsSameUID2EUID />
 
 ## Initialization
 
@@ -152,16 +152,14 @@ If you're using the SDK's HTTP implementation, follow these steps.
 
 2. Call a function that takes the user's email address or phone number as input and generates a `TokenGenerateResponse` object. The following example uses an email address:
    ```java
-   TokenGenerateResponse tokenGenerateResponse = publisherUid2Client.generateTokenResponse(TokenGenerateInput.fromEmail("user@example.com").doNotGenerateTokensForOptedOut());
+   TokenGenerateResponse tokenGenerateResponse = publisherUid2Client.generateTokenResponse(TokenGenerateInput.fromEmail("user@example.com"));
    ```
 
    :::important
-     - Be sure to call the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint only when you have a legal basis to convert the user’s <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> to EUID tokens for targeted advertising.
-
-     - Always apply `doNotGenerateTokensForOptedOut()`. This applies a parameter similar to setting `optout_check=1` in the call to the POST&nbsp;/token/generate endpoint (see [Unencrypted JSON Body Parameters](../endpoints/post-token-generate.md#unencrypted-json-body-parameters)).
+     Be sure to call the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint only when you have a legal basis to convert the user’s <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> to EUID tokens for targeted advertising.
    :::
 
-   <!-- uid2_euid_diff re legal basis for admonition above (first bullet not in UID2) -->
+   <!-- uid2_euid_diff re legal basis for admonition above (not in UID2) -->
 
 #### Basic Usage, Client-Server Integration
 
@@ -229,7 +227,7 @@ If you're using server-side integration (see [Publisher Integration Guide, Serve
 2. Call a function that takes the user's email address or phone number as input and creates a secure request data envelope. See [Encrypting requests](../getting-started/gs-encryption-decryption.md#encrypting-requests). The following example uses an email address:
 
     ```java
-    EnvelopeV2 envelope = publisherUid2Helper.createEnvelopeForTokenGenerateRequest(TokenGenerateInput.fromEmail("user@example.com").doNotGenerateTokensForOptedOut());
+    EnvelopeV2 envelope = publisherUid2Helper.createEnvelopeForTokenGenerateRequest(TokenGenerateInput.fromEmail("user@example.com"));
     ```
 3. Using an HTTP client library of your choice, post this envelope to the [POST&nbsp;token/generate](../endpoints/post-token-generate.md) endpoint, including headers and body:
    1. Headers: Depending on your HTTP library, this might look something like the following:  
@@ -238,12 +236,10 @@ If you're using server-side integration (see [Publisher Integration Guide, Serve
       `.putHeader("X-UID2-Client-Version", PublisherUid2Helper.getVersionHttpHeader())`
    2. Body: `envelope.getEnvelope()`
    :::important
-   - Be sure to call the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint only when you have a legal basis to convert the user’s <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> to EUID tokens for targeted advertising.
-
-      - Always apply `doNotGenerateTokensForOptedOut()`. This applies a parameter similar to setting `optout_check=1` in the call to the POST&nbsp;/token/generate endpoint (see [Unencrypted JSON Body Parameters](../endpoints/post-token-generate.md#unencrypted-json-body-parameters)).
+   Be sure to call the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint only when you have a legal basis to convert the user’s <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> to EUID tokens for targeted advertising.
    :::
 
-   <!-- uid2_euid_diff re legal basis for admonition above (first bullet not in UID2) -->
+   <!-- uid2_euid_diff re legal basis for admonition above (not in UID2) -->
 
 4. If the HTTP response status code is _not_ 200, see [Response Status Codes](../endpoints/post-token-generate.md#response-status-codes) to determine next steps. Otherwise, convert the EUID identity response content into a `TokenGenerateResponse` object:
 
@@ -337,6 +333,10 @@ For the earlier version, see [Previous SDK Version (using POST /identity/map v2)
        .withHashedPhone("preHashedPhone");
    ```
 
+   :::note
+   The SDK automatically handles email normalization and hashing, ensuring that raw email addresses and phone numbers do not leave your server.
+   :::
+
 3. Call a function that takes the `input` and generates an IdentityMapV3Response object:
    ```java
    IdentityMapV3Response identityMapResponse = identityMapV3Client.generateIdentityMap(input);
@@ -361,7 +361,9 @@ For the earlier version, see [Previous SDK Version (using POST /identity/map v2)
    }
    ```
 
->**Note:** The SDK automatically handles email normalization and hashing, ensuring that raw email addresses and phone numbers do not leave your server.
+   :::note
+   The raw EUID does not change before the refresh timestamp. After the refresh timestamp, remapping the personal data returns a new refresh timestamp, but the raw EUID might or might not change. It is possible for the raw EUID to remain unchanged for multiple refresh intervals.
+   :::
 
 ### Usage Example
 
@@ -406,7 +408,7 @@ The following sections provide general information and guidance for migrating to
 
 ### Version 3 Improvements
 
-<POSTIdentityMapImprovements />
+<SnptPOSTIdentityMapImprovements />
 
 ### Required Changes
 

@@ -7,7 +7,7 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import ExampleTokenInBidstream from '../snippets/_example-token-in-bidstream.mdx';
+import SnptExampleTokenInBidstream from '../snippets/_snpt-example-token-in-bidstream.mdx';
 
 # Frequently Asked Questions
 
@@ -87,7 +87,7 @@ No, publishers do not need to decrypt <Link href="../ref-info/glossary-uid#gl-eu
 #### How will I be notified of user opt-out?
 
 If the user has opted out, the API response notifies you in either of these cases:
-- When you generate the EUID token by a call to the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint, either directly or via one of the EUID SDKs, using the required `optout_check` parameter with a value of `1`.
+- When you generate the EUID token by a call to the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint, either directly or via one of the EUID SDKs.
 - When you refresh the EUID token by a call to the [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md) endpoint, either directly or via one of the EUID SDKs.
 
 #### Where should I make token generation calls&#8212;from the server side or the client side?
@@ -151,7 +151,7 @@ The EUID service encrypts EUID tokens using random initialization vectors. The E
 
 There are many ways to approach EUID implementation. Here is one example of a code snippet showing how an EUID token is passed in the <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link>:
 
-<ExampleTokenInBidstream />
+<SnptExampleTokenInBidstream />
 
 #### Can I integrate EUID with Single Sign-On (SSO)?
 
@@ -193,7 +193,7 @@ To determine whether to refresh a raw EUID:
 2. If the current time is greater than or equal to the refresh timestamp, regenerate the raw EUID by calling the identity map endpoint again with the same <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link>.
 
 :::note
-We recommend checking for refresh opportunities daily. It is guaranteed that the raw EUID won't refresh before the indicated timestamp. At some point on or after that time, the raw EUID is refreshed.
+The raw EUID does not change before the refresh timestamp. After the refresh timestamp, remapping the personal data returns a new refresh timestamp, but the raw EUID might or might not change. It is possible for the raw EUID to remain unchanged for multiple refresh intervals.
 :::
 
 #### How often should raw EUIDs be refreshed for incremental updates?
@@ -214,9 +214,6 @@ The system should follow the [email normalization rules](../getting-started/gs-n
 
 Yes. Not storing mappings might increase processing time drastically when you have to map millions of email addresses or phone numbers. Recalculating only those mappings that actually need to be updated, however, reduces the total processing time because only about 1/365th of raw EUIDs need to be updated daily.
 
-:::important
-Unless you are using a <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link>, you must map email addresses, phone numbers, or hashes consecutively, using a single HTTP connection, with a maximum batch size of 5,000 items per batch. In other words, do your mapping without creating multiple parallel connections.
-:::
 
 #### How should I handle user opt-outs?
 

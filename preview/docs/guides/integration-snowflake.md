@@ -9,6 +9,7 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
+import SnptPreparingEmailsAndPhoneNumbers from '../snippets/_snpt-preparing-emails-and-phone-numbers.mdx';
 
 # Snowflake Integration Guide
 
@@ -73,6 +74,10 @@ The following diagram and table illustrate the different parts of the EUID integ
 | :--- | :--- | :--- |
 |As a partner, you set up a Snowflake account to host your data and engage in EUID integration by consuming functions and views through the EUID Share. | EUID integration, hosted in a Snowflake account, grants you access to authorized functions and views that draw data from private tables. You can't access the private tables. The EUID Share reveals only essential data needed for you to perform EUID-related tasks.<br/>**NOTE**: We store <Link href="../ref-info/glossary-uid#gl-salt">salts</Link> and encryption keys in the private tables. No <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link> is stored at any point. |ETL (Extract Transform Load) jobs constantly update the EUID Core/Optout Snowflake storage with internal data that powers the EUID Operator Web Services. The data used by the Operator Web Services is also available through the EUID Share. |
 |When you use shared functions and views, you pay Snowflake for transactional computation costs. |These private tables, secured in the EUID Snowflake account, automatically synchronize with the EUID Core/Optout Snowflake storage that holds internal data used to complete EUID-related tasks. | |
+
+## Preparing Personal Data for Processing
+
+<SnptPreparingEmailsAndPhoneNumbers />
 
 ## Summary of Integration Steps
 
@@ -386,6 +391,10 @@ The following table identifies each item in the response, including `NULL` value
 ### Monitor Raw EUID Refresh and Regenerate Raw EUIDs
 
 The `FN_T_IDENTITY_MAP_V3` function returns refresh timestamps (`REFRESH_FROM`) that indicate when each EUID should be refreshed.
+
+:::note
+The raw EUID does not change before the refresh timestamp. After the refresh timestamp, remapping the personal data returns a new refresh timestamp, but the raw EUID might or might not change. It is possible for the raw EUID to remain unchanged for multiple refresh intervals.
+:::
 
 To determine which EUIDs need regeneration, compare the current time to the `REFRESH_FROM` timestamps returned by the function.
 

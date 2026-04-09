@@ -9,9 +9,10 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import IntegratingWithSSO from '../snippets/_integrating-with-sso.mdx';
-import AddPrebidjsToYourSite from '../snippets/_prebid-add-prebidjs-to-your-site.mdx';
-import StoreEUIDTokenInBrowser from '../snippets/_prebid-storing-euid-token-in-browser.mdx';
+import SnptIntegratingWithSSO from '../snippets/_snpt-integrating-with-sso.mdx';
+import SnptPreparingEmailsAndPhoneNumbers from '../snippets/_snpt-preparing-emails-and-phone-numbers.mdx';
+import SnptAddPrebidjsToYourSite from '../snippets/_snpt-prebid-add-prebidjs-to-your-site.mdx';
+import SnptStoreEUIDTokenInBrowser from '../snippets/_snpt-prebid-storing-euid-token-in-browser.mdx';
 
 # EUID Client-Server Integration Guide for Prebid.js
 
@@ -38,7 +39,11 @@ Information about how to integrate Prebid with EUID is also in the following loc
 
 ## Integrating with Single Sign-On (SSO)
 
-<IntegratingWithSSO />
+<SnptIntegratingWithSSO />
+
+## Preparing Personal Data for Processing
+
+<SnptPreparingEmailsAndPhoneNumbers />
 
 ## Integration Overview: High-Level Steps
 
@@ -56,7 +61,7 @@ When account setup is complete, you'll receive your unique API key and client se
 
 ## Add Prebid.js to Your Site
 
-<AddPrebidjsToYourSite />
+<SnptAddPrebidjsToYourSite />
 
 ## Configure the EUID Module
 
@@ -251,7 +256,7 @@ In planning your Prebid implementation, consider the following:
 
 ## Storing the EUID Token in the Browser
 
-<StoreEUIDTokenInBrowser />
+<SnptStoreEUIDTokenInBrowser />
 
 ## Determining Whether the Module Has a Valid Token
 
@@ -357,3 +362,11 @@ if you're using Prebid.js, and you're planning to pass EUID tokens to Google usi
 
 - In your Google Ad Manager account, make sure that encrypted signals are properly shared with third-party bidders: see [Allow Secure Signals Sharing](integration-google-ss.md#allow-secure-signals-sharing).
 - Update your Prebid.js configuration: see [Optional: Enable Secure Signals in Prebid.js](integration-google-ss.md#optional-enable-secure-signals-in-prebidjs).
+
+## Sample Implementation
+
+The following sample implementation is available to illustrate how to integrate EUID with Prebid.js using client-server integration:
+
+- Client-server integration example using Prebid.js:
+  - Site: [Client-Server EUID Integration with Prebid.js](https://prebid-client-server.samples.integ.euid.eu/)
+  - Code: [uid2-examples/web-integrations/prebid-integrations/client-server](https://github.com/IABTechLab/uid2-examples/tree/main/web-integrations/prebid-integrations/client-server)

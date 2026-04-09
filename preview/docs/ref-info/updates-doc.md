@@ -16,9 +16,66 @@ import CustomTagsContainer from '@site/src/components/CustomTags/CustomTagsConta
 
 Check out the latest updates to our EUID documentation resources.
 
+## Q1 2026
+
+The following documents were released in the first quarter of 2026.
+
+<CustomTagsContainer tags="Endpoints">
+
+### Rate Limiting and Parallel Request Updates for POST /identity/map
+
+April 1, 2026
+
+The [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) endpoint documentation has been updated with the following changes:
+
+- Added a new [Rate Limiting](../endpoints/post-identity-map.md#rate-limiting) section documenting that the endpoint enforces rate limits to safeguard against bursts of incoming traffic.
+- Removed the previous recommendation to send batches sequentially over a single HTTP connection.
+
+These changes apply to both [v2](../endpoints/post-identity-map-v2.md) and [v3](../endpoints/post-identity-map.md) endpoints.
+
+<!-- UID2-6642 -->
+
+</CustomTagsContainer>
+
+<CustomTagsContainer tags="Endpoints, SDKs, Opt-Out">
+
+### Removal of optout_check Parameter
+
+February 10, 2026
+
+The `optout_check` parameter has been removed from the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md) endpoint. Opt-out checks are now handled automatically so publishers no longer need to include this parameter in their requests.
+
+Related SDK functions have also been deprecated and removed from documentation:
+- Java SDK: `doNotGenerateTokensForOptedOut()`
+- Python SDK: `do_not_generate_tokens_for_opted_out()`
+
+All code examples and integration guides have been updated to reflect these changes.
+
+<!-- UID2-6511 -->
+
+</CustomTagsContainer>
+
 ## Q3 2025
 
 The following documents were released in this quarter.
+
+<CustomTagsContainer tags="Reference">
+
+### Legal Information for Publishers and Advertisers
+
+3 September, 2025
+
+We've added a new documentation section to help publishers and advertisers with legal information about using EUID. The documents cover legal guidelines and examples of wording for consent.
+
+For details, see:
+
+- [Publisher Information](../legal/euid-participant-information-publishers.md)
+- [Advertiser Information](../legal/euid-participant-information-advertisers.md)
+- [Consent Examples](../legal/legal-consent-examples.md)
+
+<!-- APIDOCS-2890 -->
+
+</CustomTagsContainer>
 
 <CustomTagsContainer tags="Endpoints, Guides, SDKs">
 

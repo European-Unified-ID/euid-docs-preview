@@ -9,9 +9,10 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import IntegratingWithSSO from '../snippets/_integrating-with-sso.mdx';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SnptIntegratingWithSSO from '../snippets/_snpt-integrating-with-sso.mdx';
+import SnptPreparingEmailsAndPhoneNumbers from '../snippets/_snpt-preparing-emails-and-phone-numbers.mdx';
 
 # Client-Server Integration Guide for JavaScript
 
@@ -39,7 +40,7 @@ For a workflow diagram, see [Integration Steps](#integration-steps). See also [F
 
 For details about the EUID opt-out workflow and how users can opt out, see [User Opt-Out](../getting-started/gs-opt-out.md).
 
-<!-- To facilitate the process of establishing client identity using EUID and retrieving advertising tokens, the web integration steps provided in this guide rely on the SDK for JavaScript. Here's an [example application](https://example-jssdk-integ.uidapi.com/) that illustrates the integration steps described in this guide and the usage of the SDK (currently only for email addresses). For the application documentation, see [SDK Integration Example](https://github.com/IABTechLab/uid2-examples/blob/main/publisher/standard/README.md). Note 1/29/25 EUID version does not yet exist. -->
+To facilitate the process of establishing client identity using EUID and retrieving advertising tokens, the web integration steps provided in this guide rely on the SDK for JavaScript. For an example, see [Sample Implementation](#sample-implementation).
 
 :::tip
 The first-party cookie and local storage implementation details might change in the future. To avoid potential issues, be sure to rely on the functionality documented in the [SDK for JavaScript API Reference](../sdks/sdk-ref-javascript.md#api-reference) for your identity management.
@@ -53,7 +54,11 @@ If you are using Google Ad Manager and want to use the secure signals feature, f
 
 ## Integrating with Single Sign-On (SSO)
 
-<IntegratingWithSSO />
+<SnptIntegratingWithSSO />
+
+## Preparing Personal Data for Processing
+
+<SnptPreparingEmailsAndPhoneNumbers />
 
 ## Integration Steps
 
@@ -94,6 +99,8 @@ For security reasons, the API key and secret used in token generation must be ca
 :::
 
 #### Sending the EUID Token to the SDK
+
+<!-- UID2_euid_diff_in_this_section: 3/18/26 SW confirmed "the code snippets look the same to me". For UID2, the code is in a snippet. For EUID it's inline. Minor formatting difference not affecting content. There are necessary differences in the code but that's all. -->
 
 The following code examples illustrate steps 1-f and 1-g, in JavaScript and TypeScript.
 
@@ -237,6 +244,13 @@ The client lifecycle is complete when the user decides to log out from the publi
   __euid.disconnect();
 </script>
 ```
+
+## Sample Implementation
+
+A sample implementation is available for client-server integration using the EUID SDK for JavaScript:
+
+- Site: [Client-Server EUID Integration Example using JavaScript SDK](https://js-client-server.samples.integ.euid.eu/)
+- Code: [uid2-examples/web-integrations/javascript-sdk/client-server](https://github.com/IABTechLab/uid2-examples/tree/main/web-integrations/javascript-sdk/client-server)
 
 ## FAQs
 

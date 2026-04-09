@@ -9,9 +9,10 @@ displayed_sidebar: docs
 ---
 
 import Link from '@docusaurus/Link';
-import IntegratingWithSSO from '../snippets/_integrating-with-sso.mdx';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import SnptIntegratingWithSSO from '../snippets/_snpt-integrating-with-sso.mdx';
+import SnptPreparingEmailsAndPhoneNumbers from '../snippets/_snpt-preparing-emails-and-phone-numbers.mdx';
 
 export const New370 = () => (
   <span className='pill'>New in version 3.7.0</span>
@@ -50,15 +51,13 @@ If you want to use a debug build of the SDK, use the following URL instead:
 
 - [https://cdn.integ.euid.eu/euid-sdk-4.0.1.js](https://cdn.integ.euid.eu/euid-sdk-4.0.1.js)
 
-## Sample Implementation
-
-For a sample implementation, see this example:
-- Code: [Example Client-Side Integration for JavaScript](https://github.com/European-Unified-ID/EUID-docs/tree/main/static/examples/cstg-js-sdk-example)
-- Running site: [Client-Side Integration Example, EUID JavaScript SDK](https://euid.eu/examples/cstg-js-sdk-example/)
-
 ## Integrating with Single Sign-On (SSO)
 
-<IntegratingWithSSO />
+<SnptIntegratingWithSSO />
+
+## Preparing Personal Data for Processing
+
+<SnptPreparingEmailsAndPhoneNumbers />
 
 ## Complete EUID Account Setup
 
@@ -142,6 +141,10 @@ To configure the SDK, call one of the following methods, with an object containi
 *  `__euid.setIdentityFromEmailHash`
 *  `__euid.setIdentityFromPhone` <New370 />
 *  `__euid.setIdentityFromPhoneHash` <New370 />
+
+:::important
+For `__euid.setIdentityFromEmailHash` or `__euid.setIdentityFromPhoneHash`, the `emailHash` or `PhoneHash` argument must be the Base64-encoded value. For details, see [Email Address Hash Encoding](../getting-started/gs-normalization-encoding.md#email-address-hash-encoding) and [Phone Number Hash Encoding](../getting-started/gs-normalization-encoding.md#phone-number-hash-encoding).
+:::
 
 The following sections include coding examples for each scenario.
 
@@ -372,3 +375,10 @@ function bytesToBase64(bytes) {
   return btoa(binString);
 }
 ```
+
+## Sample Implementation
+
+A sample implementation is available for client-side integration using the EUID SDK for JavaScript:
+
+- Site: [Client-Side EUID Integration Example using JavaScript SDK](https://js-client-side.samples.integ.euid.eu/)
+- Code: [uid2-examples/web-integrations/javascript-sdk/client-side](https://github.com/IABTechLab/uid2-examples/tree/main/web-integrations/javascript-sdk/client-side)
