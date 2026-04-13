@@ -1,0 +1,17 @@
+name: Test SHA Pinning with Local Actions
+on: workflow_dispatch
+
+jobs:
+  test-relative-path:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Test local action via relative path
+        uses: ./.github/actions/test-local
+
+  test-full-path:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Test local action via full owner/repo path
+        uses: European-Unified-ID/euid-docs-preview/.github/actions/test-local@test-sha-pinning-local-action
