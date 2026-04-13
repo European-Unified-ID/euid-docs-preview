@@ -1,7 +1,0 @@
-name: 'Test Local Action'
-description: 'Dummy action to test SHA pinning enforcement with local actions'
-runs:
-  using: 'composite'
-  steps:
-    - run: echo "Local action works!"
-      shell: bash
