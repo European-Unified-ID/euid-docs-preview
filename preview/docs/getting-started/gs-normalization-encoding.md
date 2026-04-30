@@ -60,7 +60,7 @@ An email hash is a Base64-encoded <Link href="../ref-info/glossary-uid#gl-sha-25
 
 The following table shows an example of a simple input email address, and the result as each step is applied to arrive at a secure, opaque value.
 
-The final value, the hex to Base64 encoded representation of the SHA-256 hash, is the value to provide to the EUID Operator endpoint.
+The final value, the hex to Base64-encoded representation of the SHA-256 hash, is the value to provide to the EUID Operator endpoint.
 
 :::warning
 When applying Base64 encoding, be sure to Base64-encode the raw bytes of the hash or use a Base64 encoder that takes a hex-encoded value as input. If you use a function that takes text as input, the result is a longer string which is invalid for the purposes of EUID.
@@ -146,7 +146,7 @@ A phone number hash is a Base64-encoded SHA-256 hash of a normalized phone numbe
 
 The following table shows an example of a simple input phone number, and the result as each step is applied to arrive at a secure, opaque value.
 
-The final value, the hex to Base64 encoded representation of the SHA-256 hash, is the value to provide to the EUID Operator endpoint.
+The final value, the hex to Base64-encoded representation of the SHA-256 hash, is the value to provide to the EUID Operator endpoint.
 
 :::warning
 When applying Base64 encoding, be sure to use a function that takes a hex value as input. If you use a function that takes text as input, the result is a longer string which is invalid for the purposes of EUID.
@@ -161,7 +161,7 @@ When applying Base64 encoding, be sure to use a function that takes a hex value 
 
 ## Example Code
 
-For an example of how to generate email and phone hashes in JavaScript, see [Example Code: Hashing and Base-64 Encoding](../guides/integration-javascript-client-side#example-code-hashing-and-base-64-encoding).
+For an example of how to generate email and phone hashes in JavaScript, see [Example Code: Hashing and Base64 Encoding](../guides/integration-javascript-client-side#example-code-hashing-and-base64-encoding).
 
 ## EUID Hashing Tool
 
@@ -186,6 +186,14 @@ The tool does the following:
 If the input data doesn't have a valid email or phone number format, or if the phone number is not normalized, the tool gives an error.
 
 You can use this tool to verify that your internal processes are set up to correctly create normalized, hashed, and encoded values for EUID.
+
+## EUID Token Validator
+
+:::note
+This section is for publishers only. Publishers are the only participants who generate [EUID tokens](../ref-info/glossary-uid.md#gl-euid-token) using personal data.
+:::
+
+To validate the full token generation pipeline end to end, confirming that <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> generated from your normalized, hashed, and encoded values are correct, use the [EUID Token Validator](../ref-info/ref-token-validator.md).
 
 ## Troubleshooting
 
