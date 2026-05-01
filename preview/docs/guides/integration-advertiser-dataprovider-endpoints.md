@@ -140,7 +140,7 @@ The following diagram outlines the v2 integration flow. Note that the difference
 
 <!-- diagram source: resource/advertiser-flow-endpoints-mermaid-v2.md.bak -->
 
-### Store raw EUIDs and salt bucket ids (v2)
+### Store raw EUIDs and salt bucket IDs (v2)
 
 :::note
 This step replaces Step 2 in the v3 implementation.

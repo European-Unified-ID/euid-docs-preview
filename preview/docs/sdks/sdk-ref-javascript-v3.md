@@ -1,5 +1,5 @@
 ---
-title: SDK for JavaScript v3
+title: SDK for JavaScript (v3)
 description: Reference information about the JavaScript client-side SDK version 3.
 hide_table_of_contents: false
 sidebar_position: 02
@@ -64,7 +64,7 @@ For details, see [API permissions](../getting-started/gs-permissions.md).
 
 This documentation is for version 3 of the SDK for JavaScript.
 
-## Github repository
+## GitHub repository
 
 The source for this SDK is in the following open-source GitHub repository:
 
@@ -246,7 +246,7 @@ Unless the SDK is able to load a previously-stored identity from local storage o
 
 - [Provide an identity by setting a first-party cookie](#provide-an-identity-by-setting-a-first-party-cookie)
 - [Provide an identity in the call to `init`](#provide-an-identity-in-the-call-to-init)
-- [Provide an identity by calling `setidentity`](#provide-an-identity-by-calling-setidentity)
+- [Provide an identity by calling `setIdentity`](#provide-an-identity-by-calling-setidentity)
 
 #### Provide an identity by setting a first-party cookie
 
@@ -256,9 +256,9 @@ If you store a first-party cookie, as described in the [storage format section](
 
 You can provide a new identity when you call [`init`](#initopts-object-void).
 
-#### Provide an identity by calling `setidentity`
+#### Provide an identity by calling `setIdentity`
 
-At any time after `init` has completed, you can call [`setidentity`](#setidentityidentity-identity-void) to provide the SDK with a new identity to use.
+At any time after `init` has completed, you can call [`setIdentity`](#setidentityidentity-identity-void) to provide the SDK with a new identity to use.
 
 ## API reference
 
@@ -602,7 +602,7 @@ Update your script tag to load the SDK from [the version 3 CDN URL](#include-the
 We strongly recommend that you implement the following changes to get the benefits of version 3 of the SDK:
 
 - [Migrate to the version 3 callback system](#migrate-to-the-version-3-callback-system)
-- [Take advantage of `setidentity` and other new features](#take-advantage-of-setidentity-and-other-new-features)
+- [Take advantage of `setIdentity` and other new features](#take-advantage-of-setidentity-and-other-new-features)
 - [Change how you call init](#change-how-you-call-init)
 
 #### Migrate to the version 3 callback system
@@ -625,7 +625,7 @@ window.__euid.callbacks = window.__euid.callbacks || [];
 window.__euid.callbacks.push(callbackFunction);
 ```
 
-#### Take advantage of `setidentity` and other new features
+#### Take advantage of `setIdentity` and other new features
 
 Previous versions of the SDK had only one way to provide a new identity: in the call to `init`. This meant that some publishers had to make use of various workarounds to provide a new identity later in the page lifecycle. You might be able to simplify your integration by removing these workarounds and just calling `setIdentity` if you want to pass a new identity to the SDK after `init` has been called.
 

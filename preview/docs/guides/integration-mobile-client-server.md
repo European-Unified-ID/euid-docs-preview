@@ -1,7 +1,7 @@
 ---
-title: EUID client-server integration guide for mobile
+title: Client-server integration guide for mobile
 sidebar_label: Client-server integration for mobile
-pagination_label: EUID client-server integration guide for mobile
+pagination_label: Client-server integration guide for mobile
 description: Setting up a mobile integration with token generate on server and refresh on client.
 hide_table_of_contents: false
 sidebar_position: 04
@@ -19,7 +19,7 @@ import SnptGMAIMA_Plugins from '../snippets/_snpt-mobile_docs_gmaima-plugin-gss.
 import SnptPrebidMobileSDK from '../snippets/_snpt-mobile_docs_prebid-mobile.mdx';
 import SnptErrorResponseStates from '../snippets/_snpt-mobile-docs-error-response-states.mdx';
 
-# EUID client-server integration guide for mobile
+# Client-server integration guide for mobile
 
 This guide is for mobile app publishers who want to integrate with EUID by generating EUID tokens server-side via a <Link href="../ref-info/glossary-uid#gl-public-operator">Public Operator</Link> or <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link> and then passing the tokens and user identities into their mobile apps, which will in turn pass the tokens for <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> use.  
 
@@ -44,10 +44,10 @@ You'll need to complete the following steps:
 
 1. [Complete the EUID account setup](#complete-the-euid-account-setup).
 2. [Implement server-side token generation](#implement-server-side-token-generation).
-3. [Add the EUID Mobile SDK to your mobile app](#add-the-euid-mobile-sdk-to-your-mobile-app).
-4. [Configure the EUID Mobile SDK](#configure-the-euid-mobile-sdk).
+3. [Add the EUID mobile SDK to your mobile app](#add-the-euid-mobile-sdk-to-your-mobile-app).
+4. [Configure the EUID mobile SDK](#configure-the-euid-mobile-sdk).
 5. [Check that the token was successfully generated and then pass it for bidstream use](#pass-generated-token-for-bidstream-use).
-6. [Optionally, integrate the EUID GMA/IMA plugin for gam Secure Signals integration](#optional-euid-gmaima-plugin-for-gam-secure-signals-integration).
+6. [Optionally, integrate the EUID GMA/IMA plugin for GAM Secure Signals integration](#optional-euid-gmaima-plugin-for-gam-secure-signals-integration).
 
 ## Mobile SDK version
 
@@ -56,7 +56,7 @@ This guide provides instructions for using either of these EUID mobile SDKs:
 - SDK for Android (version 1.6.0 or later)
 - SDK for iOS (version 1.7.0 or later)
 
-For instructions for installing the correct SDK/version into your mobile app, see [Add the EUID Mobile SDK to your mobile app](#add-the-euid-mobile-sdk-to-your-mobile-app).
+For instructions for installing the correct SDK/version into your mobile app, see [Add the EUID mobile SDK to your mobile app](#add-the-euid-mobile-sdk-to-your-mobile-app).
 
 ## Integrating with single sign-on (SSO)
 
@@ -88,7 +88,7 @@ For a client-server EUID integration for mobile, the first step is to be able to
 
 For details, including instructions and examples, see [Server-side token generation](../ref-info/ref-server-side-token-generation.md).
 
-You will need to pass the `Identity` response into the mobile app: see [Configure the EUID Mobile SDK](#configure-the-euid-mobile-sdk).
+You will need to pass the `Identity` response into the mobile app: see [Configure the EUID mobile SDK](#configure-the-euid-mobile-sdk).
 
 :::warning
 For security reasons, the API key and secret used in token generation must be called server-side. Do not store these values inside a mobile app.
@@ -109,7 +109,7 @@ If you want to manage token refresh on the server side and not the client/mobile
 
 Then, pass the newly refreshed `Identity` value to the mobile app by following the rest of this guide.
 
-## Add the EUID Mobile SDK to your mobile app
+## Add the EUID mobile SDK to your mobile app
 
 For installation instructions, refer to one of the following:
 
@@ -183,7 +183,7 @@ UID2Settings.shared.euidEnvironment = .custom(
 </TabItem>
 </Tabs>
 
-## Configure the EUID Mobile SDK
+## Configure the EUID mobile SDK
 
 After you've instantiated `EUIDManager` correctly in your mobile app, you'll need to pass an EUID <Link href="../ref-info/glossary-uid#gl-identity">identity</Link> generated server-side (see [Implement server-side token generation](#implement-server-side-token-generation)), and then pass it into the mobile app using the `setIdentity` method, as shown in the following:
 
@@ -273,7 +273,7 @@ EUIDManager.shared.getAdvertisingToken()
 </TabItem>
 </Tabs>
 
-On startup/resumption of the app, if `getAdvertisingToken()` returns `null`, it is time to generate new identity on the server by following the instructions in [Implement server-side token generation](#implement-server-side-token-generation). Then, pass the result into the mobile app’s EUIDManager again: see [Configure the EUID Mobile SDK](#configure-the-euid-mobile-sdk).
+On startup/resumption of the app, if `getAdvertisingToken()` returns `null`, it is time to generate new identity on the server by following the instructions in [Implement server-side token generation](#implement-server-side-token-generation). Then, pass the result into the mobile app’s EUIDManager again: see [Configure the EUID mobile SDK](#configure-the-euid-mobile-sdk).
 
 ## Enable logging
 
@@ -308,11 +308,11 @@ EUIDManager.shared.automaticRefreshEnabled = false
 </TabItem>
 </Tabs>
 
-## Optional: EUID GMA/IMA plugin for gam Secure Signals integration
+## Optional: EUID GMA/IMA plugin for GAM Secure Signals integration
 
 <SnptGMAIMA_Plugins />
 
-## Optional: EUID integration with Prebid Mobile SDK
+## Optional: EUID integration with Prebid mobile SDK
 
 :::important
 The EUID integration with Prebid Mobile SDK v2 requires version 1.6.0 or later of the EUID SDK for Android, or version 1.7.0 or later of the EUID SDK for iOS.

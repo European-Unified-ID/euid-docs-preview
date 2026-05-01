@@ -12,8 +12,8 @@ import Link from '@docusaurus/Link';
 
 EUID is supported for use in the following geographical areas listed in this document:
 
-- [Eu countries](#eu-countries)
-- [Non-eu eea members](#non-eu-eea-members)
+- [EU countries](#eu-countries)
+- [Non-EU EEA members](#non-eu-eea-members)
 - [Additional countries/regions](#additional-countriesregions)
 
 :::note
@@ -28,7 +28,7 @@ This information is accurate as of the date of publication, 18 July 2024, and wi
 </tr>
 </table> -->
 
-## Eu countries
+## EU countries
 
 EUID is supported for use in the following European Union countries:
 
@@ -60,7 +60,7 @@ EUID is supported for use in the following European Union countries:
 - Spain
 - Sweden
 
-## Non-eu eea members
+## Non-EU EEA members
 
 EUID is supported for use in the following countries which are members of the European Economic Area (EEA) but not members of the European Union (EU):
 

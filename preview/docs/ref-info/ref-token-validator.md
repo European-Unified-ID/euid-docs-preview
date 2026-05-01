@@ -1,5 +1,5 @@
 ---
-title: EUID token validator
+title: EUID Token Validator
 description: How to use the EUID Token Validator to validate EUID tokens against source personal data and confirm that your token generation workflow is correct.
 hide_table_of_contents: false
 sidebar_position: 02
@@ -8,7 +8,7 @@ displayed_sidebar: docs
 
 import Link from '@docusaurus/Link';
 
-# EUID token validator
+# EUID Token Validator
 
 The [EUID Token Validator](https://token-validator.euid.eu/) is a web-based tool that validates <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> against their source personal data to confirm that your token generation process is correct.
 

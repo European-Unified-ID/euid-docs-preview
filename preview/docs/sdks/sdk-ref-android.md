@@ -51,7 +51,7 @@ This documentation is for the SDK for Android version 2.0.0 and later.
 
 For current and past release notes information, see [https://github.com/IABTechLab/uid2-android-sdk/releases](https://github.com/IABTechLab/uid2-android-sdk/releases).
 
-## Github repository/binary
+## GitHub repository/binary
 
 This SDK is in the following open-source GitHub repository:
 
@@ -160,7 +160,7 @@ Get the EUID token (advertising token) to pass to the Advertising SDK (for ad re
 EUIDManager.getInstance().getAdvertisingToken()
 ```
 
-## Euidmanager API
+## EUIDManager API
 
 This section includes the functions and variables that are part of the EUIDManager API.
 
@@ -176,11 +176,11 @@ The following functions are available as part of the EUIDManager API:
 
 #### generateIdentity()
 
-Generate an EUID Identity using <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link>. For instructions, see [Configure the EUID Mobile SDK](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk) in the *Client-Side Integration Guide for Mobile*.
+Generate an EUID Identity using <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link>. For instructions, see [Configure the EUID mobile SDK](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk) in the *Client-Side Integration Guide for Mobile*.
 
 #### setIdentity()
 
-Sets an EUID Identity, created server-side, to be managed by the SDK. For details, see [Configure the EUID Mobile SDK](../guides/integration-mobile-client-server.md#configure-the-euid-mobile-sdk) in the *Client-Server Integration Guide for Mobile*.
+Sets an EUID Identity, created server-side, to be managed by the SDK. For details, see [Configure the EUID mobile SDK](../guides/integration-mobile-client-server.md#configure-the-euid-mobile-sdk) in the *Client-Server Integration Guide for Mobile*.
 
 #### resetIdentity()
 

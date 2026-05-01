@@ -1,7 +1,7 @@
 ---
-title: EUID client-side integration guide for mobile
-sidebar_label: Client-side integration guide for mobile
-pagination_label: EUID client-side integration guide for mobile
+title: Client-side integration guide for mobile
+sidebar_label: Client-side integration for mobile
+pagination_label: Client-side integration guide for mobile
 description: Setting up a mobile integration with token generate and refresh both on the client side.
 hide_table_of_contents: false
 sidebar_position: 04
@@ -41,13 +41,13 @@ To integrate with EUID client-side, you'll need to complete the following steps:
 
 1. [Complete the EUID account setup](#complete-the-euid-account-setup).
 
-1. [Add the EUID Mobile SDK to your mobile app](#add-the-euid-mobile-sdk-to-your-mobile-app).
+1. [Add the EUID mobile SDK to your mobile app](#add-the-euid-mobile-sdk-to-your-mobile-app).
 
-1. [Configure the EUID Mobile SDK](#configure-the-euid-mobile-sdk).
+1. [Configure the EUID mobile SDK](#configure-the-euid-mobile-sdk).
 
 1. [Check that the token was successfully generated and then pass it for bidstream use](#pass-generated-token-for-bidstream-use).
 
-1. [Optionally, integrate the EUID GMA/IMA plugin for gam Secure Signals integration](#optional-euid-gmaima-plugin-for-gam-secure-signals-integration).
+1. [Optionally, integrate the EUID GMA/IMA plugin for GAM Secure Signals integration](#optional-euid-gmaima-plugin-for-gam-secure-signals-integration).
 
 ## Mobile SDK version
 
@@ -56,7 +56,7 @@ This guide provides instructions for using either of these EUID mobile SDKs:
 - SDK for Android (version 1.6.0 or later)
 - SDK for iOS (version 1.7.0 or later)
 
-For instructions for installing the correct SDK/version into your mobile app, see [Add the EUID Mobile SDK to your mobile app](#add-the-euid-mobile-sdk-to-your-mobile-app).
+For instructions for installing the correct SDK/version into your mobile app, see [Add the EUID mobile SDK to your mobile app](#add-the-euid-mobile-sdk-to-your-mobile-app).
 
 ## Client-side integration example
 
@@ -210,7 +210,7 @@ To set up your account, follow the steps described in [Account setup](../getting
 
 When account setup is complete, you'll receive a client keypair consisting of two values that identify you to the EUID servers: Subscription ID and public key. These values are unique to you, and you'll use them when you [configure the EUID mobile SDK](#configure-the-euid-mobile-sdk). For details, see [Subscription ID and public key](../getting-started/gs-credentials.md#subscription-id-and-public-key).
 
-## Add the EUID Mobile SDK to your mobile app
+## Add the EUID mobile SDK to your mobile app
 
 To add the mobile SDK to your app, follow the applicable documentation:
 
@@ -285,7 +285,7 @@ UID2Settings.shared.euidEnvironment = .london
 </TabItem>
 </Tabs>
 
-## Configure the EUID Mobile SDK
+## Configure the EUID mobile SDK
 
 EUID provides the publisher with the following values, which are needed for generating the EUID token on the client side:
 
@@ -601,7 +601,7 @@ Some possible reasons for this, and some things you could do to troubleshoot, ar
 - You could enable logging (set `isLoggingEnabled` to `true`) to get more information: see [Enable logging](#enable-logging).
 - The advertising token inside the EUID identity has expired, and the refresh token has also expired, so the SDK cannot refresh the token.
 
-If there is no identity, you'll need to call the `generateIdentity` method again: see [Configure the EUID Mobile SDK](#configure-the-euid-mobile-sdk).
+If there is no identity, you'll need to call the `generateIdentity` method again: see [Configure the EUID mobile SDK](#configure-the-euid-mobile-sdk).
 
 For more information, see [When to pass personal data into the SDK](#when-to-pass-personal-data-into-the-sdk) (next section).
 
@@ -686,17 +686,17 @@ EUIDManager.shared.getAdvertisingToken()
 </TabItem>
 </Tabs>
 
-If `getAdvertisingToken()` returns null, and the identity status is not `OPT_OUT`/`optOut`, you'll need to generate a new token. To do this, pass the personal data into the `generateIdentity` method again. For details, see [Configure the EUID Mobile SDK](#configure-the-euid-mobile-sdk).
+If `getAdvertisingToken()` returns null, and the identity status is not `OPT_OUT`/`optOut`, you'll need to generate a new token. To do this, pass the personal data into the `generateIdentity` method again. For details, see [Configure the EUID mobile SDK](#configure-the-euid-mobile-sdk).
 
 ## Enable logging
 
 <SnptEnableLogging />
 
-## Optional: EUID GMA/IMA plugin for gam Secure Signals integration
+## Optional: EUID GMA/IMA plugin for GAM Secure Signals integration
 
 <SnptGMAIMA_Plugins />
 
-## Optional: EUID integration with Prebid Mobile SDK
+## Optional: EUID integration with Prebid mobile SDK
 
 :::important
 The EUID integration with Prebid Mobile SDK vv2 requires version 1.6.0 or later of the EUID SDK for Android, or version 1.7.0 or later of the EUID SDK for iOS.

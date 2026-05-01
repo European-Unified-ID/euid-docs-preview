@@ -8,7 +8,7 @@ displayed_sidebar: docs
 
 import Link from '@docusaurus/Link';
 
-# European unified ID overview
+# European Unified ID overview
 
 European Unified ID (EUID) is a framework that enables deterministic identity for advertising opportunities on the open internet for many [participants](overviews/participants-overview.md#euid-external-participants) across the advertising ecosystem. The EUID framework enables publisher websites, mobile apps, and Connected TV (CTV) apps to monetize through programmatic workflows. Built on the [UID2 framework](https://unifiedid.com/docs/intro), EUID offers privacy controls designed to help participants meet market requirements in many European countries and some other regions such as the UK.
 

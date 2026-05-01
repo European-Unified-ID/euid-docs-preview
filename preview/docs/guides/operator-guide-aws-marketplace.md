@@ -1,5 +1,5 @@
 ---
-title: EUID Private Operator for AWS integration guide
+title: EUID Private Operator for AWS
 sidebar_label: AWS Marketplace
 pagination_label: EUID Private Operator for AWS integration guide
 description: Integration information for Private Operator in AWS.
@@ -16,7 +16,7 @@ import SnptRotatingTheKeys from '../snippets/_snpt-private-operator-rotating-the
 
 # EUID Private Operator for AWS integration guide
 
-The EUID Operator is the API server in the EUID ecosystem. For details, see [The EUID operator](../ref-info/ref-operators-public-private.md).
+The EUID Operator is the API server in the EUID ecosystem. For details, see [The EUID Operator](../ref-info/ref-operators-public-private.md).
 
 For a <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link> service running in AWS Marketplace, the EUID Operator solution is enhanced with [AWS Nitro](https://aws.amazon.com/ec2/nitro/) Enclave technology. This is an additional security measure to help protect EUID information from unauthorized access.
 
@@ -54,7 +54,7 @@ To subscribe and deploy one or more EUID Operators on AWS, complete the followin
 1. Register your organization as an EUID Operator.
 2. Create an AWS account with an [IAM](https://aws.amazon.com/iam/) role that has the [minimal privileges](#minimal-iam-role-privileges).
 
-#### Minimal iam role privileges
+#### Minimal IAM role privileges
 
 To succeed in a one-click deployment, your AWS account **must** have the privileges to run the following actions:
 
@@ -151,7 +151,7 @@ To avoid passing certificates associated with your domain into the enclave, inbo
 
 | Port Number | Direction | Protocol | Description |
 | ----------- | --------- | -------- | ------ |
-| 80 | Inbound | HTTP | Serves all EUID APIs, including the healthcheck endpoint `/ops/healthcheck`.<br/>When everything is up and running, the endpoint returns HTTP 200 with a response body of `OK`. For details, see [Checking EUID operator status](#checking-euid-operator-status). |
+| 80 | Inbound | HTTP | Serves all EUID APIs, including the healthcheck endpoint `/ops/healthcheck`.<br/>When everything is up and running, the endpoint returns HTTP 200 with a response body of `OK`. For details, see [Checking EUID Operator status](#checking-euid-operator-status). |
 | 9080 | Inbound | HTTP | Serves Prometheus metrics (`/metrics`). |
 | 443 | Outbound | HTTPS | Calls the EUID Core Service, AWS S3, to download files for opt-out data and key store. |
 
@@ -159,7 +159,7 @@ To avoid passing certificates associated with your domain into the enclave, inbo
 
 The following diagram illustrates the virtual private cloud that hosts private operators.
 
-![EUID operator VPC chart](images/aws-vpc-chart-euid.png)
+![EUID Operator VPC chart](images/aws-vpc-chart-euid.png)
 
 ## Preparing personal data for processing
 
@@ -245,9 +245,9 @@ To create a load balancer and a target operator auto-scaling group, complete the
 10. Go back to the Load Balancer page, and under **Listeners and routing**, select `EUIDALBTG` as the target group to forward to as a default action. Note that you may have to refresh the target groups for your newly created target group to appear. Change the listener **Port** value to `443`.
 11. Set up an HTTPS listener by following the instructions in the [AWS user guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html).
 12. Click **Create load balancer**.
-13. To verify the status of this load balancer, please continue in the below section: [Checking EUID operator status](#checking-euid-operator-status).
+13. To verify the status of this load balancer, please continue in the below section: [Checking EUID Operator status](#checking-euid-operator-status).
 
-## Checking EUID operator status
+## Checking EUID Operator status
 
 To check the EUID Operator status of your Load Balancer, complete the following steps:
 
@@ -258,7 +258,7 @@ To check the EUID Operator status of your Load Balancer, complete the following 
 
 <SnptAttestFailure />
 
-## Upgrading the EUID operator
+## Upgrading the EUID Operator
 
 For each operator version update, each private operator receives an email notification with an upgrade window. After the upgrade window, the old version is deactivated and is no longer supported.
 
@@ -367,7 +367,7 @@ The following table includes some additional commands that might help you manage
 
 <SnptRotatingTheKeys />
 
-## EUID operator error codes
+## EUID Operator error codes
 
 The following sections list error codes that might occur during a Private Operator's startup or runtime.
 

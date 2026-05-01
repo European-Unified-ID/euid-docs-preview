@@ -38,7 +38,7 @@ For details, see [API permissions](../getting-started/gs-permissions.md).
 
 The SDK requires Java version 1.8 or later.
 
-## Github repository/binary
+## GitHub repository/binary
 
 This SDK is in the following open-source GitHub repository:
 
@@ -418,7 +418,7 @@ To upgrade, follow these steps:
 2. [Change client class](#2-change-client-class)
 3. [Update import statements](#3-update-import-statements)
 
-#### 1. update dependency version
+#### 1. Update dependency version
 
 Update the dependency version referenced in your code, as shown in the following example.
 
@@ -430,7 +430,7 @@ Update the dependency version referenced in your code, as shown in the following
 </dependency>
 ```
 
-#### 2. change client class
+#### 2. Change client class
 
 Update the client class referenced in your code, as shown in the following example.
 
@@ -442,7 +442,7 @@ IdentityMapClient identityMapClient = new IdentityMapClient(EUID_BASE_URL, EUID_
 IdentityMapV3Client identityMapClient = new IdentityMapV3Client(EUID_BASE_URL, EUID_API_KEY, EUID_SECRET_KEY);
 ```
 
-#### 3. update import statements
+#### 3. Update import statements
 
 Update import statements, as shown in the following example.
 

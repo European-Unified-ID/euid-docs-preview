@@ -18,10 +18,10 @@ These examples are provided for informational purposes only, and do not constitu
 
 Consent language examples are in these sections:
 
-- [EUID consent example included as part of cmp/cookie consent overlay](#euid-consent-example-included-as-part-of-cmpcookie-consent-overlay)
+- [EUID consent example included as part of CMP/cookie consent overlay](#euid-consent-example-included-as-part-of-cmpcookie-consent-overlay)
 - [Standalone EUID consent](#standalone-euid-consent)
 
-## EUID consent example included as part of cmp/cookie consent overlay
+## EUID consent example included as part of CMP/cookie consent overlay
 
 The following consent sample provides suggestions for wording you could include as part of a CMP/cookie consent overlay, to request your users' consent for EUID. It includes:
 

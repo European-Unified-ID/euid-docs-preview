@@ -22,7 +22,7 @@ This plugin simplifies integration with Google Mobile Ads (GMA) for any publishe
 
 This documentation is for the EUID GMA Plugin for iOS version 1.0.0 or later.
 
-## Github repository
+## GitHub repository
 
 This plugin is in the following open-source GitHub repository:
 
@@ -50,9 +50,9 @@ There are three installation options:
 
 -   [Package.Swift](#installing-with-packageswift)
 -   [Xcode](#installing-with-xcode)
--   [Cocoapods](#installing-with-cocoapods)
+-   [CocoaPods](#installing-with-cocoapods)
 
-### Installing with package.Swift
+### Installing with Package.Swift
 
 Add the following dependency to Package.swift:
 
@@ -62,7 +62,7 @@ dependencies: [
 ]
 ```
 
-### Installing with xcode
+### Installing with Xcode
 
 In the XCode user interface, under Package Dependencies, add the following entry for your apps:
 
@@ -70,7 +70,7 @@ In the XCode user interface, under Package Dependencies, add the following entry
 | :--- | :--- | :--- |
 | uid2-ios-plugin-google-gma | `git@github.com:IABTechLab/uid2-ios-plugin-google-gma.git` | Exact Version: 1.0.0 |
 
-### Installing with cocoapods
+### Installing with CocoaPods
 
 Add the following entry in your `Podfile`:
 

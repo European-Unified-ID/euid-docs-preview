@@ -1,5 +1,5 @@
 ---
-title: Snowflake integration guide (Pre-July 2025)
+title: Snowflake integration guide (pre-July 2025)
 sidebar_label: Snowflake (previous version)
 pagination_label: Snowflake integration
 description: Information about integrating with EUID through the EUID Share in Snowflake (previous version). 

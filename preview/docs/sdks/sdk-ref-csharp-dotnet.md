@@ -37,7 +37,7 @@ For details, see [API permissions](../getting-started/gs-permissions.md).
 
 The library uses .NET Standard 2.1. unit tests. The sample app uses .NET 5.0.
 
-## Github repository/binary
+## GitHub repository/binary
 
 This SDK is in the following open-source GitHub repository:
 

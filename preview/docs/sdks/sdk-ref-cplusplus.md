@@ -37,7 +37,7 @@ For details, see [API permissions](../getting-started/gs-permissions.md).
 
 The SDK requires C++ version 11.
 
-## Github repository/binary
+## GitHub repository/binary
 
 This SDK is in the following open-source GitHub repository:
 

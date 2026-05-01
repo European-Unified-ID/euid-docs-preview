@@ -39,7 +39,7 @@ The minimum supported Python version depends on the [SDK for Python](https://pyp
 - **v2.6.0**: Python 3.8 or higher  
 - **v2.5.0 and below**: Python 3.6 or higher
 
-## Github repository/package
+## GitHub repository/package
 
 This SDK is in the following open-source GitHub repository:
 

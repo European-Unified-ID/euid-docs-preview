@@ -92,7 +92,7 @@ There are strict protections in place when special category data is processed. S
 
 Advertisers are also required to prevent the creation of an EUID for an individual under the age of 18.
 
-##  6. Reporting data breaches
+##  6. reporting data breaches
 
 We require advertisers to notify The Trade Desk in a timely manner of any personal data breach involving an EUID. In the event that an advertiser believes that a data breach must be notified to any appropriate authorities or data subject, we ask that the advertiser first consult with The Trade Desk.
 

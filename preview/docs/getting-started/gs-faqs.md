@@ -25,16 +25,16 @@ The following additional FAQ information for publishers is also available:
 
 Here are some frequently asked questions regarding the EUID framework.
 
-- [Will all integration partners in the UID2 infrastructure (ssps, third-party data providers, measurement providers) be automatically integrated with EUID?](#will-all-integration-partners-in-the-uid2-infrastructure-ssps-third-party-data-providers-measurement-providers-be-automatically-integrated-with-euid)
+- [Will all integration partners in the UID2 infrastructure (SSPs, third-party data providers, measurement providers) be automatically integrated with EUID?](#will-all-integration-partners-in-the-uid2-infrastructure-ssps-third-party-data-providers-measurement-providers-be-automatically-integrated-with-euid)
 - [Can users opt out of targeted advertising tied to their EUID?](#can-users-opt-out-of-targeted-advertising-tied-to-their-euid)
 - [When I send personal data to EUID, does EUID store the information?](#when-i-send-personal-data-to-euid-does-euid-store-the-information)
-- [Should I use a public operator or a Private Operator?](#should-i-use-a-public-operator-or-a-private-operator)
+- [Should I use a Public Operator or a Private Operator?](#should-i-use-a-public-operator-or-a-private-operator)
 
 :::note
 For FAQs relating to mobile publisher integrations, see [FAQs for mobile integrations](../guides/integration-mobile-overview.md#faqs-for-mobile-integrations).
 :::
 
-#### Will all integration partners in the UID2 infrastructure (ssps, third-party data providers, measurement providers) be automatically integrated with EUID?
+#### Will all integration partners in the UID2 infrastructure (SSPs, third-party data providers, measurement providers) be automatically integrated with EUID?
 
 No. EUID has its own framework, which is separate from UID2. As such, paperwork relating to accessing and using the UID2 framework does not automatically grant usage and access to the EUID framework. New contracts are required to be signed for EUID.
 
@@ -48,13 +48,13 @@ No. None of the components of the <Link href="../ref-info/glossary-uid#gl-euid-s
 
 In addition, in almost all cases, EUID doesn't store any values at all once the [POST&nbsp;/token/generate](../endpoints/post-token-generate.md), [POST&nbsp;/token/refresh](../endpoints/post-token-refresh.md), or [POST&nbsp;/identity/map](../endpoints/post-identity-map.md) call is complete. A necessary exception is the case where a user has opted out. In this scenario, EUID stores a hashed, opaque value to indicate the opted-out user. The stored value cannot be reverse engineered back to the original value of the personal data, but can be used to identify future requests for an EUID generated from the same personal data, which are therefore denied.
 
-#### Should I use a public operator or a Private Operator?
+#### Should I use a Public Operator or a Private Operator?
 
 For most participants, <Link href="../ref-info/glossary-uid#gl-public-operator">Public Operator</Link> is the simplest solution. A Public Operator integration is a much easier option than hosting your own <Link href="../ref-info/glossary-uid#gl-private-operator">Private Operator</Link>. Having a Private Operator instance has some advantages, but adds extra complexities and costs.
 
 The best choice depends on your unique scenario and needs. For more information to help you arrive at a decision, refer to the following:
 
-- [The EUID operator](../ref-info/ref-operators-public-private.md)
+- [The EUID Operator](../ref-info/ref-operators-public-private.md)
 
 - [EUID Private Operator integration overview](../guides/integration-options-private-operator.md)
 
@@ -72,7 +72,7 @@ Here are some frequently asked questions for publishers using the EUID framework
 - [What is the uniqueness and rotation policy for EUID tokens?](#what-is-the-uniqueness-and-rotation-policy-for-euid-tokens)
 - [What does an EUID token look like in the bidstream?](#what-does-an-euid-token-look-like-in-the-bidstream)
 - [Can I integrate EUID with single sign-on (SSO)?](#can-i-integrate-euid-with-single-sign-on-sso)
-- [I'm using Prebid with a Mobile SDK&#8212;what atype value should I use?](#im-using-prebid-with-a-mobile-sdkwhat-atype-value-should-i-use)
+- [I'm using Prebid with a mobile SDK&#8212;what atype value should I use?](#im-using-prebid-with-a-mobile-sdkwhat-atype-value-should-i-use)
 
 #### How can I test that the personal data sent and the returned token match up?
 
@@ -159,7 +159,7 @@ Yes. With popular <a href="../ref-info/glossary-uid#gl-sso">SSO</a> integration 
 
 For details, see [Publisher integration with SSO providers](/docs/ref-info/ref-integration-sso-providers.md).
 
-#### I'm using Prebid with a Mobile SDK&#8212;what atype value should I use?
+#### I'm using Prebid with a mobile SDK&#8212;what atype value should I use?
 
 According to the IAB documentation, the `atype` (agent type) value indicates the type of user agent that the match is from. IAB recommends defining this property.
 

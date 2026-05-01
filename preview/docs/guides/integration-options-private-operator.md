@@ -21,7 +21,7 @@ Becoming a Private Operator includes several additional steps, and uses resource
 Learn about what the EUID framework offers for Private Operators, including benefits, hosting options, documentation and other resources, and how to get started.
 
 :::note
-This page is about Private Operators. For information about Public Operators, or if you're not sure what the difference is or what an Operator is, see [The EUID operator](../ref-info/ref-operators-public-private.md).
+This page is about Private Operators. For information about Public Operators, or if you're not sure what the difference is or what an Operator is, see [The EUID Operator](../ref-info/ref-operators-public-private.md).
 :::
 
 ## Private Operator benefits
