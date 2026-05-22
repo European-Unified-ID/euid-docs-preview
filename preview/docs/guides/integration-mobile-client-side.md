@@ -47,7 +47,7 @@ To integrate with EUID client-side, you'll need to complete the following steps:
 
 1. [Check that the token was successfully generated and then pass it for bidstream use](#pass-generated-token-for-bidstream-use).
 
-1. [Optionally, integrate the EUID GMA/IMA plugin for GAM Secure Signals integration](#optional-euid-gmaima-plugin-for-gam-secure-signals-integration).
+1. [Optionally, integrate the EUID GMA/IMA Plugin for GAM Secure Signals integration](#optional-euid-gmaima-plugin-for-gam-secure-signals-integration).
 
 ## Mobile SDK version
 
@@ -68,7 +68,7 @@ Follow the applicable instructions, for Android or iOS:
 <TabItem value='android' label='Android'>
 
 1. Check out the main branch of the [SDK for Android source code repository on GitHub](https://github.com/IABTechLab/uid2-android-sdk/tree/main).
-1. In Android Studio (check the version required in the [Minimum requirements](../sdks/sdk-ref-android.md#minimum-requirements) section in the SDK for Android Reference Guide), open the directory that you checked out.
+1. In Android Studio (check the version required in the [Minimum requirements](../sdks/sdk-ref-android.md#minimum-requirements) section in the *SDK for Android reference guide*), open the directory that you checked out.
 1. In [AndroidManifest.xml](https://github.com/IABTechLab/uid2-android-sdk/blob/main/dev-app/src/main/AndroidManifest.xml), set `uid2_environment_euid` to `true`.
 1. Run the **dev-app** app.
 1. When you've started the app, make sure that the **Client Side** checkbox is checked.
@@ -692,11 +692,11 @@ If `getAdvertisingToken()` returns null, and the identity status is not `OPT_OUT
 
 <SnptEnableLogging />
 
-## Optional: EUID GMA/IMA plugin for GAM Secure Signals integration
+## Optional: EUID GMA/IMA Plugin for GAM Secure Signals integration
 
 <SnptGMAIMA_Plugins />
 
-## Optional: EUID integration with Prebid mobile SDK
+## Optional: EUID integration with Prebid Mobile SDK
 
 :::important
 The EUID integration with Prebid Mobile SDK vv2 requires version 1.6.0 or later of the EUID SDK for Android, or version 1.7.0 or later of the EUID SDK for iOS.

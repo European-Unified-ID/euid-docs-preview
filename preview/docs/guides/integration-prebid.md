@@ -1,7 +1,7 @@
 ---
-title: EUID integration overview for Prebid
-sidebar_label: EUID integration overview for Prebid
-pagination_label: EUID integration overview for Prebid
+title: Integration overview for Prebid
+sidebar_label: Integration overview for Prebid
+pagination_label: Integration overview for Prebid
 description: Overview of options for integrating with Prebid as part of your EUID implementation.
 hide_table_of_contents: false
 sidebar_position: 04
@@ -14,7 +14,7 @@ import SnptIntegratingWithSSO from '../snippets/_snpt-integrating-with-sso.mdx';
 import SnptPreparingEmailsAndPhoneNumbers from '../snippets/_snpt-preparing-emails-and-phone-numbers.mdx';
 import SnptStoreEUIDTokenInBrowser from '../snippets/_snpt-prebid-storing-euid-token-in-browser.mdx';
 
-# EUID integration overview for Prebid
+# Integration overview for Prebid
 
 This guide is an overview of integration options for publishers who want to integrate with EUID and generate <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> (advertising tokens) to be passed by Prebid.js or the Prebid Mobile SDK in the RTB <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link>.
 
@@ -56,7 +56,7 @@ Determine which method is best for you, and then follow the applicable integrati
 
 ### Refreshing the EUID token
 
-The Prebid.js EUID module can automatically refresh the EUID tokens. If you prefer to implement manual refresh outside Prebid.js, see [Refreshing an EUID token](integration-prebid-client-server.md#refreshing-an-euid-token) in the Server-Side Integration Guide. The client-side integration solution includes automated token refresh.
+The Prebid.js EUID module can automatically refresh the EUID tokens. If you prefer to implement manual refresh outside Prebid.js, see [Refreshing an EUID token](integration-prebid-client-server.md#refreshing-an-euid-token) in the server-side integration guide. The client-side integration solution includes automated token refresh.
 
 ### Storing the EUID token in the browser
 
@@ -71,7 +71,7 @@ To configure the EUID module, call `pbjs.setConfig`. For details on supported pa
 
 When the EUID module is configured, it manages an EUID token for the user and stores it in the user's browser. 
 
-When generating tokens with Client Refresh mode on the client side or on the server side, the module automatically takes care of refreshing the token as long as your site is open in the user's browser. However, you also have the option to manage the token refresh on the server side. For details, see [Refreshing an EUID token](integration-prebid-client-server.md#refreshing-an-euid-token) in the Server-Side Integration Guide. The client-side integration solution includes automated token refresh.
+When generating tokens with Client Refresh mode on the client side or on the server side, the module automatically takes care of refreshing the token as long as your site is open in the user's browser. However, you also have the option to manage the token refresh on the server side. For details, see [Refreshing an EUID token](integration-prebid-client-server.md#refreshing-an-euid-token) in the server-side integration guide. The client-side integration solution includes automated token refresh.
 
 ### Integration overview: High-level steps
 
@@ -86,6 +86,6 @@ For detailed instructions, refer to one of the following integration guides:
 - [Client-side integration guide for Prebid.js](integration-prebid-client-side.md)
 - [Client-server integration guide for Prebid.js](integration-prebid-client-server.md)
 
-## EUID integration with Prebid mobile SDK for mobile devices
+## EUID integration with Prebid Mobile SDK for mobile devices
 
-EUID integration with Prebid is supported for Android and iOS mobile devices using the [Mobile integration with Prebid mobile SDK](integration-prebid-mobile-summary.md).
+EUID integration with Prebid is supported for Android and iOS mobile devices using the [Mobile integration with Prebid Mobile SDK](integration-prebid-mobile-summary.md).

@@ -22,7 +22,7 @@ const fullSidebar = [
 
   {
     type: 'category',
-    label: 'Overview',
+    label: 'EUID overview',
     link: {
       type: 'doc',
       id: 'intro',
@@ -376,7 +376,6 @@ const sidebars = {
     'JavaScript',
     'guides/integration-javascript',
     'guides/integration-javascript-client-server',
-    'Server-only',
     'guides/integration-publisher-server-side',
     'GAM Secure Signals',
     'guides/integration-google-ss',
@@ -416,7 +415,6 @@ const sidebars = {
     'guides/integration-javascript',
     'guides/integration-javascript-client-side',
     'guides/integration-javascript-client-server',
-    'Server-only',
     'guides/integration-publisher-server-side',
     'GAM Secure Signals',
     'guides/integration-google-ss',
@@ -455,7 +453,6 @@ const sidebars = {
     'JavaScript',
     'guides/integration-javascript',
     'guides/integration-javascript-client-server',
-    'Server-Only',
     'guides/integration-publisher-server-side',
     'GAM Secure Signals',
     'guides/integration-google-ss',

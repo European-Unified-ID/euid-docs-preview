@@ -17,8 +17,8 @@ The following iOS-related plugins, and associated documentation, are also availa
 
 | Purpose | Product/Documentation |
 | :--- | :--- |
-| To use the Google Mobile Ads (GMA) SDK to send <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> as [secure signals](https://support.google.com/admob/answer/11556288) in ad requests from iOS/tvOS apps | [EUID GMA plugin for iOS integration guide](../guides/mobile-plugin-gma-ios.md) |
-| To use the Google Interactive Media Ads SDK for iOS to send <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> as [secure signals](https://support.google.com/admob/answer/11556288) in ad requests from iOS/tvOS apps | [EUID IMA plugin for iOS integration guide](../guides/mobile-plugin-ima-ios.md) |
+| To use the Google Mobile Ads (GMA) SDK to send <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> as [secure signals](https://support.google.com/admob/answer/11556288) in ad requests from iOS/tvOS apps | [GMA Plugin for iOS integration guide](../guides/mobile-plugin-gma-ios.md) |
+| To use the Google Interactive Media Ads SDK for iOS to send <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> as [secure signals](https://support.google.com/admob/answer/11556288) in ad requests from iOS/tvOS apps | [IMA Plugin for iOS integration guide](../guides/mobile-plugin-ima-ios.md) |
 
 ## tvOS support
 
@@ -74,11 +74,11 @@ Minimum requirements for this SDK are as follows:
 
 Install the iOS SDK via Swift Package Manager (SPM) or CocoaPods. There are three installation options:
 
--   [Package.Swift](#installing-with-packageswift)
+-   [Package.swift](#installing-with-packageswift)
 -   [Xcode](#installing-with-xcode)
 -   [CocoaPods](#installing-with-cocoapods)
 
-### Installing with Package.Swift
+### Installing with Package.swift
 
 Add the following dependency to Package.swift:
 
@@ -90,7 +90,7 @@ dependencies: [
 
 ### Installing with Xcode
 
-In the XCode user interface, under Package Dependencies, add the following entry for your apps:
+In the Xcode user interface, under Package Dependencies, add the following entry for your apps:
 
 | Name | Location | Dependency Rule |
 | :--- | :--- | :--- |
@@ -161,10 +161,11 @@ The following functions are available as part of the EUIDManager API:
 
 #### generateIdentity()
 
-Generate an EUID Identity using <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link>. For details, see [Configure the EUID mobile SDK](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk) in the *Client-Server Integration Guide for Mobile*.
+Generate an EUID Identity using <Link href="../ref-info/glossary-uid#gl-personal-data">personal data</Link>. For details, see [Configure the EUID mobile SDK](../guides/integration-mobile-client-side.md#configure-the-euid-mobile-sdk) in the *Client-side integration guide for mobile*.
+
 #### setIdentity()
 
-Sets an EUID Identity, created server-side, to be managed by the SDK. For details, see [Configure the EUID mobile SDK](../guides/integration-mobile-client-server.md#configure-the-euid-mobile-sdk) in the *Client-Server Integration Guide for Mobile*.
+Sets an EUID Identity, created server-side, to be managed by the SDK. For details, see [Configure the EUID mobile SDK](../guides/integration-mobile-client-server.md#configure-the-euid-mobile-sdk) in the *Client-server integration guide for mobile*.
 
 #### resetIdentity()
 
