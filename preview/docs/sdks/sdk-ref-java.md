@@ -131,8 +131,8 @@ Decryption response codes, and their meanings, are shown in the following table.
 ## Usage for publishers
 
 As a publisher, there are two ways to use the SDK for Java: 
-1. [**basic usage**](#basic-usage) is for publishers who want to use this SDK's HTTP implementation (synchronous [OkHttp](https://square.github.io/okhttp/)).
-2. [**advanced usage**](#advanced-usage) is for publishers who prefer to use their own HTTP library. 
+1. [Basic usage](#basic-usage) is for publishers who want to use this SDK's HTTP implementation (synchronous [OkHttp](https://square.github.io/okhttp/)).
+2. [Advanced usage](#advanced-usage) is for publishers who prefer to use their own HTTP library. 
 
 For an example application that demonstrates both Basic and Advanced usage, see [Java Integration Example](https://github.com/UnifiedID2/uid2-examples/tree/main/publisher/uid2-java-test-site#readme).
 
@@ -398,7 +398,7 @@ IdentityMapV3Input mixedInput = new IdentityMapV3Input()
 IdentityMapV3Response mixedResponse = client.generateIdentityMap(mixedInput);
 ```
 
-##  migration from version using POST /v2/identity/map
+## Migration from version using POST /v2/identity/map
 
 The following sections provide general information and guidance for migrating to the latest version of this SDK, which references `POST /identity/map` version 3, including:
 

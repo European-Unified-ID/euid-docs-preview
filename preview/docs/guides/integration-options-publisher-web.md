@@ -1,5 +1,5 @@
 ---
-title: Web integration overview
+title: Publisher web integration overview
 description: Overview of the publisher options for EUID web integration.
 hide_table_of_contents: false
 sidebar_position: 02
@@ -9,7 +9,7 @@ displayed_sidebar: sidebarPublishers
 import Link from '@docusaurus/Link';
 import SnptPreparingEmailsAndPhoneNumbers from '../snippets/_snpt-preparing-emails-and-phone-numbers.mdx';
 
-# Web integration overview
+# Publisher web integration overview
 
 As a publisher, there are many ways that you can integrate with EUID to generate identity tokens to be passed into the RTB <Link href="../ref-info/glossary-uid#gl-bidstream">bidstream</Link> in the context of your web pages.
 
@@ -79,7 +79,7 @@ Generating the EUID token on the client side has the following advantages:
 - The code runs on the client side, on the consumer's web page, and no server-side coding is required.
 - There is a Prebid.js integration that handles all functions for you&#8212;token generation, token refresh, and passing the token into the bidstream. If you use Prebid.js 8.21.0 or later, this is generally the simplest and fastest implementation option.
 
-If you choose a client-side integration, you'll need to provide a list of your top-level domains, for security purposes, as part of account setup. For details, see [Client-side web integrations](../getting-started/gs-account-setup.md#client-side-web-integrations) on the Account Setup page.
+If you choose a client-side integration, you'll need to provide a list of your top-level domains, for security purposes, as part of account setup. For details, see [Client-side web integrations](../getting-started/gs-account-setup.md#client-side-web-integrations).
 
 The following table summarizes the options for publishers who want to generate the EUID token on the client side, via the web page, with corresponding documentation resources.
 

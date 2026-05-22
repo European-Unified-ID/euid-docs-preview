@@ -1,5 +1,5 @@
 ---
-title: EUID GMA plugin for iOS
+title: GMA Plugin for iOS
 description: A guide for publishers using GMA for ad requests on iOS apps.
 hide_table_of_contents: false
 sidebar_position: 13
@@ -8,7 +8,7 @@ displayed_sidebar: docs
 
 import Link from '@docusaurus/Link';
 
-# EUID GMA plugin for iOS integration guide
+# GMA Plugin for iOS integration guide
 
 The EUID Google Mobile Ads (GMA) Plugin for iOS enables publishers that use the [Google Mobile Ads (GMA) SDK](https://developers.google.com/ad-manager/mobile-ads-sdk) to send <Link href="../ref-info/glossary-uid#gl-euid-token">EUID tokens</Link> as [secure signals](https://support.google.com/admob/answer/11556288) in ad requests from iOS apps. This is done automatically, with no direct coding needed from the app developer.
 
@@ -48,11 +48,11 @@ Install the EUID iOS GMA Plugin via Swift Package Manager or CocoaPods to an exi
 
 There are three installation options:
 
--   [Package.Swift](#installing-with-packageswift)
+-   [Package.swift](#installing-with-packageswift)
 -   [Xcode](#installing-with-xcode)
 -   [CocoaPods](#installing-with-cocoapods)
 
-### Installing with Package.Swift
+### Installing with Package.swift
 
 Add the following dependency to Package.swift:
 
@@ -64,7 +64,7 @@ dependencies: [
 
 ### Installing with Xcode
 
-In the XCode user interface, under Package Dependencies, add the following entry for your apps:
+In the Xcode user interface, under Package Dependencies, add the following entry for your apps:
 
 | Name | Location | Dependency Rule |
 | :--- | :--- | :--- |
