@@ -4,7 +4,6 @@ sidebar_label: Client-side integration for Prebid.js
 pagination_label: Client-side integration guide for Prebid.js
 description: Information about setting up a client-side Prebid.js integration.
 hide_table_of_contents: false
-sidebar_position: 04
 displayed_sidebar: docs
 ---
 
@@ -13,6 +12,7 @@ import SnptIntegratingWithSSO from '../snippets/_snpt-integrating-with-sso.mdx';
 import SnptPreparingEmailsAndPhoneNumbers from '../snippets/_snpt-preparing-emails-and-phone-numbers.mdx';
 import SnptAddPrebidjsToYourSite from '../snippets/_snpt-prebid-add-prebidjs-to-your-site.mdx';
 import SnptStoreEUIDTokenInBrowser from '../snippets/_snpt-prebid-storing-euid-token-in-browser.mdx';
+import SnptUidVerifyInspect from '../snippets/_snpt-uid-verify-inspect.mdx';
 
 # Client-side integration guide for Prebid.js
 
@@ -31,6 +31,10 @@ If you need to use an earlier version of Prebid.js, use the implementation solut
 ## Integrating with single sign-on (SSO)
 
 <SnptIntegratingWithSSO />
+
+## Inspecting with UID Verify Chrome extension
+
+<SnptUidVerifyInspect />
 
 ## Preparing personal data for processing
 

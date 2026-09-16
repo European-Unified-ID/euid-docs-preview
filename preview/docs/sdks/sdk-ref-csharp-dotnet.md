@@ -2,7 +2,6 @@
 title: SDK for C# / .NET
 description: Reference information about the C# / .NET server-side SDK.
 hide_table_of_contents: false
-sidebar_position: 08
 displayed_sidebar: docs
 ---
 
@@ -21,7 +20,7 @@ The functions outlined here define the information that you'll need to configure
 
 This SDK simplifies integration with EUID for any DSPs who are using C# / .NET for their server-side coding. The following table shows the functions it supports.
 
-| Encrypt Raw EUID to EUID Token | Decrypt EUID Token to Raw EUID | Generate EUID Token from Personal Data | Refresh EUID Token | Map Personal Data to Raw EUIDs | Monitor Rotated Salt Buckets |
+| Encrypt raw EUID to EUID token | Decrypt EUID token to raw EUID | Generate EUID token from personal data | Refresh EUID token | Map personal data to raw EUIDs | Monitor rotated salt buckets |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | &#9989; | &#9989; | &#8212; | &#8212; | &#8212; | &#8212; |
 

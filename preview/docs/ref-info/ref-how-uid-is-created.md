@@ -2,7 +2,6 @@
 title: How the EUID token is created
 description: Reference information about the process for generating an EUID token.
 hide_table_of_contents: false
-sidebar_position: 06
 displayed_sidebar: docs
 ---
 
@@ -35,7 +34,7 @@ For an example with sample values, see [Creating an EUID token&#8212;example](#c
     <tr>
       <th width="5%">Step</th>
       <th width="35%">Action</th>
-      <th width="30%">Who Does It?</th>
+      <th width="30%">Who does it?</th>
       <th width="35%">Documentation</th>
     </tr>
   </thead>
