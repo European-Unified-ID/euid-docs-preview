@@ -2,7 +2,6 @@
 title: Deprecation schedule
 description: Deprecation timeline for versions of EUID APIs and services.
 hide_table_of_contents: false
-sidebar_position: 06
 displayed_sidebar: docs
 ---
 
@@ -30,18 +29,23 @@ If you're using an older version, refer to the Deprecation Date column for infor
 
 The latest ZIP file is available in the Assets section at the bottom of the linked Release Notes in the following table.
 
-| Version Name | Version&nbsp;#/Release&nbsp;Notes | AWS Version |  Date | Deprecation Date |
+| Version name | Version&nbsp;#/release&nbsp;notes | AWS version |  Date | Deprecation date |
 | ------- | ------ | ------ | ------ | ------ |
+| H1 2026 | [v5.70.159](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.70.159-r0) | 5.70.159 | June 23, 2026 | June 30, 2027 |
 | Q4 2025 | [v5.62.24](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.62.24-r2) | 5.62.24 | January 15, 2026 | January 15, 2027 |
 | Q2 2025 | [v5.55.9](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.55.9-r1) | 5.55.9 | July 1, 2025 | July 1, 2026 |
 | Q1 2025 | [v5.49.7](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.49.7) | 5.49.7 | Mar 19, 2025 | Mar 31, 2026 |
-| Q3 2024 Out-of-band | [v5.41.0](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.41.0) | 5.41.0 | October 29, 2024 | Mar 31, 2026 |
+| Q3 2024 out-of-band | [v5.41.0](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.41.0) | 5.41.0 | October 29, 2024 | Mar 31, 2026 |
 | Q3 2024 | [v5.38.104](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.38.104) | 5.38.104 | September 12, 2024 | Mar 31, 2026 |
 | Q2 2024 | [v5.37.12](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.37.12) | 5.37.12 | June 12, 2024 | Sep 30, 2025 |
 
 For documentation, see [Private Operator for AWS integration guide](../guides/operator-guide-aws-marketplace.md).
 
 ## Endpoint versions
+
+:::important
+After the deprecation date, these endpoints are no longer supported. We reserve the right to disable them at any time after that date.
+:::
 
 Version 2 of the `POST /identity/map` endpoint has been superseded by version 3, which includes the additional advantages listed in [Version 3 improvements](../endpoints/post-identity-map.md#version-3-improvements).
 
@@ -51,5 +55,20 @@ The following table shows the deprecation schedule for the v2 endpoints.
 
 Endpoint | Deprecation Date | 
 | ------- | ------ |
-| `POST /v2/identity/map` | June 30, 2026 |
-| `POST /v2/identity/buckets` | June 30, 2026 |
+| `POST /v2/identity/map` | December 31, 2026 |
+| `POST /v2/identity/buckets` | December 31, 2026 |
+
+## Snowflake function versions
+
+:::important
+After the deprecation date, this function and view are no longer supported. We reserve the right to disable them at any time after that date.
+:::
+
+The `FN_T_IDENTITY_MAP` function has been superseded by `FN_T_IDENTITY_MAP_V3`, which includes the additional advantages listed in [Changes from previous version](../guides/integration-snowflake.md#changes-from-previous-version). With `FN_T_IDENTITY_MAP_V3`, the `SALT_BUCKETS` view is no longer needed for refresh management.
+
+The following table shows the deprecation schedule for the Snowflake functions and views used with the previous identity mapping function.
+
+Function/View | Deprecation Date |
+| ------- | ------ |
+| `FN_T_IDENTITY_MAP` | December 31, 2026 |
+| `SALT_BUCKETS` | December 31, 2026 |

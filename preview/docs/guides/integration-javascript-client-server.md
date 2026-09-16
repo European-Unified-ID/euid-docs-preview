@@ -4,7 +4,6 @@ sidebar_label: Client-server integration for JavaScript
 pagination_label: Client-server integration guide for JavaScript
 description: Information for publishers about using EUID to generate identity tokens for the RTB bidstream, generating tokens on the server side and refreshing on the client side.
 hide_table_of_contents: false
-sidebar_position: 02
 displayed_sidebar: docs
 ---
 
@@ -13,6 +12,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import SnptIntegratingWithSSO from '../snippets/_snpt-integrating-with-sso.mdx';
 import SnptPreparingEmailsAndPhoneNumbers from '../snippets/_snpt-preparing-emails-and-phone-numbers.mdx';
+import SnptUidVerifyInspect from '../snippets/_snpt-uid-verify-inspect.mdx';
 
 # Client-server integration guide for JavaScript
 
@@ -55,6 +55,10 @@ If you are using Google Ad Manager and want to use the secure signals feature, f
 ## Integrating with single sign-on (SSO)
 
 <SnptIntegratingWithSSO />
+
+## Inspecting with UID Verify Chrome extension
+
+<SnptUidVerifyInspect />
 
 ## Preparing personal data for processing
 

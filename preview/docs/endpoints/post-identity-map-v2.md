@@ -2,7 +2,6 @@
 title: POST /v2/identity/map
 description: Maps personal data to raw EUIDs and salt bucket IDs.
 hide_table_of_contents: false
-sidebar_position: 08
 displayed_sidebar: docs
 ---
 
@@ -18,10 +17,10 @@ For details about the EUID opt-out workflow and how users can opt out, see [User
 
 ## Version
 
-This documentation is for version 2 of this endpoint, which is not the latest version. For the latest version, v3, see [POST /v3/identity/map](post-identity-map.md).
+This documentation is for version 2 of this endpoint. For the latest version, v3, see [POST /v3/identity/map](post-identity-map.md).
 
-:::note
-If you're using an earlier version, we recommend that you upgrade as soon as possible, to take advantage of improvements. For migration guidance, see [Migration from POST /v2/identity/map](post-identity-map.md#migration-from-post-v2identitymap). For deprecation information, see [Deprecation schedule: Endpoint versions](../ref-info/deprecation-schedule.md#endpoint-versions).
+:::important
+This version of this endpoint is scheduled for deprecation. If you're using version 2, you must upgrade as soon as possible. For migration guidance, see [Migration from POST /v2/identity/map](post-identity-map.md#migration-from-post-v2identitymap). For deprecation information, see [Deprecation schedule: Endpoint versions](../ref-info/deprecation-schedule.md#endpoint-versions).
 :::
 
 ## Batch size and request parallelization requirements
@@ -50,7 +49,7 @@ You must encrypt all requests using your secret. For details, and code examples 
 
 ### Path parameters
 
-| Path Parameter | Data Type | Attribute | Description |
+| Path parameter | Data type | Attribute | Description |
 | :--- | :--- | :--- | :--- |
 | `{environment}` | string | Required | Integration environment: `https://integ.euid.eu`<br/>Production environment: `https://prod.euid.eu`<br/>For a full list, including regional operators, see [Environments](../getting-started/gs-environments.md). |
 
@@ -64,7 +63,7 @@ The integration environment and the production environment require different <Li
 You must include only **one** of the following four conditional parameters as a key-value pair in the JSON body of the request when encrypting it.
 :::
 
-| Body Parameter | Data Type | Attribute | Description |
+| Body parameter | Data type | Attribute | Description |
 | :--- | :--- | :--- | :--- |
 | `email` | string array | Conditionally Required | The list of email addresses to be mapped. |
 | `email_hash` | string array | Conditionally Required | The list of [Base64-encoded SHA-256](../getting-started/gs-normalization-encoding.md#email-address-hash-encoding) hashes of [normalized](../getting-started/gs-normalization-encoding.md#email-address-normalization) email addresses to be mapped. |
@@ -194,7 +193,7 @@ If some identifiers have opted out from the EUID ecosystem, the opted-out identi
 
 The response body includes the properties shown in the following table.
 
-| Property | Data Type | Description |
+| Property | Data type | Description |
 | :--- | :--- | :--- |
 | `identifier` | string | The email address, phone number, or respective hash specified in the request body. |
 | `advertising_id` | string | The corresponding advertising ID (raw EUID). |
@@ -204,7 +203,7 @@ The response body includes the properties shown in the following table.
 
 The following table lists the `status` property values and their HTTP status code equivalents.
 
-| Status | HTTP Status Code | Description |
+| Status | HTTP status code | Description |
 | :--- | :--- | :--- |
 | `success` | 200 | The request was successful. The response will be encrypted. |
 | `client_error` | 400 | The request had missing or invalid parameters.|
