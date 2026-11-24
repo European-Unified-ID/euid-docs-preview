@@ -31,7 +31,7 @@ The latest ZIP file is available in the Assets section at the bottom of the link
 
 | Version name | Version&nbsp;#/release&nbsp;notes | AWS version |  Date | Deprecation date |
 | ------- | ------ | ------ | ------ | ------ |
-| H1 2026 | [v5.70.159](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.70.159-r0) | 5.70.159 | June 23, 2026 | June 30, 2027 |
+| H1 2026 | [v5.70.159](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.70.159-r15) | v5.70.159-r15 | November 16, 2026 | June 30, 2027 |
 | Q4 2025 | [v5.62.24](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.62.24-r2) | 5.62.24 | January 15, 2026 | January 15, 2027 |
 | Q2 2025 | [v5.55.9](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.55.9-r1) | 5.55.9 | July 1, 2025 | July 1, 2026 |
 | Q1 2025 | [v5.49.7](https://github.com/IABTechLab/uid2-operator/releases/tag/v5.49.7) | 5.49.7 | Mar 19, 2025 | Mar 31, 2026 |
@@ -44,7 +44,7 @@ For documentation, see [Private Operator for AWS integration guide](../guides/op
 ## Endpoint versions
 
 :::important
-After the deprecation date, these endpoints are no longer supported. We reserve the right to disable them at any time after that date.
+After the deprecation date, these endpoints are no longer supported.
 :::
 
 Version 2 of the `POST /identity/map` endpoint has been superseded by version 3, which includes the additional advantages listed in [Version 3 improvements](../endpoints/post-identity-map.md#version-3-improvements).
@@ -61,10 +61,10 @@ Endpoint | Deprecation Date |
 ## Snowflake function versions
 
 :::important
-After the deprecation date, this function and view are no longer supported. We reserve the right to disable them at any time after that date.
+After the deprecation date, this function and view are no longer supported.
 :::
 
-The `FN_T_IDENTITY_MAP` function has been superseded by `FN_T_IDENTITY_MAP_V3`, which includes the additional advantages listed in [Changes from previous version](../guides/integration-snowflake.md#changes-from-previous-version). With `FN_T_IDENTITY_MAP_V3`, the `SALT_BUCKETS` view is no longer needed for refresh management.
+`FN_T_IDENTITY_MAP_V3` supersedes the `FN_T_IDENTITY_MAP` function and includes the additional advantages listed in [Changes from previous version](../guides/integration-snowflake.md#changes-from-previous-version). With `FN_T_IDENTITY_MAP_V3`, the `SALT_BUCKETS` view is no longer needed for refresh management.
 
 The following table shows the deprecation schedule for the Snowflake functions and views used with the previous identity mapping function.
 
